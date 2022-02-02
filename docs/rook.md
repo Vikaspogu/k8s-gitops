@@ -72,12 +72,12 @@ kubectl get pv/(kubectl get pv | grep home-assistant-config-v1 | awk -F' ' '{pri
 !!! info "Ran from the `rook-ceph-toolbox`"
 
 ```sh
-rbd map -p ceph-blockpool csi-vol-f7a3b0db-d073-11eb-8ec1-4e450ed3a212 \
+rbd map -p ceph-blockpool csi-vol-11808e37-847f-11ec-ae2a-ae8a10a2dbb1 \
     | xargs -I{} sh -c 'mkfs.ext4 {}'
-rbd map -p ceph-blockpool csi-vol-f7a3b0db-d073-11eb-8ec1-4e450ed3a212 \
+rbd map -p ceph-blockpool csi-vol-11808e37-847f-11ec-ae2a-ae8a10a2dbb1 \
     | xargs -I{} mount {} /mnt/data
-tar xvf /mnt/nfsdata/k8s-data/rook/Backups//teslamate-data.tar.gz -C /mnt/data
+tar xvf /mnt/nfsdata/k8s-data/rook/Backups/readarr.tar.gz -C /mnt/data
 umount /mnt/data
-rbd unmap -p ceph-blockpool csi-vol-f7a3b0db-d073-11eb-8ec1-4e450ed3a212
-rbd unmap -p ceph-blockpool csi-vol-f7a3b0db-d073-11eb-8ec1-4e450ed3a212
+rbd unmap -p ceph-blockpool csi-vol-11808e37-847f-11ec-ae2a-ae8a10a2dbb1
+rbd unmap -p ceph-blockpool csi-vol-11808e37-847f-11ec-ae2a-ae8a10a2dbb1
 ```
