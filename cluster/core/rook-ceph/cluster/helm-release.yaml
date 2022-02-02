@@ -47,13 +47,13 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "kube-2-nuc-6i3syh"
+          - name: "k8s-2-nuc-6i3syh"
             devices:
               - name: "nvme0n1"
-          - name: "kube-3-hp-4590t"
+          - name: "k8s-3-hp-4590t"
             devices:
               - name: "nvme0n1"
-          - name: "kube-4-hp-6500t"
+          - name: "k8s-4-hp-6500t"
             devices:
               - name: "nvme0n1"
     cephBlockPools:
