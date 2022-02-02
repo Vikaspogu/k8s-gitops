@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: plexinc/pms-docker
-      tag: 1.25.3.5409-f11334058
+      tag: 1.25.4.5487-648a8f9f9
     env:
       ADVERTISE_IP: "http://${LB_PLEX}:32400"
       TZ: America/Chicago
