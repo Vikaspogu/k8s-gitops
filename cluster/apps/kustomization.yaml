@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - argocd
   - default
+  - downloads
   - flux-system
   - home
   - kube-system
