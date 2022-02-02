@@ -1,321 +1,135 @@
-# Template for deploying k3s backed by Flux
+<div align="center">
 
-Highly opinionated template for deploying a single [k3s](https://k3s.io) cluster with [Ansible](https://www.ansible.com) and [Terraform](https://www.terraform.io) backed by [Flux](https://toolkit.fluxcd.io/) and [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/).
+<img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
 
-The purpose here is to showcase how you can deploy an entire Kubernetes cluster and show it off to the world using the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://toolkit.fluxcd.io/). When completed, your Git repository will be driving the state of your Kubernetes cluster. In addition with the help of the [Ansible](https://github.com/ansible-collections/community.sops), [Terraform](https://github.com/carlpett/terraform-provider-sops) and [Flux](https://toolkit.fluxcd.io/guides/mozilla-sops/) SOPS integrations you'll be able to commit Age encrypted secrets to your public repo.
+### My home operations repository :octocat:
 
-## Overview
+_... managed with Flux, Renovate and GitHub Actions_ :robot:
 
-- [Introduction](https://github.com/k8s-at-home/template-cluster-k3s#wave-introduction)
-- [Prerequisites](https://github.com/k8s-at-home/template-cluster-k3s#memo-prerequisites)
-- [Repository structure](https://github.com/k8s-at-home/template-cluster-k3s#open_file_folder-repository-structure)
-- [Lets go!](https://github.com/k8s-at-home/template-cluster-k3s#rocket-lets-go)
-- [Post installation](https://github.com/k8s-at-home/template-cluster-k3s#mega-post-installation)
-- [Thanks](https://github.com/k8s-at-home/template-cluster-k3s#handshake-thanks)
+</div>
 
-## :wave:&nbsp; Introduction
+<br/>
 
-The following components will be installed in your [k3s](https://k3s.io/) cluster by default. They are only included to get a minimum viable cluster up and running. You are free to add / remove components to your liking but anything outside the scope of the below components are not supported by this template.
-
-Feel free to read up on any of these technologies before you get started to be more familiar with them.
-
-- [cert-manager](https://cert-manager.io/) - SSL certificates - with Cloudflare DNS challenge
-- [calico](https://www.tigera.io/project-calico/) - CNI (container network interface)
-- [flux](https://toolkit.fluxcd.io/) - GitOps tool for deploying manifests from the `cluster` directory
-- [hajimari](https://github.com/toboshii/hajimari) - start page with ingress discovery
-- [kube-vip](https://kube-vip.io/) - layer 2 load balancer for the Kubernetes control plane
-- [local-path-provisioner](https://github.com/rancher/local-path-provisioner) - default storage class provided by k3s
-- [metallb](https://metallb.universe.tf/) - bare metal load balancer
-- [reloader](https://github.com/stakater/Reloader) - restart pods when Kubernetes `configmap` or `secret` changes
-- [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) - upgrade k3s
-- [traefik](https://traefik.io) - ingress controller
+<div align="center">
 
-For provisioning the following tools will be used:
+[![k3s](https://img.shields.io/badge/k3s-v1.23.1-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge)](https://github.com/pre-commit/pre-commit)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/vikaspogu/k8s-gitops/Schedule%20-%20Renovate?label=renovate&logo=renovatebot&style=for-the-badge)](https://github.com/vikaspogu/k8s-gitops/actions/workflows/schedule-renovate.yaml)
+[![Lines of code](https://img.shields.io/tokei/lines/github/vikaspogu/k8s-gitops?style=for-the-badge&color=brightgreen&label=lines&logo=codefactor&logoColor=white)](https://github.com/vikaspogu/k8s-gitops/graphs/contributors)
 
-- [Ubuntu](https://ubuntu.com/download/server) - this is a pretty universal operating system that supports running all kinds of home related workloads in Kubernetes
-- [Ansible](https://www.ansible.com) - this will be used to provision the Ubuntu operating system to be ready for Kubernetes and also to install k3s
-- [Terraform](https://www.terraform.io) - in order to help with the DNS settings this will be used to provision an already existing Cloudflare domain and DNS settings
+</div>
 
-## :memo:&nbsp; Prerequisites
+---
 
-### :computer:&nbsp; Systems
+## :book:&nbsp; Overview
 
-- One or more nodes with a fresh install of [Ubuntu Server 20.04](https://ubuntu.com/download/server). These nodes can be bare metal or VMs.
-- A [Cloudflare](https://www.cloudflare.com/) account with a domain, this will be managed by Terraform.
-- Some experience in debugging problems and a positive attitude ;)
+This is a mono repository for my home infrastructure and Kubernetes cluster based on excellent template from [k8s-at-home/template-cluster-k3](https://github.com/k8s-at-home/template-cluster-k3s). I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
 
-### :wrench:&nbsp; Tools
+---
 
-:round_pushpin: You should install the below CLI tools on your workstation. Make sure you pull in the latest versions.
+### Installation
 
-#### Required
+My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Ubuntu 20.04 using the [Ansible](https://www.ansible.com/) galaxy role [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s). This is a semi hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server for (NFS) file storage.
 
-| Tool                                               | Purpose                                                                                                                                 |
-|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| [ansible](https://www.ansible.com)                 | Preparing Ubuntu for Kubernetes and installing k3s                                                                                      |
-| [direnv](https://github.com/direnv/direnv)         | Exports env vars based on present working directory                                                                                     |
-| [flux](https://toolkit.fluxcd.io/)                 | Operator that manages your k8s cluster based on your Git repository                                                                     |
-| [age](https://github.com/FiloSottile/age)          | A simple, modern and secure encryption tool (and Go library) with small explicit keys, no config options, and UNIX-style composability. |
-| [go-task](https://github.com/go-task/task)         | A task runner / simpler Make alternative written in Go                                                                                  |
-| [ipcalc](http://jodies.de/ipcalc)                  | Used to verify settings in the configure script                                                                                         |
-| [jq](https://stedolan.github.io/jq/)               | Used to verify settings in the configure script                                                                                         |
-| [kubectl](https://kubernetes.io/docs/tasks/tools/) | Allows you to run commands against Kubernetes clusters                                                                                  |
-| [sops](https://github.com/mozilla/sops)            | Encrypts k8s secrets with Age                                                                                                           |
-| [terraform](https://www.terraform.io)              | Prepare a Cloudflare domain to be used with the cluster                                                                                 |
+🔸 _[Click here](./provision/ansible/) to see my Ansible playbooks and roles._
 
-#### Optional
+### Core Components
 
-| Tool                                                   | Purpose                                                  |
-|--------------------------------------------------------|----------------------------------------------------------|
-| [helm](https://helm.sh/)                               | Manage Kubernetes applications                           |
-| [kustomize](https://kustomize.io/)                     | Template-free way to customize application configuration |
-| [pre-commit](https://github.com/pre-commit/pre-commit) | Runs checks pre `git commit`                             |
-| [gitleaks](https://github.com/zricethezav/gitleaks)    | Scan git repos (or files) for secrets                    |
-| [prettier](https://github.com/prettier/prettier)       | Prettier is an opinionated code formatter.               |
+- [projectcalico/calico](https://github.com/projectcalico/calico): Internal Kubernetes networking plugin.
+- [rook/rook](https://github.com/projectcalico/calico): Distributed block storage for peristent storage.
+- [mozilla/sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): Manages secrets for Kubernetes, Ansible and Terraform.
+- [kubernetes-sigs/external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider.
+- [jetstack/cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster.
+- [kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx/): Ingress controller to expose HTTP traffic to pods over DNS.
 
-### :warning:&nbsp; pre-commit
+### GitOps
 
-It is advisable to install [pre-commit](https://pre-commit.com/) and the pre-commit hooks that come with this repository.
-[sops-pre-commit](https://github.com/k8s-at-home/sops-pre-commit) and [gitleaks](https://github.com/zricethezav/gitleaks) will check to make sure you are not by accident committing your secrets un-encrypted.
+[Flux](https://github.com/fluxcd/flux2) watches my [cluster](./cluster/) folder (see Directories below) and makes the changes to my cluster based on the YAML manifests.
 
-After pre-commit is installed on your machine run:
+[Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When some PRs are merged [Flux](https://github.com/fluxcd/flux2) applies the changes to my cluster.
 
-```sh
-task pre-commit:init
-```
-**Remember to run this on each new clone of the repository for it to have effect.**
+### Directories
 
-Commands are of interest, for learning purposes:
+The Git repository contains the following directories under [cluster](./cluster/) and are ordered below by how [Flux](https://github.com/fluxcd/flux2) will apply them.
 
-This command makes it so pre-commit runs on `git commit`, and also installs environments per the config file.
-```
-pre-commit install --install-hooks
-```
-This command checks for new versions of hooks, though it will occasionally make mistakes, so verify its results.
-```
-pre-commit autoupdate
-```
+- **base**: directory is the entrypoint to [Flux](https://github.com/fluxcd/flux2).
+- **crds**: directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists.
+- **core**: directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by [Flux](https://github.com/fluxcd/flux2).
+- **apps**: directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, [Flux](https://github.com/fluxcd/flux2) will prune resources here if they are not tracked by Git anymore.
 
-## :open_file_folder:&nbsp; Repository structure
+### Networking
 
-The Git repository contains the following directories under `cluster` and are ordered below by how Flux will apply them.
+| Name                                         | CIDR              |
+| -------------------------------------------- | ----------------- |
+| Kubernetes Nodes                             | `192.168.20.0/24` |
+| Kubernetes external services (Calico w/ BGP) | `192.168.69.0/24` |
+| Kubernetes pods                              | `10.42.0.0/16`    |
+| Kubernetes services                          | `10.43.0.0/16`    |
 
-- **base** directory is the entrypoint to Flux
-- **crds** directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists
-- **core** directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by Flux
-- **apps** directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
+- HAProxy configured on Opnsense for the Kubernetes Control Plane Load Balancer.
+- Calico configured with `externalIPs` to expose Kubernetes services with their own IP over BGP which is configured on my router.
 
-```
-cluster
-├── apps
-│   ├── default
-│   ├── networking
-│   └── system-upgrade
-├── base
-│   └── flux-system
-├── core
-│   ├── cert-manager
-│   ├── metallb-system
-│   ├── namespaces
-│   └── system-upgrade
-└── crds
-    └── cert-manager
-```
+---
 
-## :rocket:&nbsp; Lets go!
+## :globe_with_meridians:&nbsp; DNS
 
-Very first step will be to create a new repository by clicking the **Use this template** button on this page.
+### Ingress Controller
 
-Clone the repo to you local workstation and `cd` into it.
+I have port forwarded ports `80` and `443` to the load balancer IP of my ingress controller that's running in my Kubernetes cluster.
 
-:round_pushpin: **All of the below commands** are run on your **local** workstation, **not** on any of your cluster nodes.
+[Cloudflare](https://www.cloudflare.com/) works as a proxy to hide my homes WAN IP and also as a firewall. All the traffic coming into my ingress controller on port `80` and `443` comes from Cloudflare, I block all IPs not originating from the [Cloudflares list of IP ranges](https://www.cloudflare.com/ips/).
 
-### :closed_lock_with_key:&nbsp; Setting up Age
+🔸 _Cloudflare is also configured to GeoIP block all countries except a few I have whitelisted_
 
-:round_pushpin: Here we will create a Age Private and Public key. Using SOPS with Age allows us to encrypt and decrypt secrets.
+### Internal DNS
 
-1. Create a Age Private / Public Key
+[CoreDNS](https://github.com/coredns/coredns) is deployed on cluster and has direct access to my clusters ingress records and serves DNS for them in my internal network. `CoreDNS` is only listening on my `MANAGEMENT` and `SERVER` networks on port `53`.
 
-```sh
-age-keygen -o age.agekey
-```
+For adblocking, I have [Blocky](https://github.com/0xERR0R/blocky)
 
-2. Set up the directory for the Age key and move the Age file to it
+### External DNS
 
-```sh
-mkdir -p ~/.config/sops/age
-mv age.agekey ~/.config/sops/age/keys.txt
-```
+[external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configure to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses `external-dns` looks at to gather DNS records to put in `Cloudflare` are ones that I explicitly set an annotation of `external-dns/is-public: "true"`
 
-3. Export the `SOPS_AGE_KEY_FILE` variable in your `bashrc`, `zshrc` or `config.fish` and source it, e.g.
+🔸 _[Click here](./provision/terraform/cloudflare) to see how else I manage Cloudflare._
 
-```sh
-export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
-source ~/.bashrc
-```
+### Dynamic DNS
 
-4. Fill out the Age public key in the `.config.env` under `BOOTSTRAP_AGE_PUBLIC_KEY`, **note** the public key should start with `age`...
+My home IP can change at any given time and in order to keep my WAN IP address up to date on Cloudflare I have deployed a [CronJob](./cluster/apps/networking/cloudflare-ddns) in my cluster. This periodically checks and updates the `A` record `ipv4.domain.tld`.
 
-### :cloud:&nbsp; Global Cloudflare API Key
+---
 
-In order to use Terraform and `cert-manager` with the Cloudflare DNS challenge you will need to create a API key.
+## :zap:&nbsp; Network Attached Storage
 
-1. Head over to Cloudflare and create a API key by going [here](https://dash.cloudflare.com/profile/api-tokens).
+:construction: Work in Progress :construction:
 
-2. Under the `API Keys` section, create a global API Key.
+---
 
-3. Use the API Key in the configuration section below.
+## :wrench:&nbsp; Hardware
 
-### :page_facing_up:&nbsp; Configuration
+| Device              | Count | OS Disk Size | Data Disk Size       | Ram  | Purpose    |
+| ------------------- | ----- | ------------ | -------------------- | ---- | ---------- |
+| Intel NUC D54250WYK | 1     | 256GB SSD    | N/A                  | 16GB | k8s Master |
+| Intel NUC6CAYH      | 1     | 256GB SSD    | N/A                  | 16GB | k8s Master |
+| Intel NUC6I3SYH     | 1     | 256GB SSD    | 1TB NVMe (rook-ceph) | 32GB | K8s Master |
+| HP Elitedesk 4590T  | 1     | 500GB SSD    | 1TB NVMe (rook-ceph) | 16GB | K8s Worker |
+| HP Elitedesk 6500T  | 1     | 256GB SSD    | 1TB NVMe (rook-ceph) | 16GB | k8s Worker |
+| Raspberry Pi 4      | 3     | 32GB         | N/A                  | 8GB  | K8s Worker |
 
-:round_pushpin: The `.config.env` file contains necessary configuration that is needed by Ansible, Terraform and Flux.
+---
 
-1. Copy the `.config.sample.env` to `.config.env` and start filling out all the environment variables. **All are required** and read the comments they will explain further what is required.
+## :handshake:&nbsp; Graditude and Thanks
 
-2. Once that is done, verify the configuration is correct by running `./configure.sh --verify`
+Thanks to all the people who donate their time to the [Kubernetes @Home](https://github.com/k8s-at-home/) community. A lot of inspiration for my cluster came from the people that have shared their clusters over at [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes).
 
-3. If you do not encounter any errors run `./configure.sh` to start having the script wire up the templated files and place them where they need to be.
+---
 
-### :zap:&nbsp; Preparing Ubuntu with Ansible
+## :scroll:&nbsp; Changelog
 
-:round_pushpin: Here we will be running a Ansible Playbook to prepare Ubuntu for running a Kubernetes cluster.
+See [commit history](https://github.com/vikaspogu/k8s-gitops/commits/main)
 
-:round_pushpin: Nodes are not security hardened by default, you can do this with [dev-sec/ansible-collection-hardening](https://github.com/dev-sec/ansible-collection-hardening) or something similar.
+---
 
-1. Ensure you are able to SSH into you nodes from your workstation with using your private ssh key. This is how Ansible is able to connect to your remote nodes.
+## :lock_with_ink_pen:&nbsp; License
 
-2. Install the deps by running `task ansible:deps`
-
-3. Verify Ansible can view your config by running `task ansible:list`
-
-4. Verify Ansible can ping your nodes by running `task ansible:adhoc:ping`
-
-5. Finally, run the Ubuntu Prepare playbook by running `task ansible:playbook:ubuntu-prepare`
-
-6. If everything goes as planned you should see Ansible running the Ubuntu Prepare Playbook against your nodes.
-
-### :sailboat:&nbsp; Installing k3s with Ansible
-
-:round_pushpin: Here we will be running a Ansible Playbook to install [k3s](https://k3s.io/) with [this](https://galaxy.ansible.com/xanmanning/k3s) wonderful k3s Ansible galaxy role. After completion, Ansible will drop a `kubeconfig` in `./provision/kubeconfig` for use with interacting with your cluster with `kubectl`.
-
-1. Verify Ansible can view your config by running `task ansible:list`
-
-2. Verify Ansible can ping your nodes by running `task ansible:adhoc:ping`
-
-3. Run the k3s install playbook by running `task ansible:playbook:k3s-install`
-
-4. If everything goes as planned you should see Ansible running the k3s install Playbook against your nodes.
-
-5. Verify the nodes are online
-
-```sh
-kubectl --kubeconfig=./provision/kubeconfig get nodes
-# NAME           STATUS   ROLES                       AGE     VERSION
-# k8s-0          Ready    control-plane,master      4d20h   v1.21.5+k3s1
-# k8s-1          Ready    worker                    4d20h   v1.21.5+k3s1
-```
-
-### :small_blue_diamond:&nbsp; GitOps with Flux
-
-:round_pushpin: Here we will be installing [flux](https://toolkit.fluxcd.io/) after some quick bootstrap steps.
-
-1. Verify Flux can be installed
-
-```sh
-flux --kubeconfig=./provision/kubeconfig check --pre
-# ► checking prerequisites
-# ✔ kubectl 1.21.5 >=1.18.0-0
-# ✔ Kubernetes 1.21.5+k3s1 >=1.16.0-0
-# ✔ prerequisites checks passed
-```
-
-2. Pre-create the `flux-system` namespace
-
-```sh
-kubectl --kubeconfig=./provision/kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig=./provision/kubeconfig apply -f -
-```
-
-3. Add the Age key in-order for Flux to decrypt SOPS secrets
-
-```sh
-cat ~/.config/sops/age/keys.txt |
-    kubectl --kubeconfig=./provision/kubeconfig \
-    -n flux-system create secret generic sops-age \
-    --from-file=age.agekey=/dev/stdin
-```
-
-:round_pushpin: Variables defined in `./cluster/base/cluster-secrets.sops.yaml` and `./cluster/base/cluster-settings.yaml` will be usable anywhere in your YAML manifests under `./cluster`
-
-4. **Verify** the `./cluster/base/cluster-secrets.sops.yaml` and `./cluster/core/cert-manager/secret.sops.yaml` files are **encrypted** with SOPS
-
-5. If you verified all the secrets are encrypted, you can delete the `tmpl` directory now
-
-6.  Push you changes to git
-
-```sh
-git add -A
-git commit -m "initial commit"
-git push
-```
-
-7. Install Flux
-
-:round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
-
-```sh
-kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system
-# namespace/flux-system configured
-# customresourcedefinition.apiextensions.k8s.io/alerts.notification.toolkit.fluxcd.io created
-# ...
-# unable to recognize "./cluster/base/flux-system": no matches for kind "Kustomization" in version "kustomize.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "GitRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-```
-
-8. Verify Flux components are running in the cluster
-
-```sh
-kubectl --kubeconfig=./provision/kubeconfig get pods -n flux-system
-# NAME                                       READY   STATUS    RESTARTS   AGE
-# helm-controller-5bbd94c75-89sb4            1/1     Running   0          1h
-# kustomize-controller-7b67b6b77d-nqc67      1/1     Running   0          1h
-# notification-controller-7c46575844-k4bvr   1/1     Running   0          1h
-# source-controller-7d6875bcb4-zqw9f         1/1     Running   0          1h
-```
-
-:tada: **Congratulations** you have a Kubernetes cluster managed by Flux, your Git repository is driving the state of your cluster.
-
-### :cloud:&nbsp; Configure Cloudflare DNS with Terraform
-
-:round_pushpin: Review the Terraform scripts under `./terraform/cloudflare/` and make sure you understand what it's doing (no really review it). If your domain already has existing DNS records be sure to export those DNS settings before you continue. Ideally you can update the terraform script to manage DNS for all records if you so choose to.
-
-1. Pull in the Terraform deps by running `task terraform:init:cloudflare`
-
-2. Review the changes Terraform will make to your Cloudflare domain by running `task terraform:plan:cloudflare`
-
-3. Finally have Terraform execute the task by running `task terraform:apply:cloudflare`
-
-If Terraform was ran successfully head over to your browser and you _should_ be able to access `https://hajimari.${BOOTSTRAP_CLOUDFLARE_DOMAIN}`
-
-## :mega:&nbsp; Post installation
-
-### :point_right:&nbsp; Troubleshooting
-
-Our [wiki](https://github.com/k8s-at-home/template-cluster-k3s/wiki) is a good place to start troubleshooting issues. If that doesn't cover your issue, start a new thread in the #support channel on our [Discord](https://discord.gg/k8s-at-home).
-
-### :robot:&nbsp; Integrations
-
-Our Check out our [wiki](https://github.com/k8s-at-home/template-cluster-k3s/wiki) for more integrations!
-
-## :grey_question:&nbsp; What's next
-
-The world is your cluster, try installing another application or if you have a NAS and want storage back by that check out the helm charts for [democratic-csi](https://github.com/democratic-csi/democratic-csi), [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs) or [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner).
-
-If you plan on exposing your ingress to the world from your home. Checkout [our rough guide](https://docs.k8s-at-home.com/guides/dyndns/) to run a k8s `CronJob` to update DDNS.
-
-## :handshake:&nbsp; Thanks
-
-Big shout out to all the authors and contributors to the projects that we are using in this repository.
+See [LICENSE](./LICENSE)

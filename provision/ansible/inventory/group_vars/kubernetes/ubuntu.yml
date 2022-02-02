@@ -1,6 +1,8 @@
 ---
-# (string) Timezone for the servers
-# timezone: "America/New_York"
+# Timezone for the servers
+timezone: "America/Chicago"
 
-# (list) Additional ssh public keys to add to the nodes
-# ssh_authorized_keys:
+rsyslog:
+  enabled: true
+  ip: 192.168.20.103
+  port: 1514

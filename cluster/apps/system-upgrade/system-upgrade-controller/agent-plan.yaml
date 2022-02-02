@@ -9,13 +9,20 @@ metadata:
 spec:
   serviceAccountName: system-upgrade
   concurrency: 1
-  channel: https://update.k3s.io/v1-release/channels/v1.22
+  channel: https://update.k3s.io/v1-release/channels/v1.23
   nodeSelector:
     matchExpressions:
       - key: node-role.kubernetes.io/master
         operator: NotIn
         values:
           - "true"
+      - key: k3s-upgrade
+        operator: In
+        values:
+          - "true"
+  tolerations:
+    - key: "k3s-arm"
+      operator: "Exists"
   prepare:
     image: rancher/k3s-upgrade
     args:

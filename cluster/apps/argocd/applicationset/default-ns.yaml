@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: home-lab-app-set
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/Vikaspogu/k8s-gitops.git
+        revision: master
+        directories:
+          - path: argocd/app-of-apps
+  template:
+    metadata:
+      name: "{{path.basename}}"
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/Vikaspogu/k8s-gitops.git
+        targetRevision: master
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default

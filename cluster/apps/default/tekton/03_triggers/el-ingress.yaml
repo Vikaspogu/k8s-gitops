@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "el-shared-ingress"
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    external-dns/is-public: "true"
+    external-dns.alpha.kubernetes.io/target: "ipv4.vikaspogu.com"
+spec:
+  rules:
+    - host: "el-shared.vikaspogu.com"
+      http:
+        paths:
+          - backend:
+              service:
+                name: "el-shared-listener"
+                port:
+                  number: 8080
+            path: "/"
+            pathType: Prefix
+  tls:
+    - hosts:
+        - "el-shared.vikaspogu.com"
+      secretName: el-shared-vikaspogu-com

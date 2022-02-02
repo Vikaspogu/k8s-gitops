@@ -1,0 +1,7 @@
+name: mqtt-air-sensor
+apiVersion: v2
+version: 2.0.1
+dependencies:
+  - name: common
+    version: 1.1.0
+    repository: https://vikaspogu.dev/helm-charts/

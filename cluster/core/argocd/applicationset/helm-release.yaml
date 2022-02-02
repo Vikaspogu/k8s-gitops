@@ -1,0 +1,18 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: argocd-applicationset
+  namespace: argocd
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://argoproj.github.io/argo-helm
+      chart: argocd-applicationset
+      sourceRef:
+        kind: HelmRepository
+        name: argocd-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    installCRDs: false

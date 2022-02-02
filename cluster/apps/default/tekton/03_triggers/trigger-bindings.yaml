@@ -1,0 +1,19 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: pipeline-binding
+  namespace: default
+spec:
+  params:
+  - name: git-repo-name
+    value: $(body.repository.name)
+  - name: git-repo-url
+    value: "https://github.com/$(body.repository.full_name)"
+  - name: git-revision
+    value: $(body.head_commit.id)
+  - name: image-name
+    value: docker.io/vikaspogu/$(body.repository.name)
+  - name: image-tag
+    value: $(extensions.intercepted.commit_id_short)
+  - name: platform_arch_args
+    value: $(extensions.intercepted.multi_arch)

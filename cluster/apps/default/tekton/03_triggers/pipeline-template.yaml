@@ -1,0 +1,51 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: pipeline-template
+  namespace: default
+spec:
+  params:
+  - name: git-repo-url
+  - name: git-repo-name
+  - name: git-revision
+  - name: image-name
+  - name: image-tag
+  - name: platform_arch_args
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: $(tt.params.git-repo-name)-pipeline-run-
+      namespace: default
+    spec:
+      params:
+      - name: source
+        value: $(tt.params.git-repo-url)
+      - name: appname
+        value: $(tt.params.git-repo-name)
+      - name: image
+        value: $(tt.params.image-name)
+      - name: image-tag
+        value: $(tt.params.image-tag)
+      - name: platform_arch_args
+        value: $(tt.params.platform_arch_args)
+      pipelineRef:
+        name: shared-pipeline
+      serviceAccountName: tekton-triggers-admin
+      timeout: 1h0m0s
+      podTemplate:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - {
+                        key: "beta.kubernetes.io/arch",
+                        operator: In,
+                        values: ["amd64"],
+                      }
+      workspaces:
+      - name: shared-workspace
+        persistentVolumeClaim:
+          claimName: tekton-workspace
+        subPath: $(tt.params.git-repo-name)

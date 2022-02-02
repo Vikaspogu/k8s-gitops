@@ -1,0 +1,240 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: botkube
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://infracloudio.github.io/charts
+      chart: botkube
+      sourceRef:
+        kind: HelmRepository
+        name: infracloudio-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    serviceMonitor:
+      enabled: true
+    config:
+      recommendations: false
+      settings:
+        clustername: home-cluster
+        kubectl:
+          enabled: true
+          restrictAccess: true
+          commands:
+            verbs:
+              [
+                "api-resources",
+                "api-versions",
+                "cluster-info",
+                "describe",
+                "diff",
+                "explain",
+                "get",
+                "logs",
+                "top",
+                "auth",
+              ]
+            resources:
+              [
+                "deployments",
+                "pods",
+                "namespaces",
+                "daemonsets",
+                "statefulsets",
+                "storageclasses",
+                "nodes",
+              ]
+      resources:
+        - name: v1/services
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: apps/v1/deployments
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - update
+            - delete
+            - error
+          updateSetting:
+          includeDiff: true
+          fields:
+            - spec.template.spec.containers[*].image
+            - status.availableReplicas
+        - name: apps/v1/statefulsets
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - update
+            - delete
+            - error
+          updateSetting:
+          includeDiff: true
+          fields:
+            - spec.template.spec.containers[*].image
+            - status.readyReplicas
+        - name: networking.k8s.io/v1beta1/ingresses
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: v1/nodes
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: v1/namespaces
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: v1/persistentvolumes
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: v1/persistentvolumeclaims
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: v1/configmaps
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: apps/v1/daemonsets
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: batch/v1/jobs
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - update
+            - error
+        - name: rbac.authorization.k8s.io/v1/rolebindings
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: rbac.authorization.k8s.io/v1/clusterrolebindings
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: rbac.authorization.k8s.io/v1/clusterroles
+          namespaces:
+            include:
+              - all
+            ignore:
+              - rook-ceph
+          events:
+            - create
+            - delete
+            - error
+        - name: v1/nodes
+          namespaces:
+            include:
+              - all
+            ignore:
+              -
+          events:
+            - create
+            - delete
+            - error
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - { key: "kubernetes.io/arch", operator: In, values: ["amd64"] }
+    communications:
+      discord:
+        enabled: true
+        notiftype: short
+
+  valuesFrom:
+    - kind: Secret
+      name: botkube
+      valuesKey: discord-token
+      targetPath: communications.discord.token
+      optional: false
+    - kind: Secret
+      name: botkube
+      valuesKey: discord-botid
+      targetPath: communications.discord.botid
+      optional: false
+    - kind: Secret
+      name: botkube
+      valuesKey: discord-channel
+      targetPath: communications.discord.channel
+      optional: false

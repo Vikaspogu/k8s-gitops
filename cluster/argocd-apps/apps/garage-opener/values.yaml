@@ -1,0 +1,71 @@
+common:
+  nameOverride: "garage-opener"
+  fullnameOverride: "garage-opener"
+  replicas: 1
+  image:
+    repository: vikaspogu/garage-opener
+    pullPolicy: IfNotPresent
+    tag: "c99ab26"
+  strategy:
+    type: Recreate
+  env:
+    ENVIRONMENT: prod
+    MQTT_BROKER: emqx.default.svc.cluster.local
+    OPEN_PIN: "15"
+    NOTIFICATION_TIME: "1800000"
+  envValueFrom:
+    SLACK_WEBHOOK:
+      secretKeyRef:
+        key: SLACK_WEBHOOK
+        name: garage-credentials
+
+  securityContext:
+    privileged: true
+
+  probes:
+    liveness:
+      custom: true
+      enabled: true
+      spec:
+        failureThreshold: 3
+        httpGet:
+          path: /health
+          port: http
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 10
+    readiness:
+      custom: true
+      enabled: true
+      spec:
+        failureThreshold: 3
+        httpGet:
+          path: /health
+          port: http
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 10
+    startup:
+      enabled: false
+  ingress:
+    enabled: false
+
+  resources:
+    limits:
+      cpu: 520m
+      memory: 520Mi
+    requests:
+      cpu: 250m
+      memory: 250Mi
+  tolerations:
+    - key: "k3s-arm"
+      operator: "Exists"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - kube-5-pi4-garage

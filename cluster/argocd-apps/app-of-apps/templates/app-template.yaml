@@ -1,0 +1,23 @@
+{{- range $key, $value := .Values.apps }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $value.name }}
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: {{ $value.namespace }}
+    server: "https://kubernetes.default.svc"
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    path: "cluster/argocd-apps/apps/{{ $value.name }}"
+    repoURL: "https://github.com/Vikaspogu/k8s-gitops"
+    targetRevision: "master"
+{{- end }}

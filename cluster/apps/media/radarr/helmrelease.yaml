@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: radarr
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: radarr
+      version: 15.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: "linuxserver/radarr"
+      tag: "nightly-version-4.0.4.5909"
+      pullPolicy: IfNotPresent
+    env:
+      PUID: "1001"
+      PGID: "1001"
+      TZ: "America/Chicago"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "filmstrip"
+          hajimari.io/appName: "Radarr"
+        hosts:
+          - host: "radarr.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "radarr.${SECRET_PRIVATE_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: radarr-config
+      nfs-nas-pvc:
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media"
+        enabled: true
+        mountPath: /nfs-nas-pvc
+    resources:
+      limits:
+        memory: 1500Mi
+      requests:
+        cpu: 35m
+        memory: 350Mi

@@ -1,0 +1,63 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Get root level directory
+      shell: "git rev-parse --show-toplevel"
+      register: root_dir
+
+    - name: Add labels to nodes
+      shell: "kubectl label nodes {{item.name}} {{item.label}} --overwrite"
+      with_items:
+        - { name: k8s-1-nuc-6cayh, label: app.kubernetes.io/name=hass }
+        - {
+            name: k8s-2-nuc-6i3syh,
+            label: feature.node.kubernetes.io/custom-coral-tpu=true,
+          }
+        - {
+            name: k8s-3-hp-4590t,
+            label: feature.node.kubernetes.io/custom-zigbee=true,
+          }
+        - { name: k8s-3-hp-4590t, label: node-role.kubernetes.io/worker=true }
+        - { name: k8s-4-hp-6500t, label: node-role.kubernetes.io/worker=true }
+        - { name: k8s-5-pi4-garage, label: node-role.kubernetes.io/worker=true }
+        - { name: k8s-6-pi4-office, label: node-role.kubernetes.io/worker=true }
+        - {
+            name: k8s-6-pi4-office,
+            label: feature.node.kubernetes.io/custom-room-assistant=true,
+          }
+        - {
+            name: k8s-3-hp-4590t,
+            label: feature.node.kubernetes.io/custom-air-sensor=true,
+          }
+        - {
+            name: k8s-0-nuc-di5wyk,
+            label: feature.node.kubernetes.io/custom-plex=true,
+          }
+
+    - name: Taint arm nodes
+      shell: "kubectl taint node {{item.name}} {{item.taint}} --overwrite"
+      with_items:
+        - { name: k8s-5-pi4-garage, taint: k3s-arm=true:NoSchedule }
+        - { name: k8s-6-pi4-office, taint: k3s-arm=true:NoSchedule }
+
+    - name: Get a list of all node objects
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Node
+      register: nodes_list
+
+    - name: Add k3s-upgrade labels to nodes
+      shell: "kubectl label nodes {{item.metadata.name}} k3s-upgrade=true --overwrite"
+      with_items: "{{nodes_list.resources}}"
+
+    - name: Create flux namespace
+      shell: "kubectl --kubeconfig={{root_dir.stdout_lines[0]}}/provision/kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig={{root_dir.stdout_lines[0]}}/provision/kubeconfig apply -f -"
+
+    - name: Create sops secret inf flux namespace
+      shell: "cat ~/.config/sops/age/keys.txt | kubectl --kubeconfig={{root_dir.stdout_lines[0]}}/provision/kubeconfig -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin"
+
+    - name: Deploy base folder for flux system
+      shell: "kubectl apply -k {{root_dir.stdout_lines[0]}}/cluster/base/flux-system"

@@ -1,0 +1,39 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: shared-pipeline
+  namespace: default
+spec:
+  workspaces:
+    - name: shared-workspace
+  params:
+    - name: source
+    - name: appname
+    - name: image
+    - name: image-tag
+    - name: platform_arch_args
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+      - name: output
+        workspace: shared-workspace
+      params:
+      - name: url
+        value: $(params.source)
+    - name: build-and-publish-image
+      params:
+        - name: image
+          value: $(params.image):$(params.image-tag)
+        - name: platform_arch_args
+          value: $(params.platform_arch_args)
+      taskRef:
+        kind: ClusterTask
+        name: docker-buildx
+      runAfter:
+        - fetch-repository
+      workspaces:
+      - name: source
+        workspace: shared-workspace

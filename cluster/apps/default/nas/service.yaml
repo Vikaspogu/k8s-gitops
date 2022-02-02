@@ -1,0 +1,10 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nas-service
+  namespace: default
+spec:
+  ports:
+    - protocol: TCP
+      port: 5000

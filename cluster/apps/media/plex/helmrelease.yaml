@@ -1,0 +1,110 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: plex
+      version: 6.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: plexinc/pms-docker
+      tag: 1.25.3.5409-f11334058
+    env:
+      ADVERTISE_IP: "http://${LB_PLEX}:32400"
+      TZ: America/Chicago
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          external-dns/is-public: "true"
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "filmstrip"
+          hajimari.io/appName: "Plex"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - host: "plex-server.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: plex-server-tls-secret
+            hosts:
+              - "plex-server.${SECRET_DOMAIN}"
+    service:
+      main:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: plex
+        loadBalancerIP: ${LB_PLEX}
+        externalTrafficPolicy: Local
+        port:
+          port: 32400
+    persistence:
+      config:
+        enabled: true
+        existingClaim: plex-config
+      transcode:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+      media:
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media"
+        enabled: true
+        mountPath: /nfs-nas-pvc
+    addons:
+      promtail:
+        enabled: true
+        image:
+          repository: ghcr.io/k8s-at-home/promtail
+          tag: v2.4.2
+        loki: http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
+        logs:
+          - name: promtail/plex
+            path: "/config/Library/Application Support/Plex Media Server/Logs/*.log"
+          - name: promtail/plex/plugins
+            path: "/config/Library/Application Support/Plex Media Server/Logs/PMS Plugin Logs/*.log"
+        volumeMounts:
+          - name: config
+            mountPath: /config
+            readOnly: true
+        securityContext:
+          runAsUser: 0
+    resources:
+      requests:
+        cpu: 2000m
+        memory: 12000Mi
+      limits:
+        memory: 24000Mi
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/custom-plex
+                  operator: In
+                  values:
+                    - "true"
+  valuesFrom:
+    - kind: Secret
+      name: "plex"
+      valuesKey: PLEX_CLAIM
+      targetPath: env.PLEX_CLAIM
+      optional: false

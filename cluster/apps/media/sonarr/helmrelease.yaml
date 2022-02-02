@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sonarr
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: sonarr
+      version: 15.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: linuxserver/sonarr
+      tag: develop-version-3.0.6.1451
+      pullPolicy: IfNotPresent
+    env:
+      PUID: "1001"
+      PGID: "1001"
+      TZ: "America/Chicago"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "filmstrip"
+          hajimari.io/appName: "Sonarr"
+        hosts:
+          - host: "sonarr.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "sonarr.${SECRET_PRIVATE_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sonarr-config
+      nfs-nas-pvc:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media"
+        mountPath: /nfs-nas-pvc
+    resources:
+      limits:
+        memory: 500Mi
+      requests:
+        cpu: 25m
+        memory: 350Mi

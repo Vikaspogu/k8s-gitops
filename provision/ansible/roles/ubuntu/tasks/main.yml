@@ -18,3 +18,17 @@
 - include: user.yml
   tags:
     - user
+
+- include: coral-host-setup.yml
+  tags:
+    - coral-host-setup
+  when:
+    - coral.enabled is defined
+    - coral.enabled
+
+- include: rsyslog.yml
+  tags:
+    - rsyslog
+  when:
+    - rsyslog.enabled is defined
+    - rsyslog.enabled

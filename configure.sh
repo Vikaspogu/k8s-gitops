@@ -28,7 +28,6 @@ main() {
     verify_binaries
 
     if [[ "${verify}" == 1 ]]; then
-        verify_ansible_hosts
         verify_metallb
         verify_kubevip
         verify_age
@@ -59,8 +58,35 @@ main() {
         # ansible
         envsubst < "${PROJECT_DIR}/tmpl/ansible/kube-vip.yml" \
             > "${PROJECT_DIR}/provision/ansible/inventory/group_vars/kubernetes/kube-vip.yml"
-        generate_ansible_hosts
-        generate_ansible_host_secrets
+        envsubst < "${PROJECT_DIR}/tmpl/ansible/host_vars/k8s-0-nuc-di5wyk.sops.yml" \
+            > "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-0-nuc-di5wyk.sops.yml"
+        envsubst < "${PROJECT_DIR}/tmpl/ansible/host_vars/k8s-1-nuc-6cayh.sops.yml" \
+            > "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-1-nuc-6cayh.sops.yml"
+        envsubst < "${PROJECT_DIR}/tmpl/ansible/host_vars/k8s-2-nuc-6i3syh.sops.yml" \
+            > "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-2-nuc-6i3syh.sops.yml"
+        envsubst < "${PROJECT_DIR}/tmpl/ansible/host_vars/k8s-3-hp-4590t.sops.yml" \
+            > "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-3-hp-4590t.sops.yml"
+        envsubst < "${PROJECT_DIR}/tmpl/ansible/host_vars/k8s-4-hp-6500t.sops.yml" \
+            > "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-4-hp-6500t.sops.yml"
+        envsubst < "${PROJECT_DIR}/tmpl/ansible/host_vars/k8s-5-pi4-garage.sops.yml" \
+            > "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-5-pi4-garage.sops.yml"
+        envsubst < "${PROJECT_DIR}/tmpl/ansible/host_vars/k8s-6-pi4-office.sops.yml" \
+            > "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-6-pi4-office.sops.yml"
+        sops --encrypt --in-place "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-0-nuc-di5wyk.sops.yml"
+        sops --encrypt --in-place "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-1-nuc-6cayh.sops.yml"
+        sops --encrypt --in-place "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-2-nuc-6i3syh.sops.yml"
+        sops --encrypt --in-place "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-3-hp-4590t.sops.yml"
+        sops --encrypt --in-place "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-4-hp-6500t.sops.yml"
+        sops --encrypt --in-place "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-5-pi4-garage.sops.yml"
+        sops --encrypt --in-place "${PROJECT_DIR}/provision/ansible/inventory/host_vars/k8s-6-pi4-office.sops.yml"
+        # sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/vpn/downloads-gateway/secret.sops.yaml"
+        # sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/monitoring/kube-prometheus-stack/secret.sops.yaml"
+        # sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/monitoring/botkube/secret.sops.yaml"
+        # sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/monitoring/grafana/secret.sops.yaml"
+        # sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/media/plex/secret.sops.yaml"
+        # sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/flux-system/notifications/discord/secret.sops.yaml"
+        # sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/flux-system/notifications/github/secret.sops.yaml"
+        # sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/flux-system/webhook/github/secret.sops.yaml"
     fi
 }
 
@@ -202,7 +228,7 @@ verify_cloudflare() {
     _has_envar "BOOTSTRAP_CLOUDFLARE_EMAIL"
 
     # Try to retrieve zone information from Cloudflare's API
-    account_zone=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=${BOOTSTRAP_CLOUDFLARE_DOMAIN}&status=active" \
+    account_zone=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=${SECRET_DOMAIN}&status=active" \
         -H "X-Auth-Email: ${BOOTSTRAP_CLOUDFLARE_EMAIL}" \
         -H "X-Auth-Key: ${BOOTSTRAP_CLOUDFLARE_APIKEY}" \
         -H "Content-Type: application/json"
@@ -226,7 +252,7 @@ verify_ansible_hosts() {
     local node_hostname=
     local default_control_node_prefix=
     local default_worker_node_prefix=
-    
+
     default_control_node_prefix="BOOTSTRAP_ANSIBLE_DEFAULT_CONTROL_NODE_HOSTNAME_PREFIX"
     default_worker_node_prefix="BOOTSTRAP_ANSIBLE_DEFAULT_NODE_HOSTNAME_PREFIX"
     _has_optional_envar "${default_control_node_prefix}"

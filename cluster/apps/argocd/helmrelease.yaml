@@ -1,0 +1,56 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://argoproj.github.io/argo-helm
+      chart: argo-cd
+      version: 3.32.1
+      sourceRef:
+        kind: HelmRepository
+        name: argocd-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    installCRDs: false
+    server:
+      extraArgs:
+        - --insecure
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          external-dns/is-public: "true"
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "web"
+          hajimari.io/appName: "ArgoCD"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - argocd.${SECRET_DOMAIN}
+        paths:
+          - /
+        tls:
+          - secretName: argocd-tls-secret
+            hosts:
+              - argocd.${SECRET_DOMAIN}
+      config:
+        url: https://argocd.${SECRET_DOMAIN}
+        application.instanceLabelKey: argocd.argoproj.io/instance
+        accounts.admin: apiKey
+        repositories: |
+          - url: https://github.com/vikaspogu/k8s-gitops.git
+      rbacConfig:
+        policy.csv: |
+          g, /ArgoCDAdmins, role:admin
+    dex:
+      enabled: false
+    configs:
+      secret:
+        createSecret: true
+        argocdServerAdminPassword: $2a$10$RmkozzGo6eBRwkpv1TfPruLq6BYVdcWSZWoMK3oIvM2niHLUd4Gs2
