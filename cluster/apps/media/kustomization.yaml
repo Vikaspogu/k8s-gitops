@@ -4,6 +4,7 @@ resources:
   - bazarr
   - calibre
   - calibre-web
+  - lidarr
   - overseerr
   - plex
   - radarr

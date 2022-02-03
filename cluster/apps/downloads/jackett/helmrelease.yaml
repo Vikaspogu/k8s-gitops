@@ -49,11 +49,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
+        existingClaim: jackett-config
     resources:
       requests:
         memory: 350Mi
