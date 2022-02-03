@@ -32,7 +32,7 @@ spec:
           - name: "null"
           - name: "discord"
             slack_configs:
-              - channel: "#prometheus"
+              - channel: "#k3s"
                 icon_url: https://avatars3.githubusercontent.com/u/3380462
                 username: "Prometheus"
                 send_resolved: true
