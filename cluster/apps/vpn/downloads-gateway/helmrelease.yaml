@@ -31,7 +31,7 @@ spec:
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
       - hostname: jackett
-        IP: 11
+        IP: 20
         ports:
           - type: udp
             port: ${VPN_FORWARDED_PORT_1}
