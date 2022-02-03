@@ -19,5 +19,5 @@ spec:
   source:
     path: "cluster/argocd-apps/apps/{{ $value.name }}"
     repoURL: "https://github.com/Vikaspogu/k8s-gitops"
-    targetRevision: "master"
+    targetRevision: "main"
 {{- end }}

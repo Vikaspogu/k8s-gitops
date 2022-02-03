@@ -8,7 +8,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/Vikaspogu/k8s-gitops.git
-        revision: master
+        revision: main
         directories:
           - path: cluster/argocd-apps/app-of-apps
   template:
