@@ -22,7 +22,7 @@ spec:
           selfHeal: true
       source:
         repoURL: https://github.com/Vikaspogu/k8s-gitops.git
-        targetRevision: master
+        targetRevision: main
         path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
