@@ -7,10 +7,10 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     external-dns/is-public: "true"
-    external-dns.alpha.kubernetes.io/target: "ipv4.vikaspogu.com"
+    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
 spec:
   rules:
-    - host: "el-shared.vikaspogu.com"
+    - host: "el-shared.${SECRET_DOMAIN}"
       http:
         paths:
           - backend:
@@ -22,5 +22,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - "el-shared.vikaspogu.com"
+        - "el-shared.${SECRET_DOMAIN}"
       secretName: el-shared-vikaspogu-com

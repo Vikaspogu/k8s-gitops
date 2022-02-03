@@ -15,7 +15,7 @@ kubectl -n rook-ceph exec -it (kubectl -n rook-ceph get pod -l "app=rook-direct-
 ```sh
 mkdir -p /mnt/nfsdata
 mkdir -p /mnt/data
-mount -t nfs -o "hard" 192.168.1.159:/volume1/media /mnt/nfsdata
+mount -t nfs -o "hard" ${NAS_ADDRESS}:/volume1/media /mnt/nfsdata
 ```
 
 ### Backup data to a NFS share

@@ -45,21 +45,15 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "weather-sunset"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        ingressClassName: "nginx"
         hosts:
-          - host: "hajimari.${SECRET_DOMAIN}"
+          - host: "hajimari.${SECRET_PRIVATE_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "hajimari.${SECRET_DOMAIN}"
-            secretName: "hajimari-tls"
+              - "hajimari.${SECRET_PRIVATE_DOMAIN}"
     persistence:
       data:
         enabled: true

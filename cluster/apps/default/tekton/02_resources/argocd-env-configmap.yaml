@@ -4,4 +4,4 @@ metadata:
   name: argocd-env-configmap
   namespace: default
 data:
-  ARGOCD_SERVER: argocd.vikaspogu.com
+  ARGOCD_SERVER: argocd.${SECRET_DOMAIN}
