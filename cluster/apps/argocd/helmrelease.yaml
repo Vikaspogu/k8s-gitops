@@ -44,7 +44,7 @@ spec:
         application.instanceLabelKey: argocd.argoproj.io/instance
         accounts.admin: apiKey
         repositories: |
-          - url: https://github.com/vikaspogu/k8s-gitops.git
+          - url: ${GITHUB_REPO}
       rbacConfig:
         policy.csv: |
           g, /ArgoCDAdmins, role:admin

@@ -7,8 +7,8 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/Vikaspogu/k8s-gitops.git
-        revision: main
+        repoURL: ${GITHUB_REPO}
+        revision: ${GITHUB_BRANCH}
         directories:
           - path: cluster/argocd-apps/app-of-apps
   template:
@@ -21,8 +21,8 @@ spec:
           prune: true
           selfHeal: true
       source:
-        repoURL: https://github.com/Vikaspogu/k8s-gitops.git
-        targetRevision: main
+        repoURL: ${GITHUB_REPO}
+        targetRevision: ${GITHUB_BRANCH}
         path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
