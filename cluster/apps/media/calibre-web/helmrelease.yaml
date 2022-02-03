@@ -40,7 +40,7 @@ spec:
         mountPath: /data/nas-media
     ingress:
       main:
-        enabled: false
+        enabled: true
         ingressClassName: "traefik"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"

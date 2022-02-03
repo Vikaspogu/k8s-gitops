@@ -44,7 +44,7 @@ spec:
               url: "https://news.ycombinator.com/"
     ingress:
       main:
-        enabled: false
+        enabled: true
         ingressClassName: "nginx"
         hosts:
           - host: "hajimari.${SECRET_PRIVATE_DOMAIN}"

@@ -30,13 +30,6 @@ spec:
             port: ${VPN_FORWARDED_PORT_1}
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
-      - hostname: jackett
-        IP: 20
-        ports:
-          - type: udp
-            port: ${VPN_FORWARDED_PORT_1}
-          - type: tcp
-            port: ${VPN_FORWARDED_PORT_1}
     DNS: 172.1.1.1
     settings:
       VPN_INTERFACE: tun0
