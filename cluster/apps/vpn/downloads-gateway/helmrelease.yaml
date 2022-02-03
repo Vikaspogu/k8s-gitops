@@ -30,11 +30,8 @@ spec:
             port: ${VPN_FORWARDED_PORT_1}
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
-    DNS: 172.1.1.1
     settings:
       VPN_INTERFACE: tun0
-      VXLAN_ID: 43
-      VXLAN_IP_NETWORK: 172.16.1
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "${VPN_PORT}"
       NOT_ROUTED_TO_GATEWAY_CIDRS: "${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
