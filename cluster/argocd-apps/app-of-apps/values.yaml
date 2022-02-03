@@ -1,8 +1,8 @@
 ---
 apps:
   - name: garage-opener
-    namespace: default
+    namespace: home
   - name: mqtt-air-sensor
-    namespace: default
+    namespace: home
   - name: room-assistant
-    namespace: default
+    namespace: home

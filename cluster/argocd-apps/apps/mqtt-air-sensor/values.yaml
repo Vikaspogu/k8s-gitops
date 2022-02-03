@@ -1,7 +1,7 @@
 common:
   nameOverride: "mqtt-air-sensor"
   fullnameOverride: "mqtt-air-sensor"
-  replicas: 2
+  replicas: 1
   image:
     repository: vikaspogu/mqtt-air-sensor
     pullPolicy: IfNotPresent
@@ -16,7 +16,7 @@ common:
         fieldPath: spec.nodeName
   env:
     ENVIRONMENT: prod
-    MQTT_BROKER: emqx.default.svc.cluster.local
+    MQTT_BROKER: emqx.home.svc.cluster.local
     TOPIC: "sds011-mqtt/air-quality/$(NODE_NAME)"
 
   securityContext:
