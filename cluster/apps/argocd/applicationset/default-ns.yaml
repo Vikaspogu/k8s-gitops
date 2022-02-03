@@ -10,7 +10,7 @@ spec:
         repoURL: https://github.com/Vikaspogu/k8s-gitops.git
         revision: master
         directories:
-          - path: argocd/app-of-apps
+          - path: cluster/argocd-apps/app-of-apps
   template:
     metadata:
       name: "{{path.basename}}"
