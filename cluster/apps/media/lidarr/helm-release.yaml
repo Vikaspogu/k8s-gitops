@@ -74,14 +74,7 @@ spec:
             path: /volume1/media
         mountPath: /media
       backup:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: "${SECRET_NAS_ADDRESS}"
-            path: /volume1/media/k8s-data/rook/Backups/app/lidarr
-        mountPath: /config/Backups
-        readOnly: false
+        enabled: false
     resources:
       requests:
         memory: 250Mi
