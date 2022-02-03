@@ -118,10 +118,6 @@ spec:
           gnetId: 5342
           revision: 5
           datasource: Prometheus
-        minio:
-          gnetId: 13502
-          revision: 10
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11315
         nginx-dashboard:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json

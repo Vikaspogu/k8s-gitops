@@ -27,6 +27,7 @@ spec:
     alertmanager:
       config:
         global:
+          slack_api_url: "${SECRET_DISCORD_WEBHOOK}"
           resolve_timeout: 5m
         receivers:
           - name: "null"
@@ -203,15 +204,3 @@ spec:
             static_configs:
               - targets:
                   - "coredns.networking:53"
-          - job_name: "minio-job"
-            honor_timestamps: true
-            metrics_path: /minio/v2/metrics/cluster
-            static_configs:
-              - targets:
-                  - "minio.home:9000"
-  valuesFrom:
-    - kind: Secret
-      name: kube-prometheus-stack
-      valuesKey: DISCORD_WEB_HOOK
-      targetPath: alertmanager.config.global.slack_api_url
-      optional: false

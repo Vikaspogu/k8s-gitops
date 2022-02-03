@@ -83,12 +83,15 @@ spec:
       - name: ceph-filesystem
         spec:
           metadataPool:
+            failureDomain: host
             replicated:
               size: 3
           dataPools:
-            - failureDomain: host
+            - name: replicated
+              failureDomain: host
               replicated:
                 size: 3
+          preserveFilesystemOnDelete: false
           metadataServer:
             activeCount: 1
             activeStandby: true
@@ -106,5 +109,4 @@ spec:
             csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-            csi.storage.k8s.io/fstype: ext4
     cephObjectStores: []
