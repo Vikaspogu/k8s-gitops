@@ -68,4 +68,4 @@ common:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - kube-5-pi4-garage
+                  - k8s-5-pi4-garage
