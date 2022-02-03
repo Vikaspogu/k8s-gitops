@@ -13,15 +13,8 @@ common:
     MQTT_BROKER: emqx.home.svc.cluster.local
     OPEN_PIN: "15"
     NOTIFICATION_TIME: "1800000"
-  envValueFrom:
-    SLACK_WEBHOOK:
-      secretKeyRef:
-        key: SLACK_WEBHOOK
-        name: garage-credentials
-
   securityContext:
     privileged: true
-
   probes:
     liveness:
       custom: true
@@ -49,7 +42,6 @@ common:
       enabled: false
   ingress:
     enabled: false
-
   resources:
     limits:
       cpu: 520m
