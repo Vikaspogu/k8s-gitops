@@ -72,7 +72,7 @@ spec:
           nfs:
             server: "${SECRET_NAS_ADDRESS}"
             path: /volume1/media
-        mountPath: /media
+        mountPath: /nfs-nas-pvc
       backup:
         enabled: false
     resources:
