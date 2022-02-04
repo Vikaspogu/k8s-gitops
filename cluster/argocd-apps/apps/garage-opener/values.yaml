@@ -5,7 +5,8 @@ common:
   image:
     repository: vikaspogu/garage-opener
     pullPolicy: IfNotPresent
-    tag: "c99ab26"
+    # tag: "c99ab26"
+    tag: "sha-83507c6"
   strategy:
     type: Recreate
   env:
