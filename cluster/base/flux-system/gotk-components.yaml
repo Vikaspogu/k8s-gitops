@@ -4257,7 +4257,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.26.0
+    app.kubernetes.io/version: v0.26.1
   name: allow-egress
   namespace: flux-system
 spec:
@@ -4277,7 +4277,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.26.0
+    app.kubernetes.io/version: v0.26.1
   name: allow-scraping
   namespace: flux-system
 spec:
@@ -4297,7 +4297,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: v0.26.0
+    app.kubernetes.io/version: v0.26.1
   name: allow-webhooks
   namespace: flux-system
 spec:
