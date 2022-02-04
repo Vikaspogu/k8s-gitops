@@ -113,7 +113,7 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 | Intel NUC6I3SYH     | 1     | 256GB SSD    | 1TB NVMe (rook-ceph) | 32GB | K8s Master |
 | HP Elitedesk 4590T  | 1     | 500GB SSD    | 1TB NVMe (rook-ceph) | 16GB | K8s Worker |
 | HP Elitedesk 6500T  | 1     | 256GB SSD    | 1TB NVMe (rook-ceph) | 16GB | k8s Worker |
-| Raspberry Pi 4      | 3     | 32GB         | N/A                  | 8GB  | K8s Worker |
+| Raspberry Pi 4      | 2     | 32GB         | N/A                  | 8GB  | K8s Worker |
 
 ---
 
