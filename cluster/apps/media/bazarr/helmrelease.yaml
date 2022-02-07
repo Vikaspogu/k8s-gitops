@@ -44,6 +44,7 @@ spec:
         enabled: true
         existingClaim: bazarr-config
       media:
+        enabled: true
         type: custom
         volumeSpec:
           nfs:
