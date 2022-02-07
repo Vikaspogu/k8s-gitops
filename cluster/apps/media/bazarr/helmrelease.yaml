@@ -19,8 +19,9 @@ spec:
       interval: 5m
   values:
     image:
-      repository: linuxserver/bazarr
-      tag: 1.0.2
+      repository: ghcr.io/k8s-at-home/bazarr
+      tag: v1.0.2
+      pullPolicy: IfNotPresent
     env:
       TZ: "America/Chicago"
     ingress:
