@@ -14,7 +14,7 @@ _... managed with Flux, Renovate and GitHub Actions_ :robot:
 
 [![k3s](https://img.shields.io/badge/k3s-v1.23.3-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge)](https://github.com/pre-commit/pre-commit)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/vikaspogu/k8s-gitops/Schedule%20-%20Renovate?label=renovate&logo=renovatebot&style=for-the-badge)](https://github.com/vikaspogu/k8s-gitops/actions/workflows/renovate-schedule.yaml)
+[![renovate](https://img.shields.io/badge/renovate-enabled?style=for-the-badge&logo=renovatebot&logoColor=white&color=brightgreen)](https://github.com/renovatebot/renovate)
 [![Lines of code](https://img.shields.io/tokei/lines/github/vikaspogu/k8s-gitops?style=for-the-badge&color=brightgreen&label=lines&logo=codefactor&logoColor=white)](https://github.com/vikaspogu/k8s-gitops/graphs/contributors)
 
 </div>
