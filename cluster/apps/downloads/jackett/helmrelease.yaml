@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: ghcr.io/k8s-at-home/jackett
-      tag: v0.20.535
+      tag: v0.20.539
     podAnnotations:
       setGateway: "true"
     hostname: jackett
