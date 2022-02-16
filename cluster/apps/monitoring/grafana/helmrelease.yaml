@@ -24,6 +24,8 @@ spec:
     remediation:
       retries: 3
   values:
+    deploymentStrategy:
+      type: Recreate
     replicas: 1
     admin:
       existingSecret: "grafana"
