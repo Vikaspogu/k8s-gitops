@@ -4,6 +4,7 @@ resources:
   - emqx
   - frigate
   - home-assistant
+  - mosquitto
   - node-red
   - teslamate
   - zigbee2mqtt
