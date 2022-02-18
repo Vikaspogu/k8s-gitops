@@ -21,6 +21,7 @@ data:
   LB_HASS: 192.168.20.105
   LB_COREDNS: 192.168.20.107
   LB_NGINX: 192.168.20.108
+  LB_MOSQUITTO: 192.168.20.109
   LB_EMQX: 192.168.20.110
   GITHUB_REPO: https://github.com/vikaspogu/k8s-gitops
   GITHUB_BRANCH: main
