@@ -44,7 +44,7 @@ common:
           ]
         },
         "homeAssistant": {
-          "mqttUrl": "mqtt://192.168.20.110:1883"
+          "mqttUrl": "mqtt://192.168.20.109:1883"
         },
         "bluetoothClassic": {
           "addresses": [
