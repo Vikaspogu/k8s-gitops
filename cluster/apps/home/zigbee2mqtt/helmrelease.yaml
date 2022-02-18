@@ -59,7 +59,7 @@ spec:
       permit_join: false
       mqtt:
         base_topic: zigbee2mqtt
-        server: "mqtt://emqx.home.svc.cluster.local"
+        server: "mqtt://mosquitto.home.svc.cluster.local"
       serial:
         port: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2434255-if00
         adapter: deconz

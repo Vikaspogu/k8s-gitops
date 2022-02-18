@@ -16,7 +16,7 @@ common:
         fieldPath: spec.nodeName
   env:
     ENVIRONMENT: prod
-    MQTT_BROKER: emqx.home.svc.cluster.local
+    MQTT_BROKER: mosquitto.home.svc.cluster.local
     TOPIC: "sds011-mqtt/air-quality/$(NODE_NAME)"
 
   securityContext:
