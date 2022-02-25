@@ -31,7 +31,6 @@ spec:
           - media
           - monitoring
           - networking
-          - tekton-pipelines
           - rook-ceph
       name: "pogu"
       groups:

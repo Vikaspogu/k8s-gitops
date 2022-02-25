@@ -72,19 +72,13 @@ The Git repository contains the following directories under [cluster](./cluster/
 
 ## :globe_with_meridians:&nbsp; DNS
 
-### Ingress Controller
+### Traefik Controller
 
-I have port forwarded ports `80` and `443` to the load balancer IP of my ingress controller that's running in my Kubernetes cluster.
+I have port forwarded ports `80` and `443` to the load balancer IP of Metallb that's running in my Kubernetes cluster.
 
 [Cloudflare](https://www.cloudflare.com/) works as a proxy to hide my homes WAN IP and also as a firewall. All the traffic coming into my ingress controller on port `80` and `443` comes from Cloudflare, I block all IPs not originating from the [Cloudflares list of IP ranges](https://www.cloudflare.com/ips/).
 
 🔸 _Cloudflare is also configured to GeoIP block all countries except a few I have whitelisted_
-
-### Internal DNS
-
-[CoreDNS](https://github.com/coredns/coredns) is deployed on cluster and has direct access to my clusters ingress records and serves DNS for them in my internal network. `CoreDNS` is only listening on my `MANAGEMENT` and `SERVER` networks on port `53`.
-
-For adblocking, I have [Blocky](https://github.com/0xERR0R/blocky)
 
 ### External DNS
 
@@ -92,15 +86,15 @@ For adblocking, I have [Blocky](https://github.com/0xERR0R/blocky)
 
 🔸 _[Click here](./provision/terraform/cloudflare) to see how else I manage Cloudflare._
 
-### Dynamic DNS
+### Internal DNS
 
-My home IP can change at any given time and in order to keep my WAN IP address up to date on Cloudflare I have deployed a [CronJob](./cluster/apps/networking/cloudflare-ddns) in my cluster. This periodically checks and updates the `A` record `ipv4.domain.tld`.
+[CoreDNS](https://github.com/coredns/coredns) is deployed on cluster and has direct access to my clusters ingress records and serves DNS for them in my internal network. `CoreDNS` is only listening on my `MANAGEMENT` and `SERVER` networks on port `53`.
 
----
+For adblocking, I have [Blocky](https://github.com/0xERR0R/blocky)
 
-## :zap:&nbsp; Network Attached Storage
+### Ingress Controller
 
-:construction: Work in Progress :construction:
+I have setup ingress controller for my internal traffic routes
 
 ---
 
