@@ -4,4 +4,3 @@ resources:
   - botkube
   - kube-prometheus-stack
   - loki
-  - grafana
