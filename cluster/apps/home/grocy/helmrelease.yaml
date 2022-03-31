@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: grocy
-      version: 6.4.0
+      version: 8.3.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -21,22 +21,23 @@ spec:
       repository: linuxserver/grocy
       tag: v3.0.1-ls100
     env:
-      TZ: "America/Santiago"
+      TZ: "America/Chicago"
     ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: "nginx"
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "food-variant"
-        hajimari.io/appName: "Grocy"
-      hosts:
-        - host: grocy.${SECRET_PRIVATE_DOMAIN}
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - grocy.${SECRET_PRIVATE_DOMAIN}
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "food-variant"
+          hajimari.io/appName: "Grocy"
+        hosts:
+          - host: grocy.${SECRET_PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - grocy.${SECRET_PRIVATE_DOMAIN}
     persistence:
       config:
         enabled: true
