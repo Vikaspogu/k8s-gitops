@@ -46,6 +46,10 @@ spec:
       conditional:
         mapping:
           ${SECRET_PRIVATE_DOMAIN}: udp:${LB_COREDNS}
+      customDNS:
+        customTTL: 1h
+        mapping:
+          vmware.vikaspogu.home: 192.168.20.100
       blocking:
         blackLists:
           ads:
