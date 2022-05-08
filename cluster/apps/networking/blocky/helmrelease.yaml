@@ -49,11 +49,11 @@ spec:
       customDNS:
         customTTL: 1h
         mapping:
-          rhv.ocp4.vikaspogu.io: 192.168.40.100
-          rhv-engine.ocp4.vikaspogu.io: 192.168.40.101
+          rhel.ocp4.vikaspogu.internal: 192.168.40.20
+          rhv-engine.ocp4.vikaspogu.internal: 192.168.40.21
           #reverse DNS lookup
-          100.40.168.192.in-addr.arpa: 192.168.40.100
-          101.40.168.192.in-addr.arpa: 192.168.40.101
+          20.40.168.192.in-addr.arpa: 192.168.40.20
+          21.40.168.192.in-addr.arpa: 192.168.40.21
       blocking:
         blackLists:
           ads:
