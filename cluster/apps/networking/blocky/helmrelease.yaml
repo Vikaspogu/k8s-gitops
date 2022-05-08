@@ -49,7 +49,7 @@ spec:
       customDNS:
         customTTL: 1h
         mapping:
-          rhel.ocp4.vikaspogu.internal: 192.168.40.20
+          rhel8-0.ocp4.vikaspogu.internal: 192.168.40.20
           rhv-engine.ocp4.vikaspogu.internal: 192.168.40.21
           #reverse DNS lookup
           20.40.168.192.in-addr.arpa: 192.168.40.20
