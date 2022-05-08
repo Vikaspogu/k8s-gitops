@@ -52,7 +52,7 @@ spec:
           rhv.ocp4.vikaspogu.io: 192.168.40.100
           rhv-engine.ocp4.vikaspogu.io: 192.168.40.101
           #reverse DNS lookup
-          40.168.192.in-addr.arpa: 192.168.40.101
+          40.168.192.in-addr.arpa: 192.168.40.100,192.168.40.101
       blocking:
         blackLists:
           ads:
