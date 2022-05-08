@@ -49,7 +49,7 @@ spec:
       customDNS:
         customTTL: 1h
         mapping:
-          rhv.ocp4.vikaspogu.io: 192.168.40.100:9090
+          rhv.ocp4.vikaspogu.io: 192.168.40.100
       blocking:
         blackLists:
           ads:
