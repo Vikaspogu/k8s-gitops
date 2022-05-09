@@ -49,9 +49,9 @@ spec:
       customDNS:
         customTTL: 1h
         mapping:
-          ${SECRET_RHEL_INTERNAL_DOMAIN}: ${RHEL8-0_IP}
+          ${SECRET_RHEL_INTERNAL_DOMAIN}: ${RHEL8_0_IP}
           #reverse DNS lookup
-          40.168.192.in-addr.arpa: ${RHEL8-0_IP}
+          40.168.192.in-addr.arpa: ${RHEL8_0_IP}
       blocking:
         blackLists:
           ads:
