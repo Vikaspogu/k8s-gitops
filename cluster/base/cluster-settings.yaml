@@ -24,3 +24,4 @@ data:
   LB_MOSQUITTO: 192.168.20.109
   GITHUB_REPO: https://github.com/vikaspogu/k8s-gitops
   GITHUB_BRANCH: main
+  RHEL8-0_IP: 192.168.40.20
