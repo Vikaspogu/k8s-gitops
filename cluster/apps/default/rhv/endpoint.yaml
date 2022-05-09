@@ -1,0 +1,11 @@
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: rhv-service
+  namespace: default
+subsets:
+  - addresses:
+      - ip: ${SECRET_RHV_ADDRESS}
+    ports:
+      - port: 8080

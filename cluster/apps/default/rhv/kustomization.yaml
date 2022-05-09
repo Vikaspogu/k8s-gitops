@@ -1,7 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - hajimari
-  - nas
-  - rhel8-0
-  - rhv
+  - service.yaml
+  - endpoint.yaml
+  - ingress.yaml

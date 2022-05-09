@@ -1,0 +1,10 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: rhel8-0-service
+  namespace: default
+spec:
+  ports:
+    - protocol: TCP
+      port: 9090

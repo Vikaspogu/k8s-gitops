@@ -1,0 +1,11 @@
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: rhel8-0-service
+  namespace: default
+subsets:
+  - addresses:
+      - ip: ${SECRET_RHEL8_0_ADDRESS}
+    ports:
+      - port: 9090
