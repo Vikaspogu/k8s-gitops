@@ -37,12 +37,10 @@ spec:
     # blocky configuration - will translate to config.yml file inside the pod
     config: |
       upstream:
-        externalResolvers:
-          - tcp+udp:8.8.8.8
-          - tcp+udp:8.8.4.4
-          - tcp+udp:1.1.1.1
-          - tcp-tls:1.0.0.1:853
-          - https://cloudflare-dns.com/dns-query
+        default:
+          - tcp+udp:192.168.1.1
+        *.${SECRET_INTERNAL_DOMAIN}:
+          - ${SECRET_NAS_ADDRESS}
       conditional:
         mapping:
           ${SECRET_PRIVATE_DOMAIN}: udp:${LB_COREDNS}
