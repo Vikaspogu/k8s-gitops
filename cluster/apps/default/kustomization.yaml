@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - hajimari
   - nas
-  - rhel8-0
   - rhv
