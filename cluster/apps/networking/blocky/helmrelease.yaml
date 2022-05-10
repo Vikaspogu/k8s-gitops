@@ -39,7 +39,7 @@ spec:
       upstream:
         default:
           - tcp+udp:192.168.1.1
-        *.${SECRET_INTERNAL_DOMAIN}:
+        *${SECRET_INTERNAL_DOMAIN}:
           - ${SECRET_NAS_ADDRESS}
       conditional:
         mapping:
