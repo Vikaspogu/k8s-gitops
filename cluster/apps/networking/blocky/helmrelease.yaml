@@ -46,13 +46,6 @@ spec:
       conditional:
         mapping:
           ${SECRET_PRIVATE_DOMAIN}: udp:${LB_COREDNS}
-      customDNS:
-        customTTL: 1h
-        mapping:
-          ${SECRET_RHEL_DOMAIN}: ${SECRET_RHEL8_0_ADDRESS}
-          ${SECRET_RHV_DOMAIN}: ${SECRET_RHV_ADDRESS}
-          #reverse DNS lookup
-          40.168.192.in-addr.arpa: ${SECRET_RHV_ADDRESS}
       blocking:
         blackLists:
           ads:
