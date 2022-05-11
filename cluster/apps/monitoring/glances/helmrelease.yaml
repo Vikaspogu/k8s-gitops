@@ -21,12 +21,16 @@ spec:
     controller:
       type: daemonset
       strategy: RollingUpdate
+    env:
+      GLANCES_OPT: "-w"
     image:
       repository: docker.io/nicolargo/glances
-      tag: latest-full
+      tag: alpine-latest
     service:
       main:
-        enabled: false
+        enabled: true
+        port: 61208
+        targetPort: 61208
     probes:
       liveness:
         enabled: false
