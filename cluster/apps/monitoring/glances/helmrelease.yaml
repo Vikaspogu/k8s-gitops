@@ -30,8 +30,8 @@ spec:
       main:
         enabled: true
         ports:
-          port: 61208
-          targetPort: 61208
+          port: "61208"
+          targetPort: "61208"
     probes:
       liveness:
         enabled: false
