@@ -23,7 +23,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: docker.io/nicolargo/glances
-      tag: latest
+      tag: latest-full
     service:
       main:
         enabled: false
