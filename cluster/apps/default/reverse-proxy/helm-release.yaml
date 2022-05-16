@@ -22,6 +22,29 @@ spec:
       secretName: "reverse-proxy-tls"
 
     instances:
+      - name: nas
+        enabled: true
+        test: false
+        ip: ${SECRET_NAS_ADDRESS}
+        # -- Port used by host behind this reverse proxy
+        port: 5050
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-production
+            external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+            external-dns/is-public: "true"
+            hajimari.io/appName: nas
+            hajimari.io/enable: "true"
+            hajimari.io/icon: storage
+            kubernetes.io/ingress.class: traefik
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          tls:
+            - hosts:
+                - nas.${SECRET_DOMAIN}
+              secretName: nas-tls
+          hosts:
+            - host: nas.${SECRET_DOMAIN}
+              path: /
       - name: rhel
         enabled: true
         test: false
