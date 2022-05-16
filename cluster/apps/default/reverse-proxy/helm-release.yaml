@@ -27,7 +27,7 @@ spec:
         test: false
         ip: ${SECRET_NAS_ADDRESS}
         # -- Port used by host behind this reverse proxy
-        port: 5050
+        port: 5000
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-production
