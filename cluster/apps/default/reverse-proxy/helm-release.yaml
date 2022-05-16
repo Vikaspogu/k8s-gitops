@@ -40,8 +40,8 @@ spec:
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
           tls:
             - hosts:
-                - rhel.${SECRET_DOMAIN}
-              secretName:
+                - rhel8.ocp4.${SECRET_DOMAIN}
+              secretName: rhel8-tls
           hosts:
-            - host: rhel.${SECRET_DOMAIN}
+            - host: rhel8.ocp4.${SECRET_DOMAIN}
               path: /
