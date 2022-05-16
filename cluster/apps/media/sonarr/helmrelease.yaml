@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: linuxserver/sonarr
-      tag: develop-version-3.0.8.1519
+      tag: develop-version-3.0.8.1520
       pullPolicy: IfNotPresent
     env:
       PUID: "1001"
