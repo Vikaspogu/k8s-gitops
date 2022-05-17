@@ -54,7 +54,7 @@ spec:
       #   port: 9090
       #   ingress:
       #     annotations:
-      #       cert-manager.io/cluster-issuer: letsencrypt-production
+      #       cert-manager.io/cluster-issuer: letsencrypt-staging
       #       external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
       #       external-dns/is-public: "true"
       #       hajimari.io/appName: RHEL8-0
@@ -64,10 +64,10 @@ spec:
       #       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       #     tls:
       #       - hosts:
-      #           - rhel8-0.ocp4.${SECRET_DOMAIN}
+      #           - rhel8-0.${SECRET_OCP4_DOMAIN}
       #         secretName: rhel8-0-tls
       #     hosts:
-      #       - host: rhel8-0.ocp4.${SECRET_DOMAIN}
+      #       - host: rhel8-0.${SECRET_OCP4_DOMAIN}
       #         path: /
 
       # - name: rhv
@@ -78,7 +78,7 @@ spec:
       #   port: 8443
       #   ingress:
       #     annotations:
-      #       cert-manager.io/cluster-issuer: letsencrypt-production
+      #       cert-manager.io/cluster-issuer: letsencrypt-staging
       #       external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
       #       external-dns/is-public: "true"
       #       hajimari.io/appName: RHV
@@ -88,8 +88,8 @@ spec:
       #       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       #     tls:
       #       - hosts:
-      #           - rhv.ocp4.${SECRET_DOMAIN}
+      #           - rhv.${SECRET_OCP4_DOMAIN}
       #         secretName: rhv-tls
       #     hosts:
-      #       - host: rhv.ocp4.${SECRET_DOMAIN}
+      #       - host: rhv.${SECRET_OCP4_DOMAIN}
       #         path: /
