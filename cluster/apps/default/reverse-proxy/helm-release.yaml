@@ -46,50 +46,50 @@ spec:
             - host: nas.${SECRET_DOMAIN}
               path: /
 
-      - name: rhel8-0
-        enabled: true
-        test: false
-        ip: ${SECRET_RHEL8_0_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 9090
-        ingress:
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-staging
-            external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_OCP4_DOMAIN}
-            external-dns/is-public: "true"
-            hajimari.io/appName: RHEL8-0
-            hajimari.io/enable: "true"
-            hajimari.io/icon: server
-            kubernetes.io/ingress.class: traefik
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          tls:
-            - hosts:
-                - rhel8-0.${SECRET_OCP4_DOMAIN}
-              secretName: rhel8-0-tls
-          hosts:
-            - host: rhel8-0.${SECRET_OCP4_DOMAIN}
-              path: /
+      # - name: rhel8-0
+      #   enabled: true
+      #   test: false
+      #   ip: ${SECRET_RHEL8_0_ADDRESS}
+      #   # -- Port used by host behind this reverse proxy
+      #   port: 9090
+      #   ingress:
+      #     annotations:
+      #       cert-manager.io/cluster-issuer: letsencrypt-staging
+      #       external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_OCP4_DOMAIN}
+      #       external-dns/is-public: "true"
+      #       hajimari.io/appName: RHEL8-0
+      #       hajimari.io/enable: "true"
+      #       hajimari.io/icon: server
+      #       kubernetes.io/ingress.class: traefik
+      #       traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      #     tls:
+      #       - hosts:
+      #           - rhel8-0.${SECRET_OCP4_DOMAIN}
+      #         secretName: rhel8-0-tls
+      #     hosts:
+      #       - host: rhel8-0.${SECRET_OCP4_DOMAIN}
+      #         path: /
 
-      - name: rhv
-        enabled: true
-        test: false
-        ip: ${SECRET_RHV_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 8443
-        ingress:
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-staging
-            external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_OCP4_DOMAIN}
-            external-dns/is-public: "true"
-            hajimari.io/appName: RHV
-            hajimari.io/enable: "true"
-            hajimari.io/icon: server
-            kubernetes.io/ingress.class: traefik
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          tls:
-            - hosts:
-                - rhv.${SECRET_OCP4_DOMAIN}
-              secretName: rhv-tls
-          hosts:
-            - host: rhv.${SECRET_OCP4_DOMAIN}
-              path: /
+      # - name: rhv
+      #   enabled: true
+      #   test: false
+      #   ip: ${SECRET_RHV_ADDRESS}
+      #   # -- Port used by host behind this reverse proxy
+      #   port: 8443
+      #   ingress:
+      #     annotations:
+      #       cert-manager.io/cluster-issuer: letsencrypt-staging
+      #       external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_OCP4_DOMAIN}
+      #       external-dns/is-public: "true"
+      #       hajimari.io/appName: RHV
+      #       hajimari.io/enable: "true"
+      #       hajimari.io/icon: server
+      #       kubernetes.io/ingress.class: traefik
+      #       traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      #     tls:
+      #       - hosts:
+      #           - rhv.${SECRET_OCP4_DOMAIN}
+      #         secretName: rhv-tls
+      #     hosts:
+      #       - host: rhv.${SECRET_OCP4_DOMAIN}
+      #         path: /
