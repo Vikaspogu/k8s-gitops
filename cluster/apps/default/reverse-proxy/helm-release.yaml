@@ -59,7 +59,7 @@ spec:
             hajimari.io/enable: "true"
             hajimari.io/icon: server
             kubernetes.io/ingress.class: traefik
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.entrypoints: rhel
           tls:
             - hosts:
                 - rhel8-0.${SECRET_XYZ_DOMAIN}
