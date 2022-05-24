@@ -46,27 +46,27 @@ spec:
             - host: nas.${SECRET_DOMAIN}
               path: /
 
-      # - name: rhel8-0
-      #   enabled: true
-      #   test: false
-      #   ip: ${SECRET_RHEL8_0_ADDRESS}
-      #   # -- Port used by host behind this reverse proxy
-      #   port: 9090
-      #   ingress:
-      #     annotations:
-      #       cert-manager.io/cluster-issuer: letsencrypt-production-xyz
-      #       hajimari.io/appName: RHEL8-0
-      #       hajimari.io/enable: "true"
-      #       hajimari.io/icon: server
-      #       kubernetes.io/ingress.class: traefik
-      #       traefik.ingress.kubernetes.io/router.entrypoints: rhel
-      #     tls:
-      #       - hosts:
-      #           - rhel8-0.${SECRET_XYZ_DOMAIN}
-      #         secretName: rhel8-0-xyz-tls
-      #     hosts:
-      #       - host: rhel8-0.${SECRET_XYZ_DOMAIN}
-      #         path: /
+      - name: rhel8-0
+        enabled: true
+        test: false
+        ip: ${SECRET_RHEL8_0_ADDRESS}
+        # -- Port used by host behind this reverse proxy
+        port: 9090
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-production-xyz
+            hajimari.io/appName: RHEL8-0
+            hajimari.io/enable: "true"
+            hajimari.io/icon: server
+            kubernetes.io/ingress.class: traefik
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure,rhel
+          tls:
+            - hosts:
+                - rhel8-0.${SECRET_XYZ_DOMAIN}
+              secretName: rhel8-0-xyz-tls
+          hosts:
+            - host: rhel8-0.${SECRET_XYZ_DOMAIN}
+              path: /
 
       # - name: rhv
       #   enabled: true
