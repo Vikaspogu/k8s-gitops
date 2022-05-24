@@ -40,8 +40,6 @@ spec:
         default:
           - tcp+udp:192.168.1.1
       conditional:
-        rewrite:
-          ${SECRET_XYZ_DOMAIN}: ${SECRET_XYZ_INTERNAL_DOMAIN}
         mapping:
           ${SECRET_PRIVATE_DOMAIN}: udp:${LB_COREDNS}
           ${SECRET_XYZ_INTERNAL_DOMAIN}: ${SECRET_NAS_ADDRESS}
