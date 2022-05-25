@@ -100,11 +100,29 @@ resource "cloudflare_record" "root" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "hajimari" {
-  name    = "hajimari"
+resource "cloudflare_record" "cname_1" {
+  name    = data.sops_file.cloudflare_secrets.data["sendgrid_cname_1"]
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
-  value   = "ipv4.${data.sops_file.cloudflare_secrets.data["cloudflare_domain"]}"
-  proxied = true
+  value   = data.sops_file.cloudflare_secrets.data["sendgrid_value_1"]
+  proxied = false
+  type    = "CNAME"
+  ttl     = 1
+}
+
+resource "cloudflare_record" "cname_2" {
+  name    = data.sops_file.cloudflare_secrets.data["sendgrid_cname_2"]
+  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  value   = data.sops_file.cloudflare_secrets.data["sendgrid_value_2"]
+  proxied = false
+  type    = "CNAME"
+  ttl     = 1
+}
+
+resource "cloudflare_record" "cname_3" {
+  name    = data.sops_file.cloudflare_secrets.data["sendgrid_cname_3"]
+  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  value   = data.sops_file.cloudflare_secrets.data["sendgrid_value_3"]
+  proxied = false
   type    = "CNAME"
   ttl     = 1
 }
