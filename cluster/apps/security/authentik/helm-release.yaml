@@ -40,7 +40,7 @@ spec:
         password: "${SECRET_SENDGRID_API_KEY}"
         from: "no-reply@${SECRET_DOMAIN}"
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: "traefik"
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
