@@ -31,6 +31,7 @@ spec:
           - media
           - monitoring
           - networking
+          - security
           - rook-ceph
       name: "pogu"
       groups:
