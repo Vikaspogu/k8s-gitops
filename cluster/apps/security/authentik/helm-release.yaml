@@ -57,7 +57,8 @@ spec:
             - path: "/"
               pathType: Prefix
       tls:
-        - hosts:
+        - secretName: authentik-tls-secret
+          hosts:
             - "id.${SECRET_DOMAIN}"
     postgresql:
       enabled: true

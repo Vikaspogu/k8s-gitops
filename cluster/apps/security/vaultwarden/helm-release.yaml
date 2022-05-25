@@ -61,7 +61,8 @@ spec:
                 pathType: Prefix
                 servicePort: 3012
         tls:
-          - hosts:
+          - secretName: authentik-tls-secret
+            hosts:
               - "warden.${SECRET_DOMAIN}"
     persistence:
       config:
