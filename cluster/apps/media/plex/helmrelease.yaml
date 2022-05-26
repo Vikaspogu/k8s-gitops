@@ -35,6 +35,7 @@ spec:
           hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Plex"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "security-authelia-auth@kubernetescrd"
         hosts:
           - host: "plex-server.${SECRET_DOMAIN}"
             paths:

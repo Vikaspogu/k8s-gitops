@@ -36,6 +36,7 @@ spec:
           hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Overseerr"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "security-authelia-auth@kubernetescrd"
         hosts:
           - host: "overseerr.${SECRET_DOMAIN}"
             paths:
