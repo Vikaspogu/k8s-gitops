@@ -139,7 +139,7 @@ spec:
     secret:
       storage:
         key: STORAGE_PASSWORD
-        value: "${SECRET_POSTGRESQL_PASSWORD}"
+        value: "${SECRET_AUTHELIA_POSTGRES_PASSWORD}"
         filename: STORAGE_PASSWORD
       jwt:
         key: JWT_TOKEN
