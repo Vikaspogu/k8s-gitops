@@ -45,7 +45,7 @@ spec:
               - "authelia.${SECRET_DOMAIN}"
     pod:
       # Must be Deployment, DaemonSet, or StatefulSet.
-      kind: DaemonSet
+      kind: Deployment
       env:
         - name: TZ
           value: America/Chicago
@@ -139,7 +139,7 @@ spec:
     secret:
       storage:
         key: STORAGE_PASSWORD
-        value: "${SECRET_AUTHELIA_POSTGRES_PASSWORD}"
+        value: "${SECRET_POSTGRESQL_PASSWORD}"
         filename: STORAGE_PASSWORD
       jwt:
         key: JWT_TOKEN
@@ -147,7 +147,7 @@ spec:
         filename: JWT_TOKEN
       redis:
         key: REDIS_PASSWORD
-        value: "${SECRET_AUTHELIA_REDIS_PASSWORD}"
+        value: "${SECRET_REDIS_PASSWORD}"
         filename: REDIS_PASSWORD
       smtp:
         key: SMTP_PASSWORD
