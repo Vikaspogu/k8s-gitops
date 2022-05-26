@@ -50,8 +50,8 @@ spec:
             auth:
               nameOverride: authelia-chain
     pod:
-      # Must be Deployment, DaemonSet, or StatefulSet.
       kind: Deployment
+      replicas: 3
       env:
         - name: TZ
           value: America/Chicago
@@ -103,15 +103,8 @@ spec:
         rules:
           # bypass Authelia WAN + LAN
           - domain:
-              - login.${SECRET_DOMAIN}
+              - auth.${SECRET_DOMAIN}
             policy: bypass
-          # Deny admin services to users
-          - domain:
-              - alert-manager.${SECRET_DOMAIN}
-              - prometheus.${SECRET_DOMAIN}
-              - thanos.${SECRET_DOMAIN}
-            subject: ["group:users"]
-            policy: deny
           # One factor auth for LAN
           - domain:
               - "*.${SECRET_DOMAIN}"
