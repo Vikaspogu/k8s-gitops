@@ -4,6 +4,7 @@ resources:
   - argocd.yaml
   - calico-system.yaml
   - cert-manager.yaml
+  - data.yaml
   - downloads.yaml
   - home.yaml
   - media.yaml

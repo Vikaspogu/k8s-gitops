@@ -5,6 +5,7 @@ resources:
   - argocd
   - calico-system
   - cert-manager
+  - data
   - default
   - downloads
   - flux-system
