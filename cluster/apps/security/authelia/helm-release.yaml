@@ -126,7 +126,7 @@ spec:
       storage:
         postgres:
           enabled: true
-          host: postgresql.data.svc.cluster.local
+          host: postgresql-kube.data.svc.cluster.local
       notifier:
         smtp:
           enabled: true
