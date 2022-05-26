@@ -35,6 +35,20 @@ spec:
       tls:
         enabled: true
         secret: authelia-tls
+      traefikCRD:
+        enabled: true
+        disableIngressRoute: true
+        entryPoints:
+          - websecure
+        middlewares:
+          auth:
+            nameOverride: authelia-auth
+            authresponseHeaders:
+              - Remote-User
+              - Remote-Groups
+          chains:
+            auth:
+              nameOverride: authelia-chain
     pod:
       # Must be Deployment, DaemonSet, or StatefulSet.
       kind: Deployment
