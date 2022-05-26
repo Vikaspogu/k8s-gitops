@@ -22,9 +22,11 @@ spec:
       repository: bitnami/postgresql
       tag: 14.3.0
       pullPolicy: IfNotPresent
-    auth:
-      enablePostgresUser: true
-      postgresPassword: ${SECRET_POSTGRESQL_PASSWORD}
+    global:
+      postgresql:
+        auth:
+          enablePostgresUser: true
+          postgresPassword: ${SECRET_POSTGRESQL_PASSWORD}
     primary:
       persistence:
         enabled: true
