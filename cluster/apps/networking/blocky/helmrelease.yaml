@@ -49,6 +49,7 @@ spec:
       conditional:
         mapping:
           ${SECRET_PRIVATE_DOMAIN}: udp:${LB_K8S_GATEWAY}
+          ${SECRET_DOMAIN}: udp:${LB_K8S_GATEWAY}
       blocking:
         blackLists:
           ads:
