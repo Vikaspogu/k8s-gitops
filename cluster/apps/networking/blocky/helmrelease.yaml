@@ -48,7 +48,7 @@ spec:
           apps.${SECRET_OCP4_DOMAIN}: ${SECRET_OCP4_APP_ADDRESS}
       conditional:
         mapping:
-          ${SECRET_PRIVATE_DOMAIN}: udp:${LB_COREDNS}
+          ${SECRET_PRIVATE_DOMAIN}: udp:${LB_K8S_GATEWAY}
       blocking:
         blackLists:
           ads:
