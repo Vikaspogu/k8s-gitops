@@ -108,6 +108,7 @@ spec:
           # One factor auth for LAN
           - domain:
               - "*.${SECRET_DOMAIN}"
+              - "*.${SECRET_XYZ_DOMAIN}"
             policy: one_factor
             subject: ["group:admins", "group:users"]
             networks:
@@ -115,6 +116,7 @@ spec:
           # Two factors auth for WAN
           - domain:
               - "*.${SECRET_DOMAIN}"
+              - "*.${SECRET_XYZ_DOMAIN}"
             subject: ["group:admins", "group:users"]
             policy: two_factor
       session:
