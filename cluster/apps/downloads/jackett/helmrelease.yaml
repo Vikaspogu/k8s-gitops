@@ -25,7 +25,7 @@ spec:
       setGateway: "true"
     hostname: jackett
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
     ingress:
       main:
         enabled: true

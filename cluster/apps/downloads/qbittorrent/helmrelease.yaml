@@ -25,7 +25,7 @@ spec:
       setGateway: "true"
     hostname: qbittorrent
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
     service:
       main:
         ports:

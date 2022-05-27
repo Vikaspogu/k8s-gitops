@@ -20,7 +20,7 @@ spec:
       replicaCount: 1
       extraEnvs:
         - name: TZ
-          value: America/Chicago
+          value: ${TIMEZONE}
       service:
         type: LoadBalancer
         loadBalancerIP: ${LB_NGINX}

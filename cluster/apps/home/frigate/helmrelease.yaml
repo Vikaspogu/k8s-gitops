@@ -23,7 +23,7 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate"
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
     coral:
       enabled: true
     config: |

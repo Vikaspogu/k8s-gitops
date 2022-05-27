@@ -21,7 +21,7 @@ spec:
       repository: teslamate/teslamate
       tag: 1.26.1
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
       DATABASE_USER: ${SECRET_TESLAMATE_DB}
       DATABASE_NAME: ${SECRET_TESLAMATE_DB}
       DATABASE_HOST: ${SECRET_TESLAMATE_DB}-postgresql

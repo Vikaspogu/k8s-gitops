@@ -24,7 +24,7 @@ spec:
     env:
       PUID: "1001"
       PGID: "1001"
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
     ingress:
       main:
         enabled: true

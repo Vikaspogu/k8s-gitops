@@ -23,7 +23,7 @@ spec:
       tag: v1.0.4
       pullPolicy: IfNotPresent
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
     ingress:
       main:
         enabled: true

@@ -22,7 +22,7 @@ spec:
       tag: 1.26.2.5797-5bd057d2b
     env:
       ADVERTISE_IP: "http://${LB_PLEX}:32400"
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
     ingress:
       main:
         enabled: true

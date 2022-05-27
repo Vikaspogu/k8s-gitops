@@ -5,4 +5,5 @@ resources:
   - coredns
   - external-dns
   - ingress-nginx
+  - k8s-gateway
   - traefik

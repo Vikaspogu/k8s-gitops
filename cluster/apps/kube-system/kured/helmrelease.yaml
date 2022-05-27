@@ -22,7 +22,7 @@ spec:
       tag: 1.9.2
     updateStrategy: RollingUpdate
     configuration:
-      timeZone: "America/Chicago"
+      timeZone: "${TIMEZONE}"
       startTime: "6:00"
       endTime: "13:00"
       notifyUrl: ${SECRET_KURED_DISCORD_WEBHOOK}

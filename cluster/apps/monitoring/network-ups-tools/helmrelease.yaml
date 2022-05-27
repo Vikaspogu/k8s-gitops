@@ -34,7 +34,7 @@ spec:
       replicas: 1
       strategy: RollingUpdate
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
     service:
       main:
         enabled: true

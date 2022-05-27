@@ -21,7 +21,7 @@ spec:
       repository: ghcr.io/0xerr0r/blocky
       tag: v0.18
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
     controller:
       enabled: true
       type: deployment
