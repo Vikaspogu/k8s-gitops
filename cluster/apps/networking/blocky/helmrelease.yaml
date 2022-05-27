@@ -43,6 +43,7 @@ spec:
         customTTL: 1h
         mapping:
           rhel8-0.${SECRET_XYZ_INTERNAL_DOMAIN}: ${SECRET_RHEL8_0_ADDRESS}
+          rhv.${SECRET_XYZ_DOMAIN}: ${SECRET_RHV_ADDRESS}
           api.${SECRET_OCP4_DOMAIN}: ${SECRET_OCP4_API_ADDRESS}
           apps.${SECRET_OCP4_DOMAIN}: ${SECRET_OCP4_APP_ADDRESS}
       conditional:
