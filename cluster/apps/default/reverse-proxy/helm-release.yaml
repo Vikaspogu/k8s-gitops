@@ -61,7 +61,6 @@ spec:
             hajimari.io/icon: server
             kubernetes.io/ingress.class: traefik
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
-            traefik.ingress.kubernetes.io/router.middlewares: "security-authelia-auth@kubernetescrd"
           tls:
             - hosts:
                 - rhel8-0.${SECRET_XYZ_DOMAIN}
@@ -84,7 +83,6 @@ spec:
             hajimari.io/icon: server
             kubernetes.io/ingress.class: traefik
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
-            traefik.ingress.kubernetes.io/router.middlewares: "security-authelia-auth@kubernetescrd"
           tls:
             - hosts:
                 - rhv.${SECRET_XYZ_DOMAIN}
