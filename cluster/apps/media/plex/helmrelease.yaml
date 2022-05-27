@@ -88,12 +88,12 @@ spec:
             readOnly: true
         securityContext:
           runAsUser: 0
-    resources:
-      requests:
-        cpu: 2000m
-        memory: 12000Mi
-      limits:
-        memory: 24000Mi
+    # resources:
+    #   requests:
+    #     cpu: 2000m
+    #     memory: 12000Mi
+    #   limits:
+    #     memory: 24000Mi
     # affinity:
     #   nodeAffinity:
     #     requiredDuringSchedulingIgnoredDuringExecution:
