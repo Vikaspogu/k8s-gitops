@@ -47,46 +47,24 @@ spec:
             - host: nas.${SECRET_DOMAIN}
               path: /
 
-      - name: rhel8-0
+      - name: proxmox
         enabled: true
         test: false
-        ip: ${SECRET_RHEL8_0_ADDRESS}
+        ip: ${SECRET_PROXMOX_ADDRESS}
         # -- Port used by host behind this reverse proxy
-        port: 9090
+        port: 8006
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-production-xyz
-            hajimari.io/appName: RHEL8-0
+            hajimari.io/appName: Proxmox
             hajimari.io/enable: "true"
             hajimari.io/icon: server
             kubernetes.io/ingress.class: traefik
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
           tls:
             - hosts:
-                - rhel8-0.${SECRET_XYZ_DOMAIN}
-              secretName: rhel8-0-xyz-tls
+                - proxmox.${SECRET_XYZ_DOMAIN}
+              secretName: proxmox.tls
           hosts:
-            - host: rhel8-0.${SECRET_XYZ_DOMAIN}
-              path: /
-
-      - name: rhv
-        enabled: true
-        test: false
-        ip: ${SECRET_RHV_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 443
-        ingress:
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-production-xyz
-            hajimari.io/appName: RHV
-            hajimari.io/enable: "true"
-            hajimari.io/icon: server
-            kubernetes.io/ingress.class: traefik
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          tls:
-            - hosts:
-                - rhv.${SECRET_XYZ_DOMAIN}
-              secretName: rhv-xyz-tls
-          hosts:
-            - host: rhv.${SECRET_XYZ_DOMAIN}
+            - host: proxmox.${SECRET_XYZ_DOMAIN}
               path: /
