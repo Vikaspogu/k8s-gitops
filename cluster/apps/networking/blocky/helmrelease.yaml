@@ -26,13 +26,9 @@ spec:
       enabled: true
       type: deployment
       strategy: RollingUpdate
-      replicas: 2
-    metrics:
-      enabled: true
+      replicas: 3
+    prometheus:
       serviceMonitor:
-        interval: 30s
-        scrapeTimeout: 10s
-      prometheusRule:
         enabled: true
     # blocky configuration - will translate to config.yml file inside the pod
     config: |
@@ -93,9 +89,7 @@ spec:
       prometheus:
         enable: true
         path: /metrics
-      bootstrapDns: tcp:1.1.1.1
       httpPort: 4000
-      logFormat: json
       logLevel: info
     # Probes configuration
     service:
