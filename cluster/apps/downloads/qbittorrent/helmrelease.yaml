@@ -35,6 +35,8 @@ spec:
       tag: v4.4.3.1
     podAnnotations:
       setGateway: "true"
+    settings:
+      automaticPortSetup: false
     hostname: qbittorrent
     env:
       TZ: "${TIMEZONE}"
@@ -45,6 +47,8 @@ spec:
             port: 8080
       bittorrent:
         enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${LB_QBITTORRENT}
         ports:
           bittorrent:
             enabled: true
@@ -99,6 +103,32 @@ spec:
         cpu: 500m
       limits:
         memory: 6000Mi
+
+    additionalContainers:
+      vuetorrent:
+        name: vuetorrent
+        image: k8s.gcr.io/git-sync/git-sync:v3.5.0
+        args:
+          - --repo
+          - https://github.com/WDaan/VueTorrent
+          - --branch
+          - latest-release
+          - --root
+          - /config
+          - --wait
+          - "86400"
+        volumeMounts:
+          - name: config
+            mountPath: /config
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+
+    # To give vuetorrent time to download
+    startupProbe:
+      enabled: true
+      failureThreshold: 30
+      periodSeconds: 10
 
     metrics:
       enabled: true
