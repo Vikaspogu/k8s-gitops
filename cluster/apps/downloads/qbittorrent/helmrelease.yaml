@@ -19,11 +19,16 @@ spec:
       interval: 5m
   install:
     createNamespace: true
-    remediation:
+    remediation: # perform remediation when helm install fails
       retries: 3
   upgrade:
-    remediation:
+    remediation: # perform remediation when helm upgrade fails
       retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  dependsOn:
+    - name: downloads-gateway
+      namespace: vpn
   values:
     image:
       repository: ghcr.io/k8s-at-home/qbittorrent
@@ -87,32 +92,22 @@ spec:
             path: "/volume1/media"
         mountPath: /nfs-nas-pvc
         readOnly: false
+
     resources:
       requests:
         memory: 250Mi
         cpu: 500m
       limits:
         memory: 6000Mi
-    prometheus:
-      podMonitor:
+
+    metrics:
+      enabled: true
+      exporter:
+        image:
+          repository: ghcr.io/k8s-at-home/prometheus-qbittorrent-exporter
+          tag: v1.2.0
+      serviceMonitor:
+        interval: 1m
+        scrapeTimeout: 10s
+      prometheusRule:
         enabled: true
-        interval: 10m
-        scrapeTimeout: 2m
-    additionalContainers:
-      - name: exporter
-        image: esanchezm/prometheus-qbittorrent-exporter:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: QBITTORRENT_HOST
-            value: "http://localhost"
-          - name: QBITTORRENT_PORT
-            value: "8080"
-          - name: EXPORTER_PORT
-            value: "9022"
-          - name: EXPORTER_LOG_LEVEL
-            value: "INFO"
-          - name: METRICS_PREFIX
-            value: "qbittorrent"
-        ports:
-          - name: metrics
-            containerPort: 9022
