@@ -44,7 +44,6 @@ spec:
         mapping:
           ${SECRET_PRIVATE_DOMAIN}: ${LB_K8S_GATEWAY}
           ${SECRET_DOMAIN}: ${LB_K8S_GATEWAY}
-          ${SECRET_XYZ_DOMAIN}: ${LB_K8S_GATEWAY}
       blocking:
         blackLists:
           ads:
