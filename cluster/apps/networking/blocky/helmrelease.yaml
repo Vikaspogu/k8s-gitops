@@ -26,7 +26,21 @@ spec:
       enabled: true
       type: deployment
       strategy: RollingUpdate
-      replicas: 3
+      replicas: 2
+    autoscaling:
+      enabled: true
+      target: blocky
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPUUtilizationPercentage: 80
+      targetMemoryUtilizationPercentage: 80
+    metrics:
+      enabled: true
+      serviceMonitor:
+        interval: 30s
+        scrapeTimeout: 10s
+      prometheusRule:
+        enabled: true
     prometheus:
       serviceMonitor:
         enabled: true
