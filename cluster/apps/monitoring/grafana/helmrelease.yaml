@@ -93,10 +93,6 @@ spec:
             url: http://prometheus-operated:9090
             access: proxy
             isDefault: true
-          - name: influxdb
-            type: influxdb
-            access: proxy
-            url: http://influxdb.data.svc.cluster.local:8086
           - name: TeslaMate
             type: postgres
             access: proxy
@@ -158,10 +154,6 @@ spec:
           gnetId: 11312
           revision: 8
           datasource: Prometheus
-        proxmox:
-          gnetId: 10048
-          revision: 1
-          datasource: influxdb
       teslamate:
         charge-level:
           url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.26.1/grafana/dashboards/charge-level.json
