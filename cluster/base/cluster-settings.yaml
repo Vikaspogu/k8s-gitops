@@ -23,6 +23,7 @@ data:
   LB_NGINX: 192.168.20.108
   LB_MOSQUITTO: 192.168.20.109
   LB_K8S_GATEWAY: 192.168.20.110
+  LB_INFLUXDB: 192.168.20.111
   GITHUB_REPO: https://github.com/vikaspogu/k8s-gitops
   GITHUB_BRANCH: main
   TIMEZONE: America/Chicago
