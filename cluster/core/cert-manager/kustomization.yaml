@@ -4,5 +4,4 @@ resources:
   - helm-release.yaml
   - letsencrypt-production.yaml
   - letsencrypt-staging.yaml
-  - letsencrypt-production-xyz.yaml
   - secret.sops.yaml

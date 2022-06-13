@@ -46,25 +46,3 @@ spec:
           hosts:
             - host: nas.${SECRET_DOMAIN}
               path: /
-
-      - name: proxmox
-        enabled: true
-        test: false
-        ip: ${SECRET_PROXMOX_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 8006
-        ingress:
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-production-xyz
-            hajimari.io/appName: Proxmox
-            hajimari.io/enable: "true"
-            hajimari.io/icon: server
-            kubernetes.io/ingress.class: traefik
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          tls:
-            - hosts:
-                - proxmox.${SECRET_XYZ_DOMAIN}
-              secretName: proxmox.tls
-          hosts:
-            - host: proxmox.${SECRET_XYZ_DOMAIN}
-              path: /
