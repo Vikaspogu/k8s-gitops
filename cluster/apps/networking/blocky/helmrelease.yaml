@@ -27,6 +27,10 @@ spec:
       type: deployment
       strategy: RollingUpdate
       replicas: 2
+    metrics:
+      enabled: true
+      prometheusRule:
+        enabled: true
     # blocky configuration - will translate to config.yml file inside the pod
     config: |
       upstream:
