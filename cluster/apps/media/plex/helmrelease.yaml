@@ -94,15 +94,15 @@ spec:
     #     memory: 12000Mi
     #   limits:
     #     memory: 24000Mi
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: feature.node.kubernetes.io/custom-plex
-                  operator: In
-                  values:
-                    - "true"
+    # affinity:
+    #   nodeAffinity:
+    #     requiredDuringSchedulingIgnoredDuringExecution:
+    #       nodeSelectorTerms:
+    #         - matchExpressions:
+    #             - key: feature.node.kubernetes.io/custom-plex
+    #               operator: In
+    #               values:
+    #                 - "true"
   valuesFrom:
     - kind: Secret
       name: "plex"
