@@ -37,7 +37,7 @@
             label: feature.node.kubernetes.io/custom-air-sensor=true,
           }
         - {
-            name: k8s-7-proxmox-node,
+            name: k8s-0-nuc-di5wyk,
             label: feature.node.kubernetes.io/custom-plex=true,
           }
 
