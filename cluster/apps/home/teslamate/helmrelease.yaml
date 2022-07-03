@@ -79,8 +79,7 @@ spec:
       auth:
         postgresPassword: ${SECRET_TESLAMATE_DB_PASSWORD}
         database: ${SECRET_TESLAMATE_DB}
-      postgresqlUsername: ${SECRET_TESLAMATE_DB}
-      postgresqlDatabase: ${SECRET_TESLAMATE_DB}
+        username: ${SECRET_TESLAMATE_DB}
       postgresqlDataDir: "/data/pgdata"
       persistence:
         enabled: true
