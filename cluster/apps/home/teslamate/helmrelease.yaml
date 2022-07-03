@@ -81,15 +81,15 @@ spec:
         database: ${SECRET_TESLAMATE_DB}
         username: ${SECRET_TESLAMATE_DB}
       postgresqlDataDir: "/data/pgdata"
-      persistence:
-        enabled: true
-        existingClaim: "data-teslamate-postgresql"
-        mountPath: "/data/"
       shmVolume:
         enabled: false
       volumePermissions:
         enabled: false
       primary:
+        persistence:
+          enabled: true
+          existingClaim: "data-teslamate-postgresql"
+          mountPath: "/data/"
         tolerations:
           - key: "arm"
             operator: "Exists"
