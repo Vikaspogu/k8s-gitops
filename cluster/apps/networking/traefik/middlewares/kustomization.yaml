@@ -6,3 +6,4 @@ resources:
   - internal-only.yaml
   - rfc1918.yaml
   - redirect-path.yaml
+  - http-https-redirectscheme.yaml
