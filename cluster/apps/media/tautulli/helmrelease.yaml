@@ -43,6 +43,9 @@ spec:
       config:
         enabled: true
         existingClaim: tautulli-config
+      backup:
+        enabled: true
+        existingClaim: tautulli-backup
     podSecurityContext:
       supplementalGroups:
         - 1000
