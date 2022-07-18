@@ -64,7 +64,7 @@ spec:
           privileged: true
         env:
           TZ: "${TIMEZONE}"
-          IPTABLES_BACKEND: nft
+          IPTABLES_BACKEND: legacy
           KILLSWITCH: "false"
         livenessProbe:
           exec:
@@ -175,7 +175,4 @@ spec:
                 - port: ${VPN_PORT}
                   protocol: UDP
             - to:
-                - ipBlock:
-                    cidr: 172.16.0.0/12
-                - ipBlock:
-                    cidr: ${NETWORK_K8S_SERVICE_CIDR}
+                - namespaceSelector: {}
