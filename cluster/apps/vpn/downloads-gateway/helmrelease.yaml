@@ -24,14 +24,14 @@ spec:
       - downloads
     publicPorts:
       - hostname: qbittorrent
-        IP: 2
+        IP: 10
         ports:
           - type: udp
             port: ${VPN_FORWARDED_PORT_1}
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
       - hostname: jackett
-        IP: 3
+        IP: 11
         ports:
           - type: udp
             port: ${VPN_FORWARDED_PORT_1}
@@ -40,7 +40,6 @@ spec:
     DNS: 172.16.1.1
     settings:
       VPN_INTERFACE: tun0
-      VXLAN_ID: 43
       VXLAN_IP_NETWORK: 172.16.1
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "${VPN_PORT}"
@@ -50,7 +49,7 @@ spec:
       image:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller
         tag: v3.5.0
-      gatewayDefault: true
+      gatewayDefault: false
       gatewayLabel: setGateway
       gatewayAnnotation: setGateway
     addons:
@@ -65,17 +64,8 @@ spec:
           privileged: true
         env:
           TZ: "${TIMEZONE}"
-          IPTABLES_BACKEND: legacy
+          IPTABLES_BACKEND: nft
           KILLSWITCH: "false"
-        livenessProbe:
-          exec:
-            command:
-              - sh
-              - -c
-              - if [ $(wget -q -O- https://ipinfo.io/country) == 'US' ]; then exit 0; else exit $?; fi
-          initialDelaySeconds: 30
-          periodSeconds: 60
-          failureThreshold: 1
         configFile: |-
           client
           dev tun
@@ -176,10 +166,4 @@ spec:
                 - port: ${VPN_PORT}
                   protocol: UDP
             - to:
-                - ipBlock:
-                    cidr: 172.16.0.0/12
-                - ipBlock:
-                    cidr: ${NETWORK_K8S_CLUSTER_CIDR}
-                - ipBlock:
-                    cidr: ${NETWORK_K8S_SERVICE_CIDR}
                 - namespaceSelector: {}
