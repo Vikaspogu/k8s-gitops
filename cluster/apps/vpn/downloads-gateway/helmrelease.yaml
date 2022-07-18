@@ -38,11 +38,12 @@ spec:
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
     settings:
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.16.0.0/12 172.22.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
       VPN_INTERFACE: tun0
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "${VPN_PORT}"
-      VPN_LOCAL_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
+      VXLAN_IP_NETWORK: "192.168.242.0/24"
+      VPN_LOCAL_CIDRS: "172.16.0.0/12 172.22.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
     webhook:
       image:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller
@@ -166,4 +167,10 @@ spec:
                 - port: ${VPN_PORT}
                   protocol: UDP
             - to:
+                - ipBlock:
+                    cidr: ${NETWORK_K8S_CLUSTER_CIDR}
+                - ipBlock:
+                    cidr: ${NETWORK_K8S_SERVICE_CIDR}
+                - ipBlock:
+                    cidr: ${NETWORK_CIDR_K8S_SERVICE_EXTERNAL}
                 - namespaceSelector: {}
