@@ -70,7 +70,7 @@ spec:
           client
           dev tun
           proto tcp
-          remote 185.203.219.100 443
+          remote 104.149.135.11 443
           resolv-retry infinite
           remote-random
           nobind
@@ -87,12 +87,14 @@ spec:
 
           remote-cert-tls server
 
+          #mute 10000
           auth-user-pass
           verb 3
           pull
           fast-io
           cipher AES-256-CBC
           auth SHA512
+
           <ca>
           -----BEGIN CERTIFICATE-----
           MIIFCjCCAvKgAwIBAgIBATANBgkqhkiG9w0BAQ0FADA5MQswCQYDVQQGEwJQQTEQ
