@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: pod-gateway
-      version: 5.5.1
+      version: 5.5.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -20,7 +20,6 @@ spec:
     image:
       repository: ghcr.io/k8s-at-home/pod-gateway
       tag: v1.6.0
-    DNS: 172.16.1.1
     routed_namespaces:
       - downloads
     publicPorts:
@@ -38,14 +37,14 @@ spec:
             port: ${VPN_FORWARDED_PORT_1}
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
+    DNS: 172.16.1.1
     settings:
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.16.0.0/12 172.22.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_MANAGEMENT_CIDR} ${NETWORK_SERVERS_CIDR}"
       VPN_INTERFACE: tun0
+      VXLAN_IP_NETWORK: 172.16.1
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "${VPN_PORT}"
-      VXLAN_IP_NETWORK: 172.16.1
-      VXLAN_GATEWAY_FIRST_DYNAMIC_IP: 20
-      VPN_LOCAL_CIDRS: "172.16.0.0/12 172.22.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_MANAGEMENT_CIDR} ${NETWORK_SERVERS_CIDR}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
+      VPN_LOCAL_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
     webhook:
       image:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller
@@ -60,18 +59,18 @@ spec:
         enabled: true
         type: openvpn
         openvpn:
-          image:
-            repository: dperson/openvpn-client
-            pullPolicy: Always
-            tag: latest
           authSecret: openvpn-auth
+        securityContext:
+          privileged: true
         env:
           TZ: "${TIMEZONE}"
+          IPTABLES_BACKEND: nft
+          KILLSWITCH: "false"
         configFile: |-
           client
           dev tun
           proto tcp
-          remote 104.149.135.11 443
+          remote 185.203.219.100 443
           resolv-retry infinite
           remote-random
           nobind
@@ -85,17 +84,13 @@ spec:
           ping-timer-rem
           reneg-sec 0
           comp-lzo no
-
           remote-cert-tls server
-
-          #mute 10000
           auth-user-pass
           verb 3
           pull
           fast-io
           cipher AES-256-CBC
           auth SHA512
-
           <ca>
           -----BEGIN CERTIFICATE-----
           MIIFCjCCAvKgAwIBAgIBATANBgkqhkiG9w0BAQ0FADA5MQswCQYDVQQGEwJQQTEQ
