@@ -24,14 +24,14 @@ spec:
       - downloads
     publicPorts:
       - hostname: qbittorrent
-        IP: 10
+        IP: 2
         ports:
           - type: udp
             port: ${VPN_FORWARDED_PORT_1}
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
       - hostname: jackett
-        IP: 11
+        IP: 3
         ports:
           - type: udp
             port: ${VPN_FORWARDED_PORT_1}
@@ -40,11 +40,12 @@ spec:
     DNS: 172.16.1.1
     settings:
       VPN_INTERFACE: tun0
+      VXLAN_ID: 43
       VXLAN_IP_NETWORK: 172.16.1
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "${VPN_PORT}"
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR} ${NETWORK_MANAGEMENT_CIDR}"
-      VPN_LOCAL_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR} ${NETWORK_MANAGEMENT_CIDR}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
+      VPN_LOCAL_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_POD_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_SERVERS_CIDR}"
     webhook:
       image:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller
@@ -175,6 +176,8 @@ spec:
                 - port: ${VPN_PORT}
                   protocol: UDP
             - to:
+                - ipBlock:
+                    cidr: 172.16.0.0/12
                 - ipBlock:
                     cidr: ${NETWORK_K8S_CLUSTER_CIDR}
                 - ipBlock:
