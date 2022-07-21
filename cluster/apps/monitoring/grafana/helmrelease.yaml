@@ -17,15 +17,12 @@ spec:
         namespace: flux-system
       interval: 5m
   install:
-    createNamespace: true
     remediation:
-      retries: 3
+      retries: 7
   upgrade:
     remediation:
-      retries: 3
+      retries: 7
   values:
-    deploymentStrategy:
-      type: Recreate
     replicas: 1
     admin:
       existingSecret: "grafana"
@@ -34,6 +31,8 @@ spec:
     env:
       GF_EXPLORE_ENABLED: true
       GF_PANELS_DISABLE_SANITIZE_HTML: true
+      GF_DISABLE_SANITIZE_HTML: true
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: "panodata-map-panel"
       GF_LOG_FILTERS: rendering:debug
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
@@ -44,6 +43,7 @@ spec:
       GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
       VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000"
+      DS_PROMETHEUS: "prometheus"
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
@@ -56,6 +56,8 @@ spec:
         check_for_updates: false
       log:
         mode: console
+      panels:
+        disable_sanitize_html: true
       grafana_net:
         url: https://grafana.net
       auth.basic:
@@ -70,6 +72,7 @@ spec:
             type: file
             disableDeletion: false
             editable: true
+            allowUiUpdates: true
             options:
               path: /var/lib/grafana/dashboards/default
           - name: "teslamate"
@@ -204,31 +207,41 @@ spec:
           url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.26.1/grafana/dashboards/internal/charge-details.json
         drive-details:
           url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.26.1/grafana/dashboards/internal/drive-details.json
+    imageRenderer:
+      enabled: true
     sidecar:
       dashboards:
         enabled: true
         searchNamespace: ALL
         folderAnnotation: grafana_folder
+        multicluster: true
         provider:
           foldersFromFilesStructure: true
+          allowUiUpdates: true
+          disableDelete: false
       datasources:
         enabled: true
         searchNamespace: ALL
+        label: grafana_datasource
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - grafana-piechart-panel
-      - grafana-clock-panel
       - vonage-status-panel
-      - https://github.com/panodata/grafana-map-panel/releases/download/0.15.0/grafana-map-panel-0.15.0.zip;grafana-worldmap-panel-ng
+      - grafana-worldmap-panel
+      - grafana-clock-panel
+      - grafana-singlestat-panel
+      - grafana-polystat-panel
+      - mxswat-separator-panel
+      - farski-blendstat-panel
     serviceMonitor:
-      enabled: true
+      enabled: false
     ingress:
       enabled: true
+      ingressClassName: "nginx"
       annotations:
-        kubernetes.io/ingress.class: "nginx"
         hajimari.io/enable: "true"
-        hajimari.io/icon: "server-network"
+        hajimari.io/icon: "chart-bar-stacked"
         hajimari.io/appName: "Grafana"
       hosts:
         - grafana.${SECRET_PRIVATE_DOMAIN}
@@ -239,7 +252,7 @@ spec:
       create: true
       autoMount: true
     persistence:
-      enabled: true
+      enabled: false
       storageClassName: "ceph-block"
       size: 10Gi
       accessModes:
