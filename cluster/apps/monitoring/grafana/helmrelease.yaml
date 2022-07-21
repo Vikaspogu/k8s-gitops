@@ -62,6 +62,9 @@ spec:
         url: https://grafana.net
       auth.basic:
         disable_login_form: false
+      date_formats:
+        use_browser_locale: true
+        default_timezone: browser
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -207,22 +210,19 @@ spec:
           url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.26.1/grafana/dashboards/internal/charge-details.json
         drive-details:
           url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.26.1/grafana/dashboards/internal/drive-details.json
-    imageRenderer:
-      enabled: true
     sidecar:
       dashboards:
         enabled: true
         searchNamespace: ALL
-        folderAnnotation: grafana_folder
-        multicluster: true
-        provider:
-          foldersFromFilesStructure: true
-          allowUiUpdates: true
-          disableDelete: false
+        # folderAnnotation: grafana_folder
+        # multicluster: true
+        # provider:
+        #   foldersFromFilesStructure: true
+        #   allowUiUpdates: true
+        #   disableDelete: false
       datasources:
         enabled: true
         searchNamespace: ALL
-        label: grafana_datasource
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
