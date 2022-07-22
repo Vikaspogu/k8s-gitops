@@ -27,6 +27,7 @@ spec:
           - argocd
           - downloads
           - default
+          - falco-system
           - home
           - media
           - monitoring
