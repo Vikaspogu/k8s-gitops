@@ -25,20 +25,20 @@ spec:
   values:
     # image:
     #   registry: public.ecr.aws
-    driver:
+    containerd:
       enabled: true
-      kind: ebpf
-      ebpf:
+      socket: /var/run/k3s/containerd/containerd.sock
+    docker:
+      enabled: false
+    ebpf:
+      enabled: true
+      settings:
         hostNetwork: true
-        leastPrivileged: true
-    collectors:
-      containerd:
+    falco:
+      grpc:
         enabled: true
-        socket: /var/run/k3s/containerd/containerd.sock
-      docker:
-        enabled: false
-      crio:
-        enabled: false
+      grpcOutput:
+        enabled: true
     falcosidekick:
       enabled: true
       config:
