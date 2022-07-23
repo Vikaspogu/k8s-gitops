@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: "linuxserver/radarr"
-      tag: "nightly-version-4.2.1.6446"
+      tag: "nightly-version-4.2.1.6448"
       pullPolicy: IfNotPresent
     env:
       PUID: "1001"
