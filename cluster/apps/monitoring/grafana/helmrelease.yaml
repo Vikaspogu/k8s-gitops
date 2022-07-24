@@ -128,10 +128,10 @@ spec:
           revision: 5
           datasource: Prometheus
         # # Ref: https://grafana.com/grafana/dashboards/15549
-        # node-problem-detector:
-        #   gnetId: 15549
-        #   revision: 1
-        #   datasource: Prometheus
+        node-problem-detector:
+          gnetId: 15549
+          revision: 1
+          datasource: Prometheus
         nginx-dashboard:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus
@@ -143,7 +143,7 @@ spec:
           datasource: Prometheus
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
-        #   datasource: Prometheus
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-client-insights:
           gnetId: 11315
