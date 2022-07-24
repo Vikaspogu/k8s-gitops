@@ -22,4 +22,4 @@ spec:
       serviceMonitor:
         enabled: true
     nodeSelector:
-      kubernetes.io/os: linux
+      kubernetes.io/arch: amd64
