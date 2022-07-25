@@ -29,7 +29,13 @@ spec:
       replicas: 2
     metrics:
       enabled: true
+      serviceMonitor:
+        interval: 30s
+        scrapeTimeout: 10s
       prometheusRule:
+        enabled: true
+    prometheus:
+      serviceMonitor:
         enabled: true
     # blocky configuration - will translate to config.yml file inside the pod
     config: |
