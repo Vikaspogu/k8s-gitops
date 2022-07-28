@@ -27,7 +27,7 @@ spec:
     alertmanager:
       config:
         global:
-          slack_api_url: "${SECRET_DISCORD_WEBHOOK}"
+          slack_api_url: "${SECRET_KURED_DISCORD_WEBHOOK}"
           resolve_timeout: 5m
         receivers:
           - name: "null"
@@ -59,7 +59,7 @@ spec:
                 alertname: Watchdog
             - receiver: "discord"
               match_re:
-                severity: critical
+                severity: critical|warning|error
               continue: true
         inhibit_rules:
           - source_match:
