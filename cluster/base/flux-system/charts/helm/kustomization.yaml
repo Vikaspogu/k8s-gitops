@@ -31,6 +31,7 @@ resources:
   - metrics-server-charts.yaml
   - prometheus-community-charts.yaml
   - rook-ceph-charts.yaml
+  - runix.yaml
   - stakater-charts.yaml
   - traefik-charts.yaml
   - vernemq-charts.yaml
