@@ -24,7 +24,7 @@ spec:
     env:
       url: "https://blog.${SECRET_DOMAIN}"
       database__client: mysql
-      database__connection__host: "mariadb.databases.svc.cluster.local"
+      database__connection__host: "mariadb.data.svc.cluster.local"
       database__connection__user: blog_ghost
       database__connection__password: ${SECRET_BLOG_DB_PASS}
       database__connection__database: blog_ghost
