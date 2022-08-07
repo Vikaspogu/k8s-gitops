@@ -82,6 +82,8 @@ spec:
             value: vikunja
           - name: VIKUNJA_DATABASE_PASSWORD
             value: ${SECRET_VIKUNJA_PASSWORD}
+          - name: VIKUNJA_SERVICE_ENABLEREGISTRATION
+            value: false
         volumeMounts:
           - name: files
             mountPath: /app/vikunja/files
