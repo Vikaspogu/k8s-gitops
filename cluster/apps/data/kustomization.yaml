@@ -5,4 +5,5 @@ resources:
   - pgadmin
   - postgresql-kube
   - redis
+  - vikunja
   - whoogle
