@@ -112,7 +112,7 @@ spec:
               sslmode: disable
           - name: InfluxDB
             type: influxdb
-            url: "http://influxdb-influxdb2.data:80"
+            url: "http://influxdb-influxdb2.data.svc.cluster.local:80"
             database: "proxmox"
             access: proxy
             jsonData:
