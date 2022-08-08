@@ -110,6 +110,13 @@ spec:
             jsonData:
               postgresVersion: 1000
               sslmode: disable
+          - name: InfluxDB
+            type: influxdb
+            url: "http://influxdb-influxdb2.data:80"
+            database: "proxmox"
+            access: proxy
+            jsonData:
+              httpMode: GET
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/2842
@@ -132,6 +139,11 @@ spec:
           gnetId: 15549
           revision: 1
           datasource: Prometheus
+        # # Ref: https://grafana.com/grafana/dashboards/10048
+        proxmox:
+          gnetId: 10048
+          revision: 8
+          datasource: InfluxDB
         nginx-dashboard:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus
