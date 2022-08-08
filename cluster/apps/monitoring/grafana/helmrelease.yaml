@@ -142,7 +142,11 @@ spec:
         # # Ref: https://grafana.com/grafana/dashboards/10048
         proxmox:
           gnetId: 10048
-          revision: 8
+          revision: 1
+          datasource: InfluxDB
+        proxmox-flux:
+          gnetId: 15356
+          revision: 13
           datasource: InfluxDB
         nginx-dashboard:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
