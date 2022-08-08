@@ -117,9 +117,12 @@ spec:
             user: admin
             secureJsonData:
               password: "${SECRET_ADMIN_INFLUXDB_PASS}"
+              httpHeaderValue1: 'TOKEN ${SECRET_INFLUXDB_TOKEN}'
             access: proxy
             jsonData:
+              httpHeaderName1: 'Authorization'
               httpMode: GET
+
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/2842
