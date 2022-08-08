@@ -114,10 +114,10 @@ spec:
             type: influxdb
             url: "http://influxdb-influxdb2.data.svc.cluster.local:80"
             database: "proxmox"
-            user: 09cb8d2a336fb000
+            user: admin
             secureJsonData:
               password: "${SECRET_ADMIN_INFLUXDB_PASS}"
-              httpHeaderValue1: 'TOKEN ${SECRET_INFLUXDB_TOKEN}'
+              httpHeaderValue1: 'Token ${SECRET_INFLUXDB_TOKEN}'
             access: proxy
             jsonData:
               httpHeaderName1: 'Authorization'
