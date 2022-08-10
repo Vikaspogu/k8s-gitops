@@ -35,10 +35,10 @@ spec:
 
     resources:
       limits:
-        memory: 128Mi
+        memory: 750Mi
       requests:
         cpu: 100m
-        memory: 128Mi
+        memory: 250Mi
 
     adminUser:
       organization: "homelab"
