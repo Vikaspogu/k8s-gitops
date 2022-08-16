@@ -54,14 +54,14 @@ spec:
       config:
         enabled: true
         existingClaim: readarr-config
-      media:
+      nfs-nas-media:
         enabled: true
         type: custom
         volumeSpec:
           nfs:
             server: "${SECRET_NAS_ADDRESS}"
             path: /volume1/media/Books
-        mountPath: /media
+        mountPath: /nfs-nas-media
     resources:
       requests:
         memory: 100Mi
