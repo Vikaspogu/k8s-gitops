@@ -54,7 +54,7 @@ spec:
       config:
         enabled: true
         existingClaim: readarr-config
-      nfs-nas-media:
+      media:
         enabled: true
         type: custom
         volumeSpec:
