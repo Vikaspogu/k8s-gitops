@@ -27,6 +27,8 @@ spec:
       remediateLastFailure: true
   values:
     prometheus:
+      serviceAccount: kube-prometheus-stack-prometheus
+      namespace: monitoring
       podMonitor:
         enabled: false
       prometheusRule:
@@ -37,3 +39,5 @@ spec:
           operator: "Exists"
         - effect: "NoSchedule"
           operator: "Exists"
+    crds:
+      enabled: true
