@@ -15,17 +15,9 @@ spec:
         kind: HelmRepository
         name: metallb-charts
         namespace: flux-system
-  install:
-    crds: CreateReplace
-    createNamespace: true
-    remediation:
-      retries: 5
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      retries: 5
-      remediateLastFailure: true
   values:
+    crds:
+      enabled: true
     prometheus:
       serviceAccount: kube-prometheus-stack-prometheus
       namespace: monitoring
@@ -38,4 +30,10 @@ spec:
         - effect: "NoExecute"
           operator: "Exists"
         - effect: "NoSchedule"
+          operator: "Exists"
+        - key: "arm"
+          operator: "Exists"
+        - key: "armhf"
+          operator: "Exists"
+        - key: "node-role.kubernetes.io/master"
           operator: "Exists"
