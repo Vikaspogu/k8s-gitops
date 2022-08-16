@@ -41,21 +41,13 @@ spec:
         tls:
           - hosts:
               - "readarr.${SECRET_PRIVATE_DOMAIN}"
-    podSecurityContext:
-      supplementalGroups:
-        - 100
+    # podSecurityContext:
+    #   supplementalGroups:
+    #     - 100
     persistence:
       config:
         enabled: true
         existingClaim: readarr-config
-      nfs-nas-pvc:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
-        mountPath: /nfs-nas-pvc
       media:
         enabled: true
         type: custom
