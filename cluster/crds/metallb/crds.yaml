@@ -4,11 +4,11 @@ kind: HelmRelease
 metadata:
   name: metallb-crds
 spec:
-  interval: 60m
+  interval: 5m
   chart:
     spec:
       chart: crds
       sourceRef:
         kind: HelmRepository
         name: metallb-charts
-        namespace: metallb-system
+        namespace: flux-system
