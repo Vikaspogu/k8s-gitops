@@ -13,6 +13,7 @@ resources:
   - home
   - kube-system
   - media
+  - metallb-system
   - monitoring
   - networking
   - rook-ceph
