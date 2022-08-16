@@ -22,6 +22,8 @@ spec:
   upgrade:
     remediation:
       retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
   dependsOn:
     - name: rook-ceph
       namespace: rook-ceph
