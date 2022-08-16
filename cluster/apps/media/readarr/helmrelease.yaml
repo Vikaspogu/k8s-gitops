@@ -16,10 +16,17 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     image:
       repository: ghcr.io/k8s-at-home/readarr-nightly
-      tag: v0.1.1.1409
+      tag: v0.1.1.1352
     env:
       TZ: "${TIMEZONE}"
     ingress:
@@ -41,14 +48,13 @@ spec:
         tls:
           - hosts:
               - "readarr.${SECRET_PRIVATE_DOMAIN}"
-    # podSecurityContext:
-    #   supplementalGroups:
-    #     - 100
+    podSecurityContext:
+      fsGroup: 568
     persistence:
       config:
         enabled: true
         existingClaim: readarr-config
-      media:
+      nfs-nas-media:
         enabled: true
         type: custom
         volumeSpec:
