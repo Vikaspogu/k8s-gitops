@@ -32,4 +32,6 @@ spec:
       ingress:
         - hostname: "*.${SECRET_DOMAIN}"
           service: https://traefik.networking
+          originRequest:
+            noTLSVerify: true
         - service: http_status:404

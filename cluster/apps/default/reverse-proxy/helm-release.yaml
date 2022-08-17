@@ -31,7 +31,7 @@ spec:
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-production
-            external-dns.alpha.kubernetes.io/target: "${SECRET_CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"
+            external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
             external-dns/is-public: "true"
             hajimari.io/appName: nas
             hajimari.io/enable: "true"
