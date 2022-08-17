@@ -28,6 +28,7 @@ spec:
   values:
     crds:
       enabled: false
+    disableAdmissionController: true
     csi:
       enableCephfsDriver: false
       enableCephfsSnapshotter: false
