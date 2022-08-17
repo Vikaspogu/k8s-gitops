@@ -38,3 +38,4 @@ resources:
   - vikaspogu-charts.yaml
   - vmware-tanzu-charts.yaml
   - weaveworks-kured-charts.yaml
+  - xunholy-charts.yaml
