@@ -1,3 +1,4 @@
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,7 +8,7 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
     cert-manager.io/cluster-issuer: "letsencrypt-production"
     external-dns/is-public: "true"
-    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/target: "${SECRET_CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"
 spec:
   rules:
     - host: "flux-receiver.${SECRET_DOMAIN}"
