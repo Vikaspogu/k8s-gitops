@@ -10,11 +10,21 @@ spec:
     spec:
       # renovate: registryUrl=https://infracloudio.github.io/charts
       chart: botkube
+      version: v0.12.4
       sourceRef:
         kind: HelmRepository
         name: infracloudio-charts
         namespace: flux-system
       interval: 5m
+  install:
+    createNamespace: true
+    remediation: # perform remediation when helm install fails
+      retries: 3
+  upgrade:
+    remediation: # perform remediation when helm upgrade fails
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
   values:
     serviceMonitor:
       enabled: true
@@ -50,64 +60,79 @@ spec:
                 "nodes",
               ]
       resources:
+        - name: v1/pods
+          namespaces:
+            include:
+              - all
+            ignore:
+              -
+          events:
+            - create
+            - delete
+            - error
+
         - name: v1/services
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
             - error
+
         - name: apps/v1/deployments
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - update
             - delete
             - error
           updateSetting:
-          includeDiff: true
-          fields:
-            - spec.template.spec.containers[*].image
-            - status.availableReplicas
+            includeDiff: true
+            fields:
+              - spec.template.spec.containers[*].image
+              - status.availableReplicas
+
         - name: apps/v1/statefulsets
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - update
             - delete
             - error
           updateSetting:
-          includeDiff: true
-          fields:
-            - spec.template.spec.containers[*].image
-            - status.readyReplicas
+            includeDiff: true
+            fields:
+              - spec.template.spec.containers[*].image
+              - status.readyReplicas
+
         - name: networking.k8s.io/v1beta1/ingresses
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
             - error
+
         - name: v1/nodes
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
@@ -117,91 +142,113 @@ spec:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
             - error
+
         - name: v1/persistentvolumes
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
             - error
+
         - name: v1/persistentvolumeclaims
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
             - error
+
         - name: v1/configmaps
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
             - error
+
         - name: apps/v1/daemonsets
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
+            - update
             - delete
             - error
+          updateSetting:
+            includeDiff: true
+            fields:
+              - spec.template.spec.containers[*].image
+              - status.numberReady
+
         - name: batch/v1/jobs
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
+            - create
             - update
+            - delete
             - error
+          updateSetting:
+            includeDiff: true
+            fields:
+              - spec.template.spec.containers[*].image
+              - status.conditions[*].type
+
+        - name: rbac.authorization.k8s.io/v1/roles
+          namespaces:
+            include:
+              - all
+            ignore:
+              -
+          events:
+            - create
+            - delete
+            - error
+
         - name: rbac.authorization.k8s.io/v1/rolebindings
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
             - error
+
         - name: rbac.authorization.k8s.io/v1/clusterrolebindings
           namespaces:
             include:
               - all
             ignore:
-              - rook-ceph
+              -
           events:
             - create
             - delete
             - error
+
         - name: rbac.authorization.k8s.io/v1/clusterroles
-          namespaces:
-            include:
-              - all
-            ignore:
-              - rook-ceph
-          events:
-            - create
-            - delete
-            - error
-        - name: v1/nodes
           namespaces:
             include:
               - all
@@ -221,6 +268,9 @@ spec:
       discord:
         enabled: true
         notiftype: short
+
+    extraAnnotations:
+      secret.reloader.stakater.com/reload: botkube
 
   valuesFrom:
     - kind: Secret
