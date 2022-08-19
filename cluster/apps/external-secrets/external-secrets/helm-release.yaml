@@ -19,9 +19,11 @@ spec:
   install:
     remediation:
       retries: 5
-    crds: CreateReplace
+    crds: Skip
     createNamespace: true
   upgrade:
     remediation:
       retries: 5
-    crds: CreateReplace
+    crds: Skip
+  values:
+    installCRDs: false
