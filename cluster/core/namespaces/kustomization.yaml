@@ -6,6 +6,7 @@ resources:
   - cert-manager.yaml
   - data.yaml
   - downloads.yaml
+  - external-secrets.yaml
   - falco-system.yaml
   - home.yaml
   - media.yaml

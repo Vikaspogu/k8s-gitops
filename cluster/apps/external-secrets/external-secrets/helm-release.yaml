@@ -1,0 +1,27 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-secrets
+  namespace: external-secrets
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.external-secrets.io
+      chart: external-secrets
+      version: 0.5.9
+      sourceRef:
+        kind: HelmRepository
+        name: external-secrets-charts
+        namespace: flux-system
+      interval: 5m
+  install:
+    remediation:
+      retries: 5
+    crds: CreateReplace
+    createNamespace: true
+  upgrade:
+    remediation:
+      retries: 5
+    crds: CreateReplace
