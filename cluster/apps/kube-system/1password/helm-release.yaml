@@ -16,6 +16,14 @@ spec:
         name: 1password-charts
         namespace: flux-system
       interval: 5m
+  install:
+    remediation:
+      retries: 5
+    crds: Skip
+  upgrade:
+    remediation:
+      retries: 5
+    crds: Skip
   values:
     namespace: kube-system
     connect:
