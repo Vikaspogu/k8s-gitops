@@ -8,9 +8,9 @@
 #   interval: 5m
 #   chart:
 #     spec:
-#       # renovate: registryUrl=https://raw.githubusercontent.com/1Password/connect-helm-charts/main
+#       # renovate: registryUrl=https://raw.githubusercontent.com/1Password/connect-helm-charts/
 #       chart: connect
-#       version: 1.0.1
+#       version: 1.8.1
 #       sourceRef:
 #         kind: HelmRepository
 #         name: 1password-charts
