@@ -19,11 +19,11 @@ spec:
   install:
     remediation:
       retries: 5
-    crds: Skip
+    crds: CreateReplace
   upgrade:
     remediation:
       retries: 5
-    crds: Skip
+    crds: CreateReplace
   values:
     namespace: kube-system
     connect:
