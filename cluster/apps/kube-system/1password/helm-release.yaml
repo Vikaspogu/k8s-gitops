@@ -25,14 +25,15 @@ spec:
       retries: 5
     crds: CreateReplace
   values:
-    namespace: kube-system
     connect:
       serviceType: ClusterIP
+      credentials_base64: ${SECRET_1PASSWORD_CONNECT_CREDENTIALS_B64}
       credentialsName: op-credentials
-      credentialsKey: 1password-credentials.json
+      credentialsKey: op-session
     operator:
       create: true
       autoRestart: true
       token:
-        name: op-credentials
+        name: onepassword-token
         key: token
+        value: ${SECRET_1PASSWORD_OPERATOR_TOKEN}
