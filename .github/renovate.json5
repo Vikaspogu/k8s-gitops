@@ -87,6 +87,15 @@
       ],
       datasourceTemplate: "github-releases",
     },
+    {
+      "description": "Process GitRepository CRD dependencies - Chart and Github Release are the same version",
+      "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
+      ],
+      "datasourceTemplate": "helm"
+    },
   ],
   packageRules: [
     // Setup datasources
