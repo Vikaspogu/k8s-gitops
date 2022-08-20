@@ -34,6 +34,6 @@ spec:
       create: true
       autoRestart: true
       token:
-        name: op-credentials
+        name: onepassword-token
         key: token
         value: ${SECRET_1PASSWORD_OPERATOR_TOKEN}
