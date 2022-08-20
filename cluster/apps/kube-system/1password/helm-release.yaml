@@ -19,11 +19,9 @@ spec:
   install:
     remediation:
       retries: 5
-    crds: Skip
   upgrade:
     remediation:
       retries: 5
-    crds: Skip
   values:
     connect:
       serviceType: ClusterIP
@@ -31,11 +29,11 @@ spec:
         reloader.stakater.com/auto: "true"
       credentials_base64: ${SECRET_1PASSWORD_CONNECT_CREDENTIALS_B64}
       credentialsName: op-credentials
-      credentialsKey: op-session
+      credentialsKey: 1password-credentials.json
     operator:
       create: true
       autoRestart: true
       token:
-        name: onepassword-token
+        name: op-credentials
         key: token
         value: ${SECRET_1PASSWORD_OPERATOR_TOKEN}
