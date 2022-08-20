@@ -8,7 +8,6 @@ resources:
   - data
   - default
   - downloads
-  - external-secrets
   - falco-system
   - flux-system
   - home
