@@ -19,12 +19,13 @@ spec:
   install:
     remediation:
       retries: 5
-    crds: CreateReplace
+    crds: Skip
   upgrade:
     remediation:
       retries: 5
-    crds: CreateReplace
+    crds: Skip
   values:
+    installCRDs: false
     connect:
       serviceType: ClusterIP
       annotations:
