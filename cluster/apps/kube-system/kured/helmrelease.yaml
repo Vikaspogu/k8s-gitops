@@ -27,7 +27,7 @@ spec:
   values:
     image:
       repository: raspbernetes/kured
-      tag: 1.10.1
+      tag: 1.10.2
     updateStrategy: RollingUpdate
     configuration:
       timeZone: "${TIMEZONE}"
