@@ -6,6 +6,7 @@ metadata:
   namespace: security
 spec:
   interval: 5m
+  releaseName: onepassword
   chart:
     spec:
       # renovate: registryUrl=https://raw.githubusercontent.com/1Password/connect-helm-charts/
