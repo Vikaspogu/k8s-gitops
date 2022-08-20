@@ -24,7 +24,6 @@ spec:
   upgrade:
     remediation:
       retries: 5
-    SkipCRDs: true
     crds: Skip
   values:
     installCRDs: false
