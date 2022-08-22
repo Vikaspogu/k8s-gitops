@@ -9,7 +9,7 @@ spec:
     spec:
       # renovate: registryUrl=https://argoproj.github.io/argo-helm
       chart: argo-cd
-      version: 4.10.8
+      version: 4.10.9
       sourceRef:
         kind: HelmRepository
         name: argocd-charts
