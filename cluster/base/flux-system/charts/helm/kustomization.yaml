@@ -28,6 +28,7 @@ resources:
   - kubernetes-dashboard-charts.yaml
   - kubernetes-sigs-descheduler-charts.yaml
   - kubernetes-stable-charts.yaml
+  - kyverno-charts.yaml
   - lwolf-charts.yaml
   - metallb-charts.yaml
   - metrics-server-charts.yaml
