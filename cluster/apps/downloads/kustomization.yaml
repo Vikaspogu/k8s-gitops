@@ -4,4 +4,4 @@ resources:
   - jackett
   - prowlarr
   - qbittorrent
-  - autobrr
+  # - autobrr
