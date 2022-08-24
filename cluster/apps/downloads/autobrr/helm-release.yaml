@@ -25,6 +25,9 @@ spec:
     image:
       repository: ghcr.io/autobrr/autobrr
       tag: v1.5.0
+    podAnnotations:
+      setGateway: "true"
+    hostname: autobrr
     env:
       TZ: "${TIMEZONE}"
     service:
