@@ -17,7 +17,7 @@ spec:
       interval: 5m
   values:
     controller:
-      replicaCount: 1
+      replicaCount: 3
       extraEnvs:
         - name: TZ
           value: ${TIMEZONE}
@@ -26,13 +26,27 @@ spec:
         loadBalancerIP: ${LB_NGINX}
         externalTrafficPolicy: Local
       config:
-        custom-http-errors: 404,401,403,500,503
+        ssl-protocols: "TLSv1.3 TLSv1.2"
+        proxy-body-size: "100m"
+        use-forwarded-headers: "true"
+        client-header-timeout: 120
+        client-body-buffer-size: "100M"
+        client-body-timeout: 120
+        custom-http-errors: >-
+          403,404,500,501,502,503
+        forwarded-for-header: "CF-Connecting-IP"
         hsts-max-age: "31449600"
+        keep-alive: 120
+        keep-alive-requests: 10000
       metrics:
         enabled: true
         serviceMonitor:
           enabled: true
-          namespace: networking
+          namespace: network
+          namespaceSelector:
+            any: true
+        prometheusRule:
+          enabled: false
       extraArgs:
         default-ssl-certificate: "networking/home-tls"
       resources:
@@ -42,4 +56,18 @@ spec:
         limits:
           memory: 750Mi
     defaultBackend:
-      enabled: false
+      enabled: true
+      image:
+        repository: ghcr.io/tarampampam/error-pages
+        tag: 2.18.0
+      extraEnvs:
+        - name: TEMPLATE_NAME
+          value: ghost
+        - name: SHOW_DETAILS
+          value: "false"
+      resources:
+        requests:
+          cpu: 15m
+          memory: 64M
+        limits:
+          memory: 64M
