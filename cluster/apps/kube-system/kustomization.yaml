@@ -7,6 +7,5 @@ resources:
   - kured
   - kyverno
   - metrics-server
-  - node-problem-detector
   - reflector
   - reloader
