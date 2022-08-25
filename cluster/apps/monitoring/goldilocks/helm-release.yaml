@@ -36,7 +36,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/icon: "monitor-dashboard"
+          hajimari.io/icon: "ruler"
         hosts:
           - host: &host "goldilocks.${SECRET_PRIVATE_DOMAIN}"
             paths:
