@@ -7,3 +7,4 @@ resources:
   - grafana
   - kube-prometheus-stack
   - unifi-poller
+  - vpa
