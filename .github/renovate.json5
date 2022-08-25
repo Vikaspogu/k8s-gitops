@@ -12,145 +12,91 @@
   commitMessageSuffix: "",
   assignees: ["@vikaspogu"],
   // set up ignored deps
-  ignoreDeps: [
-    "ghcr.io/fluxcd/helm-controller",
-    "ghcr.io/fluxcd/image-automation-controller",
-    "ghcr.io/fluxcd/image-reflector-controller",
-    "ghcr.io/fluxcd/kustomize-controller",
-    "ghcr.io/fluxcd/notification-controller",
-    "ghcr.io/fluxcd/source-controller",
-  ],
-  flux: {
-    fileMatch: ["cluster/.+\\.ya?ml$"],
+  ignoreDeps: [],
+  "flux": {
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   "helm-values": {
-    fileMatch: ["cluster/.+\\.ya?ml$"],
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
-  helmv3: {
-    fileMatch: ["charts/.+/Chart\\.ya?ml$"],
-  },
-  kubernetes: {
-    fileMatch: ["cluster/.+\\.ya?ml$"],
-    ignorePaths: ["cluster/.+/gotk-components\\.ya?ml$"],
+  "kubernetes": {
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   regexManagers: [
     {
-      fileMatch: ["cluster/.+\\.yaml$"],
-      matchStrings: [
-        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
-      ],
-      datasourceTemplate: "helm",
-    },
-    // regexManager to read and process cert-manager CRD's
-    {
-      fileMatch: ["cluster/crds/cert-manager/.+\\.yaml$"],
-      matchStrings: [
-        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/",
-      ],
-      datasourceTemplate: "helm",
-    },
-    // regexManager to read and process kube-prometheus-stack and velero CRD's
-    {
-      fileMatch: [
-        "cluster/crds/kube-prometheus-stack/.+\\.yaml$",
-        "cluster/crds/velero/.+\\.yaml$",
-      ],
-      matchStrings: [
-        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
-      ],
-      datasourceTemplate: "helm",
-    },
-    // regexManager to read and process Traefik CRD's
-    {
-      fileMatch: ["cluster/crds/traefik/.+\\.yaml$"],
-      matchStrings: [
-        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: v(?<currentValue>.*)\n",
-      ],
-      datasourceTemplate: "helm",
-    },
-    // regexManager to read and process Rook-Ceph CRD's
-    {
-      fileMatch: ["cluster/crds/rook-ceph/.+\\.yaml$"],
-      matchStrings: [
-        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: (?<currentValue>.*)\n",
-      ],
-      datasourceTemplate: "helm",
-    },
-    // regexManager to read and process External Snapshotter and External DNS CRD's
-    {
-      fileMatch: [
-        "cluster/crds/external-snapshotter/.+\\.yaml$",
-        "cluster/crds/external-dns/.+\\.yaml$",
-      ],
-      matchStrings: [
-        "datasource=(?<datasource>.*?)\n *url: https://github\\.com/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n",
-      ],
-      datasourceTemplate: "github-releases",
-    },
-    {
-      "description": "Process GitRepository CRD dependencies - Chart and Github Release are the same version",
-      "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
+      "description": "Process CRD dependencies",
+      "fileMatch": ["cluster/.+\\.ya?ml$"],
       "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
-        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
+        // GitRepository where 'Git release/tag' matches 'Helm' version
+        "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
+        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
+        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n"
       ],
-      "datasourceTemplate": "helm"
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
     },
+    {
+      "description": "Process various dependencies",
+      "fileMatch": [
+        "ansible/.+\\.ya?ml$",
+        "cluster/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "description": "Process raw GitHub URLs",
+      "fileMatch": ["cluster/.+\\.ya?ml$"],
+      "matchStrings": [
+        "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*"
+      ],
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    }
   ],
   packageRules: [
-    // Setup datasources
+    // Setup labels
     {
-      datasources: ["helm"],
-      commitMessageTopic: "Helm chart {{depName}}",
-      separateMinorPatch: true,
-      ignoreDeprecated: true,
+      "matchUpdateTypes": ["major"],
+      "labels": ["type/major"]
     },
     {
-      matchDatasources: ["docker"],
-      enabled: true,
-      matchUpdateTypes: ["major", "minor", "patch"],
+      "matchUpdateTypes": ["minor"],
+      "labels": ["type/minor"]
     },
     {
-      matchDatasources: ["docker"],
-      semanticCommitScope: "images",
-      separateMinorPatch: true,
-    },
-    // add labels according to package and update types
-    {
-      matchDatasources: ["docker"],
-      matchUpdateTypes: ["major"],
-      commitMessagePrefix: "feat(images)!: ",
-      labels: ["renovate/image", "dep/major"],
+      "matchUpdateTypes": ["patch"],
+      "labels": ["type/patch"]
     },
     {
-      matchDatasources: ["docker"],
-      matchUpdateTypes: ["minor"],
-      semanticCommitType: "feat",
-      labels: ["renovate/image", "dep/minor"],
+      "matchDatasources": ["docker"],
+      "addLabels": ["renovate/container"]
     },
     {
-      matchDatasources: ["docker"],
-      matchUpdateTypes: ["patch"],
-      semanticCommitType: "fix",
-      labels: ["renovate/image", "dep/patch"],
+      "matchDatasources": ["helm"],
+      "addLabels": ["renovate/helm"]
     },
     {
-      matchDatasources: ["helm"],
-      matchUpdateTypes: ["major"],
-      commitMessagePrefix: "feat(charts)!: ",
-      labels: ["renovate/helm", "dep/major"],
+      "matchDatasources": ["galaxy", "galaxy-collection"],
+      "addLabels": ["renovate/ansible"]
     },
     {
-      matchDatasources: ["helm"],
-      matchUpdateTypes: ["minor"],
-      semanticCommitType: "feat",
-      labels: ["renovate/helm", "dep/minor"],
+      "matchDatasources": ["terraform-provider"],
+      "addLabels": ["renovate/terraform"]
     },
     {
-      matchDatasources: ["helm"],
-      matchUpdateTypes: ["patch"],
-      semanticCommitType: "fix",
-      labels: ["renovate/helm", "dep/patch"],
+      "matchDatasources": ["github-releases", "github-tags"],
+      "addLabels": ["renovate/github-release"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "addLabels": ["renovate/github-action"]
+    },
+    {
+      "matchDatasources": ["pypi"],
+      "addLabels": ["renovate/pip"]
     },
     // Custom versions
     {
@@ -198,25 +144,158 @@
     },
     // group packages
     {
-      matchDatasources: ["helm", "docker"],
-      matchPackagePatterns: ["^rook.ceph"],
-      groupName: "rook-ceph-suite",
-      additionalBranchPrefix: "",
-      separateMinorPatch: true,
+      "description": "Cert-Manager image (for CRDs) and chart",
+      "groupName": "Cert-Manager",
+      "matchPackagePatterns": ["cert-manager"],
+      "matchDatasources": ["docker", "helm"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": true
     },
     {
-      matchDatasources: ["github-releases", "docker"],
-      matchPackagePatterns: ["external-snapshotter", "snapshot-controller"],
-      groupName: "external-snapshotter-suite",
-      additionalBranchPrefix: "",
-      separateMinorPatch: true,
+      "description": "External Snapshotter kustomization (for CRDs) and chart",
+      "groupName": "External Snapshotter",
+      "matchPackagePatterns": ["external-snapshotter", "snapshot-controller"],
+      "matchDatasources": ["docker", "github-tags"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": true
     },
     {
-      matchDatasources: ["github-tags", "docker"],
-      matchPackagePatterns: ["rancher/system-upgrade-controller"],
-      groupName: "system-upgrade-controller-suite",
-      additionalBranchPrefix: "",
-      separateMinorPatch: true,
+      "description": "Node Feature Discovery kustomization (for CRDs) and chart",
+      "groupName": "Node Feature Discovery",
+      "matchPackagePatterns": ["node-feature-discovery"],
+      "matchDatasources": ["helm", "github-tags"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": true
     },
+    {
+      "description": "Rook-Ceph image and chart",
+      "groupName": "Rook-Ceph",
+      "matchPackagePatterns": ["rook.ceph"],
+      "matchDatasources": ["docker", "helm"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": true
+    },
+    //semanticCommits
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(container)!: "
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "semanticCommitScope": "container"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["digest", "patch"],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "container"
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(helm)!: "
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "semanticCommitScope": "helm"
+    },
+
+    {
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "helm"
+    },
+    {
+      "matchDatasources": ["galaxy", "galaxy-collection"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(ansible)!: "
+    },
+    {
+      "matchDatasources": ["galaxy", "galaxy-collection"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "semanticCommitScope": "ansible"
+    },
+
+    {
+      "matchDatasources": ["galaxy", "galaxy-collection"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "ansible"
+    },
+    {
+      "matchDatasources": ["terraform-provider"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(terraform)!: "
+    },
+    {
+      "matchDatasources": ["terraform-provider"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "semanticCommitScope": "terraform"
+    },
+    {
+      "matchDatasources": ["terraform-provider"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "terraform"
+    },
+    {
+      "matchDatasources": ["github-releases", "github-tags"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(github-release)!: "
+    },
+    {
+      "matchDatasources": ["github-releases", "github-tags"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "semanticCommitScope": "github-release"
+    },
+    {
+      "matchDatasources": ["github-releases", "github-tags"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "github-release"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(github-action)!: "
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "semanticCommitScope": "github-action"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "github-action"
+    },
+    {
+      "matchDatasources": ["pypi"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(pip)!: "
+    },
+    {
+      "matchDatasources": ["pypi"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "semanticCommitScope": "pip"
+    },
+    {
+      "matchDatasources": ["pypi"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "pip"
+    }
   ],
 }
