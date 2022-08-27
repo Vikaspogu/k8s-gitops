@@ -35,6 +35,7 @@ spec:
           - hosts:
               - argocd.${SECRET_PRIVATE_DOMAIN}
       config:
+        kustomize.buildOptions: "--enable-alpha-plugins --enable-helm"
         url: https://argocd.${SECRET_PRIVATE_DOMAIN}
         application.instanceLabelKey: argocd.argoproj.io/instance
         accounts.admin: apiKey
