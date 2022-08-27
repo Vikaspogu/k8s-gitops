@@ -23,6 +23,11 @@ probes:
 
 hostNetwork: true
 
+service:
+  main:
+    ports:
+      http:
+        port: 8080
 env:
   NODE_NAME:
     fieldRef:

@@ -38,7 +38,11 @@ resources:
 tolerations:
   - key: "k3s-arm"
     operator: "Exists"
-
+service:
+  main:
+    ports:
+      http:
+        port: 8080
 persistence:
   dev-ttyusb:
     enabled: true
