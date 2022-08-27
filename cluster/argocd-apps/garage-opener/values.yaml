@@ -6,6 +6,7 @@ image:
 
 strategy:
   type: Recreate
+
 env:
   ENVIRONMENT: prod
   MQTT_BROKER: mosquitto.home.svc.cluster.local
