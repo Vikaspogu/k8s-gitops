@@ -1,0 +1,19 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mqtt-air-sensor
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: app-template
+    repoURL: https://bjw-s.github.io/helm-charts/
+    targetRevision: "0.1.1"
+    helm:
+      releaseName: mqtt-air-sensor
+      valueFiles:
+        - "./values.yaml"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: home
