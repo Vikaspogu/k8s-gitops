@@ -13,7 +13,7 @@ spec:
     helm:
       releaseName: room-assistant
       valueFiles:
-        - "./values.yaml"
+        - "values.yaml"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: home
