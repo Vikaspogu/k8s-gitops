@@ -55,14 +55,15 @@ spec:
               http:
                 port: 8080
         env:
-          NODE_NAME:
+          CLUSTER_NAME:
             fieldRef:
               apiVersion: v1
               fieldPath: spec.nodeName
+          TZ: "America/Chicago"
           NODE_CONFIG: >
             {
               "global": {
-                "instanceName": "$(NODE_NAME)",
+                "instanceName": "$(CLUSTER_NAME)",
                 "integrations": [
                   "homeAssistant",
                   "bluetoothClassic"
@@ -79,7 +80,6 @@ spec:
                 ]
               }
             }
-          TZ: "America/Chicago"
 
         resources:
           limits:
