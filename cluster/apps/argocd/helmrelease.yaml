@@ -9,14 +9,13 @@ spec:
     spec:
       # renovate: registryUrl=https://argoproj.github.io/argo-helm
       chart: argo-cd
-      version: 5.0.0
+      version: 5.3.6
       sourceRef:
         kind: HelmRepository
         name: argocd-charts
         namespace: flux-system
       interval: 5m
   values:
-    installCRDs: false
     server:
       extraArgs:
         - --insecure
