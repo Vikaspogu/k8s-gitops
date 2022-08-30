@@ -71,8 +71,7 @@ spec:
               },
               "homeAssistant": {
                 "mqttUrl": "mqtt://192.168.20.109:1883",
-                "qos": "1",
-                "retain": "true"
+                "sendMqttRoom": "true"
               },
               "bluetoothClassic": {
                 "addresses": [
