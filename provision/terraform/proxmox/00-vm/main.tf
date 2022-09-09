@@ -34,14 +34,15 @@ resource "proxmox_vm_qemu" "k8s-7-proxmox-node" {
   cores    = 8
   sockets  = "1"
   cpu      = "host"
-  memory   = 16384
+  memory   = 24576
   scsihw   = "virtio-scsi-pci"
   bootdisk = "scsi0"
+  onboot   = true
 
   disk {
-    size     = "64G"
+    size     = "200G"
     type     = "scsi"
-    storage  = "raid-hhd-vg"
+    storage  = "hhd-zfs"
     iothread = 1
   }
 
@@ -56,4 +57,17 @@ resource "proxmox_vm_qemu" "k8s-7-proxmox-node" {
   ssh_user  = data.sops_file.proxmox_secrets.data["ssh_user"]
   sshkeys   = file(var.ssh_keys["pub"])
   ciuser    = data.sops_file.proxmox_secrets.data["ssh_user"]
+
+  # defines ssh connection to check when the VM is ready
+  connection {
+    host        = data.sops_file.proxmox_secrets.data["k8s_7_ip"]
+    user        = data.sops_file.proxmox_secrets.data["ssh_user"]
+    private_key = file(var.ssh_keys["priv"])
+    agent       = false
+    timeout     = "3m"
+  }
+
+  provisioner "remote-exec" {
+    inline = ["echo 'VM is ready...'"]
+  }
 }

@@ -1,5 +1,5 @@
 variable "pm_node" {
-  default = "proxmox"
+  default = "proxmox-0"
 }
 
 variable "ssh_key_file" {
