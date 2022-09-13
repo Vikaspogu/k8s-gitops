@@ -24,7 +24,7 @@ provider "proxmox" {
 }
 
 resource "proxmox_vm_qemu" "k8s-7-proxmox-node" {
-  count       = 1
+  count       = 0
   name        = "k8s-7-proxmox-node"
   target_node = var.pm_node
 
