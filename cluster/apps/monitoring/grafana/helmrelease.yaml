@@ -110,16 +110,16 @@ spec:
             jsonData:
               postgresVersion: 1000
               sslmode: disable
-          - name: InfluxDB
-            type: influxdb
-            url: "http://influxdb-influxdb2.data.svc.cluster.local:80"
-            database: "proxmox"
-            secureJsonData:
-              httpHeaderValue1: 'Token ${SECRET_INFLUXDB_PROXMOX_TOKEN}'
-            access: proxy
-            jsonData:
-              httpHeaderName1: 'Authorization'
-              httpMode: POST
+          # - name: InfluxDB
+          #   type: influxdb
+          #   url: "http://influxdb-influxdb2.data.svc.cluster.local:80"
+          #   database: "proxmox"
+          #   secureJsonData:
+          #     httpHeaderValue1: 'Token ${SECRET_INFLUXDB_PROXMOX_TOKEN}'
+          #   access: proxy
+          #   jsonData:
+          #     httpHeaderName1: 'Authorization'
+          #     httpMode: POST
 
     dashboards:
       default:
@@ -144,10 +144,10 @@ spec:
           revision: 1
           datasource: Prometheus
         # # Ref: https://grafana.com/grafana/dashboards/10048
-        proxmox:
-          gnetId: 10048
-          revision: 1
-          datasource: InfluxDB
+        # proxmox:
+        #   gnetId: 10048
+        #   revision: 1
+        #   datasource: InfluxDB
         nginx-dashboard:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus

@@ -8,7 +8,6 @@ resources:
   - data
   - default
   - downloads
-  - external-secrets
   - flux-system
   - home
   - kube-system
