@@ -85,6 +85,9 @@ spec:
         whiteLists:
           ads:
             - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+            - |
+              # inline definition with YAML literal block scalar style
+              collector.newrelic.com
         clientGroupsBlock:
           default:
             - ads
