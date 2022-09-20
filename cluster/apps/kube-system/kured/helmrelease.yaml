@@ -10,10 +10,10 @@ spec:
     spec:
       # renovate: registryUrl=https://weaveworks.github.io/kured
       chart: kured
-      version: 3.0.1
+      version: 4.0.1
       sourceRef:
         kind: HelmRepository
-        name: weaveworks-kured-charts
+        name: kubereboot-charts
         namespace: flux-system
       interval: 5m
   install:

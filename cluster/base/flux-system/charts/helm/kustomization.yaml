@@ -27,6 +27,7 @@ resources:
   - jetstack-charts.yaml
   - k8s-at-home-charts.yaml
   - kasten-charts.yaml
+  - kubereboot-charts.yaml
   - kubernetes-dashboard-charts.yaml
   - kubernetes-sigs-descheduler-charts.yaml
   - kubernetes-stable-charts.yaml
@@ -42,5 +43,4 @@ resources:
   - vernemq-charts.yaml
   - vikaspogu-charts.yaml
   - vmware-tanzu-charts.yaml
-  - weaveworks-kured-charts.yaml
   - xunholy-charts.yaml
