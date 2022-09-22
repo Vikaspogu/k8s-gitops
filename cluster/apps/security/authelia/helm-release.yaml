@@ -88,9 +88,9 @@ spec:
           password:
             algorithm: argon2id
       access_control:
-        ## Default policy can either be 'bypass', 'one_factor', 'two_factor' or 'deny'. It is the policy applied to any
+        ## data policy can either be 'bypass', 'one_factor', 'two_factor' or 'deny'. It is the policy applied to any
         ## resource if there is no policy to be applied to the user.
-        default_policy: deny
+        data_policy: deny
         networks:
           - name: private
             networks:
@@ -134,14 +134,15 @@ spec:
               userinfo_signing_algorithm: none
       session:
         redis:
+          host: redis.data.svc.cluster.local
           high_availability:
             sentinel_name: redis-master
             nodes:
-              - host: redis-node-0.redis-headless.default.svc.cluster.local
+              - host: redis-node-0.redis-headless.data.svc.cluster.local
                 port: 26379
-              - host: redis-node-1.redis-headless.default.svc.cluster.local
+              - host: redis-node-1.redis-headless.data.svc.cluster.local
                 port: 26379
-              - host: redis-node-2.redis-headless.default.svc.cluster.local
+              - host: redis-node-2.redis-headless.data.svc.cluster.local
                 port: 26379
       storage:
         postgres:
