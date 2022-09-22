@@ -7,4 +7,3 @@ resources:
   - redis
   - vikunja
   - minio
-  - outline
