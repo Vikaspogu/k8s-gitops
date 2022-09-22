@@ -134,8 +134,8 @@ spec:
               userinfo_signing_algorithm: none
       session:
         redis:
-          host: redis.data.svc.cluster.local
           high_availability:
+            enabled: true
             sentinel_name: redis-master
             nodes:
               - host: redis-node-0.redis-headless.data.svc.cluster.local
