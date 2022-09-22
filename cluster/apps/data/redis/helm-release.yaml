@@ -24,18 +24,21 @@ spec:
     remediation:
       retries: 5
   values:
-    architecture: standalone
+    global:
+      imageRegistry: public.ecr.aws
+      storageClass: ceph-block
     auth:
       password: ${SECRET_REDIS_PASSWORD}
-    master:
-      service:
-        annotations:
-          prometheus.io/probe: "true"
-          prometheus.io/protocol: tcp
-    replica:
-      persistence:
-        enabled: false
-      service:
-        annotations:
-          prometheus.io/probe: "true"
-          prometheus.io/protocol: tcp
+      enabled: false
+      sentinel: false
+      # existingSecret: *app
+    sentinel:
+      enabled: true
+      masterSet: redis-master
+      getMasterTimeout: 10
+      startupProbe:
+        failureThreshold: 2
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
