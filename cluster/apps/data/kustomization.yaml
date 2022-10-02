@@ -8,3 +8,4 @@ resources:
   - vikunja
   - minio
   - outline
+  - paperless
