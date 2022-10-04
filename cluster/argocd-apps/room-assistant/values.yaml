@@ -1,0 +1,79 @@
+---
+replicas: 1
+image:
+  repository: mkerix/room-assistant
+  pullPolicy: IfNotPresent
+  tag: "2.20.0"
+
+strategy:
+  type: Recreate
+
+securityContext:
+  privileged: true
+  capabilities:
+    add:
+      - NET_ADMIN
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+hostNetwork: true
+
+service:
+  main:
+    ports:
+      http:
+        port: 8080
+env:
+  CLUSTER_NAME:
+    fieldRef:
+      apiVersion: v1
+      fieldPath: spec.nodeName
+  TZ: "America/Chicago"
+  NODE_CONFIG: >
+    {
+      "global": {
+        "instanceName": "$(CLUSTER_NAME)",
+        "integrations": [
+          "homeAssistant",
+          "bluetoothClassic"
+        ]
+      },
+      "homeAssistant": {
+        "mqttUrl": "mqtt://192.168.20.109:1883",
+        "sendMqttRoom": true
+      },
+      "bluetoothClassic": {
+        "addresses": [
+          "0c:c4:13:1b:66:0e"
+        ]
+      }
+    }
+
+resources:
+  limits:
+    cpu: 520m
+    memory: 520Mi
+  requests:
+    cpu: 250m
+    memory: 250Mi
+
+tolerations:
+  - key: "k3s-arm"
+    operator: "Exists"
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - {
+                key: "feature.node.kubernetes.io/custom-room-assistant",
+                operator: In,
+                values: ["true"],
+              }
