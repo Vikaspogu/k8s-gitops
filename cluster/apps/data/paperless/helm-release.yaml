@@ -64,7 +64,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "paper"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "security-authelia-auth@kubernetescrd"
         hosts:
           - host: &host "paperless.${SECRET_DOMAIN}"
             paths:
