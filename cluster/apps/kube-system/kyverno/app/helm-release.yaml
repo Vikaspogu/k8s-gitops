@@ -23,8 +23,8 @@ spec:
     remediation:
       retries: 5
   values:
-    installCRDs: false
-    replicaCount: 1
+    installCRDs: true
+    replicaCount: 3
     extraArgs:
       - --autogenInternals=false
       - --clientRateLimitQPS=30
