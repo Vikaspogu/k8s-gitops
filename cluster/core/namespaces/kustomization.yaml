@@ -9,6 +9,7 @@ resources:
   - external-secrets.yaml
   - falco-system.yaml
   - home.yaml
+  - kyverno.yaml
   - media.yaml
   - metallb-system.yaml
   - monitoring.yaml
