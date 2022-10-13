@@ -50,7 +50,7 @@ env:
       },
       "bluetoothClassic": {
         "addresses": [
-          "0c:c4:13:1b:66:0e"
+          "c8:2a:dd:85:7e:76"
         ]
       }
     }
