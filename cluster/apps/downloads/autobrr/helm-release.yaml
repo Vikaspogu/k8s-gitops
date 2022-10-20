@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/autobrr/autobrr
-      tag: v1.7.1
+      tag: v1.8.0
     podAnnotations:
       setGateway: "true"
     hostname: autobrr
