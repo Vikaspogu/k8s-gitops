@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.authelia.com
       chart: authelia
-      version: 0.8.38
+      version: 0.8.45
       sourceRef:
         kind: HelmRepository
         name: authelia-charts
@@ -127,6 +127,7 @@ spec:
       identity_providers:
         oidc:
           enabled: true
+          issuer_private_key: ""
           cors:
             endpoints: ["authorization", "token", "revocation", "introspection"]
             allowed_origins_from_client_redirect_uris: true
