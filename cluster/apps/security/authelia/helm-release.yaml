@@ -127,8 +127,6 @@ spec:
       identity_providers:
         oidc:
           enabled: true
-          issuer_private_key: |-
-            ${OIDC_PRIVATE_KEY}
           cors:
             endpoints: ["authorization", "token", "revocation", "introspection"]
             allowed_origins_from_client_redirect_uris: true
@@ -188,6 +186,10 @@ spec:
         key: STORAGE_ENCRYPTION_KEY
         value: "${SECRET_AUTHELIA_STORAGE_ENCRYPTION_KEY}"
         filename: STORAGE_ENCRYPTION_KEY
+      oidcPrivateKey:
+        key: OIDC_PRIVATE_KEY
+        value: "${OIDC_PRIVATE_KEY}"
+        filename: OIDC_PRIVATE_KEY
   postRenderers:
     - kustomize:
         patchesJson6902:
