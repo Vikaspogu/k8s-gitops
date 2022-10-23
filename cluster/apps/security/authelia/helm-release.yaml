@@ -16,6 +16,13 @@ spec:
         name: authelia-charts
         namespace: flux-system
       interval: 5m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     domain: ${SECRET_DOMAIN}
     service:
@@ -120,6 +127,7 @@ spec:
       identity_providers:
         oidc:
           enabled: true
+          issuer_private_key: ""
           cors:
             endpoints: ["authorization", "token", "revocation", "introspection"]
             allowed_origins_from_client_redirect_uris: true
