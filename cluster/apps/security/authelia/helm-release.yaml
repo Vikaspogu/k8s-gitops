@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.authelia.com
       chart: authelia
-      version: 0.8.45
+      version: 0.8.38
       sourceRef:
         kind: HelmRepository
         name: authelia-charts
@@ -186,10 +186,6 @@ spec:
         key: STORAGE_ENCRYPTION_KEY
         value: "${SECRET_AUTHELIA_STORAGE_ENCRYPTION_KEY}"
         filename: STORAGE_ENCRYPTION_KEY
-      oidcPrivateKey:
-        key: OIDC_PRIVATE_KEY
-        value: "${OIDC_PRIVATE_KEY}"
-        filename: OIDC_PRIVATE_KEY
   postRenderers:
     - kustomize:
         patchesJson6902:
