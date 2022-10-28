@@ -88,4 +88,4 @@ spec:
           - name: files
             mountPath: /app/vikunja/files
       - name: frontend
-        image: vikunja/frontend:0.19.1
+        image: vikunja/frontend:0.20.0
