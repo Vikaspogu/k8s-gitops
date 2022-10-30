@@ -26,7 +26,7 @@ spec:
       retries: 5
   values:
     image:
-      repository: raspbernetes/kured
+      repository: ghcr.io/kubereboot/kured
       tag: 1.10.2
     updateStrategy: RollingUpdate
     configuration:
@@ -43,4 +43,6 @@ spec:
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"
       - key: "k3s-arm"
+        operator: "Exists"
+      - key: "arm"
         operator: "Exists"
