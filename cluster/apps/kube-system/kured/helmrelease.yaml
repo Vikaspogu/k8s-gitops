@@ -37,8 +37,6 @@ spec:
       messageTemplateDrain: "⏳ Draining node %s"
       messageTemplateReboot: "♻️ Rebooted node %s"
       rebootCommand: "/usr/bin/systemctl reboot"
-    metrics:
-      create: true
     tolerations:
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"
