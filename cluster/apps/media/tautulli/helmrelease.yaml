@@ -28,7 +28,7 @@ spec:
           runAsUser: 0
     image:
       repository: ghcr.io/k8s-at-home/tautulli
-      tag: v2.10.4@sha256:f3e9cb3c3f44ef62a14736f0c1517449f7c59cf78f8499f6e2d37588dffbf7ae
+      tag: v2.10.5@sha256:a0e0c76746a0c6a8dc1acae627d8a63ca56ab5f3f2821452c66b8419fb1bff0f
       pullPolicy: Always
     env:
       TZ: ${TIMEZONE}
