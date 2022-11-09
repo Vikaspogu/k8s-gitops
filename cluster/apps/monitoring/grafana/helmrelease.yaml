@@ -42,8 +42,6 @@ spec:
       GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
       GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
-      VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000"
-      DS_PROMETHEUS: "prometheus"
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
@@ -143,16 +141,8 @@ spec:
           gnetId: 15549
           revision: 1
           datasource: Prometheus
-        # # Ref: https://grafana.com/grafana/dashboards/10048
-        # proxmox:
-        #   gnetId: 10048
-        #   revision: 1
-        #   datasource: InfluxDB
         nginx-dashboard:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        blocky:
-          url: https://raw.githubusercontent.com/0xERR0R/blocky/development/docs/blocky-grafana.json
           datasource: Prometheus
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
@@ -234,12 +224,6 @@ spec:
       dashboards:
         enabled: true
         searchNamespace: ALL
-        # folderAnnotation: grafana_folder
-        # multicluster: true
-        # provider:
-        #   foldersFromFilesStructure: true
-        #   allowUiUpdates: true
-        #   disableDelete: false
       datasources:
         enabled: true
         searchNamespace: ALL

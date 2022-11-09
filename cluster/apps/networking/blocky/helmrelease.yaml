@@ -27,6 +27,37 @@ spec:
       type: deployment
       strategy: RollingUpdate
       replicas: 2
+
+    # Probes configuration
+    service:
+      main:
+        ports:
+          http:
+            port: 4000
+      dns:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${LB_BLOCKY}
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
+        ports:
+          udp:
+            enabled: true
+            port: 53
+            protocol: UDP
+            targetPort: 53
+        externalTrafficPolicy: Local
+
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "blocky-config"
+
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 750Mi
+
     metrics:
       enabled: true
       serviceMonitor:
@@ -34,9 +65,7 @@ spec:
         scrapeTimeout: 10s
       prometheusRule:
         enabled: true
-    prometheus:
-      serviceMonitor:
-        enabled: true
+
     # blocky configuration - will translate to config.yml file inside the pod
     config: |
       upstream:
@@ -95,43 +124,3 @@ spec:
         path: /metrics
       httpPort: 4000
       logLevel: info
-    # Probes configuration
-    service:
-      main:
-        ports:
-          http:
-            port: 4000
-      dns-tcp:
-        enabled: true
-        type: LoadBalancer
-        loadBalancerIP: ${LB_BLOCKY}
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-        ports:
-          dns-tcp:
-            enabled: true
-            port: 53
-            protocol: TCP
-            targetPort: 53
-        externalTrafficPolicy: Local
-      dns-udp:
-        enabled: true
-        type: LoadBalancer
-        loadBalancerIP: ${LB_BLOCKY}
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-        ports:
-          dns-udp:
-            enabled: true
-            port: 53
-            protocol: UDP
-            targetPort: 53
-        externalTrafficPolicy: Local
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "blocky-config"
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 100m
-      limits:
-        memory: 750Mi
