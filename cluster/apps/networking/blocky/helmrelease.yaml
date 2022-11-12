@@ -1,126 +1,135 @@
 ---
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: blocky
+  name: &app blocky
   namespace: networking
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: blocky
-      version: 10.5.2
+      chart: app-template
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 5m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     image:
       repository: ghcr.io/0xerr0r/blocky
       tag: v0.19
-    env:
-      TZ: "${TIMEZONE}"
+
     controller:
       enabled: true
       type: deployment
       strategy: RollingUpdate
-      replicas: 2
+      replicas: 3
 
-    # Probes configuration
+    env:
+      TZ: ${TIMEZONE}
+
     service:
       main:
         ports:
           http:
             port: 4000
+            protocol: TCP
       dns:
         enabled: true
         type: LoadBalancer
         loadBalancerIP: ${LB_BLOCKY}
         annotations:
           metallb.universe.tf/allow-shared-ip: blocky
+        externalTrafficPolicy: Local
         ports:
+          tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+            targetPort: 53
           udp:
             enabled: true
             port: 53
             protocol: UDP
             targetPort: 53
-        externalTrafficPolicy: Local
+
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: &config blocky-config
+        mountPath: /app/config.yml
+        subPath: config.yml
 
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "blocky-config"
+      configmap.reloader.stakater.com/reload: *config
 
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 100m
-      limits:
-        memory: 750Mi
-
-    metrics:
-      enabled: true
-      serviceMonitor:
-        interval: 30s
-        scrapeTimeout: 10s
-      prometheusRule:
+    configMaps:
+      config:
         enabled: true
-
-    # blocky configuration - will translate to config.yml file inside the pod
-    config: |
-      upstream:
-        default:
-          - tcp+udp:192.168.1.1
-      customDNS:
-        customTTL: 1h
-      conditional:
-        mapping:
-          ${SECRET_PRIVATE_DOMAIN}: ${LB_K8S_GATEWAY}
-          ${SECRET_DOMAIN}: ${LB_K8S_GATEWAY}
-          ${SECRET_XYZ_DOMAIN}: ${SECRET_NAS_ADDRESS}
-      blocking:
-        blackLists:
-          ads:
-            - https://raw.githubusercontent.com/nickspaargaren/no-google/master/categories/doubleclickparsed
-            - https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/android-tracking.txt
-            - https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
-            - https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
-            - https://raw.githubusercontent.com/ookangzheng/dbl-oisd-nl/master/dbl.txt
-            - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
-            - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
-            - http://sysctl.org/cameleon/hosts
-            - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
-            - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
-            - |
-              /^ad([sxv]?[0-9]*|system)[_.-]([^.[:space:]]+\.){1,}|[_.-]ad([sxv]?[0-9]*|system)[_.-]/
-              /^(.+[_.-])?adse?rv(er?|ice)?s?[0-9]*[_.-]/
-              /^(.+[_.-])?telemetry[_.-]/
-              /^adim(age|g)s?[0-9]*[_.-]/
-              /^adtrack(er|ing)?[0-9]*[_.-]/
-              /^advert(s|is(ing|ements?))?[0-9]*[_.-]/
-              /^aff(iliat(es?|ion))?[_.-]/
-              /^analytics?[_.-]/
-              /^banners?[_.-]/
-              /^beacons?[0-9]*[_.-]/
-              /^count(ers?)?[0-9]*[_.-]/
-              /^mads\./
-              /^pixels?[-.]/
-              /^stat(s|istics)?[0-9]*[_.-]/
-              /(.*\.|^)((think)?with)?google($|((adservices|-analytics)($|\..+)))/
-              /(.*\.|^)chrom(e(experiments)?|ium)($|\..+)/
-              /(.*\.|^)doubleclick($|\..+)/
-              /(.*\.|^)firebaseio($|\..+)/
-              /(.*\.|^)waze($|\..+)/
-        whiteLists:
-          ads:
-            - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-            - |
-              /(.*\.|^)newrelic($|\..+)/
-        clientGroupsBlock:
-          default:
-            - ads
-      prometheus:
-        enable: true
-        path: /metrics
-      httpPort: 4000
-      logLevel: info
+        data:    # blocky configuration - will translate to config.yml file inside the pod
+          config.yml: |-
+            upstream:
+              default:
+                - tcp+udp:192.168.1.1
+            customDNS:
+              customTTL: 1h
+            conditional:
+              mapping:
+                ${SECRET_PRIVATE_DOMAIN}: ${LB_K8S_GATEWAY}
+                ${SECRET_DOMAIN}: ${LB_K8S_GATEWAY}
+                ${SECRET_XYZ_DOMAIN}: ${SECRET_NAS_ADDRESS}
+            blocking:
+              blackLists:
+                ads:
+                  - https://raw.githubusercontent.com/nickspaargaren/no-google/master/categories/doubleclickparsed
+                  - https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/android-tracking.txt
+                  - https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
+                  - https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
+                  - https://raw.githubusercontent.com/ookangzheng/dbl-oisd-nl/master/dbl.txt
+                  - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+                  - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+                  - http://sysctl.org/cameleon/hosts
+                  - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+                  - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
+                  - |
+                    /^ad([sxv]?[0-9]*|system)[_.-]([^.[:space:]]+\.){1,}|[_.-]ad([sxv]?[0-9]*|system)[_.-]/
+                    /^(.+[_.-])?adse?rv(er?|ice)?s?[0-9]*[_.-]/
+                    /^(.+[_.-])?telemetry[_.-]/
+                    /^adim(age|g)s?[0-9]*[_.-]/
+                    /^adtrack(er|ing)?[0-9]*[_.-]/
+                /^advert(s|is(ing|ements?))?[0-9]*[_.-]/
+                /^aff(iliat(es?|ion))?[_.-]/
+                /^analytics?[_.-]/
+                /^banners?[_.-]/
+                /^beacons?[0-9]*[_.-]/
+                /^count(ers?)?[0-9]*[_.-]/
+                /^mads\./
+                /^pixels?[-.]/
+                /^stat(s|istics)?[0-9]*[_.-]/
+                /(.*\.|^)((think)?with)?google($|((adservices|-analytics)($|\..+)))/
+                /(.*\.|^)chrom(e(experiments)?|ium)($|\..+)/
+                /(.*\.|^)doubleclick($|\..+)/
+                /(.*\.|^)firebaseio($|\..+)/
+                /(.*\.|^)waze($|\..+)/
+          whiteLists:
+            ads:
+              - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+              - |
+                /(.*\.|^)newrelic($|\..+)/
+          clientGroupsBlock:
+            default:
+              - ads
+        prometheus:
+          enable: true
+          path: /metrics
+        httpPort: 4000
+        logLevel: info
