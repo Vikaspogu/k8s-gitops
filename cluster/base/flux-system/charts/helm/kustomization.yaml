@@ -35,6 +35,7 @@ resources:
   - lwolf-charts.yaml
   - metallb-charts.yaml
   - metrics-server-charts.yaml
+  - ./mvisonneau-charts.yaml
   - prometheus-community-charts.yaml
   - rook-ceph-charts.yaml
   - runix.yaml
