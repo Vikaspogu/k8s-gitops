@@ -27,26 +27,12 @@ spec:
     alertmanager:
       config:
         global:
-          slack_api_url: "${SECRET_KURED_DISCORD_WEBHOOK}"
           resolve_timeout: 5m
         receivers:
           - name: "null"
           - name: "discord"
-            slack_configs:
-              - channel: "#k3s"
-                icon_url: https://avatars3.githubusercontent.com/u/3380462
-                username: "Prometheus"
-                send_resolved: true
-                title: |-
-                  [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
-                text: >-
-                  {{ range .Alerts -}}
-                    **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
-                  **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
-                  **Details:**
-                    {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-                    {{ end }}
-                  {{ end }}
+            webhook_configs:
+              - url: "http://alertmanager-discord:9094"
         route:
           group_by: ["alertname", "job"]
           group_wait: 30s
@@ -55,12 +41,10 @@ spec:
           receiver: "discord"
           routes:
             - receiver: "null"
-              match:
-                alertname: Watchdog
+              matchers:
+                - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
+              continue: false
             - receiver: "discord"
-              match_re:
-                severity: critical|warning|error
-              continue: true
         inhibit_rules:
           - source_match:
               severity: "critical"
