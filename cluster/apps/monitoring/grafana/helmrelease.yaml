@@ -42,6 +42,8 @@ spec:
       GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
       GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
+      VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000"
+      DS_PROMETHEUS: "prometheus"
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
