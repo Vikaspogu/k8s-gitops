@@ -23,6 +23,7 @@ spec:
     config:
       variables:
         TAILSCALE_ADVERTISE_ROUTES: "${NETWORK_K8S_POD_CIDR},${NETWORK_SERVERS_CIDR},10.0.16.0/24"
+        TAILSCALE_EXIT_NODE: "true"
   valuesFrom:
     - kind: Secret
       name: tailscale-token-secret
