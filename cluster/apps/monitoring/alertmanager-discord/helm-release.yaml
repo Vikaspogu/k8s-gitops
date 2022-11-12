@@ -22,9 +22,6 @@ spec:
     env:
       TZ: ${TIMEZONE}
       DISCORD_WEBHOOK: ${SECRET_DISCORD_WEBHOOK}
-    envFrom:
-      - secretRef:
-          name: *app
     service:
       main:
         ports:
