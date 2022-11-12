@@ -79,32 +79,31 @@ spec:
             upstream:
               default:
                 - tcp+udp:192.168.1.1
-                - https://cloudflare-dns.com/dns-query
-              customDNS:
-                customTTL: 1h
-              conditional:
-                mapping:
-                  ${SECRET_PRIVATE_DOMAIN}: ${LB_K8S_GATEWAY}
-                  ${SECRET_DOMAIN}: ${LB_K8S_GATEWAY}
-                  ${SECRET_XYZ_DOMAIN}: ${SECRET_NAS_ADDRESS}
-              blocking:
-                blackLists:
-                  ads:
-                    - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
-                    - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
-                    - http://sysctl.org/cameleon/hosts
-                    - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
-                  fakenews:
-                    - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
-              whiteLists:
+            customDNS:
+              customTTL: 1h
+            conditional:
+              mapping:
+                ${SECRET_PRIVATE_DOMAIN}: ${LB_K8S_GATEWAY}
+                ${SECRET_DOMAIN}: ${LB_K8S_GATEWAY}
+                ${SECRET_XYZ_DOMAIN}: ${SECRET_NAS_ADDRESS}
+            blocking:
+              blackLists:
                 ads:
-                  - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-                  - |
-                    /(.*\.|^)newrelic($|\..+)/
-              clientGroupsBlock:
-                default:
-                  - ads
-                  - fakenews
+                  - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+                  - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+                  - http://sysctl.org/cameleon/hosts
+                  - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+                fakenews:
+                  - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
+            whiteLists:
+              ads:
+                - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+                - |
+                  /(.*\.|^)newrelic($|\..+)/
+            clientGroupsBlock:
+              default:
+                - ads
+                - fakenews
             prometheus:
               enable: true
               path: /metrics
