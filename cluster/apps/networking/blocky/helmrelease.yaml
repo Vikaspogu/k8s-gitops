@@ -95,15 +95,13 @@ spec:
                   - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
                 fakenews:
                   - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
-            whiteLists:
-              ads:
-                - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-                - |
-                  /(.*\.|^)newrelic($|\..+)/
-            clientGroupsBlock:
-              default:
-                - ads
-                - fakenews
+              whiteLists:
+                ads:
+                  - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+              clientGroupsBlock:
+                default:
+                  - ads
+                  - fakenews
             prometheus:
               enable: true
               path: /metrics
