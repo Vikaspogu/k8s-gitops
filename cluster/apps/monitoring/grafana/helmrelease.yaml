@@ -123,6 +123,10 @@ spec:
 
     dashboards:
       default:
+        blocky:
+          gnetId: 13768
+          revision: 2
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-cluster:
           gnetId: 2842
