@@ -4,8 +4,6 @@ kind: Kustomization
 resources:
   - ./alertmanager-discord
   - botkube
-  - goldilocks
   - grafana
   - kube-prometheus-stack
   - unifi-poller
-  - vpa
