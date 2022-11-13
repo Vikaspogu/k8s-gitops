@@ -182,9 +182,3 @@ spec:
               resources:
                 requests:
                   storage: 25Gi
-        additionalScrapeConfigs:
-          - job_name: "coredns"
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "coredns.networking:53"
