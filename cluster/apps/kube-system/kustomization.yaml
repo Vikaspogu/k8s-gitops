@@ -6,6 +6,5 @@ resources:
   - kube-cleanup-operator
   - kured
   - metrics-server
-  - reflector
   - reloader
   - kyverno
