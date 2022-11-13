@@ -103,6 +103,8 @@ spec:
                   - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
                   - http://sysctl.org/cameleon/hosts
                   - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+                  - https://raw.githubusercontent.com/kboghdady/youTube_ads_4_pi-hole/master/youtubelist.txt
+                  - https://raw.githubusercontent.com/ookangzheng/dbl-oisd-nl/master/dbl.txt
                 fakenews:
                   - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
               whiteLists:
