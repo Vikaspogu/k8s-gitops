@@ -7,5 +7,5 @@ resources:
   - external-dns
   - ingress-nginx
   - k8s-gateway
-  - ./speedtest-exporter/
+  - ./speedtest-exporter
   - traefik
