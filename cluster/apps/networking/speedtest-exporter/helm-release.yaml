@@ -27,6 +27,7 @@ spec:
       tag: v3.5.3
     env:
       TZ: ${TIMEZONE}
+      SPEEDTEST_SERVER: 11714
     service:
       main:
         ports:
