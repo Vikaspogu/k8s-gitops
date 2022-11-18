@@ -17,5 +17,5 @@ resources:
   - networking
   - rook-ceph
   - security
-  #- system-upgrade
+  - system-upgrade
   - vpn
