@@ -56,14 +56,13 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           hajimari.io/enable: "true"
           hajimari.io/icon: "paper"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: &host "paperless.${SECRET_DOMAIN}"
             paths:

@@ -25,7 +25,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns/is-public: "true"
@@ -33,7 +33,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "home-automation"
           hajimari.io/appName: "Home Assistant"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: home-assistant.${SECRET_DOMAIN}
             paths:

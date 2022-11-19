@@ -36,8 +36,7 @@ spec:
             hajimari.io/appName: nas
             hajimari.io/enable: "true"
             hajimari.io/icon: storage
-            kubernetes.io/ingress.class: traefik
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            kubernetes.io/ingress.class: "nginx"
           tls:
             - hosts:
                 - nas.${SECRET_DOMAIN}

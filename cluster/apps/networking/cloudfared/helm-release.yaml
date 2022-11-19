@@ -31,7 +31,7 @@ spec:
       # Read: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress
       ingress:
         - hostname: "*.${SECRET_DOMAIN}"
-          service: https://traefik.networking
+          service: https://nginx.networking
           originRequest:
             noTLSVerify: true
         - service: http_status:404
