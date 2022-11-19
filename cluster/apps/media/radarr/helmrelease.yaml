@@ -33,18 +33,20 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Radarr"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/radarr/dracula.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: "radarr.${SECRET_PRIVATE_DOMAIN}"
+          - host: "radarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "radarr.${SECRET_PRIVATE_DOMAIN}"
+              - "radarr.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
     persistence:
       config:
         enabled: true

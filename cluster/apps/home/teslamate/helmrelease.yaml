@@ -39,14 +39,16 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "car-connected"
           hajimari.io/appName: ${SECRET_TESLAMATE_DB}
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
         hosts:
-          - host: teslamate.${SECRET_PRIVATE_DOMAIN}
+          - host: teslamate.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - teslamate.${SECRET_PRIVATE_DOMAIN}
+              - teslamate.${SECRET_DOMAIN}
+            secretName: "{{ .Release.Name }}-tls"
     tolerations:
       - key: "arm"
         operator: "Exists"

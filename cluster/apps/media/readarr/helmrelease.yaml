@@ -29,18 +29,20 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: "book-open"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/readarr/dracula.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: "readarr.${SECRET_PRIVATE_DOMAIN}"
+          - host: "readarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "readarr.${SECRET_PRIVATE_DOMAIN}"
+              - "readarr.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
     podSecurityContext:
       supplementalGroups:
         - 100

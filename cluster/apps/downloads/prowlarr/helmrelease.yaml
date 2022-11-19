@@ -47,18 +47,20 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: "cloud-search"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/prowlarr/dracula.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: "prowlarr.${SECRET_PRIVATE_DOMAIN}"
+          - host: "prowlarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "prowlarr.${SECRET_PRIVATE_DOMAIN}"
+              - "prowlarr.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

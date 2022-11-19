@@ -64,6 +64,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "cloud-download"
           hajimari.io/appName: "Qbittorrent"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
           # Custom themes provided by https://github.com/gilbN/theme.park
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_hide_header "x-webkit-csp";
@@ -73,13 +74,14 @@ spec:
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/qbittorrent/plex.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: "qb.${SECRET_PRIVATE_DOMAIN}"
+          - host: "qb.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "qb.${SECRET_PRIVATE_DOMAIN}"
+              - "qb.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
     podSecurityContext:
       supplementalGroups:
         - 100

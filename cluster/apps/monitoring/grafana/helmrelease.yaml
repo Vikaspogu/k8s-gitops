@@ -253,11 +253,13 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/icon: "chart-bar-stacked"
         hajimari.io/appName: "Grafana"
+        cert-manager.io/cluster-issuer: "letsencrypt-staging"
       hosts:
-        - grafana.${SECRET_PRIVATE_DOMAIN}
+        - grafana.${SECRET_DOMAIN}
       tls:
         - hosts:
-            - grafana.${SECRET_PRIVATE_DOMAIN}
+            - grafana.${SECRET_DOMAIN}
+          secretName: "{{ .Release.Name }}-tls"
     serviceAccount:
       create: true
       autoMount: true

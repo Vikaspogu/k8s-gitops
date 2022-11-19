@@ -33,18 +33,20 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Sonarr"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/sonarr/dracula.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: "sonarr.${SECRET_PRIVATE_DOMAIN}"
+          - host: "sonarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "sonarr.${SECRET_PRIVATE_DOMAIN}"
+              - "sonarr.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
     persistence:
       config:
         enabled: true

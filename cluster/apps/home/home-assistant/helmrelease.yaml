@@ -89,14 +89,16 @@ spec:
             hajimari.io/enable: "true"
             hajimari.io/icon: "microsoft-visual-studio-code"
             hajimari.io/appName: "Home Assistant VSCode"
+            cert-manager.io/cluster-issuer: "letsencrypt-staging"
           hosts:
-            - host: hass-config.${SECRET_PRIVATE_DOMAIN}
+            - host: hass-config.${SECRET_DOMAIN}
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - hosts:
-                - hass-config.${SECRET_PRIVATE_DOMAIN}
+                - hass-config.${SECRET_DOMAIN}
+              secretName: "{{ .Release.Name }}-tls"
         volumeMounts:
           - name: config
             mountPath: /config

@@ -58,11 +58,13 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Alert Manager"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
         hosts:
-          - "alert-manager.${SECRET_PRIVATE_DOMAIN}"
+          - "alert-manager.${SECRET_DOMAIN}"
         tls:
           - hosts:
-              - "alert-manager.${SECRET_PRIVATE_DOMAIN}"
+              - "alert-manager.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -161,11 +163,13 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Prometheus"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
         hosts:
-          - "prometheus.${SECRET_PRIVATE_DOMAIN}"
+          - "prometheus.${SECRET_DOMAIN}"
         tls:
           - hosts:
-              - "prometheus.${SECRET_PRIVATE_DOMAIN}"
+              - "prometheus.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"

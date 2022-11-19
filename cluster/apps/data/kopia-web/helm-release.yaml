@@ -76,14 +76,16 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_PRIVATE_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
+            secretName: "{{ .Release.Name }}-tls"
     podSecurityContext:
       supplementalGroups:
         - 100

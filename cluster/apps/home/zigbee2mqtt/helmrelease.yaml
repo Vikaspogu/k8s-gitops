@@ -31,14 +31,16 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "radio-tower"
           hajimari.io/appName: "Zigbee2MQTT"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
         hosts:
-          - host: "zigbee2mqtt.${SECRET_PRIVATE_DOMAIN}"
+          - host: "zigbee2mqtt.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "zigbee2mqtt.${SECRET_PRIVATE_DOMAIN}"
+              - "zigbee2mqtt.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
     persistence:
       config:
         enabled: true

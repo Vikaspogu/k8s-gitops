@@ -36,12 +36,14 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "database"
           hajimari.io/appName: "Rook Dashboard"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
         host:
-          name: "rook.${SECRET_PRIVATE_DOMAIN}"
+          name: "rook.${SECRET_DOMAIN}"
           path: "/"
         tls:
           - hosts:
-              - "rook.${SECRET_PRIVATE_DOMAIN}"
+              - "rook.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
     cephClusterSpec:
       mgr:
         count: 1

@@ -90,13 +90,15 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/icon: "filmstrip"
         hajimari.io/appName: "Frigate"
+        cert-manager.io/cluster-issuer: "letsencrypt-staging"
       hosts:
-        - host: "frigate.${SECRET_PRIVATE_DOMAIN}"
+        - host: "frigate.${SECRET_DOMAIN}"
           paths:
             - "/"
       tls:
         - hosts:
-            - "frigate.${SECRET_PRIVATE_DOMAIN}"
+            - "frigate.${SECRET_DOMAIN}"
+          secretName: "{{ .Release.Name }}-tls"
     resources:
       limits:
         memory: 2500Mi

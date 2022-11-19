@@ -30,19 +30,21 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "nginx"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
           hajimari.io/enable: "true"
           hajimari.io/icon: "web"
           hajimari.io/appName: "ArgoCD"
         hosts:
-          - argocd.${SECRET_PRIVATE_DOMAIN}
+          - argocd.${SECRET_DOMAIN}
         paths:
           - /
         tls:
           - hosts:
-              - argocd.${SECRET_PRIVATE_DOMAIN}
+              - argocd.${SECRET_DOMAIN}
+            secretName: "argocd-tls"
       config:
         kustomize.buildOptions: "--enable-alpha-plugins --enable-helm"
-        url: https://argocd.${SECRET_PRIVATE_DOMAIN}
+        url: https://argocd.${SECRET_DOMAIN}
         application.instanceLabelKey: argocd.argoproj.io/instance
         accounts.admin: apiKey
         repositories: |
