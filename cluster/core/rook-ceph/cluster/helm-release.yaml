@@ -43,7 +43,6 @@ spec:
         tls:
           - hosts:
               - "rook.${SECRET_DOMAIN}"
-            secretName: "{{ .Release.Name }}-tls"
     cephClusterSpec:
       mgr:
         count: 1

@@ -98,7 +98,6 @@ spec:
       tls:
         - hosts:
             - "frigate.${SECRET_DOMAIN}"
-          secretName: "{{ .Release.Name }}-tls"
     resources:
       limits:
         memory: 2500Mi
