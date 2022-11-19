@@ -4,5 +4,4 @@ resources:
   - blocky
   - cloudflare-ddns
   - external-dns
-  - k8s-gateway
   - ./ingress-nginx
