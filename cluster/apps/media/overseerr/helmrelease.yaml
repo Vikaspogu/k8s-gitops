@@ -35,6 +35,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Overseerr"
+          auth.home.arpa/enabled: "true"
         hosts:
           - host: "overseerr.${SECRET_DOMAIN}"
             paths:

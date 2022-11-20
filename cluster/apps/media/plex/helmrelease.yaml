@@ -34,6 +34,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Plex"
+          auth.home.arpa/enabled: "true"
         hosts:
           - host: "plex-server.${SECRET_DOMAIN}"
             paths:
