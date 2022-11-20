@@ -36,7 +36,7 @@ spec:
     persistence:
       config:
         enabled: true
-        mountPath: /app/config
+        mountPath: /config
     ingress:
       main:
         enabled: true
@@ -51,7 +51,7 @@ spec:
                 pathType: Prefix
         tls:
           - hosts:
-            - *host
+              - *host
             secretName: "{{.Release.Name}}-tls"
     resources:
       requests:
@@ -62,12 +62,15 @@ spec:
     addons:
       codeserver:
         enabled: true
-        workingDir: "/app/config"
+        workingDir: "/config"
         args:
           - --auth
           - none
           - --user-data-dir
           - "/config/.vscode"
+        volumeMounts:
+          - name: config
+            mountPath: /config
         ingress:
           enabled: true
           annotations:
