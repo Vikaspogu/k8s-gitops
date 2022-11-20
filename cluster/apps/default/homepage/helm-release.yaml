@@ -36,7 +36,6 @@ spec:
     persistence:
       config:
         enabled: true
-        mountPath: /app/config
     ingress:
       main:
         enabled: true
@@ -62,7 +61,7 @@ spec:
     addons:
       codeserver:
         enabled: true
-        workingDir: "/app/config"
+        workingDir: "/config"
         args:
           - --auth
           - none
@@ -70,7 +69,7 @@ spec:
           - "/config/.vscode"
         volumeMounts:
           - name: config
-            mountPath: /app/config
+            mountPath: /config
         ingress:
           enabled: true
           annotations:
