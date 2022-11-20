@@ -35,12 +35,12 @@ spec:
             port: &port 3000
     probes:
       liveness: &probes
-        enabled: false
-        custom: true
-        spec:
-          httpGet:
-            path: /index.html
-            port: *port
+      enabled: true
+      custom: true
+      spec:
+        httpGet:
+          path: /
+          port: *port
           initialDelaySeconds: 0
           periodSeconds: 10
           timeoutSeconds: 1
@@ -66,7 +66,7 @@ spec:
                 pathType: Prefix
         tls:
           - hosts:
-              - *host
+            - *host
             secretName: "{{.Release.Name}}-tls"
     resources:
       requests:
@@ -74,3 +74,11 @@ spec:
         memory: 64Mi
       limits:
         memory: 96Mi
+    codeserver:
+      enabled: true
+      workingDir: "/app/config"
+      args:
+        - --auth
+        - none
+        - --user-data-dir
+        - "/config/.vscode"
