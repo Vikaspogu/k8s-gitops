@@ -1,9 +1,0 @@
-*.sops.*
-gotk-components.yaml
-argocd-apps
-xanmanning.k3s
-charts/
-docs/
-.private/
-.terraform/
-.vscode/
