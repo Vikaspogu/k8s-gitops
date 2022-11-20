@@ -5,7 +5,5 @@ area/github:
   - ".github/**/*"
 area/cluster:
   - "cluster/**/*"
-area/hack:
-  - "hack/**/*"
 area/terraform:
   - "terraform/**/*"
