@@ -60,7 +60,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
           hajimari.io/enable: "true"
         hosts:
-          - host: &host "${SECRET_DOMAIN}"
+          - host: &host "homepage.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
