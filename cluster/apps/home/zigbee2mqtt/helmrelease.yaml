@@ -31,7 +31,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "radio-tower"
           hajimari.io/appName: "Zigbee2MQTT"
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: "zigbee2mqtt.${SECRET_DOMAIN}"
             paths:

@@ -253,7 +253,7 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/icon: "chart-bar-stacked"
         hajimari.io/appName: "Grafana"
-        cert-manager.io/cluster-issuer: "letsencrypt-staging"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:
         - grafana.${SECRET_DOMAIN}
       tls:

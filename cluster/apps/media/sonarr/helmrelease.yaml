@@ -33,7 +33,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Sonarr"
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/sonarr/dracula.css"></head>';

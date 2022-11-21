@@ -64,7 +64,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "cloud-download"
           hajimari.io/appName: "Qbittorrent"
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
           # Custom themes provided by https://github.com/gilbN/theme.park
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_hide_header "x-webkit-csp";

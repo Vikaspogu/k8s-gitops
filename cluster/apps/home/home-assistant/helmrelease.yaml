@@ -89,7 +89,7 @@ spec:
             hajimari.io/enable: "true"
             hajimari.io/icon: "microsoft-visual-studio-code"
             hajimari.io/appName: "Home Assistant VSCode"
-            cert-manager.io/cluster-issuer: "letsencrypt-staging"
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
           hosts:
             - host: hass-config.${SECRET_DOMAIN}
               paths:

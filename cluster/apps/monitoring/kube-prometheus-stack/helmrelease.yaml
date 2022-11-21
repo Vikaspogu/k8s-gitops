@@ -58,7 +58,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Alert Manager"
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
         tls:
@@ -163,7 +163,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Prometheus"
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - "prometheus.${SECRET_DOMAIN}"
         tls:
