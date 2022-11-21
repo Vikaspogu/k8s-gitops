@@ -36,14 +36,14 @@ spec:
           hajimari.io/appName: "Plex"
           auth.home.arpa/enabled: "true"
         hosts:
-          - host: "plex-server.${SECRET_DOMAIN}"
+          - host: &host "plex.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: plex-server-tls-secret
+          - secretName: "{{.Release.Name}}-tls"
             hosts:
-              - "plex-server.${SECRET_DOMAIN}"
+              - *host
     service:
       main:
         type: LoadBalancer
