@@ -21,7 +21,7 @@ unxz -T 0 ~/Downloads/ubuntu-20.04.2-preinstalled-server-arm64+raspi.img.xz
 
 ### Configure
 
-Update [cloud-config.example.yml](../setup/cloud-config.yml) as you see fit.
+Update [cloud-config.example.yml](../provision/cloud-config/k8s-5-pi4-garage.yml) as you see fit.
 
 ### Flash
 

@@ -1,6 +1,6 @@
 # loki
 
-Enable syslog, do this on each host and replace `target` IP (and maybe `port`) with you syslog `externalIP` that is defined [here](../charts/loki/values.yaml)
+Enable syslog, do this on each host and replace `target` IP (and maybe `port`) with you syslog `externalIP` that is defined [here](../cluster/apps/monitoring/loki/helmrelease.yaml)
 
 Create file `/etc/rsyslog.d/50-promtail.conf` with the following content:
 
