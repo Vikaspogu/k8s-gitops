@@ -9,5 +9,6 @@ creation_rules:
     age: >-
       age1ulfhs490lug3kres5qm5kfdmpqmcrwsfsc03eln0s3xffndnrcwq5u86tt
   - path_regex: provision/cloud-config/.*\.ya?ml
+    encrypted_regex: "^(users|write_files)$"
     age: >-
       age1ulfhs490lug3kres5qm5kfdmpqmcrwsfsc03eln0s3xffndnrcwq5u86tt

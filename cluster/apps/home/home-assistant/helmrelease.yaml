@@ -113,8 +113,4 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - {
-                    key: "app.kubernetes.io/name",
-                    operator: In,
-                    values: ["hass"],
-                  }
+                - { key: "app.kubernetes.io/name", operator: In, values: ["hass"]}

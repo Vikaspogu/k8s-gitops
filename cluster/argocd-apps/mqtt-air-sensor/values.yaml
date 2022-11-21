@@ -55,8 +55,4 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
         - matchExpressions:
-            - {
-                key: "feature.node.kubernetes.io/custom-air-sensor",
-                operator: In,
-                values: ["true"],
-              }
+            - { key: "feature.node.kubernetes.io/custom-air-sensor", operator: In, values: ["true"] }

@@ -72,8 +72,4 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
         - matchExpressions:
-            - {
-                key: "feature.node.kubernetes.io/custom-room-assistant",
-                operator: In,
-                values: ["true"],
-              }
+            - { key: "feature.node.kubernetes.io/custom-room-assistant", operator: In, values: ["true"] }
