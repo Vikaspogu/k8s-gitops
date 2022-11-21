@@ -36,6 +36,7 @@ spec:
     persistence:
       config:
         enabled: true
+        existingClaim: homepage-config
         mountPath: /app/config
     ingress:
       main:
