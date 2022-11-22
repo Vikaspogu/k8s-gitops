@@ -4,6 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: prowlarr-config
   namespace: downloads
+  labels:
+    app.kubernetes.io/instance: prowlarr
+    app.kubernetes.io/name: prowlarr
+    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

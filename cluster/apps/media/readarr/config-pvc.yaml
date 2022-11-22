@@ -4,6 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: readarr-config
   namespace: media
+  labels:
+    app.kubernetes.io/instance: readarr
+    app.kubernetes.io/name: readarr
+    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

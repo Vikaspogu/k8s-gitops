@@ -4,6 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: vikunja-files
   namespace: data
+  labels:
+    app.kubernetes.io/instance: vikunja
+    app.kubernetes.io/name: vikunja
+    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

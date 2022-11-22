@@ -4,6 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgresql-config
   namespace: data
+  labels:
+    app.kubernetes.io/instance: postgresql-kube
+    app.kubernetes.io/name: postgresql-kube
+    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

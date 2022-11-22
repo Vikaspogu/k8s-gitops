@@ -4,7 +4,7 @@ version: "3"
 x-preconditions: &preconditions
   - &has-app
     msg: "App '{{.APP}}' not found"
-    sh: kubectl get deployment,statefulset -A | awk '/{{.APP}}\s/{print $1}' | grep .
+    sh: kubectl get deployment,statefulset -A | awk '/{{.APP}}/{print $1}' | grep .
   - &has-cronjob
     msg: "CronJob '{{.APP}}-{{.CLAIM}}-snapshot' in namespace '{{.NAMESPACE}}' not found"
     sh: kubectl get cronjob -n {{.NAMESPACE}} {{.APP}}-{{.CLAIM}}-snapshot
@@ -17,9 +17,9 @@ x-preconditions: &preconditions
 
 x-vars: &vars
   NAMESPACE:
-    sh: kubectl get deployment,statefulset -A | awk '/{{.APP}}\s/{print $1}'
+    sh: kubectl get deployment,statefulset -A | awk '/{{.APP}}/{print $1}'
   NAME:
-    sh: kubectl get deployment,statefulset -n {{.NAMESPACE}} | awk '/{{.APP}}\s/{print $1}'
+    sh: kubectl get deployment,statefulset -n {{.NAMESPACE}} | awk '/{{.APP}}/{print $1}'
   SNAPSHOT: '{{.SNAPSHOT | default "latest"}}'
   TS: '{{now | date "20060102150405"}}'
 
@@ -50,7 +50,7 @@ tasks:
     preconditions: *preconditions
 
   restore:
-    desc: Create a restore job for an app and claim (task snapshot:restore APP=plex CLAIM=plex [SNAPSHOT=(latest|<snapshot-id>) KOPIA_NAMESPACE=<namespace> TIMEOUT=<timeout>])
+    desc: Create a restore job for an app and claim (task snapshot:restore APP=plex CLAIM=plex NAMESPACE=media NAS_ADDRESS= [SNAPSHOT=(latest|<snapshot-id>) KOPIA_NAMESPACE=<namespace> TIMEOUT=<timeout>])
     cmds:
       - flux -n {{.NAMESPACE}} suspend helmrelease {{.APP}}
       - kubectl -n {{.NAMESPACE}} scale {{.NAME}} --replicas 0
@@ -66,6 +66,7 @@ tasks:
       APP: "{{.APP}}"
       NAMESPACE: "{{.NAMESPACE}}"
       CLAIM: "{{.CLAIM}}"
+      NAS_ADDRESS: "{{.NAS_ADDRESS}}"
       SNAPSHOT:
         sh: |
           if [[ {{.SNAPSHOT}} == "latest" ]]; then

@@ -38,5 +38,5 @@ spec:
             claimName: ${CLAIM}
         - name: snapshots
           nfs:
-            server: expanse
-            path: /eros/Apps/Kopia
+            server: ${NAS_ADDRESS}
+            path: /volume1/media/k8s-data/kopia-snapshots

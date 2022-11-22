@@ -4,6 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: data-teslamate-postgresql
   namespace: home
+  labels:
+    app.kubernetes.io/instance: teslamate-postgresql
+    app.kubernetes.io/name: teslamate-postgresql
+    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

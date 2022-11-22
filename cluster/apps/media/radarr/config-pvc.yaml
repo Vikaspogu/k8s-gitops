@@ -4,6 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: radarr-config
   namespace: media
+  labels:
+    app.kubernetes.io/instance: radarr
+    app.kubernetes.io/name: radarr
+    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

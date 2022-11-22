@@ -4,6 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: "home"
   name: "frigate-config"
+  labels:
+    app.kubernetes.io/instance: frigate
+    app.kubernetes.io/name: frigate
+    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

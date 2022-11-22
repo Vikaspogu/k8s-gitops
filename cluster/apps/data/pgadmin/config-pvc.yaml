@@ -4,6 +4,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: pgadmin-config
   namespace: data
+  labels:
+    app.kubernetes.io/instance: pgadmin
+    app.kubernetes.io/name: pgadmin
+    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce
