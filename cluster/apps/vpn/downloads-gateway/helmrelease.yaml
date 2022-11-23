@@ -30,7 +30,7 @@ spec:
             port: ${VPN_FORWARDED_PORT_1}
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
-      - hostname: jackett
+      - hostname: youtubedl
         IP: 11
         ports:
           - type: udp
@@ -39,13 +39,6 @@ spec:
             port: ${VPN_FORWARDED_PORT_1}
       - hostname: prowlarr
         IP: 12
-        ports:
-          - type: udp
-            port: ${VPN_FORWARDED_PORT_1}
-          - type: tcp
-            port: ${VPN_FORWARDED_PORT_1}
-      - hostname: autobrr
-        IP: 13
         ports:
           - type: udp
             port: ${VPN_FORWARDED_PORT_1}

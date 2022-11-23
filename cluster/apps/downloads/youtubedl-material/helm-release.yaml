@@ -29,6 +29,9 @@ spec:
     image:
       repository: docker.io/tzahi12345/youtubedl-material
       tag: latest
+    podAnnotations:
+      setGateway: "true"
+    hostname: youtubedl
     env:
       TZ: "${TIMEZONE}"
     persistence:
@@ -60,7 +63,7 @@ spec:
           hajimari.io/icon: youtube
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: &host "youtube.${SECRET_DOMAIN}"
+          - host: &host "youtubedl.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
