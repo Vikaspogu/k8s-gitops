@@ -32,7 +32,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
     persistence:
-      data:
+      config:
         enabled: true
       media:
         enabled: true
