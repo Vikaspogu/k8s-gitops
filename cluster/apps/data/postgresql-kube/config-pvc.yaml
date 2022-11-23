@@ -6,7 +6,7 @@ metadata:
   namespace: data
   labels:
     app.kubernetes.io/instance: postgresql-kube
-    app.kubernetes.io/name: postgresql-kube
+    app.kubernetes.io/name: postgresql
     snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:

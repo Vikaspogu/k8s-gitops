@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: &app audiobookshelf-config
+  name: audiobookshelf-config
   namespace: media
   labels:
-    app.kubernetes.io/name: *app
-    app.kubernetes.io/instance: *app
+    app.kubernetes.io/name: audiobookshelf
+    app.kubernetes.io/instance: audiobookshelf
     snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
