@@ -32,8 +32,6 @@ spec:
     env:
       TZ: "${TIMEZONE}"
     persistence:
-      config:
-        enabled: true
       media:
         enabled: true
         type: custom
@@ -41,6 +39,13 @@ spec:
           nfs:
             server: "${SECRET_NAS_ADDRESS}"
             path: /volume1/media/YoutubeDL/
+        subPath:
+          - path: appdata
+            mountPath: /app/appdata
+          - path: audio
+            mountPath: /app/audio
+          - path: video
+            mountPath: /app/video
     service:
       main:
         ports:
