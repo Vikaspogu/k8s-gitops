@@ -35,6 +35,10 @@ spec:
     env:
       TZ: "${TIMEZONE}"
     persistence:
+      data:
+        enabled: true
+        existingClaim: youtubedl-config
+        mountPath: /app/appdata
       media:
         enabled: true
         type: custom
@@ -43,8 +47,6 @@ spec:
             server: "${SECRET_NAS_ADDRESS}"
             path: /volume1/media/YoutubeDL/
         subPath:
-          - path: appdata
-            mountPath: /app/appdata
           - path: audio
             mountPath: /app/audio
           - path: video
