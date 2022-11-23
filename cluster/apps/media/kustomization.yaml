@@ -9,4 +9,5 @@ resources:
   - radarr
   - readarr
   - sonarr
-  - ./tautulli
+  - tautulli
+  - youtubedl-material
