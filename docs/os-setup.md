@@ -7,16 +7,17 @@
 ### Downloads the Flash tool
 
 ```bash
-sudo curl -L "https://github.com/hypriot/flash/releases/download/2.7.2/flash" -o /usr/local/bin/flash
-sudo chmod +x /usr/local/bin/flash
+curl -LO https://github.com/hypriot/flash/releases/download/2.7.2/flash
+chmod +x flash
+sudo mv flash /usr/local/bin/flash
 ```
 
 ### Download and extract the image
 
 ```bash
 cd ~/Downloads
-curl -L "https://cdimage.ubuntu.com/releases/20.04.2/release/ubuntu-20.04.2-preinstalled-server-arm64+raspi.img.xz" -o ubuntu-20.04.2-preinstalled-server-arm64+raspi.img.xz
-unxz -T 0 ~/Downloads/ubuntu-20.04.2-preinstalled-server-arm64+raspi.img.xz
+curl -L "https://download.fedoraproject.org/pub/fedora/linux/releases/36/Server/armhfp/images/Fedora-Server-36-1.5.armhfp.raw.xz" -o Fedora-Server-36.1.5-arm64+raspi.img.xz
+unxz -T 0 ~/Downloads/Fedora-Server-36.1.5-arm64+raspi.img.xz
 ```
 
 ### Configure
@@ -27,7 +28,7 @@ Update [cloud-config.example.yml](../provision/cloud-config/k8s-5-pi4-garage.yml
 
 ```bash
 flash --userdata setup/cloud-config.yml \
-    ~/Downloads/ubuntu-20.04.1-preinstalled-server-arm64+raspi.img
+    ~/Downloads/Fedora-Server-36.1.5-arm64+raspi.img
 ```
 
 ### Boot
