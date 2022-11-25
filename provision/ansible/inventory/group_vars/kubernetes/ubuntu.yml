@@ -1,8 +1,0 @@
----
-# Timezone for the servers
-timezone: "America/Chicago"
-
-rsyslog:
-  enabled: true
-  ip: 192.168.20.103
-  port: 1514

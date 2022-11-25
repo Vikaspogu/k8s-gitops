@@ -5,7 +5,7 @@ metadata:
   name: cloudflared
   namespace: networking
 spec:
-  interval: 5m
+  interval: 15m
   releaseName: cloudflared
   chart:
     spec:
@@ -16,7 +16,14 @@ spec:
         kind: HelmRepository
         name: xunholy-charts
         namespace: flux-system
-      interval: 5m
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     replicaCount: 3
     image:

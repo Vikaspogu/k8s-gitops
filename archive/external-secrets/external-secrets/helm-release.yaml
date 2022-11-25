@@ -5,7 +5,7 @@ metadata:
   name: external-secrets
   namespace: external-secrets
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://charts.external-secrets.io
@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: external-secrets-charts
         namespace: flux-system
-      interval: 5m
+      interval: 15m
   install:
     remediation:
       retries: 5

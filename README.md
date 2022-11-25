@@ -15,13 +15,12 @@ _... managed with Flux, Renovate and GitHub Actions_ :robot:
 [![k3s](https://img.shields.io/badge/k3s-v1.23.9-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge)](https://github.com/pre-commit/pre-commit)
 [![renovate](https://img.shields.io/badge/renovate-enabled?style=for-the-badge&logo=renovatebot&logoColor=white&color=brightgreen)](https://github.com/renovatebot/renovate)
-[![Lines of code](https://img.shields.io/tokei/lines/github/vikaspogu/k8s-gitops?style=for-the-badge&color=brightgreen&label=lines&logo=codefactor&logoColor=white)](https://github.com/vikaspogu/k8s-gitops/graphs/contributors)
 
 </div>
 
 ---
 
-## :book:&nbsp; Overview
+## 📖 Overview
 
 This is a mono repository for my home infrastructure and Kubernetes cluster based on excellent template from [k8s-at-home/template-cluster-k3](https://github.com/k8s-at-home/template-cluster-k3s). I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
 
@@ -48,31 +47,35 @@ My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Ubuntu 20.04
 
 [Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When some PRs are merged [Flux](https://github.com/fluxcd/flux2) applies the changes to my cluster.
 
-### Directories
+## 📂 Repository structure
 
-The Git repository contains the following directories under [cluster](./cluster/) and are ordered below by how [Flux](https://github.com/fluxcd/flux2) will apply them.
+The Git repository contains the following directories under `cluster` and are ordered below by how Flux will apply them.
 
-- **base**: directory is the entrypoint to [Flux](https://github.com/fluxcd/flux2).
-- **crds**: directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists.
-- **core**: directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by [Flux](https://github.com/fluxcd/flux2).
-- **apps**: directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, [Flux](https://github.com/fluxcd/flux2) will prune resources here if they are not tracked by Git anymore.
+```sh
+📁 cluster      # k8s cluster defined as code
+├─📁 flux       # flux, gitops operator, loaded before everything
+├─📁 charts     # helm chart repos
+├─📁 config     # cluster config
+└─📁 apps       # regular apps, namespaced dir tree, loaded last
+```
 
-### Networking
+### Data Backup and Recovery
 
-| Name                | CIDR              |
-| ------------------- | ----------------- |
-| Kubernetes Nodes    | `192.168.20.0/24` |
-| Kubernetes pods     | `10.42.0.0/16`    |
-| Kubernetes services | `10.43.0.0/16`    |
+Rook does not have built in support for backing up PVC data so I am currently using a DIY _(or more specifically a "Poor Man's Backup")_ solution that is leveraging [Kyverno](https://kyverno.io/), [Kopia](https://kopia.io/) and native Kubernetes `CronJob` and `Job` resources.
 
-- HAProxy configured on Opnsense for the Kubernetes Control Plane Load Balancer.
-- Calico configured with `externalIPs` to expose Kubernetes services with their own IP over BGP which is configured on my router.
+At a high level the way this operates is that:
+
+- Kyverno creates a `CronJob` for each `PersistentVolumeClaim` resource that contain a label of `snapshot.home.arpa/enabled: "true"`
+- Everyday the `CronJob` creates a `Job` and uses Kopia to connect to a Kopia repository on my NAS over NFS and then snapshots the contents of the app data mount into the Kopia repository
+- The snapshots made by Kopia are incremental which makes the `Job` run very quick.
+- The app data mount is frozen during backup to prevent writes and unfrozen when the snapshot is complete.
+- Recovery is a manual process. By using a different `Job` a temporary pod is created and the fresh PVC and existing NFS mount are attached to it. The data is then copied over to the fresh PVC and the temporary pod is deleted.
 
 ---
 
-## :globe_with_meridians:&nbsp; DNS
+## 🌐 DNS
 
-### Traefik Controller
+### Ingress Controller
 
 I have port forwarded ports `80` and `443` to the load balancer IP of Metallb that's running in my Kubernetes cluster.
 
@@ -90,15 +93,11 @@ I have port forwarded ports `80` and `443` to the load balancer IP of Metallb th
 
 [CoreDNS](https://github.com/coredns/coredns) is deployed on cluster and has direct access to my clusters ingress records and serves DNS for them in my internal network. `CoreDNS` is only listening on my `MANAGEMENT` and `SERVER` networks on port `53`.
 
-For adblocking, I have [Blocky](https://github.com/0xERR0R/blocky)
-
-### Ingress Controller
-
-I have setup ingress controller for my internal traffic routes
+For ad-blocking, I have [Blocky](https://github.com/0xERR0R/blocky)
 
 ---
 
-## :wrench:&nbsp; Hardware
+## 🔧 Hardware
 
 | Device              | Count | OS Disk Size | Data Disk Size       | Ram  | Purpose    |
 | ------------------- | ----- | ------------ | -------------------- | ---- | ---------- |
@@ -111,18 +110,18 @@ I have setup ingress controller for my internal traffic routes
 
 ---
 
-## :handshake:&nbsp; Graditude and Thanks
+## 🤝 Gratitude and Thanks
 
 Thanks to all the people who donate their time to the [Kubernetes @Home](https://github.com/k8s-at-home/) community. A lot of inspiration for my cluster came from the people that have shared their clusters over at [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes).
 
 ---
 
-## :scroll:&nbsp; Changelog
+## 📜 Changelog
 
 See [commit history](https://github.com/vikaspogu/k8s-gitops/commits/main)
 
 ---
 
-## :lock_with_ink_pen:&nbsp; License
+## 🔏 License
 
 See [LICENSE](./LICENSE)

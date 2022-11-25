@@ -4,9 +4,6 @@
   gather_facts: false
   become: false
   tasks:
-    - name: Get root level directory
-      shell: "git rev-parse --show-toplevel"
-      register: root_dir
 
     - name: Add labels to nodes
       shell: "kubectl label nodes {{item.name}} {{item.label}} --overwrite"
@@ -38,12 +35,3 @@
     - name: Add k3s-upgrade labels to nodes
       shell: "kubectl label nodes {{item.metadata.name}} k3s-upgrade=true --overwrite"
       with_items: "{{nodes_list.resources}}"
-
-    - name: Create flux namespace
-      shell: "kubectl --kubeconfig={{root_dir.stdout_lines[0]}}/provision/kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig={{root_dir.stdout_lines[0]}}/provision/kubeconfig apply -f -"
-
-    - name: Create sops secret inf flux namespace
-      shell: "cat ~/.config/sops/age/keys.txt | kubectl --kubeconfig={{root_dir.stdout_lines[0]}}/provision/kubeconfig -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin"
-
-    - name: Deploy base folder for flux system
-      shell: "kubectl apply -k {{root_dir.stdout_lines[0]}}/cluster/base/flux-system"
