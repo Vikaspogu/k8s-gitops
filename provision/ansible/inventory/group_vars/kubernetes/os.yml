@@ -1,0 +1,25 @@
+---
+# Timezone for the servers
+timezone: "America/Chicago"
+
+# (list) Additional ssh public keys to add to the nodes
+# ssh_authorized_keys:
+
+packages:
+  - dnf-plugin-system-upgrade
+  - dnf-utils
+  - hdparm
+  - htop
+  - intel-gpu-tools
+  - ipvsadm
+  - lm_sensors
+  - nano
+  - nvme-cli
+  - socat
+  - python3-libselinux
+
+
+rsyslog:
+  enabled: true
+  ip: 192.168.20.103
+  port: 1514

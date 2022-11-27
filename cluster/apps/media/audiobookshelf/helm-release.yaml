@@ -6,7 +6,7 @@ metadata:
   namespace: media
 spec:
   releaseName: *app
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       chart: app-template
@@ -22,6 +22,9 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   values:
     image:
       repository: ghcr.io/advplyr/audiobookshelf

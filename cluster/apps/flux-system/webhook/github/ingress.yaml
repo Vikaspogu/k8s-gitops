@@ -5,11 +5,10 @@ metadata:
   name: webhook-receiver
   namespace: flux-system
   annotations:
-    kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-production"
-    external-dns/is-public: "true"
     external-dns.home.arpa/enabled: "true"
 spec:
+  ingressClassName: "nginx"
   rules:
     - host: "flux-receiver.${SECRET_DOMAIN}"
       http:
