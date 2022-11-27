@@ -7,7 +7,6 @@ resources:
   - descheduler
   - kube-cleanup-operator
   - kube-vip
-  - kyverno
   - kured
   - metrics-server
   - reloader
