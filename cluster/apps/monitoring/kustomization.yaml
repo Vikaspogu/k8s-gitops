@@ -5,7 +5,7 @@ resources:
   - namespace.yaml
   - alertmanager-discord
   - botkube
-  - flux
+  # - flux
   - grafana
   - kube-prometheus-stack
   - unifi-poller
