@@ -6,5 +6,5 @@ resources:
   - home-assistant
   - mosquitto
   - node-red
-  - teslamate
-  - zigbee2mqtt
+  # - teslamate
+  # - zigbee2mqtt
