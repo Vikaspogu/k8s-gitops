@@ -10,7 +10,7 @@ resources:
   - flux-system
   - home
   - kube-system
-  # - kyverno
+  - kyverno
   - monitoring
   - networking
   - rook-ceph
