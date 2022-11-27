@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - frigate
-  - home-assistant
+  # - home-assistant
   - mosquitto
   - node-red
   # - teslamate
