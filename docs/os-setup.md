@@ -1,5 +1,30 @@
 # OS Setup
 
+## Change network interface name on Fedora
+
+```bash
+vi /etc/default/grub
+GRUB_CMDLINE_LINUX line append "net.ifnames=0 biosdevname=0"
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+cat /etc/sysconfig/network-scripts/ifcfg-eno1
+<< EOF
+DEVICE="eno1"
+BOOTPROTO="static"
+HWADDR=""
+IPADDR=
+NETMASK=255.255.255.0
+ONBOOT="yes"
+EOF
+
+cat /etc/udev/rules.d/60-net.rules
+<< EOF
+SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="$(cat /sys/class/net/enp3s0/address)", ATTR{dev_id}=="0x0", ATTR{type}=="1", KERNEL=="eth*", NAME="eno1"
+EOF
+
+reboot
+```
+
 ## Ubuntu Raspberry Pi using Flash
 
 > All these commands are run from your computer, not the RPi.

@@ -15,7 +15,6 @@
         - { name: k8s-4-hp-6500t, label: node-role.kubernetes.io/worker=true }
         - { name: k8s-5-pi4-garage, label: node-role.kubernetes.io/worker=true }
         - { name: k8s-6-pi4-office, label: node-role.kubernetes.io/worker=true }
-        - { name: k8s-7-proxmox-node, label: node-role.kubernetes.io/worker=true }
         - { name: k8s-6-pi4-office, label: feature.node.kubernetes.io/custom-room-assistant=true }
         - { name: k8s-3-hp-4590t, label: feature.node.kubernetes.io/custom-air-sensor=true }
         - { name: k8s-0-nuc-di5wyk, label: feature.node.kubernetes.io/custom-plex=true }

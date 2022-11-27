@@ -55,6 +55,10 @@
             service: dnf-automatic-download.timer
             enabled: true
             state: started
+        - name: Upgrade all packages
+          ansible.builtin.dnf:
+            name: "*"
+            state: latest
     - name: User Configuration
       block:
         - name: User Configuration | Add additional SSH public keys
@@ -95,7 +99,7 @@
         - coral.enabled
       block:
         - name: Add coral-edgetpu-stable specified repository into sources list using specified filename
-          command: echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list; curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+          command: echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list; curl https://packages.cloud.google.com/apt/doc/yum-key.gpg | sudo apt-key add -
         # - name: Update repositories cache and install "libedgetpu1-std" package
         #   ansible.builtin.dnf:
         #     name: libedgetpu1-std
