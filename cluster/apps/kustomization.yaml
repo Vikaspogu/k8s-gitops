@@ -11,6 +11,7 @@ resources:
   - home
   - kube-system
   - kyverno
+  - media
   - monitoring
   - networking
   - rook-ceph
