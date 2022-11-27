@@ -68,7 +68,13 @@
     task ansible:install
     ```
 
-4. Verify the nodes are online
+4. Post install k3s with Ansible
+
+    ```sh
+    task ansible:post-install
+    ```
+
+5. Verify the nodes are online
 
     ```sh
     task cluster:nodes

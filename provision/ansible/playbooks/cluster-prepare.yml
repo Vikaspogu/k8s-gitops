@@ -42,7 +42,6 @@
           loop:
             - https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
             - https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
-            - https://packages.cloud.google.com/apt/doc/apt-key.gpg
         - name: Packages | Install required packages
           ansible.builtin.dnf:
             name: "{{ packages | default([]) }}"
@@ -96,14 +95,11 @@
         - coral.enabled
       block:
         - name: Add coral-edgetpu-stable specified repository into sources list using specified filename
-          ansible.builtin.apt_repository:
-            repo: deb https://packages.cloud.google.com/apt coral-edgetpu-stable main
-            state: present
-            filename: /etc/apt/sources.list.d/coral-edgetpu.list
-        - name: Update repositories cache and install "libedgetpu1-std" package
-          ansible.builtin.dnf:
-            name: libedgetpu1-std
-            update_cache: true
+          command: echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list; curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+        # - name: Update repositories cache and install "libedgetpu1-std" package
+        #   ansible.builtin.dnf:
+        #     name: libedgetpu1-std
+        #     update_cache: true
     - name: System Configuration (1)
       block:
         - name: System Configuration (1) | Disable firewalld
