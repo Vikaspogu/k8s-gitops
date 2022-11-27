@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: data-teslamate-postgresql
+  name: teslamate-config
   namespace: home
   labels:
-    app.kubernetes.io/instance: teslamate-postgresql
+    app.kubernetes.io/instance: teslamate
     app.kubernetes.io/name: teslamate-postgresql
     snapshot.home.arpa/enabled: "true"
 spec:

@@ -101,7 +101,7 @@ spec:
       primary:
         persistence:
           enabled: true
-          existingClaim: "data-teslamate-postgresql"
+          existingClaim: "teslamate-config"
           mountPath: "/data/"
         tolerations:
           - key: "arm"
