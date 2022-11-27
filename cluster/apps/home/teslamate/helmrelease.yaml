@@ -88,7 +88,7 @@ spec:
       nameOverride: teslamate-postgresql
       image:
         repository: postgres
-        tag: "13.9"
+        tag: "15.1"
       auth:
         postgresPassword: ${SECRET_TESLAMATE_DB_PASSWORD}
         database: ${SECRET_TESLAMATE_DB}
