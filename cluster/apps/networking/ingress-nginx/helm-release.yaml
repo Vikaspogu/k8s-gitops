@@ -25,7 +25,7 @@ spec:
       retries: 5
   dependsOn:
     - name: cert-manager
-      namespace: cert-manager
+      namespace: networking
   values:
     controller:
       replicaCount: 1
