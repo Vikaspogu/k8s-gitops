@@ -45,7 +45,7 @@ tasks:
     desc: Uninstall Rook on the nodes
     dir: provision/ansible
     cmds:
-      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/rook-ceph-nuke.yml"
+      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-rook-nuke.yml"
 
   nuke:
     desc: Uninstall Kubernetes on the nodes

@@ -21,14 +21,16 @@
           loop:
             - "{{ rook_devices }}"
         - name: Remove lvm partitions
-          ansible.builtin.shell: "{{ item }}"
+          ansible.builtin.shell: |-
+            {{ item }}
           loop:
             - ls /dev/mapper/ceph--* | xargs -I% -- fuser --kill %
             - ls /dev/mapper/ceph--* | xargs -I% -- dmsetup clear %
             - ls /dev/mapper/ceph--* | xargs -I% -- dmsetup remove -f %
             - ls /dev/mapper/ceph--* | xargs -I% -- rm -rf %
         - name: Wipe the block device
-          ansible.builtin.command: "wipefs -af {{ item }}"
+          ansible.builtin.command: |-
+            wipefs --all --force {{ item }}
           with_items:
             - "{{ rook_devices }}"
       when:
