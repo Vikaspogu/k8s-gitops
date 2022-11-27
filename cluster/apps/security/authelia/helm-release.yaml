@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  dependsOn:
+    - name: redis
+      namespace: data
   values:
     domain: ${SECRET_DOMAIN}
     service:
