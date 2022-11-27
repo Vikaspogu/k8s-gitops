@@ -12,7 +12,7 @@ spec:
       version: 3.8.2
       sourceRef:
         kind: HelmRepository
-        name: metrics-server
+        name: metrics-server-charts
         namespace: flux-system
       interval: 15m
   install:
