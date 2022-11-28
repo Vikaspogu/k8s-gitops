@@ -148,3 +148,16 @@ Apply network changes
 ```bash
 sudo netplan apply
 ```
+
+Resize
+
+```bash
+sudo growpart /dev/mmcblk0 3
+sudo xfs_growfs -d /
+```
+
+Clean kernel
+
+```bash
+sudo dnf remove --oldinstallonly --setopt installonly_limit=2 kernel -y
+```
