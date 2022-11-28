@@ -43,7 +43,6 @@ spec:
           external-dns/is-public: "true"
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Overseerr"
           auth.home.arpa/enabled: "true"
         hosts:

@@ -44,7 +44,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/icon: "cloud-search"
+          hajimari.io/appName: "Prowlarr"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";

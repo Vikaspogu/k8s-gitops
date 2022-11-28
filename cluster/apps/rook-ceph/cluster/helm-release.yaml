@@ -35,8 +35,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "database"
-          hajimari.io/appName: "Rook Dashboard"
+          hajimari.io/appName: "Rook"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         host:
           name: &host "rook.${SECRET_DOMAIN}"

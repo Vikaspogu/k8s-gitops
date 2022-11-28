@@ -66,7 +66,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/icon: youtube
+          hajimari.io/appName: "YoutubeDL"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: &host "youtubedl.${SECRET_DOMAIN}"

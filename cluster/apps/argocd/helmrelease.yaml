@@ -32,7 +32,6 @@ spec:
           kubernetes.io/ingress.class: "nginx"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "web"
           hajimari.io/appName: "ArgoCD"
         hosts:
           - argocd.${SECRET_DOMAIN}

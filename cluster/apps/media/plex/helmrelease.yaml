@@ -42,7 +42,6 @@ spec:
           external-dns/is-public: "true"
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "filmstrip"
           hajimari.io/appName: "Plex"
           auth.home.arpa/enabled: "true"
         hosts:

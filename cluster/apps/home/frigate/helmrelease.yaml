@@ -98,7 +98,6 @@ spec:
       annotations:
         kubernetes.io/ingress.class: "nginx"
         hajimari.io/enable: "true"
-        hajimari.io/icon: "filmstrip"
         hajimari.io/appName: "Frigate"
         cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:

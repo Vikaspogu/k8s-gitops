@@ -255,7 +255,6 @@ spec:
       ingressClassName: "nginx"
       annotations:
         hajimari.io/enable: "true"
-        hajimari.io/icon: "chart-bar-stacked"
         hajimari.io/appName: "Grafana"
         cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:

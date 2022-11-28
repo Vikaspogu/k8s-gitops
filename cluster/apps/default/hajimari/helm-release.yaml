@@ -72,7 +72,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "weather-sunset"
+          hajimari.io/appName: "Hajimari"
         hosts:
           - host: "hajimari.${SECRET_DOMAIN}"
             paths:

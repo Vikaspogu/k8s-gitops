@@ -30,7 +30,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/postgresql
-      tag: 15.1.0
+      tag: 14.6.0
       pullPolicy: IfNotPresent
     global:
       postgresql:

@@ -39,7 +39,7 @@ spec:
       annotations:
         kubernetes.io/ingress.class: nginx
         hajimari.io/enable: "true"
-        hajimari.io/icon: "database-search"
+        hajimari.io/appName: "PGAdmin4"
         cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:
         - host: &host "pgadmin.${SECRET_DOMAIN}"

@@ -61,7 +61,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/appName: "Alert Manager"
+          hajimari.io/appName: "Alerts"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
@@ -166,7 +166,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/appName: "Prometheus"
+          hajimari.io/appName: "PromQL"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - "prometheus.${SECRET_DOMAIN}"

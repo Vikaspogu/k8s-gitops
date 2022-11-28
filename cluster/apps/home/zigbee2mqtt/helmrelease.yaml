@@ -39,7 +39,6 @@ spec:
         annotations:
           kubernetes.io/ingress.class: "nginx"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "radio-tower"
           hajimari.io/appName: "Zigbee2MQTT"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:

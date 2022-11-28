@@ -62,8 +62,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/icon: "cloud-download"
-          hajimari.io/appName: "Qbittorrent"
+          hajimari.io/appName: "QBtorrent"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           # Custom themes provided by https://github.com/gilbN/theme.park
           nginx.ingress.kubernetes.io/configuration-snippet: |

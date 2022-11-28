@@ -39,7 +39,6 @@ spec:
         external-dns/is-public: "true"
         external-dns.home.arpa/enabled: "true"
         hajimari.io/enable: "true"
-        hajimari.io/icon: "lock"
         hajimari.io/appName: "Authelia"
       subdomain: auth
       tls:
