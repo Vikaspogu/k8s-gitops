@@ -8,6 +8,6 @@ resources:
   - overseerr
   - plex
   - radarr
-  - readarr
+  # - readarr
   - sonarr
   - tautulli
