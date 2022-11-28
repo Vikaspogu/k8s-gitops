@@ -21,6 +21,7 @@ packages:
   - dnf-automatic
   - rsyslog
   - firewalld
+  - nfs-utils
 
 rsyslog:
   enabled: true

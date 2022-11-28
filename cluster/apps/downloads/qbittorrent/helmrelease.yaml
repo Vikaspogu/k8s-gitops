@@ -82,8 +82,11 @@ spec:
               - "qb.${SECRET_DOMAIN}"
             secretName: "{{ .Release.Name }}-tls"
     podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       supplementalGroups:
-        - 100
+        - 65536
     persistence:
       config:
         enabled: true
