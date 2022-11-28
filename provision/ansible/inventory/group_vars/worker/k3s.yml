@@ -11,3 +11,6 @@ k3s_agent:
   kubelet-arg:
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
+  node-label:
+    - "node-role.kubernetes.io/worker=true"
+    - "k3s-upgrade=true"
