@@ -46,6 +46,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:subtitles-outline
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: "bazarr.${SECRET_DOMAIN}"

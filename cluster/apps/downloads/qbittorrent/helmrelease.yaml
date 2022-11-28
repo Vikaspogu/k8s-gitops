@@ -63,6 +63,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "QBtorrent"
+          hajimari.io/icon: "download-network"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           # Custom themes provided by https://github.com/gilbN/theme.park
           nginx.ingress.kubernetes.io/configuration-snippet: |

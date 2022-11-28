@@ -38,6 +38,7 @@ spec:
           external-dns/is-public: "true"
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
+          hajimari.io/icon: "home-assistant"
           hajimari.io/appName: "Home Assistant"
         hosts:
           - host: home-assistant.${SECRET_DOMAIN}
@@ -94,6 +95,7 @@ spec:
             kubernetes.io/ingress.class: "nginx"
             hajimari.io/enable: "true"
             hajimari.io/appName: "Hass-VSCode"
+            hajimari.io/icon: "microsoft-visual-studio-code"
             cert-manager.io/cluster-issuer: "letsencrypt-production"
           hosts:
             - host: hass-config.${SECRET_DOMAIN}

@@ -45,6 +45,7 @@ spec:
           kubernetes.io/ingress.class: "nginx"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Lidarr"
+          hajimari.io/icon: music-box
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";

@@ -42,6 +42,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/appName: "Tautulli"
+          hajimari.io/icon: "chart-bar"
           hajimari.io/enable: "true"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";

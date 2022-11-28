@@ -43,6 +43,7 @@ spec:
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Plex"
+          hajimari.io/icon: "plex"
           auth.home.arpa/enabled: "true"
         hosts:
           - host: &host "plex.${SECRET_DOMAIN}"

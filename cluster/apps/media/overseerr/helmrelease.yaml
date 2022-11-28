@@ -44,6 +44,7 @@ spec:
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Overseerr"
+          hajimari.io/icon: eye-circle
           auth.home.arpa/enabled: "true"
         hosts:
           - host: "overseerr.${SECRET_DOMAIN}"

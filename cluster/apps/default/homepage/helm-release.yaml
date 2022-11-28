@@ -49,6 +49,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Homepage"
+          hajimari.io/icon: "view-dashboard"
         hosts:
           - host: &host "homepage.${SECRET_DOMAIN}"
             paths:
@@ -82,6 +83,7 @@ spec:
             kubernetes.io/ingress.class: "nginx"
             hajimari.io/enable: "true"
             hajimari.io/appName: "HomePage-VSCode"
+            hajimari.io/icon: "microsoft-visual-studio-code"
             cert-manager.io/cluster-issuer: "letsencrypt-production"
           hosts:
             - host: homepage-config.${SECRET_DOMAIN}

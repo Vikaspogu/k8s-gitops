@@ -46,6 +46,7 @@ spec:
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Audiobook"
+          hajimari.io/icon: podcast
           nginx.ingress.kubernetes.io/proxy-body-size: "2G"
           nginx.ingress.kubernetes.io/proxy-buffering: "off"
           nginx.ingress.kubernetes.io/proxy-request-buffering: "off"

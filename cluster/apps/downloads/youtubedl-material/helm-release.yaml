@@ -67,6 +67,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "YoutubeDL"
+          hajimari.io/icon: youtube
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: &host "youtubedl.${SECRET_DOMAIN}"

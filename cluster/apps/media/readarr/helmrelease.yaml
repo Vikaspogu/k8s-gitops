@@ -39,6 +39,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Readarr"
+          hajimari.io/icon: book-open-page-variant-outline
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
