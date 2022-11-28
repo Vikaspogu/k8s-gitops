@@ -32,6 +32,12 @@ spec:
       tag: v1.1.1.2767
     env:
       TZ: "${TIMEZONE}"
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      supplementalGroups:
+        - 65536
     ingress:
       main:
         enabled: true
@@ -53,9 +59,6 @@ spec:
           - hosts:
               - "lidarr.${SECRET_DOMAIN}"
             secretName: "{{ .Release.Name }}-tls"
-    podSecurityContext:
-      supplementalGroups:
-        - 100
     metrics:
       enabled: false
       serviceMonitor:

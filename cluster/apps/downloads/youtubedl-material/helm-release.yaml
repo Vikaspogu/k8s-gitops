@@ -38,6 +38,12 @@ spec:
     hostname: youtubedl
     env:
       TZ: "${TIMEZONE}"
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      supplementalGroups:
+        - 65536
     persistence:
       data:
         enabled: true
