@@ -24,8 +24,8 @@ spec:
     remediation:
       retries: 5
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: postgresql-kube
+      namespace: data
   values:
     image:
       repository: teslamate/teslamate
@@ -34,7 +34,7 @@ spec:
       TZ: "${TIMEZONE}"
       DATABASE_USER: ${SECRET_TESLAMATE_DB}
       DATABASE_NAME: ${SECRET_TESLAMATE_DB}
-      DATABASE_HOST: ${SECRET_TESLAMATE_DB}-postgresql
+      DATABASE_HOST: postgresql-kube.data
       DATABASE_PASS: ${SECRET_TESLAMATE_DB_PASSWORD}
       MQTT_PASSWORD: ${SECRET_MQTT_PASSWORD}
       DISABLE_MQTT: "false"
@@ -82,27 +82,27 @@ spec:
           initialDelaySeconds: 15
           failureThreshold: 30
           periodSeconds: 10
-    postgresql:
-      enabled: true
-      fullnameOverride: teslamate-postgresql
-      nameOverride: teslamate-postgresql
-      image:
-        repository: postgres
-        tag: "13.2"
-      auth:
-        postgresPassword: ${SECRET_TESLAMATE_DB_PASSWORD}
-        database: ${SECRET_TESLAMATE_DB}
-        username: ${SECRET_TESLAMATE_DB}
-      postgresqlDataDir: "/data/pgdata"
-      shmVolume:
-        enabled: false
-      volumePermissions:
-        enabled: false
-      primary:
-        persistence:
-          enabled: true
-          existingClaim: "teslamate-config"
-          mountPath: "/data/"
-        tolerations:
-          - key: "arm"
-            operator: "Exists"
+    # postgresql:
+    #   enabled: true
+    #   fullnameOverride: teslamate-postgresql
+    #   nameOverride: teslamate-postgresql
+    #   image:
+    #     repository: postgres
+    #     tag: "13.2"
+    #   auth:
+    #     postgresPassword: ${SECRET_TESLAMATE_DB_PASSWORD}
+    #     database: ${SECRET_TESLAMATE_DB}
+    #     username: ${SECRET_TESLAMATE_DB}
+    #   postgresqlDataDir: "/data/pgdata"
+    #   shmVolume:
+    #     enabled: false
+    #   volumePermissions:
+    #     enabled: false
+    #   primary:
+    #     persistence:
+    #       enabled: true
+    #       existingClaim: "teslamate-config"
+    #       mountPath: "/data/"
+    #     tolerations:
+    #       - key: "arm"
+    #         operator: "Exists"
