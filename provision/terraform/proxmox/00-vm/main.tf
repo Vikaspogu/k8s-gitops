@@ -24,26 +24,25 @@ provider "proxmox" {
 }
 
 resource "proxmox_vm_qemu" "k8s-7-proxmox-node" {
-  count       = 0
+  count       = var.vm_count
   name        = "k8s-7-proxmox-node"
   target_node = var.pm_node
 
-  clone = "ubuntu-2004-cloudinit-template"
+  clone = "fedora-37-1.7-cloudinit-template"
 
   os_type  = "cloud-init"
-  cores    = 8
+  cores    = 4
   sockets  = "1"
   cpu      = "host"
-  memory   = 24576
+  memory   = 8102
   scsihw   = "virtio-scsi-pci"
   bootdisk = "scsi0"
   onboot   = true
 
   disk {
-    size     = "200G"
-    type     = "scsi"
-    storage  = "hhd-zfs"
-    iothread = 1
+    size    = "1000G"
+    type    = "scsi"
+    storage = "lvm-hhd"
   }
 
   network {

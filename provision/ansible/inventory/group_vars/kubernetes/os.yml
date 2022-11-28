@@ -19,6 +19,8 @@ packages:
   - socat
   - python3-libselinux
   - dnf-automatic
+  - rsyslog
+  - firewalld
 
 rsyslog:
   enabled: true

@@ -99,11 +99,15 @@
         - coral.enabled
       block:
         - name: Add coral-edgetpu-stable specified repository into sources list using specified filename
-          command: echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list; curl https://packages.cloud.google.com/apt/doc/yum-key.gpg | sudo apt-key add -
-        # - name: Update repositories cache and install "libedgetpu1-std" package
-        #   ansible.builtin.dnf:
-        #     name: libedgetpu1-std
-        #     update_cache: true
+          command: echo "deb https://packages.cloud.google.com/yum coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+        - name: Import a key from a file
+          ansible.builtin.rpm_key:
+            state: present
+            key: https://packages.cloud.google.com/apt/doc//rpm-package-key.gpg
+        - name: Update repositories cache and install "libedgetpu1-std" package
+          ansible.builtin.dnf:
+            name: libedgetpu1-std
+            update_cache: true
     - name: System Configuration (1)
       block:
         - name: System Configuration (1) | Disable firewalld

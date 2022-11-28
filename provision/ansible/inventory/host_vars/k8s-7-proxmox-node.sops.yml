@@ -1,0 +1,28 @@
+kind: Secret
+ansible_host: ENC[AES256_GCM,data:1F6RMvZ44UAdxfHt/Q==,iv:8jmJhRMstCNbHUvqqjC3eJ3ZaYbXEBDQy3VHyixXSZo=,tag:TG6SBWHWg7ef5WwjjZMBbg==,type:str]
+ansible_user: ENC[AES256_GCM,data:Z2/MkzkcRD4H,iv:YYJPm6BLNOg3jTI6/OmYW7rS3YmWpRCJEft3GE4C7RE=,tag:1yvxM21vpcv6HPLiLkl2Dw==,type:str]
+k3s_node_ip_address: ENC[AES256_GCM,data:rgl3YB1hwS7S+MoiI+ZUyWVA,iv:EaOZ8Ttj3wkmzkuuVX/D37FNFcveiQIWIuL0ZSFzOQU=,tag:bKAZSnP4La73ToHA2CcnTQ==,type:str]
+rook_ceph:
+    enabled: ENC[AES256_GCM,data:VHRmpLk=,iv:DrLuYGMtGaq4DXicZHCfwWf0S5iipRs/K4+6B5H97s4=,tag:eU5SY4NdzO3qpzLiutjm0g==,type:bool]
+    devices:
+        - ENC[AES256_GCM,data:KPL7bdljVYA=,iv:WtrUSv7SQTZ+8uXdu8QXE9gWMEayUDiuq8CtDEV4ToU=,tag:HYYhfNnW05HYuVqM63nmkA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1ulfhs490lug3kres5qm5kfdmpqmcrwsfsc03eln0s3xffndnrcwq5u86tt
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArWko0Z0IyZUg2MWkrSVBW
+            clg5bHhiOGVqaUtSNEZFWnJHZU9Vc3lUa0EwCkVCYTlnTzdYSmsrZWp1VjRVTVpL
+            QkhZSmdQSWhaMStXSXNXTUxSdDlINmMKLS0tIFVXdUNxcXpJZGUvMzA1QlU2em5z
+            NFRGSkw1UzBkRnR6TDdlTTNUbzQxcjAKGmg/+2r9d3F9B11a4i1tuBC2TubXf4fA
+            kwqjalwOzwJ1O/nZqST9Xk03dbXKhFEn2NDALg+SnLVVPQ26NqQamA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-11-28T01:46:09Z"
+    mac: ENC[AES256_GCM,data:lte/z4JoLZddpYx5x6bnunKjwgg+Cvna372GLGhGRdURY6XxZ2awXBbVw1lc6vnWu6DnOcZEzlQwVd9SiquincR9j/kAPiUVL2uuVOiEodCq+MDG2y9spGFU7p1RDT5u6zhfW8I47ZTeOUep7AI3g1sWtc1Xn7fMJRv8wLS9IoE=,iv:5glp04kthOA6O7NpiplS7QDAVo+USZvpodWYYM0VwPE=,tag:en+rri5U8hC+Mh5IGXCkEg==,type:str]
+    pgp: []
+    unencrypted_regex: ^(kind)$
+    version: 3.7.3
