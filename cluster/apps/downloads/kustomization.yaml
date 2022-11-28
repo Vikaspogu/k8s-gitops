@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - prowlarr
-  # - qbittorrent
+  - qbittorrent
   - youtubedl-material
