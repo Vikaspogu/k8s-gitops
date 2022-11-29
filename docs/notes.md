@@ -1,6 +1,51 @@
-# Rook DR
+# Cluster Notes
 
-## Manual Data Backup
+## etcd de-fragmentation
+
+On one of your master nodes create `etcdctl-install.sh`:
+
+```bash
+#!/usr/bin/env bash
+
+set -eux
+
+etcd_version=v3.5.3
+
+case "$(uname -m)" in
+    aarch64) arch="arm64" ;;
+    x86_64) arch="amd64" ;;
+esac;
+
+etcd_name="etcd-${etcd_version}-linux-${arch}"
+
+curl -sSfL "https://github.com/etcd-io/etcd/releases/download/${etcd_version}/${etcd_name}.tar.gz" \
+    | tar xzvf - -C /usr/local/bin --strip-components=1 "${etcd_name}/etcdctl"
+
+etcdctl version
+```
+
+and then:
+
+```bash
+chmod +x etcdctl-install.sh
+./etcdctl-install.sh
+```
+
+and then:
+
+```bash
+export ETCDCTL_ENDPOINTS="https://127.0.0.1:2379"
+export ETCDCTL_CACERT="/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt"
+export ETCDCTL_CERT="/var/lib/rancher/k3s/server/tls/etcd/server-client.crt"
+export ETCDCTL_KEY="/var/lib/rancher/k3s/server/tls/etcd/server-client.key"
+export ETCDCTL_API=3
+etcdctl defrag --cluster
+# Finished defragmenting etcd member[https://192.168.42.10:2379]
+# Finished defragmenting etcd member[https://192.168.42.12:2379]
+# Finished defragmenting etcd member[https://192.168.42.11:2379]
+```
+
+## Rook Manual Data Backup
 
 ### Create the toolbox container
 
@@ -81,3 +126,25 @@ umount /mnt/data
 rbd unmap -p ceph-blockpool csi-vol-11808e37-847f-11ec-ae2a-ae8a10a2dbb1
 rbd unmap -p ceph-blockpool csi-vol-11808e37-847f-11ec-ae2a-ae8a10a2dbb1
 ```
+
+## loki
+
+Enable syslog, do this on each host and replace `target` IP (and maybe `port`) with you syslog `externalIP` that is defined [here](../cluster/apps/monitoring/loki/helmrelease.yaml)
+
+Create file `/etc/rsyslog.d/50-promtail.conf` with the following content:
+
+```bash
+module(load="omprog")
+module(load="mmutf8fix")
+action(type="mmutf8fix" replacementChar="?")
+action(type="omfwd" protocol="tcp" target="192.168.42.155" port="1514" Template="RSYSLOG_SyslogProtocol23Format" TCP_Framing="octet-counted" KeepAlive="on")
+```
+
+Restart rsyslog and view status
+
+```bash
+sudo systemctl restart rsyslog
+sudo systemctl status rsyslog
+```
+
+In Grafana, on the explore tab, you should now be able to view you hosts logs, e.g. this query `{host="k3s-master"}`

@@ -128,8 +128,7 @@
               - smartmontools
               - software-properties-common
               - unattended-upgrades
-              - bluetooth
-              - libbluetooth-dev
+              - pi-bluetooth # for room-assistant
             install_recommends: false
             update_cache: true
             cache_valid_time: 3600

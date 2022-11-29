@@ -1,4 +1,4 @@
-# OS Setup
+# OS
 
 ## Change network interface name on Fedora
 
@@ -6,7 +6,9 @@
 vi /etc/default/grub
 GRUB_CMDLINE_LINUX line append "net.ifnames=0 biosdevname=0"
 grub2-mkconfig -o /boot/grub2/grub.cfg
+```
 
+```bash
 cat /etc/sysconfig/network-scripts/ifcfg-eno1
 << EOF
 DEVICE="eno1"
@@ -16,12 +18,18 @@ IPADDR=
 NETMASK=255.255.255.0
 ONBOOT="yes"
 EOF
+```
 
+```bash
 cat /etc/udev/rules.d/60-net.rules
 << EOF
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="$(cat /sys/class/net/enp3s0/address)", ATTR{dev_id}=="0x0", ATTR{type}=="1", KERNEL=="eth*", NAME="eno1"
 EOF
+```
 
+Reboot
+
+```bash
 reboot
 ```
 
@@ -149,14 +157,14 @@ Apply network changes
 sudo netplan apply
 ```
 
-Resize
+### Resize
 
 ```bash
 sudo growpart /dev/mmcblk0 3
 sudo xfs_growfs -d /
 ```
 
-Clean kernel
+### Remove old kernel
 
 ```bash
 sudo dnf remove --oldinstallonly --setopt installonly_limit=2 kernel -y
