@@ -6,6 +6,6 @@ resources:
   - alertmanager-discord
   - botkube
   - flux
-  # - grafana
-  # - kube-prometheus-stack
+  - grafana
+  - kube-prometheus-stack
   - unifi-poller

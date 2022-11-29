@@ -28,12 +28,20 @@ tasks:
     dir: provision/ansible
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yml
+      - task: prepare-rpi
+
+  prepare-rpi:
+    desc: Prepare all the k8s nodes for running k3s
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare-rpi.yml
 
   install:
     desc: Install Kubernetes on the nodes
     dir: provision/ansible
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yml
+      - task: post-install
 
   post-install:
     desc: Post install Kubernetes on the nodes

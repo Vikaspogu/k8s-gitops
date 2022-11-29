@@ -13,8 +13,6 @@ spec:
         revision: main
         directories:
           - path: cluster/argocd-apps/*
-          - exclude: true
-            path: cluster/argocd-apps/garage-opener
   template:
     metadata:
       name: '{{path.basename}}'
