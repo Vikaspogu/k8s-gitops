@@ -41,8 +41,8 @@ sudo mv flash /usr/local/bin/flash
 
 ```bash
 cd ~/Downloads
-curl -L "https://download.fedoraproject.org/pub/fedora/linux/releases/36/Server/armhfp/images/Fedora-Server-36-1.5.armhfp.raw.xz" -o Fedora-Server-36.1.5-arm64+raspi.img.xz
-unxz -T 0 ~/Downloads/Fedora-Server-36.1.5-arm64+raspi.img.xz
+curl -L "https://cdimage.ubuntu.com/releases/20.04.5/release/ubuntu-20.04.5-preinstalled-server-arm64+raspi.img.xz" -o ubuntu-20.04.5-preinstalled-server-arm64+raspi.img.xz
+unxz -T 0 ~/Downloads/ubuntu-20.04.5-preinstalled-server-arm64+raspi.img.xz
 ```
 
 ### Configure
@@ -53,7 +53,7 @@ Update [cloud-config.example.yml](../provision/cloud-config/k8s-5-pi4-garage.yml
 
 ```bash
 flash --userdata setup/cloud-config.yml \
-    ~/Downloads/Fedora-Server-36.1.5-arm64+raspi.img
+    ~/Downloads/ubuntu-20.04.5-preinstalled-server-arm64+raspi.img
 ```
 
 ### Boot
