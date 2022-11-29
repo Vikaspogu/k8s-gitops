@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - helmrelease.yaml
-  # - application-set.yaml
+  - application-set.yaml
