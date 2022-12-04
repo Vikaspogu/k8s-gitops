@@ -45,6 +45,14 @@ etcdctl defrag --cluster
 # Finished defragmenting etcd member[https://192.168.42.11:2379]
 ```
 
+### Increase size
+
+```bash
+sudo vgs
+sudo lvextend -l +100%FREE  /dev/mapper/fedora-root
+sudo xfs_growfs /dev/mapper/fedora-root
+```
+
 ## Rook Manual Data Backup
 
 ### Create the toolbox container

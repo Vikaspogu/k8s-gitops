@@ -24,6 +24,11 @@ spec:
     remediation:
       retries: 5
   values:
+    image:
+     registry: ghcr.io
+     repository: infracloudio/botkube
+     pullPolicy: IfNotPresent
+     tag: v0.12.4
     serviceMonitor:
       enabled: true
     config:
