@@ -10,10 +10,10 @@ spec:
     spec:
       # renovate: registryUrl=https://infracloudio.github.io/charts
       chart: botkube
-      version: v0.12.4
+      version: v0.16.0
       sourceRef:
         kind: HelmRepository
-        name: infracloudio-charts
+        name: botkubeio-charts
         namespace: flux-system
       interval: 15m
   install:
@@ -24,270 +24,118 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-     registry: ghcr.io
-     repository: infracloudio/botkube
-     pullPolicy: IfNotPresent
-     tag: v0.12.4
+    existingCommunicationsSecretName: botkube-communications
     serviceMonitor:
       enabled: true
-    config:
-      recommendations: false
-      settings:
-        clustername: home-cluster
+    settings:
+      clusterName: home-cluster
+      configWatcher: true
+    executors:
+      kubectl-read-only:
         kubectl:
           enabled: true
+          namespaces:
+            include:
+              - .*
           restrictAccess: true
+          defaultNamespace: default
           commands:
-            verbs:
-              [
-                "api-resources",
-                "api-versions",
-                "cluster-info",
-                "describe",
-                "diff",
-                "explain",
-                "get",
-                "logs",
-                "top",
-                "auth",
-              ]
-            resources:
-              [
-                "deployments",
-                "pods",
-                "namespaces",
-                "daemonsets",
-                "statefulsets",
-                "storageclasses",
-                "nodes",
-              ]
-      resources:
-        - name: v1/pods
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: v1/services
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: apps/v1/deployments
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - update
-            - delete
-            - error
-          updateSetting:
-            includeDiff: true
-            fields:
-              - spec.template.spec.containers[*].image
-              - status.availableReplicas
-
-        - name: apps/v1/statefulsets
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - update
-            - delete
-            - error
-          updateSetting:
-            includeDiff: true
-            fields:
-              - spec.template.spec.containers[*].image
-              - status.readyReplicas
-
-        - name: networking.k8s.io/v1beta1/ingresses
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: v1/nodes
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-        - name: v1/namespaces
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: v1/persistentvolumes
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: v1/persistentvolumeclaims
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: v1/configmaps
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: apps/v1/daemonsets
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - update
-            - delete
-            - error
-          updateSetting:
-            includeDiff: true
-            fields:
-              - spec.template.spec.containers[*].image
-              - status.numberReady
-
-        - name: batch/v1/jobs
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - update
-            - delete
-            - error
-          updateSetting:
-            includeDiff: true
-            fields:
-              - spec.template.spec.containers[*].image
-              - status.conditions[*].type
-
-        - name: rbac.authorization.k8s.io/v1/roles
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: rbac.authorization.k8s.io/v1/rolebindings
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: rbac.authorization.k8s.io/v1/clusterrolebindings
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-
-        - name: rbac.authorization.k8s.io/v1/clusterroles
-          namespaces:
-            include:
-              - all
-            ignore:
-              -
-          events:
-            - create
-            - delete
-            - error
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - { key: "kubernetes.io/arch", operator: In, values: ["amd64"] }
-    communications:
-      discord:
-        enabled: true
-        notiftype: short
-
-    extraAnnotations:
-      secret.reloader.stakater.com/reload: botkube
-
-  valuesFrom:
-    - kind: Secret
-      name: botkube
-      valuesKey: discord-token
-      targetPath: communications.discord.token
-      optional: false
-    - kind: Secret
-      name: botkube
-      valuesKey: discord-botid
-      targetPath: communications.discord.botid
-      optional: false
-    - kind: Secret
-      name: botkube
-      valuesKey: discord-channel
-      targetPath: communications.discord.channel
-      optional: false
+            verbs: [api-resources, api-versions, cluster-info, describe, diff, explain, get, logs, top, auth]
+            resources: [deployments, pods, namespaces, daemonsets, statefulsets, storageclasses, nodes, configmaps]
+    sources:
+      k8s-events:
+        kubernetes:
+          resources:
+            - type: v1/pods
+              events:
+                - create
+                - delete
+                - error
+            - type: v1/services
+              events:
+                - create
+                - delete
+                - error
+            - type: apps/v1/deployments
+              event:
+                types:
+                  - create
+                  - update
+                  - delete
+                  - error
+              updateSetting:
+                includeDiff: true
+                fields:
+                  - spec.template.spec.containers[*].image
+                  - status.availableReplicas
+            - type: apps/v1/statefulsets
+              event:
+                types:
+                  - create
+                  - update
+                  - delete
+                  - error
+              updateSetting:
+                includeDiff: true
+                fields:
+                  - spec.template.spec.containers[*].image
+                  - status.readyReplicas
+            - type: networking.k8s.io/v1/ingresses
+              event:
+                types:
+                  - create
+                  - delete
+                  - error
+            - type: v1/nodes
+              event:
+                types:
+                  - create
+                  - delete
+                  - error
+            - type: v1/namespaces
+              event:
+                types:
+                  - create
+                  - delete
+                  - error
+            - type: v1/persistentvolumes
+              event:
+                types:
+                  - create
+                  - delete
+                  - error
+            - type: v1/persistentvolumeclaims
+              event:
+                types:
+                  - create
+                  - delete
+                  - error
+            - type: v1/configmaps
+              event:
+                types:
+                  - create
+                  - delete
+                  - error
+            - type: apps/v1/daemonsets
+              event:
+                types:
+                  - create
+                  - delete
+                  - error
+              updateSetting:
+                includeDiff: true
+                fields:
+                  - spec.template.spec.containers[*].image
+                  - status.numberReady
+            - type: batch/v1/jobs
+              event:
+                types:
+                  - create
+                  - update
+                  - delete
+                  - error
+              updateSetting:
+                includeDiff: true
+                fields:
+                  - spec.template.spec.containers[*].image
+                  - status.conditions[*].type
