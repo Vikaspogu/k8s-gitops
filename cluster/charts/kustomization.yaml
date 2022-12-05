@@ -27,4 +27,5 @@ resources:
   - rook-ceph-charts.yaml
   - runix.yaml
   - stakater-charts.yaml
+  - vector-charts.yaml
   - xunholy-charts.yaml
