@@ -112,6 +112,7 @@ spec:
         tls:
           - hosts:
               - *host
+            secretName: "{{ .Release.Name }}-tls"
     write:
       replicas: 3
       persistence:
