@@ -100,6 +100,10 @@ spec:
             url: http://prometheus-operated:9090
             access: proxy
             isDefault: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki-gateway.monitoring.svc.cluster.local:80
           - name: TeslaMate
             type: postgres
             access: proxy
