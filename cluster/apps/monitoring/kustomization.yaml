@@ -8,4 +8,5 @@ resources:
   - flux
   - grafana
   - kube-prometheus-stack
+  - loki
   - unifi-poller
