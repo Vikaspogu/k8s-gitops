@@ -112,7 +112,7 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: "{{ .Release.Name }}-tls"
+            secretName: "loki-tls"
     write:
       replicas: 3
       persistence:
