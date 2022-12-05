@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - alertmanager-discord
-  - botkube
+  #- botkube
   - flux
   - grafana
   - kube-prometheus-stack
