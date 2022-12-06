@@ -137,7 +137,7 @@ rbd unmap -p ceph-blockpool csi-vol-11808e37-847f-11ec-ae2a-ae8a10a2dbb1
 
 ## loki
 
-Enable syslog, do this on each host and replace `target` IP (and maybe `port`) with you syslog `externalIP` that is defined [here](../cluster/apps/monitoring/loki/helmrelease.yaml)
+Enable syslog, do this on each host and replace `target` IP (and maybe `port`) with you syslog `externalIP` that is defined [here](../cluster/apps/monitoring/loki/helm-release.yaml)
 
 Create file `/etc/rsyslog.d/50-promtail.conf` with the following content:
 
