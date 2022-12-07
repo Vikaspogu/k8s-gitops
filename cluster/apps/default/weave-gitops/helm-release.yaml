@@ -22,7 +22,7 @@ spec:
     remediation:
       retries: 5
   values:
-    replicaCount: 3
+    replicaCount: 1
     adminUser:
       create: true
       username: admin
@@ -40,7 +40,7 @@ spec:
       tls:
         - hosts:
             - *host
-          secretName: "{{ .Release.Name }}-tls"
+          secretName: "gitops-tls"
     networkPolicy:
       create: false
     metrics:
