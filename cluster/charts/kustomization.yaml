@@ -28,4 +28,5 @@ resources:
   - runix.yaml
   - stakater-charts.yaml
   - vector-charts.yaml
+  - weave-gitops-charts.yaml
   - xunholy-charts.yaml

@@ -45,6 +45,14 @@ etcdctl defrag --cluster
 # Finished defragmenting etcd member[https://192.168.42.11:2379]
 ```
 
+### Ceph crash alerts
+
+```bash
+ceph health detail
+ceph crash ls-new
+ceph crash archive-all
+```
+
 ### Increase size
 
 ```bash
