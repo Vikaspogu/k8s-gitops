@@ -6,3 +6,4 @@ resources:
   - hajimari
   - homepage
   - reverse-proxy
+  - weave-gitops
