@@ -36,6 +36,13 @@ tasks:
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare-rpi.yml
 
+  upgrade:
+    desc: Upgrade all the k8s nodes for running k3s
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-upgrade.yml
+      - task: reboot
+
   install:
     desc: Install Kubernetes on the nodes
     dir: provision/ansible
