@@ -4,6 +4,7 @@ resources:
   - namespace.yaml
   - frigate
   - home-assistant
+  - mealie
   - mosquitto
   - node-red
   - teslamate
