@@ -70,9 +70,11 @@ spec:
       static:
         enabled: true
         existingClaim: tandoor-static
+        mountPath: /opt/recipes/mediafiles
       media:
         enabled: true
         existingClaim: tandoor-media
+        mountPath: /opt/recipes/staticfiles
     service:
       main:
         ports:
