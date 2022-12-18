@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tandoor-config
+  namespace: home
+  labels:
+    app.kubernetes.io/instance: tandoor
+    app.kubernetes.io/name: tandoor
+    snapshot.home.arpa/enabled: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ceph-block
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tandoor-static
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ceph-block
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tandoor-media
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ceph-block

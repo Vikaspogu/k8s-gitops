@@ -7,5 +7,6 @@ resources:
   - home-assistant
   - mosquitto
   - node-red
+  - tandoor
   - teslamate
   - zigbee2mqtt
