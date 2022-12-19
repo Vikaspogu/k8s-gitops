@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app traggo
+  name: traggo
   namespace: default
 spec:
   interval: 15m
@@ -34,11 +34,12 @@ spec:
     env:
       TRAGGO_DEFAULT_USER_NAME: "${SECRET_TRAGGO_USER}"
       TRAGGO_DEFAULT_USER_PASS: "${SECRET_TRAGGO_PASSWORD}"
+      TRAGGO_PORT: 8080
     service:
       main:
         ports:
           http:
-            port: &port 3030
+            port: 8080
     persistence:
       config:
         enabled: true
