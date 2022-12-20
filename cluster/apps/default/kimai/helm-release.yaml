@@ -33,7 +33,7 @@ spec:
       tag: "fpm-1.30.0-prod"
     env:
       ADMINPASS: "${SECRET_KIMAI_PASSWORD}"
-      DATABASE_URL: "${SECRET_KIMAI_MYSQL_DB}"
+      DATABASE_URL: "${SECRET_KIMAI_MARIADB_DB}"
     service:
       main:
         ports:
