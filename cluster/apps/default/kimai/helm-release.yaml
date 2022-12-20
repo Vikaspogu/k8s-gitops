@@ -27,14 +27,15 @@ spec:
   values:
     controller:
       replicas: 1
-      strategy: RollingUpdate
+      strategy: Recreate
     image:
       repository: kimai/kimai2
       tag: "apache-1.30.0-prod"
     env:
+      ADMINMAIL: "${SECRET_KIMAI_ADMINMAIL}"
       ADMINPASS: "${SECRET_KIMAI_PASSWORD}"
       DATABASE_URL: "${SECRET_KIMAI_MARIADB_DB}"
-      TRUSTED_HOSTS: nginx,localhost,127.0.0.1
+      TRUSTED_HOSTS: localhost,127.0.0.1,${SECRET_DOMAIN}
     service:
       main:
         ports:
