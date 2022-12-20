@@ -1,0 +1,32 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kimai-mysql
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      chart: mysql
+      version: 9.4.5
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: bitnami/mysql
+      tag: 8.0.31
+    architecture: standalone
+    primary:
+      persistence:
+        existingClaim: kimai-mysql-data
+    auth:
+      rootPassword: "${SECRET_KIMAI_MYSQL_PASSWORD}"
+      database: kimai
+      username: kimai
+      password: "${SECRET_KIMAI_MYSQL_PASSWORD}"
+      replicationPassword: "${SECRET_KIMAI_MYSQL_PASSWORD}"

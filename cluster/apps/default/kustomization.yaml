@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - hajimari
   - homepage
+  - kimai
   - reverse-proxy
   - traggo
   - weave-gitops
