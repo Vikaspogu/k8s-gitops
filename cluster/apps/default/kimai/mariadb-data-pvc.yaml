@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: kimai-mysql-data
+  name: kimai-mariadb-data
   namespace: default
   labels:
-    app.kubernetes.io/instance: kimai-mysql
-    app.kubernetes.io/name: kimai-mysql
+    app.kubernetes.io/instance: kimai-mariadb
+    app.kubernetes.io/name: kimai-mariadb
     snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
@@ -14,4 +14,4 @@ spec:
   storageClassName: ceph-block
   resources:
     requests:
-      storage: 3Gi
+      storage: 10Gi
