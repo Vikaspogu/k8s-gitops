@@ -45,13 +45,7 @@ spec:
       config:
         enabled: true
         existingClaim: kimai-config
-        mountPath: /opt/kimai/
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      supplementalGroups:
-        - 65536
+        mountPath: /opt/kimai/var
     ingress:
       main:
         enabled: true
