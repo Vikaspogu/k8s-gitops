@@ -30,7 +30,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: kimai/kimai2
-      tag: "fpm-1.30.0-prod"
+      tag: "apache-1.30.0-prod"
     env:
       ADMINPASS: "${SECRET_KIMAI_PASSWORD}"
       DATABASE_URL: "${SECRET_KIMAI_MARIADB_DB}"
@@ -38,7 +38,7 @@ spec:
       main:
         ports:
           http:
-            port: 8080
+            port: 8001
     persistence:
       config:
         enabled: true
