@@ -24,6 +24,7 @@ spec:
     primary:
       persistence:
         existingClaim: kimai-mysql-data
+        subPath: "/opt/bitnami/mysql"
     auth:
       rootPassword: "${SECRET_KIMAI_MYSQL_PASSWORD}"
       database: kimai
