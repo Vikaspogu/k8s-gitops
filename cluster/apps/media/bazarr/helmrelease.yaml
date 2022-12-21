@@ -27,8 +27,6 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   values:
-    controller:
-      type: statefulset
     image:
       repository: ghcr.io/onedr0p/bazarr
       tag: 1.1.3@sha256:4d12ca5456ec8d7b298e4d44eebd6971431f6dd5753a9468b386fee5ad89edfb
