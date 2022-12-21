@@ -28,8 +28,8 @@ spec:
       namespace: rook-ceph
   values:
     image:
-      repository: ghcr.io/k8s-at-home/readarr-nightly
-      tag: v0.1.1.1459
+      repository: ghcr.io/onedr0p/readarr-nightly
+      tag: 0.1.1.1504@sha256:72ce66bd40db62a2a9918a96bd12d5d8a02914ffcf2d75299416654185b38e1b
     env:
       TZ: "${TIMEZONE}"
     ingress:

@@ -28,8 +28,8 @@ spec:
       namespace: rook-ceph
   values:
     image:
-      repository: plexinc/pms-docker
-      tag: 1.29.2.6364-6d72b0cf6
+      repository: ghcr.io/onedr0p/plex
+      tag: 1.30.0.6486-629d58034@sha256:b3e3a2a305443f243643553161cff639f3dcc74349595884ac9c77cf6bb24068
     env:
       ADVERTISE_IP: "http://${LB_PLEX}:32400"
       TZ: ${TIMEZONE}
