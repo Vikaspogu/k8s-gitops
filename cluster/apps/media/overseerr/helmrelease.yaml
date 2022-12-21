@@ -33,6 +33,12 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       LOG_LEVEL: "info"
+      PORT: &port 80
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     ingress:
       main:
         enabled: true

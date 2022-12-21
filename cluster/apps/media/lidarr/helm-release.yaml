@@ -31,6 +31,12 @@ spec:
       tag: 1.1.1.2762@sha256:bdc206db6d9684e854662910a1b3548af17c468eba3a8e6066503554d8988eb2
     env:
       TZ: "${TIMEZONE}"
+      LIDARR__PORT: &port 80
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

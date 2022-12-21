@@ -60,8 +60,9 @@ spec:
           metallb.universe.tf/allow-shared-ip: plex
         loadBalancerIP: ${LB_PLEX}
         externalTrafficPolicy: Local
-        port:
-          port: 32400
+        ports:
+          http:
+            port: 32400
     persistence:
       config:
         enabled: true

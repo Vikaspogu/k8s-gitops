@@ -31,6 +31,12 @@ spec:
       tag: 0.1.1.1504@sha256:72ce66bd40db62a2a9918a96bd12d5d8a02914ffcf2d75299416654185b38e1b
     env:
       TZ: "${TIMEZONE}"
+      READARR__PORT: &port 8080
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     ingress:
       main:
         enabled: true
