@@ -79,25 +79,17 @@ spec:
             path: "/volume1/media"
         enabled: true
         mountPath: /nfs-nas-pvc
-    addons:
-      promtail:
-        enabled: false
-        image:
-          repository: ghcr.io/k8s-at-home/promtail
-          tag: v2.6.1
-        loki: http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
-        logs:
-          - name: promtail/plex
-            path: "/config/Library/Application Support/Plex Media Server/Logs/*.log"
-          - name: promtail/plex/plugins
-            path: "/config/Library/Application Support/Plex Media Server/Logs/PMS Plugin Logs/*.log"
-        volumeMounts:
-          - name: config
-            mountPath: /config
-            readOnly: true
-        securityContext:
-          runAsUser: 0
-    resources: {}
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *app
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 44
+        - 109
+        - 100
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
