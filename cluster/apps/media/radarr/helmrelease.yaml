@@ -31,9 +31,15 @@ spec:
       repository: ghcr.io/onedr0p/radarr-develop
       tag: 4.3.1.6822@sha256:2d61733e8b7054dd723eb158eb8f44d63cad1c3261058a759884b50838a6964d
     env:
-      PUID: "1001"
-      PGID: "1001"
       TZ: "${TIMEZONE}"
+      RADARR__INSTANCE_NAME: Radarr
+      RADARR__PORT: &port 80
+      RADARR__LOG_LEVEL: info
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     ingress:
       main:
         enabled: true
@@ -56,6 +62,13 @@ spec:
           - hosts:
               - "radarr.${SECRET_DOMAIN}"
             secretName: "{{ .Release.Name }}-tls"
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
     persistence:
       config:
         enabled: true
