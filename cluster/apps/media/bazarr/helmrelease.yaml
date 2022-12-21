@@ -30,7 +30,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/bazarr
-      tag: 1.1.3@sha256:2c8a84a9b6c18c9008ea96b18f45401f9ba40934731a9274a9d5f2e550517317
+      tag: 1.1.3@sha256:4d12ca5456ec8d7b298e4d44eebd6971431f6dd5753a9468b386fee5ad89edfb
     env:
       TZ: "${TIMEZONE}"
     podSecurityContext:
