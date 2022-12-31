@@ -14,7 +14,7 @@ env:
       apiVersion: v1
       fieldPath: spec.nodeName
   ENVIRONMENT: prod
-  MQTT_BROKER: mosquitto.home.svc.cluster.local
+  MQTT_BROKER: emqx.home.svc.cluster.local
   TOPIC: "sds011-mqtt/air-quality/$(CLUSTER_NAME)"
 
 securityContext:
