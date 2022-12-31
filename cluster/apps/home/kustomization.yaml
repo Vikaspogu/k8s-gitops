@@ -6,7 +6,6 @@ resources:
   - frigate
   - home-assistant
   - mealie
-  - mosquitto
   - node-red
   - teslamate
   - zigbee2mqtt
