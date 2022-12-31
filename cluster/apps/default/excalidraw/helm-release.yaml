@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.0.1
+      version: 1.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -26,13 +26,13 @@ spec:
       replicas: 1
       strategy: RollingUpdate
     image:
-      repository: ghcr.io/onedr0p/excalidraw
-      tag: 0.13.0
+      repository: docker.io/excalidraw/excalidraw
+      tag: latest@sha256:37f8ec760eb31930cf1e32878818a5de8f3fd0152e1c88b08fdde75a34a713bf
     service:
       main:
         ports:
           http:
-            port: 8080
+            port: 80
     ingress:
       main:
         enabled: true
@@ -40,11 +40,10 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns/is-public: "true"
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.home.arpa/enabled: "true"
+          auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "draw"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "security-authelia-auth@kubernetescrd"
+          hajimari.io/icon: mdi:draw-pen
         hosts:
           - host: &host "draw.${SECRET_DOMAIN}"
             paths:
