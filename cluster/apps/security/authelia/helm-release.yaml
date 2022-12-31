@@ -179,7 +179,7 @@ spec:
         filename: STORAGE_ENCRYPTION_KEY
       oidcPrivateKey:
         key: OIDC_PRIVATE_KEY
-        value: |+
+        value: |
           '${OIDC_PRIVATE_KEY}'
         filename: OIDC_PRIVATE_KEY
       oidcHMACSecret:
