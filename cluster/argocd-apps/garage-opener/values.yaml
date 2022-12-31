@@ -10,7 +10,7 @@ strategy:
 
 env:
   ENVIRONMENT: prod
-  MQTT_BROKER: mosquitto.home.svc.cluster.local
+  MQTT_BROKER: emqx.home.svc.cluster.local
   OPEN_PIN: "15"
   NOTIFICATION_TIME: "1800000"
 
