@@ -157,35 +157,7 @@ spec:
           sender: "no-reply@${SECRET_DOMAIN}"
           identifier: ${SECRET_DOMAIN}
     secret:
-      storage:
-        key: STORAGE_PASSWORD
-        value: "${SECRET_AUTHELIA_POSTGRES_PASSWORD}"
-        filename: STORAGE_PASSWORD
-      jwt:
-        key: JWT_TOKEN
-        value: "${SECRET_AUTHELIA_JWT_SECRET}"
-        filename: JWT_TOKEN
-      redis:
-        key: REDIS_PASSWORD
-        value: "${SECRET_REDIS_PASSWORD}"
-        filename: REDIS_PASSWORD
-      smtp:
-        key: SMTP_PASSWORD
-        value: "${SECRET_SENDGRID_API_KEY}"
-        filename: SMTP_PASSWORD
-      storageEncryptionKey:
-        key: STORAGE_ENCRYPTION_KEY
-        value: "${SECRET_AUTHELIA_STORAGE_ENCRYPTION_KEY}"
-        filename: STORAGE_ENCRYPTION_KEY
-      oidcPrivateKey:
-        key: OIDC_PRIVATE_KEY
-        value: |
-          '${OIDC_PRIVATE_KEY}'
-        filename: OIDC_PRIVATE_KEY
-      oidcHMACSecret:
-        key: OIDC_HMAC_SECRET
-        value: "${OIDC_HMAC_SECRET}"
-        filename: OIDC_HMAC_SECRET
+      existingSecret: authelia
   postRenderers:
     - kustomize:
         patchesJson6902:
