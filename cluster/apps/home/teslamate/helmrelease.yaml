@@ -8,14 +8,14 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: teslamate
-      version: 7.1.2
+      chart: app-template
+      version: 1.2.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 15m
+  maxHistory: 5
   install:
     createNamespace: true
     remediation:
@@ -23,6 +23,8 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  uninstall:
+    keepHistory: false
   dependsOn:
     - name: postgresql-kube
       namespace: data
@@ -39,6 +41,12 @@ spec:
       DISABLE_MQTT: "false"
       MQTT_HOST: "emqx.home.svc.cluster.local"
       ENCRYPTION_KEY: ${TESLAMATE_ENCRYPTION_KEY}
+    service:
+      main:
+        type: ClusterIP
+        ports:
+          http:
+            port: 4000
     ingress:
       main:
         enabled: true
@@ -57,26 +65,3 @@ spec:
           - hosts:
               - teslamate.${SECRET_DOMAIN}
             secretName: "{{ .Release.Name }}-tls"
-    tolerations:
-      - key: "arm"
-        operator: "Exists"
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 50m
-      limits:
-        memory: 500Mi
-    probes:
-      liveness:
-        spec:
-          periodSeconds: 10
-          failureThreshold: 15
-      readiness:
-        spec:
-          failureThreshold: 15
-          periodSeconds: 10
-      startup:
-        spec:
-          initialDelaySeconds: 15
-          failureThreshold: 30
-          periodSeconds: 10
