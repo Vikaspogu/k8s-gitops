@@ -9,14 +9,14 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: qbittorrent
-      version: 13.5.2
+      chart: app-template
+      version: 1.2.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 15m
+  maxHistory: 5
   install:
     createNamespace: true
     remediation:
@@ -24,6 +24,8 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  uninstall:
+    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -35,16 +37,16 @@ spec:
       tag: 4.5.0@sha256:26fa8645757f9d7e5ab72620d75fd8752c968c6b8810b8935ce770d7d1303fe9
     podAnnotations:
       setGateway: "true"
-    settings:
-      automaticPortSetup: false
     hostname: qbittorrent
     env:
       TZ: "${TIMEZONE}"
+      QBITTORRENT__PORT: &port 8080
+      QBITTORRENT__BT_PORT: &port-bt 56059
     service:
       main:
         ports:
           http:
-            port: 8080
+            port: *port
       bittorrent:
         enabled: true
         type: LoadBalancer
@@ -52,9 +54,9 @@ spec:
         ports:
           bittorrent:
             enabled: true
-            port: 56059
+            port: *port-bt
             protocol: TCP
-            targetPort: 56059
+            targetPort: *port-bt
         externalTrafficPolicy: Local
     ingress:
       main:
@@ -108,41 +110,3 @@ spec:
         cpu: 500m
       limits:
         memory: 6000Mi
-
-    # additionalContainers:
-    #   vuetorrent:
-    #     name: vuetorrent
-    #     image: k8s.gcr.io/git-sync/git-sync:v3.6.0
-    #     args:
-    #       - --repo
-    #       - https://github.com/WDaan/VueTorrent
-    #       - --branch
-    #       - latest-release
-    #       - --root
-    #       - /config
-    #       - --wait
-    #       - "86400"
-    #     volumeMounts:
-    #       - name: config
-    #         mountPath: /config
-    #     securityContext:
-    #       runAsUser: 568
-    #       runAsGroup: 568
-
-    # To give vuetorrent time to download
-    startupProbe:
-      enabled: true
-      failureThreshold: 30
-      periodSeconds: 10
-
-    metrics:
-      enabled: true
-      exporter:
-        image:
-          repository: ghcr.io/k8s-at-home/prometheus-qbittorrent-exporter
-          tag: v1.2.0
-      serviceMonitor:
-        interval: 1m
-        scrapeTimeout: 10s
-      prometheusRule:
-        enabled: true
