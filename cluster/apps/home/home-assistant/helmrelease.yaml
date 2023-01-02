@@ -53,6 +53,8 @@ spec:
               - home-assistant.${SECRET_DOMAIN}
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
+    securityContext:
+      privileged: true
     service:
       main:
         type: LoadBalancer
