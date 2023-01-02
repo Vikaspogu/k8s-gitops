@@ -27,8 +27,8 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: homeassistant/home-assistant
-      tag: 2022.12.8
+      repository: ghcr.io/onedr0p/home-assistant
+      tag: 2022.12.8@sha256:472d563ab3eadcfde16848ffa59954c63cc10e71630b6e41081b8eac8c6d5ca7
     env:
       TZ: "${TIMEZONE}"
     ingress:
@@ -120,9 +120,9 @@ spec:
         memory: 100Mi
       limits:
         memory: 4000Mi
-    # affinity:
-    #   nodeAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       nodeSelectorTerms:
-    #         - matchExpressions:
-    #             - { key: "app.kubernetes.io/name", operator: In, values: ["hass"]}
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - { key: "app.kubernetes.io/name", operator: In, values: ["hass"]}
