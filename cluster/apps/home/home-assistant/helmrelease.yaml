@@ -51,8 +51,10 @@ spec:
           - secretName: home-assistant-tls-secret
             hosts:
               - home-assistant.${SECRET_DOMAIN}
-    hostNetwork: true
+    #hostNetwork: true
     # dnsPolicy: ClusterFirstWithHostNet
+    securityContext:
+      privileged: true
     service:
       main:
         type: LoadBalancer
