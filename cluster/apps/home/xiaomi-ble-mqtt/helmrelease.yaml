@@ -32,7 +32,7 @@ spec:
     replicas: 1
     image:
       repository: vikaspogu/xiaomi-ble-mqtt
-      tag: "sha-139f65d"
+      tag: "sha-499d38d"
     command:
       - "/bin/bash"
       - &scriptPath "/usr/src/app/xiaomi-ble-mqtt.sh"
