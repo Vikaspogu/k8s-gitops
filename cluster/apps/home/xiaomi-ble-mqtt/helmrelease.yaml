@@ -32,16 +32,12 @@ spec:
     replicas: 1
     image:
       repository: vikaspogu/xiaomi-ble-mqtt
-      tag: "sha-f88a00b"
+      tag: "sha-719d09b"
     command:
       - "/bin/bash"
       - &scriptPath "/usr/src/app/xiaomi-ble-mqtt.sh"
     strategy:
       type: Recreate
-    env:
-      MQTT_BROKER_HOST: emqx.home.svc.cluster.local
-      MQTT_BROKER_PORT: 1883
-      MQTT_BROKER_CLIENT: xiaomi-ble
     securityContext:
       privileged: true
     probes:
@@ -60,12 +56,11 @@ spec:
         readOnly: true
         subPath: xiaomi-ble-mqtt.sh
         type: configMap
-      devices-ini:
+      ini-files:
         enabled: true
         type: secret
         name: xiaomi-ble-devices
-        subPath: devices.ini
-        mountPath: /usr/src/app/devices.ini
+        mountPath: /usr/src/app/
         readOnly: true
     resources:
       limits:
