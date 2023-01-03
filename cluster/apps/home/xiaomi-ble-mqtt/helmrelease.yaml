@@ -32,13 +32,14 @@ spec:
     replicas: 1
     image:
       repository: vikaspogu/xiaomi-ble-mqtt
-      tag: "sha-03ab19c"
+      tag: "sha-139f65d"
     command:
       - "/bin/bash"
       - &scriptPath "/usr/src/app/xiaomi-ble-mqtt.sh"
     env:
       MQTT_BROKER_HOST: emqx.home.svc.cluster.local
       MQTT_BROKER_PORT: "1883"
+      MQTT_BROKER_CLIENT: "xiaomi-ble-mqtt-0"
       MQTT_BROKER_USER: ${SECRET_EMQX_USERNAME}
       MQTT_BROKER_PASSWORD: ${SECRET_EMQX_PASSWORD}
     strategy:
