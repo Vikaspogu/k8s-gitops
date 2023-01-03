@@ -9,9 +9,6 @@ configMapGenerator:
   - name: xiaomi-ble-mqtt-configmap
     files:
       - ./xiaomi-ble-mqtt.sh
-  - name: mqtt-ini-configmap
-    files:
-      - ./mqtt.ini
 generatorOptions:
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled

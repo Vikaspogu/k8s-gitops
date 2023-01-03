@@ -65,14 +65,6 @@ spec:
         readOnly: true
         subPath: xiaomi-ble-mqtt.sh
         type: configMap
-      mqtt-ini:
-        defaultMode: 0775
-        enabled: true
-        mountPath: /usr/src/app/mqtt.ini
-        name: mqtt-ini-configmap
-        readOnly: true
-        subPath: mqtt.ini
-        type: configMap
       devices-ini:
         enabled: true
         type: secret
