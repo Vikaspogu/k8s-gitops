@@ -46,32 +46,13 @@ spec:
       MQTT_BROKER_HOST: emqx.home.svc.cluster.local
       MQTT_BROKER_PORT: "1883"
       MQTT_BROKER_CLIENT: "xiaomi-ble-mqtt-0"
-      MQTT_BROKER_USER: ${SECRET_EMQX_USERNAME}
-      MQTT_BROKER_PASSWORD: ${SECRET_EMQX_PASSWORD}
-    strategy:
-      type: Recreate
     securityContext:
       privileged: true
       capabilities:
         add:
           - NET_ADMIN
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
     hostNetwork: true
     persistence:
-      config:
-        defaultMode: 0775
-        enabled: true
-        mountPath: *scriptPath
-        name: xiaomi-ble-mqtt-configmap
-        readOnly: true
-        subPath: xiaomi-ble-mqtt.sh
-        type: configMap
       devices-ini:
         enabled: true
         type: secret
@@ -88,9 +69,7 @@ spec:
         memory: 250Mi
     service:
       main:
-        ports:
-          http:
-            port: 8083
+        enabled: false
     tolerations:
       - key: "k3s-arm"
         operator: "Exists"
