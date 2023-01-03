@@ -32,10 +32,13 @@ spec:
     replicas: 1
     image:
       repository: vikaspogu/xiaomi-ble-mqtt
-      tag: "sha-2bff875"
+      tag: "sha-03ab19c"
     command:
       - "/bin/bash"
       - &scriptPath "/usr/src/app/xiaomi-ble-mqtt.sh"
+    env:
+      MQTT_BROKER_HOST: emqx.home.svc.cluster.local
+      MQTT_BROKER_PORT: "1883"
     strategy:
       type: Recreate
     securityContext:
