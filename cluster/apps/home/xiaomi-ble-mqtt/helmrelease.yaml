@@ -40,6 +40,9 @@ spec:
       type: Recreate
     securityContext:
       privileged: true
+      capabilities:
+        add:
+          - NET_ADMIN
     probes:
       liveness:
         enabled: false
@@ -47,6 +50,7 @@ spec:
         enabled: false
       startup:
         enabled: false
+    hostNetwork: true
     persistence:
       config:
         defaultMode: 0775
