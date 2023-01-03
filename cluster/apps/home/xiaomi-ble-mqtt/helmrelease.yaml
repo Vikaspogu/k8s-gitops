@@ -37,7 +37,7 @@ spec:
     restartPolicy: OnFailure
     image:
       repository: vikaspogu/xiaomi-ble-mqtt
-      tag: "sha-499d38d"
+      tag: "sha-3b32d9e"
     command:
       - "/bin/bash"
       - -c
