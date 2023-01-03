@@ -1,0 +1,90 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: xiaomi-ble-mqtt
+  namespace: home
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 15m
+  maxHistory: 5
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: emqx
+      namespace: home
+  values:
+    replicas: 1
+    image:
+      repository: vikaspogu/xiaomi-ble-mqtt
+      tag: "sha-f88a00b"
+    command:
+      - "/bin/bash"
+      - &scriptPath "/usr/src/app/xiaomi-ble-mqtt.sh"
+    strategy:
+      type: Recreate
+    env:
+      MQTT_BROKER_HOST: emqx.home.svc.cluster.local
+      MQTT_BROKER_PORT: 1883
+      MQTT_BROKER_CLIENT: xiaomi-ble
+    securityContext:
+      privileged: true
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
+    persistence:
+      config:
+        defaultMode: 0775
+        enabled: true
+        mountPath: *scriptPath
+        name: xiaomi-ble-mqtt-configmap
+        readOnly: true
+        subPath: xiaomi-ble-mqtt.sh
+        type: configMap
+      devices-ini:
+        enabled: true
+        type: secret
+        name: xiaomi-ble-devices
+        subPath: devices.ini
+        mountPath: /usr/src/app/devices.ini
+        readOnly: true
+    resources:
+      limits:
+        cpu: 520m
+        memory: 520Mi
+      requests:
+        cpu: 250m
+        memory: 250Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    tolerations:
+      - key: "k3s-arm"
+        operator: "Exists"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - { key: "feature.node.kubernetes.io/custom-room-assistant", operator: In, values: ["true"] }

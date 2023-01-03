@@ -8,4 +8,5 @@ resources:
   - mealie
   - node-red
   - teslamate
+  - xiaomi-ble-mqtt
   - zigbee2mqtt
