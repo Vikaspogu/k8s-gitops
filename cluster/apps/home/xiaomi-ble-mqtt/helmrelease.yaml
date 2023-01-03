@@ -56,11 +56,23 @@ spec:
         readOnly: true
         subPath: xiaomi-ble-mqtt.sh
         type: configMap
-      ini-files:
+      devices-ini:
         enabled: true
         type: secret
         name: xiaomi-ble-devices
-        mountPath: /usr/src/app/
+        subPath: devices.ini
+        mountPath: /usr/src/app/devices.ini
+        items:
+          - key: devices.ini
+        readOnly: true
+      mqtt-ini:
+        enabled: true
+        type: secret
+        name: xiaomi-ble-devices
+        subPath: mqtt.ini
+        mountPath: /usr/src/app/mqtt.ini
+        items:
+          - key: mqtt.ini
         readOnly: true
     resources:
       limits:
