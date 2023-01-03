@@ -39,6 +39,8 @@ spec:
     env:
       MQTT_BROKER_HOST: emqx.home.svc.cluster.local
       MQTT_BROKER_PORT: "1883"
+      MQTT_BROKER_USER: ${SECRET_EMQX_USERNAME}
+      MQTT_BROKER_PASSWORD: ${SECRET_EMQX_PASSWORD}
     strategy:
       type: Recreate
     securityContext:
