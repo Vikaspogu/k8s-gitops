@@ -33,7 +33,7 @@ spec:
       type: cronjob
       cronjob:
         concurrencyPolicy: Forbid
-        schedule: "*/5 * * * *"
+        schedule: "*/15 * * * *"
     restartPolicy: OnFailure
     image:
       repository: vikaspogu/xiaomi-ble-mqtt
