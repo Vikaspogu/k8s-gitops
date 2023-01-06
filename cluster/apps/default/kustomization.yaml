@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - bookstack
   - excalidraw
+  - freshrss
   - hajimari
   - reverse-proxy
   - traggo
