@@ -9,4 +9,3 @@ resources:
   - reverse-proxy
   - traggo
   - weave-gitops
-  - ./freshrss/ks.yaml
