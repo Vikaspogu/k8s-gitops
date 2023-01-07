@@ -60,13 +60,6 @@ spec:
         subPath: devices.ini
         mountPath: /usr/src/app/devices.ini
         readOnly: true
-    resources:
-      limits:
-        cpu: 520m
-        memory: 520Mi
-      requests:
-        cpu: 250m
-        memory: 250Mi
     service:
       main:
         enabled: false
