@@ -31,7 +31,7 @@ spec:
   values:
     image:
       repository: teslamate/teslamate
-      tag: 1.27.1
+      tag: 1.27.2
     env:
       TZ: "${TIMEZONE}"
       DATABASE_USER: ${SECRET_TESLAMATE_DB}
