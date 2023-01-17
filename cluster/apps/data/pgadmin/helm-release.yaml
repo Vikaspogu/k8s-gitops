@@ -28,7 +28,7 @@ spec:
     image:
       registry: docker.io
       repository: dpage/pgadmin4
-      tag: "6.18"
+      tag: "6.19"
     strategy:
       type: Recreate
     env:
