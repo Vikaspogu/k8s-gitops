@@ -28,6 +28,7 @@ spec:
       tag: 1.0.4
     env:
       TZ: ${TIMEZONE}
+      DISCORD_USERNAME: "alert-manager-bot"
       DISCORD_WEBHOOK: ${SECRET_DISCORD_WEBHOOK}
     service:
       main:
