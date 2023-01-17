@@ -6,7 +6,6 @@ resources:
   - kopia-web
   - mariadb
   - minio
-  - outline
   - paperless
   - pgadmin
   - postgresql-kube
