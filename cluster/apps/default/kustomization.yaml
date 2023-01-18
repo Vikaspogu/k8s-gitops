@@ -7,6 +7,7 @@ resources:
   - excalidraw
   - freshrss
   - hajimari
+  - media-browser
   - reverse-proxy
   - traggo
   - weave-gitops
