@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 5
   dependsOn:
-    - name: postgresql-kube
+    - name: postgresql
       namespace: data
     - name: rook-ceph-cluster
       namespace: rook-ceph

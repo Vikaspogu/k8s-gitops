@@ -42,7 +42,7 @@ spec:
           DB_ENGINE: sqlite
           POSTGRES_USER: mealie
           POSTGRES_PASSWORD: ${SECRET_MEALIE_PG_PASSWORD}
-          POSTGRES_SERVER: postgresql-kube.data
+          POSTGRES_SERVER: postgresql.data
           POSTGRES_PORT: 5431
           POSTGRES_DB: mealie
           BASE_URL: https://mealie.${SECRET_DOMAIN}

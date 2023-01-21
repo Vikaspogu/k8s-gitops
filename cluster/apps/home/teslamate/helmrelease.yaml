@@ -26,7 +26,7 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: postgresql-kube
+    - name: postgresql
       namespace: data
   values:
     image:
@@ -36,7 +36,7 @@ spec:
       TZ: "${TIMEZONE}"
       DATABASE_USER: ${SECRET_TESLAMATE_DB}
       DATABASE_NAME: ${SECRET_TESLAMATE_DB}
-      DATABASE_HOST: postgresql-kube.data
+      DATABASE_HOST: postgresql.data
       DATABASE_PASS: ${SECRET_TESLAMATE_DB_PASSWORD}
       DISABLE_MQTT: "false"
       MQTT_HOST: "emqx.home.svc.cluster.local"
