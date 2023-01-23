@@ -5,7 +5,7 @@ metadata:
   name: pgadmin-config
   namespace: data
   labels:
-    app.kubernetes.io/instance: pgadmin
+    app.kubernetes.io/instance: pgadmin4
     app.kubernetes.io/name: pgadmin4
     snapshot.home.arpa/enabled: "true"
 spec:
