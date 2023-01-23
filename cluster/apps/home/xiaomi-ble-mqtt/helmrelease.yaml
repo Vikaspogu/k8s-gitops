@@ -48,9 +48,6 @@ spec:
       MQTT_BROKER_CLIENT: "xiaomi-ble-mqtt-0"
     securityContext:
       privileged: true
-      capabilities:
-        add:
-          - NET_ADMIN
     hostNetwork: true
     persistence:
       devices-ini:
@@ -66,9 +63,9 @@ spec:
     tolerations:
       - key: "k3s-arm"
         operator: "Exists"
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - { key: "feature.node.kubernetes.io/custom-room-assistant", operator: In, values: ["true"] }
+    resources:
+      requests:
+        cpu: 500m
+        memory: 500Mi
+      limits:
+        memory: 1000Mi

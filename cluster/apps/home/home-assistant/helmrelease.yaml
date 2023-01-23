@@ -51,10 +51,6 @@ spec:
           - secretName: home-assistant-tls-secret
             hosts:
               - home-assistant.${SECRET_DOMAIN}
-    # hostNetwork: true
-    # dnsPolicy: ClusterFirstWithHostNet
-    # securityContext:
-    #   privileged: true
     service:
       main:
         type: LoadBalancer
@@ -122,9 +118,3 @@ spec:
         memory: 100Mi
       limits:
         memory: 4000Mi
-    # affinity:
-    #   nodeAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       nodeSelectorTerms:
-    #         - matchExpressions:
-    #             - { key: "app.kubernetes.io/name", operator: In, values: ["hass"]}
