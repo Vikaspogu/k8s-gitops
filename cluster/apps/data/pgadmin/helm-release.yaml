@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: pgadmin
+  name: pgadmin4
   namespace: data
 spec:
   interval: 15m
@@ -43,14 +43,14 @@ spec:
         hajimari.io/icon: storage
         cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:
-        - host: &host "pgadmin.${SECRET_DOMAIN}"
+        - host: &host "pgadmin4.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: "pgadmin-tls"
-          hosts:
+        - hosts:
             - *host
+          secretName: "pgadmin4-tls"
     persistentVolume:
       enabled: true
       existingClaim: pgadmin-config
