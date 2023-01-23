@@ -48,7 +48,7 @@ spec:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: "${SECRET_DOMAIN/./-}-tls"
+        - secretName: "pgadmin-tls"
           hosts:
             - *host
     persistentVolume:
