@@ -43,7 +43,7 @@ spec:
         hajimari.io/icon: storage
         cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:
-        - host: &host "pgadmin  ${SECRET_DOMAIN}"
+        - host: &host "pgadmin.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
