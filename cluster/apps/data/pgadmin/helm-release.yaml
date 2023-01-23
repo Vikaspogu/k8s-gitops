@@ -43,12 +43,12 @@ spec:
         hajimari.io/icon: storage
         cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:
-        - host: &host "pgadmin.${SECRET_DOMAIN}"
+        - host: &host "pgadmin4.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: "${SECRET_DOMAIN/./-}-tls"
+        - secretName: "pgadmin4-tls"
           hosts:
             - *host
     persistentVolume:
