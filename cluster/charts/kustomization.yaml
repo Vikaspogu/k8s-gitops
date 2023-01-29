@@ -13,6 +13,7 @@ resources:
   - dysnix-charts.yaml
   - emqx.yaml
   - external-dns-charts.yaml
+  - ./external-secrets.yaml
   - grafana-charts.yaml
   - hajimari-charts.yaml
   - ingress-nginx-charts.yaml
