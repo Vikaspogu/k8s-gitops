@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: default
 resources:
   - ./data-pvc.yaml
-  - ./secret.sops.yaml
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
 commonLabels:
   app.kubernetes.io/name: radicale
