@@ -8,6 +8,7 @@ resources:
   - freshrss
   - hajimari
   - media-browser
+  - ./radicale
   - reverse-proxy
   - traggo
   - weave-gitops

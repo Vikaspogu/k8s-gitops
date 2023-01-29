@@ -1,0 +1,83 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: radicale
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 5
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: tomsquest/docker-radicale
+      tag: 3.1.8.0
+    service:
+      main:
+        ports:
+          http:
+            port: 5232
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          external-dns/is-public: "true"
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/enable: "true"
+          auth.home.arpa/enabled: "true"
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "{{ .Release.Name }}-tls"
+            hosts:
+              - *host
+    persistence:
+      data:
+        enabled: true
+        mountPath: /data
+        existingClaim: radicale-data
+      config:
+        enabled: true
+        type: configMap
+        name: radicale-configmap
+        subPath: config.cfg
+        mountPath: /config/config
+        readOnly: true
+      auth:
+        enabled: true
+        type: secret
+        name: radicale-secret
+        subPath: users
+        mountPath: /config/users
+        readOnly: true
+    resources:
+      requests:
+        cpu: 15m
+        memory: 79M
+      limits:
+        memory: 79M
