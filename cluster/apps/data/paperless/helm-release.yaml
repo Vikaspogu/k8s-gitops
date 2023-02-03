@@ -108,6 +108,7 @@ spec:
 #        memory: 6572M
 
     additionalContainers:
-      - name: broker
+      redis:
+        name: broker
         image: redis:7.0
         imagePullPolicy: IfNotPresent
