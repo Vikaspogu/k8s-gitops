@@ -75,7 +75,7 @@ spec:
                   - record
                   - rtmp
           zones:
-            doorbell:
+            front_zone:
               coordinates: 89,552,1203,685,1280,324,383,344
           mqtt:
             enabled: True
