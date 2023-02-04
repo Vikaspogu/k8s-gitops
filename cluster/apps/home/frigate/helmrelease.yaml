@@ -50,6 +50,21 @@ spec:
         track:
           - person
           - dog
+        filters:
+          person:
+            min_area: 5000
+            max_area: 100000
+            threshold: 0.7
+            mask: 99,568,1235,720,1280,335,380,348
+      record:
+        enabled: true
+        retain_days: 4
+        events:
+          retain:
+            default: 10
+          objects:
+            - person
+            - dog
       cameras:
         doorbell:
           ffmpeg:
@@ -59,22 +74,9 @@ spec:
                   - detect
                   - record
                   - rtmp
-          objects:
-            filters:
-              person:
-                min_area: 1500
-                max_area: 100000
-                threshold: 0.75
-                min_score: 0.60
-          record:
-            enabled: true
-            retain_days: 4
-            events:
-              retain:
-                default: 10
-              objects:
-                - person
-                - dog
+          zones:
+            doorbell:
+              coordinates: 89,552,1203,685,1280,324,383,344
           mqtt:
             enabled: True
             timestamp: True
