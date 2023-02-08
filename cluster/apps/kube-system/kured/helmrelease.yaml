@@ -26,7 +26,7 @@ spec:
   values:
     image:
       repository: ghcr.io/kubereboot/kured
-      tag: 1.12.0
+      tag: 1.21.1
     updateStrategy: RollingUpdate
     configuration:
       timeZone: "${TIMEZONE}"
