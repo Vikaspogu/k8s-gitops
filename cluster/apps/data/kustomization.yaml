@@ -10,4 +10,3 @@ resources:
   - pgadmin
   - postgresql
   - redis
-  - vikunja

@@ -9,5 +9,4 @@ resources:
   - hajimari
   - media-browser
   - reverse-proxy
-  - traggo
   - weave-gitops
