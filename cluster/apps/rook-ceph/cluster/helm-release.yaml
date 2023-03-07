@@ -43,9 +43,19 @@ spec:
         tls:
           - hosts:
               - *host
+    toolbox:
+      enabled: true
+    configOverride: |
+      [global]
+      bdev_enable_discard = true
+      bdev_async_discard = true
     cephClusterSpec:
       network:
         provider: host
+        connections:
+          compression:
+            # TODO: Test out enabling this on next cluster rebuild
+            enabled: false
       crashCollector:
         disable: false
       dashboard:
@@ -79,7 +89,6 @@ spec:
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
-          mountOptions: []
           parameters:
             imageFormat: "2"
             imageFeatures: layering
