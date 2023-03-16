@@ -79,7 +79,7 @@ spec:
         enabled: true
         image:
           repository: codercom/code-server
-          tag: 4.10.1
+          tag: 4.11.0
         env:
           TZ: "${TIMEZONE}"
         git:
