@@ -64,6 +64,9 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
+          external-dns/is-public: "true"
+          external-dns.home.arpa/enabled: "true"
+          auth.home.arpa/enabled: "true"
         hosts:
           - host: "linkding.${SECRET_DOMAIN}"
             paths:
