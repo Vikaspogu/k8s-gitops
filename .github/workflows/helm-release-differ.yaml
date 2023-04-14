@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
 
       - name: Filter Helm Releases
         uses: dorny/paths-filter@v2
@@ -41,7 +41,7 @@ jobs:
         file: ${{ fromJSON(needs.detect-file-changes.outputs.yaml_files) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
 
       - name: Generate Token
         uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92 # v1
@@ -51,7 +51,7 @@ jobs:
           private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: Checkout default branch
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
         with:
           ref: "${{ env.DEFAULT_BRANCH }}"
           path: default
