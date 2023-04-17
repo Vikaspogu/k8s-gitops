@@ -1,0 +1,6 @@
+---
+controller_settings:
+  - key: ANSIBLE_FACT_CACHE_TIMEOUT
+    value: 7200
+  - key: ANSIBLE_VARS_ENABLED
+    value: host_group_vars,community.sops.sops
