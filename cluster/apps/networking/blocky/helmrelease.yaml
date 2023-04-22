@@ -88,7 +88,7 @@ spec:
           config.yml: |-
             upstream:
               default:
-                - tcp+udp:192.168.1.1
+                - tcp+udp:10.30.0.1
             customDNS:
               customTTL: 1h
             conditional:
