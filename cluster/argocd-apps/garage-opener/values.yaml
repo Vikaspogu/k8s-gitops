@@ -3,7 +3,7 @@ replicas: 1
 image:
   repository: vikaspogu/garage-opener
   pullPolicy: IfNotPresent
-  tag: "sha-d00a803"
+  tag: "sha-a487a86"
 
 strategy:
   type: Recreate
