@@ -4,7 +4,6 @@ k3s_server:
   node-ip: "{{ ansible_host }}"
   tls-san:
     - "{{ k3s_registration_address }}"
-  https-listen-port: 6443
   docker: false
   flannel-backend: "none"
   disable:

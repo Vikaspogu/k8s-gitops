@@ -21,66 +21,66 @@ tasks:
 
   list:
     desc: List all the hosts
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --list-hosts
 
   prepare:
     desc: Prepare all the k8s nodes for running k3s
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yml
       # - task: prepare-rpi
 
   prepare-rpi:
     desc: Prepare all the k8s nodes for running k3s
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare-rpi.yml
 
   upgrade:
     desc: Upgrade all the k8s nodes for running k3s
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-upgrade.yml
-      - task: reboot
+      - task: force-reboot
 
   install:
     desc: Install Kubernetes on the nodes
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yml
       # - task: post-install
 
   post-install:
     desc: Post install Kubernetes on the nodes
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-post-installation.yml"
 
   rook-nuke:
     desc: Uninstall Rook on the nodes
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-rook-nuke.yml"
 
   nuke:
     desc: Uninstall Kubernetes on the nodes
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     interactive: true
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yml
-      - task: reboot
+      - task: force-reboot
 
   ping:
     desc: Ping all the hosts
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -m 'ping'
 
   uptime:
     desc: Uptime of all the hosts
-    dir: provision/ansible
+    dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -a 'uptime'
 
