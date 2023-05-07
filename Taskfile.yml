@@ -4,8 +4,8 @@ version: "3"
 vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
-  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
 
 dotenv: [".config.env"]
 
