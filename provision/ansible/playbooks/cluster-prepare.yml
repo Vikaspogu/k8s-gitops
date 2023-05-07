@@ -25,36 +25,34 @@
             path: /etc/hosts
             block: |
               127.0.1.1   {{ inventory_hostname }}
-    - name: Packages
+    - name: Packages | Fedora
       block:
-        - name: Packages | Improve dnf performance
-          ansible.builtin.blockinfile:
-            path: /etc/dnf/dnf.conf
-            block: |
-              defaultyes=True
-              deltarpm=True
-              install_weak_deps=False
-              max_parallel_downloads={{ ansible_processor_vcpus | default('8') }}
-        - name: Packages | Import rpmfusion keys
-          ansible.builtin.rpm_key:
-            state: present
-            key: "{{ item }}"
-          loop:
-            - https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
-            - https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
         - name: Packages | Install required packages
           ansible.builtin.dnf:
-            name: "{{ packages | default([]) }}"
+            name: "{{ fedora.packages | default([]) }}"
             state: present
             update_cache: true
         - name: Packages | Remove leaf packages
           ansible.builtin.dnf:
             autoremove: true
-        - name: Packages | Enable automatic downloads of updates
-          ansible.builtin.systemd:
-            service: dnf-automatic-download.timer
-            enabled: true
-            state: started
+      when: ansible_facts['distribution'] == 'Fedora'
+    - name: Packages | Ubuntu
+      block:
+        - name: Packages | Install required packages
+          ansible.builtin.apt:
+            name: "{{ ubuntu.packages | default([]) }}"
+            state: present
+            update_cache: true
+        - name: Packages | Remove leaf packages
+          ansible.builtin.apt:
+            autoremove: true
+        - name: Packages | RasPi packages
+          ansible.builtin.apt:
+            name: ["linux-modules-extra-raspi"]
+            install_recommends: false
+          notify: Reboot
+          when: "'raspi' in ansible_kernel"
+      when: ansible_facts['distribution'] == 'Ubuntu'
     - name: User Configuration
       block:
         - name: User Configuration | Add additional SSH public keys
@@ -62,41 +60,22 @@
             user: "{{ ansible_user }}"
             key: "{{ item }}"
           loop: "{{ public_ssh_keys | default([]) }}"
-        - name: Add user to sudoers
-          ansible.builtin.copy:
-            content: "{{ ansible_user }} ALL=(ALL:ALL) NOPASSWD:ALL"
-            dest: "/etc/sudoers.d/{{ ansible_user }}_nopasswd"
-            mode: "0440"
-    - name: rsyslog
-      block:
-        - name: rsyslog | copy promtail configuration
-          ansible.builtin.template:
-            src: "rsyslog-50-promtail.conf.j2"
-            dest: "/etc/rsyslog.d/50-promtail.conf"
-            mode: 0644
-        - name: rsyslog | Make sure the service is unmasked
-          systemd:
-            name: rsyslog
-            masked: false
-        - name: rsyslog | start systemd service
-          ansible.builtin.systemd:
-            name: rsyslog
-            enabled: true
-            state: started
-        - name: rsyslog | restart systemd service
-          ansible.builtin.systemd:
-            name: rsyslog.service
-            daemon_reload: true
-            enabled: true
-            state: restarted
     - name: System Configuration (1)
       block:
-        - name: System Configuration (1) | Disable firewalld
+        - name: System Configuration (1) | Disable firewalld | Fedora
           ansible.builtin.systemd:
             service: firewalld.service
             enabled: false
             masked: true
             state: stopped
+          when: ansible_facts['distribution'] == 'Fedora'
+        - name: System Configuration (1) | Disable ufw | Ubuntu
+          ansible.builtin.systemd:
+            service: ufw.service
+            enabled: false
+            masked: true
+            state: stopped
+          when: ansible_facts['distribution'] == 'Ubuntu'
         - name: System Configuration (1) | Enable fstrim
           ansible.builtin.systemd:
             service: fstrim.timer
@@ -107,13 +86,13 @@
           community.general.modprobe:
             name: "{{ item }}"
             state: present
-          loop: [br_netfilter, overlay, rbd]
+          loop: [br_netfilter, ip_vs, ip_vs_rr, overlay, rbd]
         - name: System Configuration (2) | Enable kernel modules on boot
           ansible.builtin.copy:
             mode: 0644
             content: "{{ item }}"
             dest: "/etc/modules-load.d/{{ item }}.conf"
-          loop: [br_netfilter, overlay, rbd]
+          loop: [br_netfilter, ip_vs, ip_vs_rr, overlay, rbd]
         - name: System Configuration (2) | Set sysctls
           ansible.posix.sysctl:
             name: "{{ item.key }}"
@@ -132,17 +111,32 @@
               net.bridge.bridge-nf-call-ip6tables: 1
               fs.inotify.max_user_watches: 524288
               fs.inotify.max_user_instances: 512
-        - name: System Configuration (2) | Disable swap
+        - name: System Configuration (2) | Disable swap | Fedora
           ansible.builtin.dnf:
             name: zram-generator-defaults
             state: absent
-        - name: System Configuration (2) | Permissive SELinux
+          when: ansible_facts['distribution'] == 'Fedora'
+        - name: System Configuration (2) | Disable swap at runtime | Ubuntu
+          ansible.builtin.command: swapoff -a
+          when:
+            - ansible_facts['distribution'] == 'Ubuntu'
+            - ansible_swaptotal_mb > 0
+        - name: System Configuration (2) | Disable swap at boot | Ubuntu
+          ansible.posix.mount:
+            name: "{{ item }}"
+            fstype: swap
+            state: absent
+          loop: ["none", "swap"]
+          when: ansible_facts['distribution'] == 'Ubuntu'
+        - name: System Configuration (2) | Permissive SELinux | Fedora
           ansible.posix.selinux:
             state: permissive
             policy: targeted
+          when: ansible_facts['distribution'] == 'Fedora'
       notify: Reboot
 
   handlers:
     - name: Reboot
       ansible.builtin.reboot:
         msg: Rebooting nodes
+        reboot_timeout: 3600

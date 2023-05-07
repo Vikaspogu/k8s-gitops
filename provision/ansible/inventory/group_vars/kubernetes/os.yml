@@ -6,24 +6,30 @@ timezone: "America/Chicago"
 public_ssh_keys:
   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRkdARMxVXHnGYyDJ3HRUiz2ynt8Y3bAm8fyLkqgAgPyc/2xcBbKL+rsfr9TO9odHdDojeOLKA8VVigcNvupMhTZsN5eJx6aJiaNXabLaaSf2Axg/WBOiIM4wnDYXQYjMvS48b5QgR/5ms04rY4av0VhcrN8VbBOKnRyLwKg2trTHN8jqR0+0+tsuKX3TSOvwoJTHIEO7YUaDcckxl0sJrPeL9fCfF+tOncb6noPcz6gXX5aSKBuwO5t0F7r0g11WZGMADDgRo59v+zCi0+AXU0BQ+NN9dFalrSFgIueGh05rAhssdbt7jfjRvoPNsSg2b+Xv1Cy/YTdeOZj7mJPguSO31WOLbfA4aBnLKTH63yuMZe2wyJVx9W1bAXJBfdVwhBlk3Zl+B4hlhBGhua2Oslk+q/IBHQZdTith3IoOSoNzHB8QDn2jtSGRxzbc7cJ8oPUGoxkIr+PBnO9Mdjs1Sl8ZARvjv/KMO5QdD8m4v6q6TluoQuPPkwiXETxh1Gqs= vikaspogu@vpogu-mac
   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfGS36GIiiJbHHkMZTlO5d4Ay1/N4ElL4oYXxq8e36hUnxCGCKIrjJHFdCHgQiKJP24pJ5/n4qcjluHmpXWec0swJA3a2b0bj5/jJ232liMGPfv1GKBtEgZ7Is2t/GCQZ7+ihMrH5nYy68hGUoO9Hyj7zUOX86fZdOfbYzSGp108IRey5ueY8yNYR9X66cXf+K6Z77dzLLzMBctSKq2Bux4DYVymjl5d8a07TIiXweN7/UoMYJwokoRvqGt3kda6qVQU60IZGgq6macpSNutogUUec2fYb/gnpNTXKjqR+Tw+/i6wbu3Y20nOxT1c3+p6ryIO7MycqfsIiGduFfG5oUsMsR6ulDPcEgcHVoqDKiv/9aZc69ID0WobLWGGbRe9zXvdRFkENH2IYcNwPPKX6T5MWsr/kzFKKHHGpEt6xMLm9dOU0M70njhtYxVZkN5R2P072fpeu+2WwK8mg+/pm0U40U93JfENrVDa3emSsOWTPTFvNIGB2ATYmi6QhNgM= vikaspogu@vikaspogu-Surface-Pro.localdomain
-packages:
-  - dnf-plugin-system-upgrade
-  - dnf-utils
-  - hdparm
-  - htop
-  - intel-gpu-tools
-  - ipvsadm
-  - lm_sensors
-  - nano
-  - nvme-cli
-  - socat
-  - python3-libselinux
-  - dnf-automatic
-  - rsyslog
-  - firewalld
-  - nfs-utils
+fedora:
+  packages:
+    - dnf-plugin-system-upgrade
+    - dnf-utils
+    - hdparm
+    - htop
+    - ipvsadm
+    - lm_sensors
+    - nano
+    - nvme-cli
+    - socat
+    - python3-kubernetes
+    - python3-libselinux
+    - python3-pyyaml
 
-rsyslog:
-  enabled: true
-  ip: 192.168.20.103
-  port: 1514
+ubuntu:
+  packages:
+    - hdparm
+    - htop
+    - ipvsadm
+    - lm-sensors
+    - nano
+    - nfs-common
+    - nvme-cli
+    - socat
+    - python3-kubernetes
+    - python3-yaml

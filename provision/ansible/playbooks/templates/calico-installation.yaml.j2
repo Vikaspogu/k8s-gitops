@@ -4,7 +4,11 @@ kind: Installation
 metadata:
   name: default
 spec:
+  registry: quay.io
+  imagePath: calico
   calicoNetwork:
+    # https://docs.k3s.io/installation/network-options#custom-cni
+    containerIPForwarding: "Enabled"
     # https://projectcalico.docs.tigera.io/networking/ip-autodetection
     nodeAddressAutodetectionV4:
       cidrs:

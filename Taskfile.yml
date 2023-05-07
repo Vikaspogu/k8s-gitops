@@ -6,19 +6,17 @@ vars:
     sh: "git rev-parse --show-toplevel"
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
-  TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
 
 dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"
+  KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
+  SOPS_AGE_KEY_FILE: ~/.config/sops/age/keys.txt
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yml
   cluster: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
-  terraform: .taskfiles/TerraformTasks.yml
-  sops: .taskfiles/SopsTasks.yml
   snapshot: .taskfiles/SnapshotTasks.yml
 
 tasks:
@@ -36,6 +34,7 @@ tasks:
       DEPS: >-
         age
         ansible
+        cloudflare/cloudflare/cloudflared
         direnv
         fluxcd/tap/flux
         go-task/tap/go-task
@@ -48,7 +47,16 @@ tasks:
         prettier
         sops
         stern
-        terraform
-        tflint
+        weaveworks/tap/gitops
         yamllint
         yq
+
+  verify:
+    desc: Verify env settings
+    cmds:
+      - ./configure --verify
+
+  configure:
+    desc: Configure repository from env settings
+    cmds:
+      - ./configure
