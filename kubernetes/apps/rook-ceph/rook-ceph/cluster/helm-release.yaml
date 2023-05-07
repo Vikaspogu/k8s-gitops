@@ -71,13 +71,13 @@ spec:
         nodes:
           - name: "k8s-2-nuc-6i3syh"
             devices:
-              - name: "nvme0n1"
+              - name: "nvme0n1p1"
           - name: "k8s-3-hp-4590t"
             devices:
-              - name: "nvme0n1"
+              - name: "nvme0n1p1"
           - name: "k8s-4-hp-6500t"
             devices:
-              - name: "nvme0n1"
+              - name: "nvme0n1p1"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
