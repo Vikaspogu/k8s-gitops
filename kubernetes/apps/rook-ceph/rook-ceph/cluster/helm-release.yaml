@@ -10,21 +10,22 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.rook.io/release
       chart: rook-ceph-cluster
-      version: v1.11.4
+      version: v1.11.5
       sourceRef:
         kind: HelmRepository
         name: rook-ceph-charts
         namespace: flux-system
+  maxHistory: 2
   install:
     createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
-  dependsOn:
-    - name: rook-ceph-operator
-      namespace: rook-ceph
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     monitoring:
       enabled: true
