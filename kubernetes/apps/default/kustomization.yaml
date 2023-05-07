@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./external-secrets/ks.yaml
-  # - ./linkding/ks.yaml
+  - ./linkding/ks.yaml
   - ./onepassword-connect/ks.yaml
