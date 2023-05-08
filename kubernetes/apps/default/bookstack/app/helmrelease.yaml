@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app bookstack
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 5
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: ghcr.io/linuxserver/bookstack
+      pullPolicy: IfNotPresent
+      tag: "version-v22.03.1"
+    env:
+      TZ: ${TIMEZONE}
+    envFrom:
+      - secretRef:
+          name: bookstack
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          external-dns/is-public: "true"
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "notebook-edit-outline"
+          auth.home.arpa/enabled: "true"
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "{{ .Release.Name }}-tls"
+            hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        existingClaim: bookstack-config
+    resources:
+      requests:
+        memory: 105M
+      limits:
+        memory: 2417M
