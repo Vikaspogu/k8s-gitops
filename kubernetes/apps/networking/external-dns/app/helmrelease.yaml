@@ -32,12 +32,12 @@ spec:
       - name: CF_API_EMAIL
         valueFrom:
           secretKeyRef:
-            name: external-dns-secret
+            name: external-dns
             key: email
       - name: CF_API_KEY
         valueFrom:
           secretKeyRef:
-            name: external-dns-secret
+            name: external-dns
             key: api-key
     extraArgs:
       - --annotation-filter=external-dns.alpha.kubernetes.io/target
@@ -52,4 +52,4 @@ spec:
     serviceMonitor:
       enabled: true
     podAnnotations:
-      secret.reloader.stakater.com/reload: external-dns-secret
+      secret.reloader.stakater.com/reload: external-dns
