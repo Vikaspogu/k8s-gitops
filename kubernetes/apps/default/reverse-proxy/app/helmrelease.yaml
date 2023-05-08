@@ -30,7 +30,6 @@ spec:
         port: 5000
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-production
             external-dns.home.arpa/enabled: "true"
             external-dns/is-public: "true"
             hajimari.io/appName: nas

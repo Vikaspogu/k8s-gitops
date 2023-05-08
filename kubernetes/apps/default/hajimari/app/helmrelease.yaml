@@ -67,7 +67,6 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Hajimari"
           hajimari.io/icon: "weather-sunset"
@@ -79,7 +78,6 @@ spec:
         tls:
           - hosts:
               - "hajimari.${SECRET_DOMAIN}"
-            secretName: "{{ .Release.Name }}-tls"
     persistence:
       data:
         enabled: true
