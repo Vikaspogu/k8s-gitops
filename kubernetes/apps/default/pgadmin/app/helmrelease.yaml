@@ -28,9 +28,8 @@ spec:
       tag: "7.1"
     strategy:
       type: Recreate
-    existingSecret: "pgadmin"
-    secretKeys:
-      pgadminPasswordKey: password
+    envVarsFromSecrets:
+      - "pgadmin"
     ingress:
       enabled: true
       annotations:
