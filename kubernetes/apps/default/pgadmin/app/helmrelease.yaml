@@ -30,7 +30,7 @@ spec:
       type: Recreate
     envFrom:
       - secretRef:
-          name: pgadmin4-secret
+          name: pgadmin4
     ingress:
       enabled: true
       annotations:
