@@ -20,6 +20,7 @@ fedora:
     - python3-kubernetes
     - python3-libselinux
     - python3-pyyaml
+    - nfs-utils
 
 ubuntu:
   packages:
@@ -32,4 +33,5 @@ ubuntu:
     - nvme-cli
     - socat
     - python3-kubernetes
+    - nfs-common
     - python3-yaml

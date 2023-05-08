@@ -60,6 +60,11 @@
             user: "{{ ansible_user }}"
             key: "{{ item }}"
           loop: "{{ public_ssh_keys | default([]) }}"
+        - name: Add user to sudoers
+          ansible.builtin.copy:
+            content: "{{ ansible_user }} ALL=(ALL:ALL) NOPASSWD:ALL"
+            dest: "/etc/sudoers.d/{{ ansible_user }}_nopasswd"
+            mode: "0440"
     - name: System Configuration (1)
       block:
         - name: System Configuration (1) | Disable firewalld | Fedora
