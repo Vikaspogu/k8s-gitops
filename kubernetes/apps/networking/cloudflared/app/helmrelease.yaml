@@ -63,7 +63,7 @@ spec:
             scheme: http
             path: /metrics
             interval: 1m
-            scrapetimeout: 3m
+            scrapeTimeout: 30s
     probes:
       liveness: &probes
         enabled: true
