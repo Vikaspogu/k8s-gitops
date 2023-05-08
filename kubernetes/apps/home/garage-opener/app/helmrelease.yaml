@@ -51,7 +51,7 @@ spec:
         spec:
           failureThreshold: 3
           httpGet:
-            path: /health
+            path: /status
             port: http
           initialDelaySeconds: 30
           periodSeconds: 10
@@ -62,7 +62,7 @@ spec:
         spec:
           failureThreshold: 3
           httpGet:
-            path: /health
+            path: /status
             port: http
           initialDelaySeconds: 30
           periodSeconds: 10
