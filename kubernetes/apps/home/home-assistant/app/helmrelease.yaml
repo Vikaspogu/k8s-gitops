@@ -52,7 +52,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: ${LB_HASS}
+        loadBalancerIP: ${METALLB_HASS_ADDR}
         externalTrafficPolicy: Local
         ports:
           http:

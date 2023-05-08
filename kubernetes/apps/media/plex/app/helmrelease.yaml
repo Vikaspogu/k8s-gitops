@@ -33,7 +33,7 @@ spec:
       - secretRef:
           name: plex
     env:
-      ADVERTISE_IP: "http://${LB_PLEX}:32400"
+      ADVERTISE_IP: "http://${METALLB_PLEX_ADDR}:32400"
       TZ: ${TIMEZONE}
     ingress:
       main:
@@ -59,7 +59,7 @@ spec:
         type: LoadBalancer
         annotations:
           metallb.universe.tf/allow-shared-ip: plex
-        loadBalancerIP: ${LB_PLEX}
+        loadBalancerIP: ${METALLB_PLEX_ADDR}
         externalTrafficPolicy: Local
         ports:
           http:

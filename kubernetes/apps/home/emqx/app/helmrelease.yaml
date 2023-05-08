@@ -36,7 +36,7 @@ spec:
       EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
     service:
       type: LoadBalancer
-      externalIPs: ["${LB_EMQX}"]
+      externalIPs: ["${METALLB_EMQX_ADDR}"]
       externalTrafficPolicy: Local
     ingress:
       dashboard:
