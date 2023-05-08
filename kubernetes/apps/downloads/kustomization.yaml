@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./prowlarr/ks.yaml
+  - ./qbittorrent/ks.yaml
   - ./youtubedl-material/ks.yaml
