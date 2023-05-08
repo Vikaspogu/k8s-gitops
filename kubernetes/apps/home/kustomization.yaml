@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./emqx/ks.yaml
-  # - ./frigate/ks.yaml
+  - ./frigate/ks.yaml
   # - ./garage-opener/ks.yaml
   - ./home-assistant/ks.yaml
   - ./mealie/ks.yaml
