@@ -1,7 +1,6 @@
 ---
 - hosts:
-    - master
-    - worker
+    - kubernetes
   become: true
   gather_facts: true
   any_errors_fatal: true
@@ -48,7 +47,7 @@
             autoremove: true
         - name: Packages | RasPi packages
           ansible.builtin.apt:
-            name: ["linux-modules-extra-raspi"]
+            name: ["pi-bluetooth","nfs-common"]
             install_recommends: false
           notify: Reboot
           when: "'raspi' in ansible_kernel"

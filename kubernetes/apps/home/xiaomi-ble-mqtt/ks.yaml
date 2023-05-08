@@ -16,5 +16,3 @@ spec:
       name: xiaomi-ble-mqtt
       namespace: home
   interval: 15m
-  retryInterval: 1m
-  timeout: 3m
