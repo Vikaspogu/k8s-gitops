@@ -28,8 +28,11 @@ spec:
       tag: "7.1"
     strategy:
       type: Recreate
-    envVarsFromSecrets:
-      - "pgadmin"
+    env:
+      email: vpogu
+    existingSecret: "pgadmin"
+    secretKeys:
+      pgadminPasswordKey: PGADMIN_DEFAULT_PASSWORD
     ingress:
       enabled: true
       annotations:
