@@ -25,9 +25,6 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: postgresql
-      namespace: data
   values:
     image:
       repository: teslamate/teslamate
