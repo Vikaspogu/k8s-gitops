@@ -34,7 +34,7 @@ spec:
     global:
       postgresql:
         auth:
-          existingSecret: *app
+          existingSecret: pgsql
           secretKeys:
             adminPasswordKey: "admin_password"
             userPasswordKey: "user_password"
