@@ -15,9 +15,9 @@ spec:
       kind: HelmRelease
       name: cert-manager
       namespace: cert-manager
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
-  timeout: 3m
+  timeout: 30s
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -32,6 +32,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
-  timeout: 3m
+  timeout: 30s

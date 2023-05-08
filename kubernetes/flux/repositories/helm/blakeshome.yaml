@@ -7,4 +7,4 @@ metadata:
 spec:
   interval: 10m
   url: https://blakeblackshear.github.io/blakeshome-charts/
-  timeout: 3m
+  timeout: 30s

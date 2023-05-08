@@ -5,12 +5,12 @@ metadata:
   name: external-secrets
   namespace: default
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: external-secrets
       version: 0.8.1
-      interval: 30m
+      interval: 15m
       sourceRef:
         kind: HelmRepository
         name: external-secrets
