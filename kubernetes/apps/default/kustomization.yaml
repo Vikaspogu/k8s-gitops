@@ -14,7 +14,7 @@ resources:
   - ./minio/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./paperless/ks.yaml
-  # - ./pgadmin/ks.yaml
-  - ./postgresql/ks.yaml
+  - ./pgadmin/ks.yaml
+  # - ./postgresql/ks.yaml
   - ./redis/ks.yaml
   - ./reverse-proxy/ks.yaml
