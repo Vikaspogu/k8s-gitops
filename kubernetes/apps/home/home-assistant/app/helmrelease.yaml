@@ -52,9 +52,6 @@ spec:
               - home-assistant.${SECRET_DOMAIN}
     service:
       main:
-        type: LoadBalancer
-        loadBalancerIP: ${METALLB_HASS_ADDR}
-        externalTrafficPolicy: Local
         ports:
           http:
             port: 8123
