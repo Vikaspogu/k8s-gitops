@@ -34,16 +34,13 @@ spec:
       defaultEnable: false
       namespaceSelector:
         matchNames:
-          - argocd
           - downloads
           - data
           - default
-          - falco-system
           - home
           - media
           - monitoring
           - networking
-          - security
           - rook-ceph
       name: "pogu"
       groups:
