@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app audiobookshelf
+  namespace: media
+spec:
+  releaseName: *app
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    image:
+      repository: ghcr.io/advplyr/audiobookshelf
+      tag: 2.2.20
+    env:
+      TZ: "${TIMEZONE}"
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns/is-public: "true"
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "Audiobook"
+          hajimari.io/icon: podcast
+          nginx.ingress.kubernetes.io/proxy-body-size: "2G"
+          nginx.ingress.kubernetes.io/proxy-buffering: "off"
+          nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+        hosts:
+          - host: &host "ab.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: tls.audiobookshelf
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        existingClaim: audiobookshelf-config
+      audiobooks:
+        enabled: true
+        mountPath: /audiobooks
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${SECRET_NAS_ADDRESS}"
+            path: /volume1/media/Books

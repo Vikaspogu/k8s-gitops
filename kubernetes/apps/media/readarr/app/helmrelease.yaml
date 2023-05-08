@@ -1,0 +1,93 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: readarr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    image:
+      repository: ghcr.io/onedr0p/readarr-nightly
+      tag: 0.1.5.1718@sha256:1da18e8ec716d6744e21f2895aee94665a6e3547f846d8dfcad083c9df20d501
+    env:
+      TZ: "${TIMEZONE}"
+      READARR__PORT: &port 8080
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "Readarr"
+          hajimari.io/icon: book-open-page-variant-outline
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/readarr/dracula.css"></head>';
+            sub_filter_once on;
+        hosts:
+          - host: "readarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "readarr.${SECRET_DOMAIN}"
+            secretName: "{{ .Release.Name }}-tls"
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      supplementalGroups:
+        - 65536
+    persistence:
+      config:
+        enabled: true
+        existingClaim: readarr-config
+      nfs-nas-pvc:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media"
+        mountPath: /nfs-nas-pvc
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${SECRET_NAS_ADDRESS}"
+            path: /volume1/media/Books
+        mountPath: /media
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 750Mi
