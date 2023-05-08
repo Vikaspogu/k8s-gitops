@@ -26,9 +26,6 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     image:
       registry: docker.io
