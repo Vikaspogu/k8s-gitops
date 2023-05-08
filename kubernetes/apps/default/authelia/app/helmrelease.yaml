@@ -23,11 +23,6 @@ spec:
   upgrade:
     remediation:
       retries: 5
-  dependsOn:
-    - name: postgresql
-      namespace: data
-    - name: redis
-      namespace: data
   values:
     domain: ${SECRET_DOMAIN}
     service:
@@ -45,7 +40,6 @@ spec:
       subdomain: auth
       tls:
         enabled: true
-        secret: authelia-tls
     pod:
       kind: Deployment
       replicas: 3
