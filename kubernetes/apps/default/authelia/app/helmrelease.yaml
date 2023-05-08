@@ -52,7 +52,7 @@ spec:
       extraVolumes:
         - name: config-custom
           secret:
-            name: authelia
+            secretName: authelia
             items:
               - key: users_database.yml
                 path: users_database.yml
