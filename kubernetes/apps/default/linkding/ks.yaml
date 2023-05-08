@@ -7,8 +7,6 @@ metadata:
 spec:
   path: ./kubernetes/apps/default/linkding/app
   prune: true
-  dependsOn:
-    - name: cluster-apps-rook-ceph
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -18,5 +16,6 @@ spec:
       name: linkding
       namespace: default
   interval: 15m
-  retryInterval: 1m
-  timeout: 3m
+  dependsOn:
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-ingress-nginx

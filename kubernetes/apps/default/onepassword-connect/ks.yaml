@@ -16,5 +16,5 @@ spec:
       name: onepassword-connect
       namespace: default
   interval: 15m
-  retryInterval: 1m
-  timeout: 3m
+  dependsOn:
+    - name: cluster-apps-external-secrets

@@ -15,4 +15,4 @@ spec:
   dependsOn:
     - name: cluster-apps-postgresql
     - name: cluster-apps-external-secrets
-    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-ingress-nginx

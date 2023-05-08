@@ -7,8 +7,6 @@ metadata:
 spec:
   path: ./kubernetes/apps/home/teslamate/app
   prune: true
-  dependsOn:
-    - name: cluster-apps-postgresql
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -18,5 +16,8 @@ spec:
       name: teslamate
       namespace: home
   interval: 15m
-  retryInterval: 1m
-  timeout: 3m
+  dependsOn:
+    - name: cluster-apps-external-secrets
+    - name: cluster-apps-postgresql
+    - name: cluster-apps-emqx
+    - name: cluster-apps-ingress-nginx

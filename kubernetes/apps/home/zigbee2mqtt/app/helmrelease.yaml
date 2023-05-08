@@ -25,9 +25,6 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: emqx
-      namespace: home
   values:
     image:
       repository: koenkk/zigbee2mqtt

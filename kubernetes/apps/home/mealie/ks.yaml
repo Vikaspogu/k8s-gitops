@@ -16,5 +16,8 @@ spec:
       name: mealie
       namespace: home
   interval: 15m
-  retryInterval: 1m
-  timeout: 3m
+  dependsOn:
+    - name: cluster-apps-external-secrets
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-postgresql
+    - name: cluster-apps-ingress-nginx

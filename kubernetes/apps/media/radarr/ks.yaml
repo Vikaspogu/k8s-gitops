@@ -16,5 +16,6 @@ spec:
       name: radarr
       namespace: media
   interval: 15m
-  retryInterval: 1m
-  timeout: 3m
+  dependsOn:
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-ingress-nginx
