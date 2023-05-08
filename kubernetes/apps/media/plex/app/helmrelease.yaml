@@ -40,7 +40,6 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "nginx"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns/is-public: "true"
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
@@ -53,8 +52,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "{{.Release.Name}}-tls"
-            hosts:
+          - hosts:
               - *host
     service:
       main:

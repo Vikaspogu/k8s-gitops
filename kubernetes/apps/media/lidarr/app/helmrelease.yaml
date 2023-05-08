@@ -51,7 +51,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Lidarr"
           hajimari.io/icon: music-box
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/radarr/dracula.css"></head>';
@@ -64,7 +63,6 @@ spec:
         tls:
           - hosts:
               - "lidarr.${SECRET_DOMAIN}"
-            secretName: "{{ .Release.Name }}-tls"
     metrics:
       enabled: false
       serviceMonitor:

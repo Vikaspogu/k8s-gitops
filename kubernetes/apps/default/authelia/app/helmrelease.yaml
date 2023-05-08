@@ -37,7 +37,6 @@ spec:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
         external-dns/is-public: "true"
         external-dns.home.arpa/enabled: "true"
         hajimari.io/enable: "true"

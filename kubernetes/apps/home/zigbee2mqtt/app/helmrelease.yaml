@@ -71,7 +71,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: zigbee
           hajimari.io/appName: "Zigbee2MQTT"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: "zigbee2mqtt.${SECRET_DOMAIN}"
             paths:
@@ -80,7 +79,6 @@ spec:
         tls:
           - hosts:
               - "zigbee2mqtt.${SECRET_DOMAIN}"
-            secretName: "{{ .Release.Name }}-tls"
     securityContext:
       privileged: true
     persistence:

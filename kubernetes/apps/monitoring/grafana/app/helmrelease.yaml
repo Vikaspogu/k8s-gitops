@@ -247,13 +247,11 @@ spec:
       annotations:
         hajimari.io/enable: "true"
         hajimari.io/appName: "Grafana"
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:
         - grafana.${SECRET_DOMAIN}
       tls:
         - hosts:
             - grafana.${SECRET_DOMAIN}
-          secretName: "{{ .Release.Name }}-tls"
     serviceAccount:
       create: true
       autoMount: true

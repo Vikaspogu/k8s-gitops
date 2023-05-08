@@ -45,7 +45,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Readarr"
           hajimari.io/icon: book-open-page-variant-outline
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/readarr/dracula.css"></head>';
@@ -58,7 +57,6 @@ spec:
         tls:
           - hosts:
               - "readarr.${SECRET_DOMAIN}"
-            secretName: "{{ .Release.Name }}-tls"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

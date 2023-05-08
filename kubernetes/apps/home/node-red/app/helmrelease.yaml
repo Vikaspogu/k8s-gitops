@@ -46,7 +46,6 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: "resistor-nodes"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: "node-red.${SECRET_DOMAIN}"
             paths:
@@ -55,7 +54,6 @@ spec:
         tls:
           - hosts:
               - "node-red.${SECRET_DOMAIN}"
-            secretName: "{{ .Release.Name }}-tls"
     persistence:
       config:
         enabled: true

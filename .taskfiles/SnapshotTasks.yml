@@ -31,7 +31,7 @@ tasks:
       - kubectl -n {{.KOPIA_NAMESPACE | default "default"}} exec -it deployment/kopia -c kopia -- kopia snapshot list /data/{{.NAMESPACE}}/{{.APP}}/{{.CLAIM}} {{.CLI_ARGS}}
     vars: *vars
     preconditions:
-      - sh: kubectl -n {{.KOPIA_NAMESPACE | default "data"}} get deployment kopia
+      - sh: kubectl -n {{.KOPIA_NAMESPACE | default "default"}} get deployment kopia
         msg: |
           deployment/kopia in namespace/{{.KOPIA_NAMESPACE | default "default"}} not found
 
@@ -70,7 +70,7 @@ tasks:
       SNAPSHOT:
         sh: |
           if [[ {{.SNAPSHOT}} == "latest" ]]; then
-            kubectl exec deployment/kopia -n {{.KOPIA_NAMESPACE | default "data"}} -c kopia -- kopia snapshot list /data/{{.NAMESPACE}}/{{.APP}}/{{.CLAIM}} --json | jq --raw-output '.[-1] | .id'
+            kubectl exec deployment/kopia -n {{.KOPIA_NAMESPACE | default "default"}} -c kopia -- kopia snapshot list /data/{{.NAMESPACE}}/{{.APP}}/{{.CLAIM}} --json | jq --raw-output '.[-1] | .id'
           else
             echo {{.SNAPSHOT}}
           fi

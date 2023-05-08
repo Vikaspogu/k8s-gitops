@@ -40,7 +40,6 @@ spec:
         kubernetes.io/ingress.class: nginx
         hajimari.io/enable: "true"
         hajimari.io/icon: storage
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:
         - host: &host "pgadmin4.${SECRET_DOMAIN}"
           paths:
@@ -49,7 +48,6 @@ spec:
       tls:
         - hosts:
             - *host
-          secretName: pgadmin4-tls
     persistentVolume:
       enabled: true
       existingClaim: pgadmin-config

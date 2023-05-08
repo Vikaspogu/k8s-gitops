@@ -51,7 +51,6 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:subtitles-outline
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: "bazarr.${SECRET_DOMAIN}"
             paths:
@@ -60,7 +59,6 @@ spec:
         tls:
           - hosts:
               - "bazarr.${SECRET_DOMAIN}"
-            secretName: "{{ .Release.Name }}-tls"
     persistence:
       config:
         enabled: true

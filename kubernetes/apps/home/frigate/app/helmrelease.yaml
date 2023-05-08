@@ -102,7 +102,6 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/appName: "Frigate"
         hajimari.io/icon: cctv
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
       hosts:
         - host: "frigate.${SECRET_DOMAIN}"
           paths:

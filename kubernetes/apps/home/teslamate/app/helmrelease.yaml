@@ -54,7 +54,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "car-connected"
           hajimari.io/appName: ${SECRET_TESLAMATE_DB}
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: teslamate.${SECRET_DOMAIN}
             paths:
@@ -63,4 +62,3 @@ spec:
         tls:
           - hosts:
               - teslamate.${SECRET_DOMAIN}
-            secretName: "{{ .Release.Name }}-tls"

@@ -48,7 +48,6 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns/is-public: "true"
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
@@ -68,8 +67,7 @@ spec:
                 service:
                   port: *port-api
         tls:
-          - secretName: "{{ .Release.Name }}-tls"
-            hosts:
+          - hosts:
               - *host-console
               - *host-api
     persistence:

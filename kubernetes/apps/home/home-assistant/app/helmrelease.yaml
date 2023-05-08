@@ -36,7 +36,6 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns/is-public: "true"
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
@@ -48,8 +47,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: home-assistant-tls-secret
-            hosts:
+          - hosts:
               - home-assistant.${SECRET_DOMAIN}
     service:
       main:
@@ -99,7 +97,6 @@ spec:
             hajimari.io/enable: "true"
             hajimari.io/appName: "Hass-VSCode"
             hajimari.io/icon: "microsoft-visual-studio-code"
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
           hosts:
             - host: hass-config.${SECRET_DOMAIN}
               paths:
@@ -108,7 +105,6 @@ spec:
           tls:
             - hosts:
                 - hass-config.${SECRET_DOMAIN}
-              secretName: "{{ .Release.Name }}-tls"
         volumeMounts:
           - name: config
             mountPath: /config
