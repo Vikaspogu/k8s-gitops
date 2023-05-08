@@ -1,0 +1,66 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: teslamate
+  namespace: home
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 15m
+  maxHistory: 5
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: postgresql
+      namespace: data
+  values:
+    image:
+      repository: teslamate/teslamate
+      tag: 1.27.2
+    envFrom:
+      - secretRef:
+          name: teslamate
+    env:
+      TZ: "${TIMEZONE}"
+      DATABASE_HOST: postgresql.default
+      DISABLE_MQTT: "false"
+      MQTT_HOST: "emqx.home.svc.cluster.local"
+    service:
+      main:
+        type: ClusterIP
+        ports:
+          http:
+            port: 4000
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "car-connected"
+          hajimari.io/appName: ${SECRET_TESLAMATE_DB}
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hosts:
+          - host: teslamate.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - teslamate.${SECRET_DOMAIN}
+            secretName: "{{ .Release.Name }}-tls"
