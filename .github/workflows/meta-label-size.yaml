@@ -1,10 +1,10 @@
 ---
 name: "Meta: Label Size"
 
-on: # yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
   label-size:

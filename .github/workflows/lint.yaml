@@ -1,11 +1,10 @@
 ---
 name: "Lint"
 
-on: # yamllint disable-line rule:truthy
+on:
   workflow_dispatch:
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -53,9 +52,9 @@ jobs:
                 ','
               )
             }}
-          ANSIBLE_DIRECTORY: ansible
+          ANSIBLE_DIRECTORY: provision/ansible
           ANSIBLE_ANSIBLE_LINT_CONFIG_FILE: .ansible-lint
-          KUBERNETES_DIRECTORY: cluster
+          KUBERNETES_DIRECTORY: kubernetes
           KUBERNETES_KUBEVAL_ARGUMENTS: --ignore-missing-schemas
           KUBERNETES_KUBEVAL_FILTER_REGEX_INCLUDE: "(kubernetes)"
           MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .github/linters/.markdownlint.yaml

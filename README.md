@@ -43,7 +43,7 @@ My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Ubuntu 20.04
 
 ### GitOps
 
-[Flux](https://github.com/fluxcd/flux2) watches my [cluster](./cluster/) folder (see Directories below) and makes the changes to my cluster based on the YAML manifests.
+[Flux](https://github.com/fluxcd/flux2) watches my [cluster](./kubernetes/) folder (see Directories below) and makes the changes to my cluster based on the YAML manifests.
 
 [Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When some PRs are merged [Flux](https://github.com/fluxcd/flux2) applies the changes to my cluster.
 
@@ -52,11 +52,10 @@ My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Ubuntu 20.04
 The Git repository contains the following directories under `cluster` and are ordered below by how Flux will apply them.
 
 ```sh
-📁 cluster      # k8s cluster defined as code
-├─📁 flux       # flux, gitops operator, loaded before everything
-├─📁 charts     # helm chart repos
-├─📁 config     # cluster config
-└─📁 apps       # regular apps, namespaced dir tree, loaded last
+📁 kubernetes      # Kubernetes cluster defined as code
+├─📁 bootstrap     # Flux installation
+├─📁 flux          # Main Flux configuration of repository
+└─📁 apps          # Apps deployed into the cluster grouped by namespace
 ```
 
 ### Data Backup and Recovery
@@ -77,23 +76,11 @@ At a high level the way this operates is that:
 
 ### Ingress Controller
 
-I have port forwarded ports `80` and `443` to the load balancer IP of Metallb that's running in my Kubernetes cluster.
-
-[Cloudflare](https://www.cloudflare.com/) works as a proxy to hide my homes WAN IP and also as a firewall. All the traffic coming into my ingress controller on port `80` and `443` comes from Cloudflare, I block all IPs not originating from the [Cloudflares list of IP ranges](https://www.cloudflare.com/ips/).
-
-🔸 _Cloudflare is also configured to GeoIP block all countries except a few I have whitelisted_
+In order to expose services to the internet you will need to create a [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/).
 
 ### External DNS
 
 [external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configure to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses `external-dns` looks at to gather DNS records to put in `Cloudflare` are ones that I explicitly set an annotation of `external-dns/is-public: "true"`
-
-🔸 _[Click here](./provision/terraform/cloudflare) to see how else I manage Cloudflare._
-
-### Internal DNS
-
-[CoreDNS](https://github.com/coredns/coredns) is deployed on cluster and has direct access to my clusters ingress records and serves DNS for them in my internal network. `CoreDNS` is only listening on my `MANAGEMENT` and `SERVER` networks on port `53`.
-
-For ad-blocking, I have [Blocky](https://github.com/0xERR0R/blocky)
 
 ---
 

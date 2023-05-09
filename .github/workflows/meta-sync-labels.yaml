@@ -1,12 +1,11 @@
-name: "Meta: Sync labels"
+---
+name: "Meta Sync labels"
 
-on: # yamllint disable-line rule:truthy
+on:
   workflow_dispatch:
   push:
-    branches:
-      - main
-    paths:
-      - ".github/labels.yaml"
+    branches: ["main"]
+    paths: [".github/labels.yaml"]
 
 jobs:
   labels:
