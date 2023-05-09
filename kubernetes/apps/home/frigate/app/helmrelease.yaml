@@ -68,7 +68,7 @@ spec:
         doorbell:
           ffmpeg:
             inputs:
-              - path: rtsp://{FRIGATE_RSTP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRONTDOOR_CAMERA}/live0
+              - path: rtsp://{FRIGATE_RSTP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_FRONTDOOR_CAMERA}/live0
                 roles:
                   - detect
                   - record
