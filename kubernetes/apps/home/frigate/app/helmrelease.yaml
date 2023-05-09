@@ -31,6 +31,8 @@ spec:
       configmap.reloader.stakater.com/reload: "frigate"
     env:
       TZ: ${TIMEZONE}
+    envFromSecrets:
+      - frigate-secret
     coral:
       enabled: true
     config: |
@@ -66,7 +68,7 @@ spec:
         doorbell:
           ffmpeg:
             inputs:
-              - path: rtsp://${SECRET_FRIGATE_RSTP_USERNAME}:${SECRET_FRIGATE_RTSP_PASSWORD}@${SECRET_FRONTDOOR_CAMERA}/live0
+              - path: rtsp://{FRIGATE_RSTP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRONTDOOR_CAMERA}/live0
                 roles:
                   - detect
                   - record
