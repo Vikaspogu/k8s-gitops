@@ -17,5 +17,5 @@ spec:
       namespace: default
   interval: 15m
   dependsOn:
-    - name: cluster-apps-external-secrets
     - name: cluster-apps-ingress-nginx
+    - name: cluster-apps-external-secrets-stores

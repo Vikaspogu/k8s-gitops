@@ -17,7 +17,7 @@ spec:
       namespace: home
   interval: 15m
   dependsOn:
-    - name: cluster-apps-external-secrets
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-postgresql
     - name: cluster-apps-ingress-nginx
+    - name: cluster-apps-external-secrets-stores

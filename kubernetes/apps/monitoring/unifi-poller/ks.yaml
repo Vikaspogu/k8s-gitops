@@ -17,4 +17,4 @@ spec:
       namespace: monitoring
   interval: 15m
   dependsOn:
-    - name: cluster-apps-external-secrets
+    - name: cluster-apps-external-secrets-stores
