@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Kubernetes cluster post install tasks to add labels
+  hosts: localhost
   connection: local
   gather_facts: false
   become: false
@@ -7,24 +8,43 @@
 
     - name: Add labels to nodes
       shell: "kubectl label nodes {{item.name}} {{item.label}} --overwrite"
-      with_items:
-        - { name: k8s-1-nuc-6cayh, label: app.kubernetes.io/name=hass }
+      loop:
         - { name: k8s-2-nuc-6i3syh, label: feature.node.kubernetes.io/custom-coral-tpu=true }
         - { name: k8s-3-hp-4590t, label: feature.node.kubernetes.io/custom-zigbee=true }
-        - { name: k8s-3-hp-4590t, label: node-role.kubernetes.io/worker=true }
-        - { name: k8s-4-hp-6500t, label: node-role.kubernetes.io/worker=true }
-        - { name: k8s-5-pi4-garage, label: node-role.kubernetes.io/worker=true }
-        - { name: k8s-6-pi4-office, label: node-role.kubernetes.io/worker=true }
-        - { name: k8s-7-proxmox-node, label: node-role.kubernetes.io/worker=true }
-        - { name: k8s-6-pi4-office, label: feature.node.kubernetes.io/custom-room-assistant=true }
         - { name: k8s-3-hp-4590t, label: feature.node.kubernetes.io/custom-air-sensor=true }
+        - { name: k8s-6-pi4-office, label: feature.node.kubernetes.io/custom-room-assistant=true }
         - { name: k8s-0-nuc-di5wyk, label: feature.node.kubernetes.io/custom-plex=true }
 
+    - name: Add labels to worker nodes
+      kubernetes.core.k8s:
+        state: patched
+        kind: Node
+        name: "{{ item }}"
+        definition:
+          metadata:
+            labels:
+              node-role.kubernetes.io/worker: "true"
+      loop:
+        - k8s-3-hp-4590t
+        - k8s-4-hp-6500t
+        - k8s-5-pi4-garage
+        - k8s-6-pi4-office
+        - k8s-7-proxmox-node
+
     - name: Taint arm nodes
-      shell: "kubectl taint node {{item.name}} {{item.taint}} --overwrite"
-      with_items:
-        - { name: k8s-5-pi4-garage, taint: k3s-arm=true:NoSchedule }
-        - { name: k8s-6-pi4-office, taint: k3s-arm=true:NoSchedule }
+      kubernetes.core.k8s:
+        state: patched
+        kind: Node
+        name: "{{ item }}"
+        definition:
+          spec:
+            taints:
+              - effect: NoSchedule
+                key: k3s-arm
+                value: "true"
+      loop:
+        - k8s-5-pi4-garage
+        - k8s-6-pi4-office
 
     - name: Get a list of all node objects
       kubernetes.core.k8s_info:
@@ -33,5 +53,12 @@
       register: nodes_list
 
     - name: Add k3s-upgrade labels to nodes
-      shell: "kubectl label nodes {{item.metadata.name}} k3s-upgrade=true --overwrite"
-      with_items: "{{nodes_list.resources}}"
+      kubernetes.core.k8s:
+        state: patched
+        kind: Node
+        name: "{{ item.metadata.name }}"
+        definition:
+          metadata:
+            labels:
+              k3s-upgrade: "true"
+      loop: "{{ nodes_list.resources }}"

@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: Prepare k3s hosts
+  hosts:
     - kubernetes
   become: true
   gather_facts: true
@@ -47,7 +48,7 @@
             autoremove: true
         - name: Packages | RasPi packages
           ansible.builtin.apt:
-            name: ["pi-bluetooth","nfs-common"]
+            name: ["pi-bluetooth", "nfs-common"]
             install_recommends: false
           notify: Reboot
           when: "'raspi' in ansible_kernel"
