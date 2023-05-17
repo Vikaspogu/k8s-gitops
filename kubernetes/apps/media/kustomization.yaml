@@ -7,6 +7,7 @@ resources:
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
+  - ./plex-auto-languages/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
