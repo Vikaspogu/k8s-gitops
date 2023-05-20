@@ -10,5 +10,6 @@ resources:
   - ./plex-auto-languages/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
+  - ./recyclarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
