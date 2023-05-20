@@ -10,6 +10,7 @@ resources:
   - ./hajimari/ks.yaml
   - ./kopia-web/ks.yaml
   - ./linkding/ks.yaml
+  - ./lldap/ks.yaml
   - ./mariadb/ks.yaml
   - ./minio/ks.yaml
   - ./onepassword-connect/ks.yaml
