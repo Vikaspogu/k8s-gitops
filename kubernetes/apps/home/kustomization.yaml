@@ -12,5 +12,5 @@ resources:
   - ./node-red/ks.yaml
   - ./room-assistant/ks.yaml
   - ./teslamate/ks.yaml
-  - ./xiaomi-ble-mqtt/ks.yaml
+  #- ./xiaomi-ble-mqtt/ks.yaml
   - ./zigbee2mqtt/ks.yaml
