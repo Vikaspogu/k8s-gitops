@@ -5,5 +5,5 @@ resources:
   - ./namespace.yaml
   - ./alertmanager-discord/ks.yaml
   - ./grafana/ks.yaml
-  #- ./kube-prometheus-stack/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
   - ./unifi-poller/ks.yaml
