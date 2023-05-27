@@ -42,14 +42,14 @@ spec:
               - url: "http://alertmanager-discord:9094"
         route:
           group_by: ["alertname", "job"]
-          group_wait: 30s
-          group_interval: 15m
-          repeat_interval: 6h
+          group_wait: 1m
+          group_interval: 10m
+          repeat_interval: 12h
           receiver: "discord"
           routes:
             - receiver: "null"
               matchers:
-                - alertname =~ "InfoInhibitor"
+                - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
               continue: false
             - receiver: "discord"
               matchers:
@@ -57,9 +57,9 @@ spec:
               continue: true
         inhibit_rules:
           - source_match:
-              severity: "critical"
+              - severity = "critical"
             target_match:
-              severity: "warning"
+              - severity = "warning"
             equal: ["alertname", "namespace"]
       ingress:
         enabled: true
