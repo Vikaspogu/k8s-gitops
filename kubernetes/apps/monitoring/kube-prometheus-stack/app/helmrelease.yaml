@@ -56,9 +56,9 @@ spec:
                 - severity = "critical"
               continue: true
         inhibit_rules:
-          - source_match:
+          - source_matchers:
               - severity = "critical"
-            target_match:
+            target_matchers:
               - severity = "warning"
             equal: ["alertname", "namespace"]
       ingress:
