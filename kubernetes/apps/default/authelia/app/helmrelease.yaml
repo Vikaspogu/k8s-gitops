@@ -95,12 +95,6 @@ spec:
               - "*.${SECRET_DOMAIN}"
             subject: ["group:admins", "group:users"]
             policy: two_factor
-      identity_providers:
-        oidc:
-          enabled: true
-          cors:
-            endpoints: ["authorization", "token", "revocation", "introspection"]
-            allowed_origins_from_client_redirect_uris: true
       session:
         redis:
           high_availability:
