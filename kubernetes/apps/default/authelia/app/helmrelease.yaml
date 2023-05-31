@@ -79,31 +79,18 @@ spec:
           password:
             algorithm: argon2id
       access_control:
-        ## data policy can either be 'bypass', 'one_factor', 'two_factor' or 'deny'. It is the policy applied to any
-        ## resource if there is no policy to be applied to the user.
-        data_policy: deny
+        default_policy: two_factor
         networks:
-          - name: private
-            networks:
-              - 10.0.0.0/8
-              - 172.16.0.0/12
-              - 10.30.0.0/16
+          - name: internal
+            networks: ["10.0.0.0/8", "172.16.0.0/12", "10.30.0.0/16"]
           - name: vpn
-            networks:
-              - 10.10.0.0/16
+            networks: ["10.0.0.0/24"]
         rules:
-          # bypass Authelia WAN + LAN
-          - domain:
-              - auth.${SECRET_DOMAIN}
-            policy: bypass
-          # One factor auth for LAN
           - domain:
               - "*.${SECRET_DOMAIN}"
-            policy: one_factor
+            policy: bypass
             subject: ["group:admins", "group:users"]
-            networks:
-              - private
-          # Two factors auth for WAN
+            networks: ["internal", "vpn"]
           - domain:
               - "*.${SECRET_DOMAIN}"
             subject: ["group:admins", "group:users"]
@@ -114,16 +101,6 @@ spec:
           cors:
             endpoints: ["authorization", "token", "revocation", "introspection"]
             allowed_origins_from_client_redirect_uris: true
-          clients:
-            - id: outline
-              description: Outline
-              secret: "${SECRET_OUTLINE_OAUTH_CLIENT_SECRET}"
-              public: false
-              authorization_policy: two_factor
-              pre_configured_consent_duration: 1y
-              scopes: ["openid", "profile", "email", "offline_access"]
-              redirect_uris: ["https://docs.${SECRET_DOMAIN}/auth/oidc.callback"]
-              userinfo_signing_algorithm: none
       session:
         redis:
           high_availability:
