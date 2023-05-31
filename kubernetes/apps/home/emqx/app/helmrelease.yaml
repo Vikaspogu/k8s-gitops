@@ -56,6 +56,6 @@ spec:
     metrics:
       enabled: false
     persistence:
-      enabled: true
+      enabled: false
       storageClass: ceph-block
       size: 100Mi
