@@ -43,7 +43,11 @@ spec:
                 - ""
               resources:
                 - pods
+            - apiGroups:
+                - batch
+              resources:
                 - cronjobs
+                - jobs
     cleanupController:
       serviceMonitor:
         enabled: true
@@ -66,6 +70,17 @@ spec:
                 - create
                 - update
                 - delete
+            - verbs:
+                - create
+                - delete
+                - deletecollection
+                - patch
+                - update
+              apiGroups:
+                - batch
+              resources:
+                - cronjobs
+                - jobs
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
