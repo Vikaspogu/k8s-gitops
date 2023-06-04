@@ -38,7 +38,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           external-dns/is-public: "true"
-          external-dns.home.arpa/enabled: "true"
+          external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
           hajimari.io/enable: "true"
           hajimari.io/icon: "home-assistant"
           hajimari.io/appName: "Home Assistant"
@@ -93,6 +93,7 @@ spec:
             hajimari.io/enable: "true"
             hajimari.io/appName: "Hass-VSCode"
             hajimari.io/icon: "microsoft-visual-studio-code"
+            nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,10.30.0.0/16
           hosts:
             - host: hass-config.${SECRET_DOMAIN}
               paths:
