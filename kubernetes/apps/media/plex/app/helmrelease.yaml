@@ -65,8 +65,6 @@ spec:
       requests:
         cpu: 1
         memory: 2Gi
-      limits:
-        memory: 4G
     persistence:
       config:
         enabled: true
