@@ -25,6 +25,9 @@ spec:
         targets:
           - apiVersion: v1
             kind: Ingress
+            metadata:
+              annotations:
+                auth.home.arpa/enabled: "true"
         patchStrategicMerge:
           metadata:
             annotations:

@@ -29,6 +29,9 @@ spec:
         targets:
           - apiVersion: v1
             kind: Ingress
+            metadata:
+              annotations:
+                external-dns.home.arpa/enabled: "true"
         patchStrategicMerge:
           metadata:
             annotations:

@@ -15,6 +15,21 @@
         - { name: k8s-6-pi4-office, label: feature.node.kubernetes.io/custom-room-assistant=true }
         - { name: k8s-0-nuc-di5wyk, label: feature.node.kubernetes.io/custom-plex=true }
 
+    - name: Taint arm nodes
+      kubernetes.core.k8s:
+        state: patched
+        kind: Node
+        name: "{{ item }}"
+        definition:
+          spec:
+            taints:
+              - effect: NoSchedule
+                key: k3s-arm
+                value: "true"
+      loop:
+        - k8s-5-pi4-garage
+        - k8s-6-pi4-office
+
     - name: Add labels to worker nodes
       kubernetes.core.k8s:
         state: patched
