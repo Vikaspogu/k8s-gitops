@@ -61,7 +61,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: "QBtorrent"
           hajimari.io/icon: "download-network"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,10.30.0.0/16
           # Custom themes provided by https://github.com/gilbN/theme.park
           nginx.ingress.kubernetes.io/configuration-snippet: |
