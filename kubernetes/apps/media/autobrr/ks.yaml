@@ -10,7 +10,7 @@ spec:
     - name: cluster-apps-ingress-nginx
     - name: cluster-apps-postgresql
     - name: cluster-apps-external-secrets-stores
-  path: ./kubernetes/apps/default/autobrr/app
+  path: ./kubernetes/apps/media/autobrr/app
   prune: true
   sourceRef:
     kind: GitRepository
