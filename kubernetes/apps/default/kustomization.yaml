@@ -19,4 +19,3 @@ resources:
   - ./postgresql/ks.yaml
   - ./redis/ks.yaml
   - ./reverse-proxy/ks.yaml
-  - ./thelounge/ks.yaml

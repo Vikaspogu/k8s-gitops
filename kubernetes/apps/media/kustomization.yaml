@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./audiobookshelf/ks.yaml
-  - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
