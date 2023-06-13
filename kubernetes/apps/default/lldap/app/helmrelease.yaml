@@ -53,6 +53,9 @@ spec:
           name: lldap-secret
     service:
       main:
+        type: LoadBalancer
+        externalIPs: ["${METALLB_LLDAP_ADDR}"]
+        externalTrafficPolicy: Local
         ports:
           http:
             port: *http-port
