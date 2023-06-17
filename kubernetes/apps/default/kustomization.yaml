@@ -9,6 +9,7 @@ resources:
   # - ./freshrss/ks.yaml
   - ./hajimari/ks.yaml
   - ./kopia-web/ks.yaml
+  - ./libreddit/ks.yaml
   - ./linkding/ks.yaml
   - ./lldap/ks.yaml
   - ./mariadb/ks.yaml
