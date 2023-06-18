@@ -37,7 +37,7 @@ spec:
       LIBREDDIT_DEFAULT_SHOW_NSFW: "true"
       LIBREDDIT_DEFAULT_LAYOUT: "clean"
       LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS: "on"
-      LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "(FunnyAnimals+homeassistant+selfhosted)"
+      LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "FunnyAnimals+homeassistant+selfhosted"
     service:
       main:
         ports:
