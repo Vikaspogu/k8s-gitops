@@ -35,7 +35,6 @@ spec:
     env:
       LIBREDDIT_DEFAULT_THEME: "dracula"
       LIBREDDIT_DEFAULT_SHOW_NSFW: "on"
-      LIBREDDIT_DEFAULT_LAYOUT: "clean"
       LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS: "on"
       LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "FunnyAnimals+homeassistant+selfhosted"
     service:
