@@ -93,7 +93,7 @@ spec:
           client
           dev tun
           proto tcp
-          remote 89.187.182.121 443
+          remote 91.196.69.23 443
           resolv-retry infinite
           remote-random
           nobind
@@ -107,7 +107,7 @@ spec:
           ping-timer-rem
           reneg-sec 0
           comp-lzo no
-          verify-x509-name CN=us8382.nordvpn.com
+          verify-x509-name CN=us10043.nordvpn.com
 
           remote-cert-tls server
 
