@@ -15,6 +15,7 @@ resources:
   - ./mariadb/ks.yaml
   - ./minio/ks.yaml
   - ./onepassword-connect/ks.yaml
+  - ./opnsense/ks.yaml
   - ./paperless/ks.yaml
   - ./pgadmin/ks.yaml
   - ./postgresql/ks.yaml
