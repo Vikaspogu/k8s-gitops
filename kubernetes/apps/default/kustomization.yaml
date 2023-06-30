@@ -6,7 +6,6 @@ resources:
   - ./authelia/ks.yaml
   - ./bookstack/ks.yaml
   - ./external-secrets/ks.yaml
-  # - ./freshrss/ks.yaml
   - ./hajimari/ks.yaml
   - ./kopia-web/ks.yaml
   - ./libreddit/ks.yaml
@@ -20,4 +19,5 @@ resources:
   - ./pgadmin/ks.yaml
   - ./postgresql/ks.yaml
   - ./redis/ks.yaml
+  - ./restart-pod/ks.yaml
   - ./reverse-proxy/ks.yaml
