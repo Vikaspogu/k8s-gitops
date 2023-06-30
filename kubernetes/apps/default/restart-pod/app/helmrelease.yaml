@@ -30,7 +30,7 @@ spec:
       type: cronjob
       cronjob:
         concurrencyPolicy: Forbid
-        schedule: "0 9 * * *"
+        schedule: "0 10 * * *"
     serviceAccount:
       create: true
       name: "restart-pod"

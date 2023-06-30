@@ -16,13 +16,13 @@ http_signature=$(
 )
 
 echo "Download Opnsense config file ..."
-curl -ksSL \
+curl -fsSLk \
     --user "${OPNSENSE_API_KEY}:${OPNSENSE_API_SECRET_KEY}" \
     --output "/tmp/${config_filename}" \
     "${OPNSENSE_URL}/api/backup/backup/download"
 
 echo "Upload backup to s3 bucket ..."
-curl -sSL \
+curl -fsSL \
     -X PUT -T "/tmp/${config_filename}" \
     -H "Host: ${http_host}" \
     -H "Date: ${http_request_date}" \
