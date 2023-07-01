@@ -30,7 +30,7 @@ spec:
       type: cronjob
       cronjob:
         concurrencyPolicy: Forbid
-        schedule: "05 10 * * *"
+        schedule: "15 10 * * *"
     restartPolicy: OnFailure
     image:
       repository: ghcr.io/onedr0p/alpine
