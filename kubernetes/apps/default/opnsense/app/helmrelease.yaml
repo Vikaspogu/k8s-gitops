@@ -30,11 +30,11 @@ spec:
       type: cronjob
       cronjob:
         concurrencyPolicy: Forbid
-        schedule: "15 10 * * *"
+        schedule: "50 10 * * *"
     restartPolicy: OnFailure
     image:
-      repository: ghcr.io/onedr0p/alpine
-      tag: 3.18.2@sha256:4b666f73ee079b4feac9527fae3b0e60b0e9883213758bdb28af852c9acb4efe
+      repository: quay.io/rhn_gps_vpogu/alpine
+      tag: 3.14@sha256:7c0231727be1e17edd257a4710825a1a82a4f237568ecb17b77e18b11e059072
     command: ["/bin/bash", "/app/opnsense-backup.sh"]
     envFrom:
       - secretRef:
