@@ -97,12 +97,6 @@ In order to expose services to the internet you will need to create a [Cloudflar
 
 ---
 
-## 🤝 Gratitude and Thanks
-
-Thanks to all the people who donate their time to the [Kubernetes @Home](https://github.com/k8s-at-home/) community. A lot of inspiration for my cluster came from the people that have shared their clusters over at [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes).
-
----
-
 ## 📜 Changelog
 
 See [commit history](https://github.com/vikaspogu/k8s-gitops/commits/main)
