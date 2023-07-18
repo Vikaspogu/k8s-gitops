@@ -26,6 +26,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    enableServiceLinks: false
     image:
       repository: ghcr.io/usememos/memos
       tag: 0.14.0
