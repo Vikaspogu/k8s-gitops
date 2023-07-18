@@ -12,6 +12,7 @@ resources:
   - ./linkding/ks.yaml
   - ./lldap/ks.yaml
   - ./mariadb/ks.yaml
+  - ./memos/ks.yaml
   - ./minio/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
