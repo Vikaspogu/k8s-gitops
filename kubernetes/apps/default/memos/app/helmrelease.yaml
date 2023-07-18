@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: neosmemo/memos
-      tag: 0.13.1@sha256:0f80e614441d1c215115f3858f87b5147ebe0784a77af282df5a8801abd8ecf7
+      tag: 0.14.0@sha256:9b35d6274b9d351ed427c969c83a2f2ea794809843786bf96d36721e8cc6be81
     service:
       main:
         ports:
