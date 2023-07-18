@@ -27,8 +27,8 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: neosmemo/memos
-      tag: 0.13.1@sha256:0f80e614441d1c215115f3858f87b5147ebe0784a77af282df5a8801abd8ecf7
+      repository: ghcr.io/usememos/memos
+      tag: 0.14.0
     service:
       main:
         ports:
