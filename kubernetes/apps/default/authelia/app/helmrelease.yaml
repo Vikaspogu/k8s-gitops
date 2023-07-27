@@ -99,7 +99,7 @@ spec:
         ldap:
           enabled: true
         file:
-          enabled: true
+          enabled: false
           password:
             algorithm: argon2id
       access_control:
