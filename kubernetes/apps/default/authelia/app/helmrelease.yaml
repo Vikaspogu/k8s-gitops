@@ -63,7 +63,7 @@ spec:
         limits: {}
     configMap:
       enabled: true
-      existingConfigMap: "authelia-configmap"
+      existingConfigMap: "authelia"
     secret:
       existingSecret: authelia
   postRenderers:
