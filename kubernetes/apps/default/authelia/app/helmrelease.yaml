@@ -95,6 +95,30 @@ spec:
               - "*.${SECRET_DOMAIN}"
             subject: ["group:admins", "group:users"]
             policy: two_factor
+      identity_providers:
+        oidc:
+          cors:
+            endpoints: ["authorization", "token", "revocation", "introspection"]
+            allowed_origins_from_client_redirect_uris: true
+          clients:
+            - id: grafana
+              description: Grafana
+              secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
+              public: false
+              authorization_policy: two_factor
+              pre_configured_consent_duration: 1y
+              scopes: ["openid", "profile", "groups", "email"]
+              redirect_uris: ["https://grafana.${SECRET_DOMAIN}/login/generic_oauth"]
+              userinfo_signing_algorithm: none
+            - id: miniflux
+              description: Miniflux
+              secret: "${MINIFLUX_OAUTH_CLIENT_SECRET}"
+              public: false
+              authorization_policy: two_factor
+              pre_configured_consent_duration: 1y
+              scopes: ["openid", "profile", "groups", "email"]
+              redirect_uris: ["https://miniflux.${SECRET_DOMAIN}/oauth2/oidc/callback"]
+              userinfo_signing_algorithm: none
       session:
         redis:
           high_availability:
