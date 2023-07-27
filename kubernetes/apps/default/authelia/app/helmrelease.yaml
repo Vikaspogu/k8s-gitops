@@ -71,13 +71,18 @@ spec:
         disable_reset_password: true
         ldap:
           enabled: true
+          implementation: custom
           url: ldap://lldap.default.svc.cluster.local:389
           base_dn: dc=home,dc=arpa
           username_attribute: "uid"
+          users_filter: "(&({username_attribute}={input})(objectClass=person))"
           additional_users_dn: ou=people
           additional_groups_dn: ou=groups
-          groups_filter: (&(objectClass=*)(cn=*openshift*))
-          user: cn=admin,ou=people,dc=home,dc=arpa
+          groups_filter: "(member={dn})"
+          group_name_attribute: cn
+          mail_attribute: mail
+          display_name_attribute: displayName
+          user: uid=admin,ou=people,dc=home,dc=arpa
         file:
           enabled: false
           password:
