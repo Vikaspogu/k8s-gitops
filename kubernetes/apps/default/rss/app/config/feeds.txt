@@ -1,0 +1,2 @@
+https://noted.lol/rss/ #self-hosted
+https://cloud.redhat.com/blog/rss.xml #openshift

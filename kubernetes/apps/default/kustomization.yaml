@@ -23,3 +23,4 @@ resources:
   - ./redis/ks.yaml
   - ./restart-pod/ks.yaml
   - ./reverse-proxy/ks.yaml
+  - ./rss/ks.yaml
