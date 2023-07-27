@@ -6,7 +6,6 @@ resources:
   - ./authelia/ks.yaml
   - ./bookstack/ks.yaml
   - ./external-secrets/ks.yaml
-  - ./freshrss/ks.yaml
   - ./hajimari/ks.yaml
   - ./kopia-web/ks.yaml
   - ./libreddit/ks.yaml
