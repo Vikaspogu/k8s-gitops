@@ -46,6 +46,33 @@ spec:
       env:
         - name: TZ
           value: ${TIMEZONE}
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN
+          value: ou=groups
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN
+          value: ou=people
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_BASE_DN
+          value: dc=home,dc=arpa
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_DISPLAY_NAME_ATTRIBUTE
+          value: displayName
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUPS_FILTER
+          value: (&(objectClass=*)(cn=*openshift*))
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUP_NAME_ATTRIBUTE
+          value: cn
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_IMPLEMENTATION
+          value: custom
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_MAIL_ATTRIBUTE
+          value: mail
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_START_TLS
+          value: "false"
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_TIMEOUT
+          value: 5s
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_URL
+          value: ldap://lldap.default.svc.cluster.local:389
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERNAME_ATTRIBUTE
+          value: uid
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER
+          value: (&({username_attribute}={input})(objectClass=person))
+
       extraVolumeMounts:
         - name: config-custom
           mountPath: /config
@@ -70,7 +97,7 @@ spec:
       authentication_backend:
         disable_reset_password: true
         ldap:
-          enabled: false
+          enabled: true
         file:
           enabled: true
           password:
