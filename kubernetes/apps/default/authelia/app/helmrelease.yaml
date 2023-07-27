@@ -63,7 +63,85 @@ spec:
         limits: {}
     configMap:
       enabled: true
-      existingConfigMap: "authelia"
+      server:
+        read_buffer_size: 8192
+        write_buffer_size: 8192
+      theme: dark
+      authentication_backend:
+        disable_reset_password: true
+        ldap:
+          enabled: false
+        file:
+          enabled: true
+          password:
+            algorithm: argon2id
+      access_control:
+        default_policy: two_factor
+        networks:
+          - name: internal
+            networks: ["10.0.0.0/8", "172.16.0.0/12", "10.30.0.0/16"]
+          - name: vpn
+            networks: ["10.0.0.0/24"]
+        rules:
+          - domain:
+              - "*.${SECRET_DOMAIN}"
+            policy: one_factor
+            subject: ["group:admins", "group:users"]
+            networks: ["internal", "vpn"]
+          - domain:
+              - "*.${SECRET_DOMAIN}"
+            subject: ["group:admins", "group:users"]
+            policy: two_factor
+      identity_providers:
+        oidc:
+          enabled: true
+          cors:
+            endpoints: ["authorization", "token", "revocation", "introspection"]
+            allowed_origins_from_client_redirect_uris: true
+          clients:
+            - id: grafana
+              description: Grafana
+              secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
+              public: false
+              authorization_policy: two_factor
+              pre_configured_consent_duration: 1y
+              scopes: ["openid", "profile", "groups", "email"]
+              redirect_uris: ["https://grafana.${SECRET_DOMAIN}/login/generic_oauth"]
+              userinfo_signing_algorithm: none
+            - id: miniflux
+              description: Miniflux
+              secret: "${MINIFLUX_OAUTH_CLIENT_SECRET}"
+              public: false
+              authorization_policy: two_factor
+              pre_configured_consent_duration: 1y
+              scopes: ["openid", "profile", "groups", "email"]
+              redirect_uris: ["https://miniflux.${SECRET_DOMAIN}/oauth2/oidc/callback"]
+              userinfo_signing_algorithm: none
+      session:
+        redis:
+          high_availability:
+            enabled: true
+            sentinel_name: redis-master
+            nodes:
+              - host: redis-node-0.redis-headless.default.svc.cluster.local
+                port: 26379
+              - host: redis-node-1.redis-headless.default.svc.cluster.local
+                port: 26379
+              - host: redis-node-2.redis-headless.default.svc.cluster.local
+                port: 26379
+      storage:
+        postgres:
+          enabled: true
+          host: postgresql.default.svc.cluster.local
+      notifier:
+        smtp:
+          enabled: true
+          enabledSecret: true
+          host: "smtp.sendgrid.net"
+          port: 587
+          username: "apikey"
+          sender: "no-reply@${SECRET_DOMAIN}"
+          identifier: ${SECRET_DOMAIN}
     secret:
       existingSecret: authelia
   postRenderers:
