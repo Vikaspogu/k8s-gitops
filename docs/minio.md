@@ -64,7 +64,7 @@ This requires installing the Minio `mc` CLI tool
 7. Associate private policy with the user
 
     ```sh
-    mc admin policy set minio "${BUCKET_NAME}-private" "user=${BUCKET_NAME}"
+    mc admin policy attach minio "${BUCKET_NAME}-private" --user="${BUCKET_NAME}"
     ```
 
 #### Allow public access to certain objects in the bucket
