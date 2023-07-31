@@ -30,7 +30,7 @@ metadata:
   name: bazarr
   namespace: default
 spec:
-  sourcePVC: config-bazarr-0
+  sourcePVC: bazarr-config
   trigger:
     schedule: "25 10 * * *"
   restic:
