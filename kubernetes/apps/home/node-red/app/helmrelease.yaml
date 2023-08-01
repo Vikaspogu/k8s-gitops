@@ -58,11 +58,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media/k8s-data/node-red-config"
+        existingClaim: node-red-config
         mountPath: "/data"
     resources:
       requests:

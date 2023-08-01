@@ -1,0 +1,38 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: copy-nfs-data
+  namespace: ${NAMESPACE}
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      automountServiceAccountToken: false
+      restartPolicy: OnFailure
+      containers:
+        - name: restore
+          image: ghcr.io/onedr0p/alpine:3.18.2@sha256:4b666f73ee079b4feac9527fae3b0e60b0e9883213758bdb28af852c9acb4efe
+          command:
+            - /bin/bash
+            - -c
+            - |-
+              shopt -s dotglob
+              printf "\e[1;32m%-6s\e[m\n" "[01/03] Remove previous data ..." && rm -rf /data/*
+              printf "\e[1;32m%-6s\e[m\n" "[02/03] Restore snapshot ..."     && cp -r  /snapshots/. /data
+              printf "\e[1;32m%-6s\e[m\n" "[03/03] Restore snapshot ..."     && ls -la /data
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: snapshots
+              mountPath: /snapshots
+          securityContext:
+            privileged: true
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: ${CLAIM}
+        - name: snapshots
+          nfs:
+            server: ${NAS_ADDRESS}
+            path: /volume1/media/k8s-data/
