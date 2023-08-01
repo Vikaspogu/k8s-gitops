@@ -65,11 +65,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media/k8s-data/home-assistant"
+        existingClaim: home-assistant-config
     addons:
       codeserver:
         enabled: true
