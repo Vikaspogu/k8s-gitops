@@ -82,12 +82,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media/k8s-data/zigbee2mqtt-config"
-        mountPath: "/data"
+        existingClaim: zigbee2mqtt-config
+        mountPath: /data
       usb:
         enabled: true
         type: hostPath
