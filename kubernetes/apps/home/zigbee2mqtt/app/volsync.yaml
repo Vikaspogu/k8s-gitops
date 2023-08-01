@@ -32,11 +32,12 @@ metadata:
 spec:
   sourcePVC: zigbee2mqtt-config
   trigger:
-    schedule: "0 8 * * *"
+    schedule: "0 9 * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 75
+    pruneIntervalDays: 5
     repository: zigbee2mqtt-restic-secret
+    cacheCapacity: 5Gi
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block
     moverSecurityContext:
