@@ -29,6 +29,8 @@ spec:
     monitoring:
       enabled: true
     csi:
+      csiAddons:
+        enabled: true
       pluginTolerations:
         - key: "k3s-arm"
           operator: "Exists"
