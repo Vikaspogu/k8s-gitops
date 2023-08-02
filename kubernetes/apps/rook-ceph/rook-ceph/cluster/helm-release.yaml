@@ -117,12 +117,6 @@ spec:
           preservePoolsOnDelete: true
           gateway:
             port: 80
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 1Gi
-              limits:
-                memory: 2Gi
             instances: 1
           healthCheck:
             bucket:
