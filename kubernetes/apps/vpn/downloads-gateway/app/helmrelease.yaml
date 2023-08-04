@@ -92,7 +92,7 @@ spec:
         configFileSecret: openvpn
         resources:
           requests:
-            cpu: "0.001"
+            cpu: "100m"
             memory: 64Mi
           limits:
             memory: 128Mi

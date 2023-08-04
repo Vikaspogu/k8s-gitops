@@ -60,9 +60,10 @@ spec:
                 path: users_database.yml
       resources:
         requests:
-          cpu: 500m
-          memory: 1500Mi
-        limits: {}
+          cpu: 5m
+          memory: 10Mi
+        limits:
+          memory: 250Mi
     configMap:
       enabled: true
       server:
