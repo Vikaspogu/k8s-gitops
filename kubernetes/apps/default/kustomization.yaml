@@ -8,6 +8,7 @@ resources:
   - ./external-secrets/ks.yaml
   - ./hajimari/ks.yaml
   - ./kopia-web/ks.yaml
+  - ./kube-ops-view/ks.yaml
   - ./libreddit/ks.yaml
   - ./linkding/ks.yaml
   - ./lldap/ks.yaml
@@ -23,3 +24,4 @@ resources:
   - ./redis/ks.yaml
   - ./restart-pod/ks.yaml
   - ./reverse-proxy/ks.yaml
+  - ./stirling-pdf/ks.yaml
