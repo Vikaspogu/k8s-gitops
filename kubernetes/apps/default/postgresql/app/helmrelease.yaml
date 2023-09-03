@@ -30,7 +30,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/postgresql
-      tag: 15.3.0-debian-11-r21
+      tag: 15.4.0-debian-11-r21
     global:
       postgresql:
         auth:
