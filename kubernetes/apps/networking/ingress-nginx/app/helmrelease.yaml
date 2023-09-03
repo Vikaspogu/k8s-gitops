@@ -34,7 +34,7 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN}"
-        loadBalancerIP: "${METALLB_INGRESS_ADDR}"
+        loadBalancerIP: "${SVC_INGRESS_ADDR}"
         externalTrafficPolicy: Local
       publishService:
         enabled: true

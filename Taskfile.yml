@@ -2,61 +2,37 @@
 version: "3"
 
 vars:
+  PYTHON_BIN: python3
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
-
-dotenv: [".config.env"]
 
 env:
   KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
   SOPS_AGE_KEY_FILE: ~/.config/sops/age/keys.txt
+  PATH: "{{.ROOT_DIR}}/.venv/bin:$PATH"
+  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
+  ANSIBLE_COLLECTIONS_PATH: "{{.ROOT_DIR}}/.venv/galaxy"
+  ANSIBLE_ROLES_PATH: "{{.ROOT_DIR}}/.venv/galaxy/ansible_roles"
+  ANSIBLE_VARS_ENABLED: "host_group_vars,community.sops.sops"
+  K8S_AUTH_KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yml
   cluster: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
   snapshot: .taskfiles/SnapshotTasks.yml
+  brew: .taskfiles/BrewTasks.yaml
 
 tasks:
 
-  init:
-    desc: Initialize workstation dependencies with Brew
-    cmds:
-      - brew install {{.DEPS}} {{.CLI_ARGS}}
-    preconditions:
-      - sh: command -v brew
-        msg: |
-          Homebrew is not installed. Using MacOS, Linux or WSL?
-          Head over to https://brew.sh to get up and running.
-    vars:
-      DEPS: >-
-        age
-        ansible
-        cloudflare/cloudflare/cloudflared
-        direnv
-        fluxcd/tap/flux
-        go-task/tap/go-task
-        helm
-        ipcalc
-        jq
-        kubernetes-cli
-        kustomize
-        pre-commit
-        prettier
-        sops
-        stern
-        weaveworks/tap/gitops
-        yamllint
-        yq
+  default: task -l
 
-  verify:
-    desc: Verify env settings
+  deps:
+    desc: Create a Python virtual env and install required packages
     cmds:
-      - ./configure --verify
-
-  configure:
-    desc: Configure repository from env settings
-    cmds:
-      - ./configure
+      - "{{.PYTHON_BIN}} -m venv {{.ROOT_DIR}}/.venv"
+      - .venv/bin/python3 -m pip install --upgrade pip setuptools wheel
+      - .venv/bin/python3 -m pip install --upgrade --requirement "{{.ROOT_DIR}}/requirements.txt"
+      - .venv/bin/ansible-galaxy install --role-file "{{.ROOT_DIR}}/requirements.yaml" --force

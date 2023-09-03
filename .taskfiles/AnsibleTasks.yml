@@ -1,103 +1,74 @@
 ---
 version: "3"
 
-env:
-  ANSIBLE_CONFIG: "{{.ROOT_DIR}}/ansible.cfg"
-  K8S_AUTH_KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
-
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
   ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
 
 tasks:
 
-  init:
-    desc: Install / Upgrade Ansible galaxy deps
-    dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - pip3 install --user --requirement requirements.txt
-      - ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
-      - ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
-
-  list:
-    desc: List all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --list-hosts
-
   prepare:
     desc: Prepare all the k8s nodes for running k3s
     dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yml
-      # - task: prepare-rpi
-
-  prepare-rpi:
-    desc: Prepare all the k8s nodes for running k3s
-    dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare-rpi.yml
-
-  upgrade:
-    desc: Upgrade all the k8s nodes for running k3s
-    dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-upgrade.yml
-      - task: force-reboot
+    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yaml
 
   install:
     desc: Install Kubernetes on the nodes
     dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yml
-      # - task: post-install
+    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml
 
-  post-install:
-    desc: Post install Kubernetes on the nodes
+  rollout-update:
+    desc: Preform operating system updates and rollout restart the cluster
     dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-post-installation.yml"
-
-  rook-nuke:
-    desc: Uninstall Rook on the nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-rook-nuke.yml"
+    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-rollout-update.yaml
 
   nuke:
     desc: Uninstall Kubernetes on the nodes
     dir: "{{.ANSIBLE_DIR}}"
     interactive: true
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yml
-      - task: force-reboot
+    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yaml
+
+  reboot:
+    desc: Reboot all the k8s nodes
+    dir: "{{.ANSIBLE_DIR}}"
+    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-reboot.yaml
+
+  poweroff:
+    desc: Shutdown all the k8s nodes
+    dir: "{{.ANSIBLE_DIR}}"
+    cmd: ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml -a '/usr/bin/systemctl poweroff' --become
+
+  list:
+    desc: List all the hosts
+    dir: "{{.ANSIBLE_DIR}}"
+    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --list-hosts
 
   ping:
     desc: Ping all the hosts
     dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -m 'ping'
+    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --one-line -m 'ping'
 
   uptime:
     desc: Uptime of all the hosts
     dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -a 'uptime'
+    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --one-line -a 'uptime'
 
-  rollout-reboot:
-    desc: Rollout a reboot across all the k8s nodes
+  init:
+    desc: Install / Upgrade Ansible galaxy deps
     dir: "{{.ANSIBLE_DIR}}"
     cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-rollout-reboot.yml
+      - pip3 install --user --requirement requirements.txt
+      - ansible-galaxy install -r requirements.yaml --roles-path ~/.ansible/roles --force
+      - ansible-galaxy collection install -r requirements.yaml --collections-path ~/.ansible/collections --force
 
-  force-reboot:
-    desc: Reboot all the k8s nodes
+  post-install:
+    desc: Post install Kubernetes on the nodes
     dir: "{{.ANSIBLE_DIR}}"
     cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-reboot.yml
+      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-post-installation.yaml"
 
-  force-poweroff:
-    desc: Shutdown all the k8s nodes
+  rook-reset:
+    desc: Uninstall Rook on the nodes
     dir: "{{.ANSIBLE_DIR}}"
     cmds:
-      - ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml -a '/usr/bin/systemctl poweroff' --become
+      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-ceph-reset.yaml"
