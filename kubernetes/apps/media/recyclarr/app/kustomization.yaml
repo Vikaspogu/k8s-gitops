@@ -7,6 +7,7 @@ resources:
   - ./externalsecret.yaml
   - ./config-pvc.yaml
   - ./helmrelease.yaml
+  - ./volsync.yaml
 configMapGenerator:
   - name: recyclarr-configmap
     files:

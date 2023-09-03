@@ -3,19 +3,19 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: bazarr-restic
+  name: plex-restic
   namespace: media
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: bazarr-restic-secret
+    name: plex-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/bazarr'
+        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/plex'
         RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
         AWS_ACCESS_KEY_ID: '{{ .access_key }}'
         AWS_SECRET_ACCESS_KEY: '{{ .secret_key }}'
@@ -27,16 +27,16 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: bazarr
+  name: plex
   namespace: media
 spec:
-  sourcePVC: bazarr-config
+  sourcePVC: plex-config
   trigger:
     schedule: "0 20 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 5
-    repository: bazarr-restic-secret
+    repository: plex-restic-secret
     cacheCapacity: 5Gi
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block

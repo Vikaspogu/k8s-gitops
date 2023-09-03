@@ -5,3 +5,4 @@ resources:
   - dashboard
   - config-pvc.yaml
   - helmrelease.yaml
+  - ./volsync.yaml

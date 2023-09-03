@@ -32,7 +32,7 @@ metadata:
 spec:
   sourcePVC: node-red-config
   trigger:
-    schedule: "0 9 * * *"
+    schedule: "0 20 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 5
