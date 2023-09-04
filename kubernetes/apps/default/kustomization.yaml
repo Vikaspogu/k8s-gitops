@@ -13,7 +13,7 @@ resources:
   - ./libreddit/ks.yaml
   # - ./linkding/ks.yaml
   - ./lldap/ks.yaml
-  # - ./mariadb/ks.yaml
+  - ./mariadb/ks.yaml
   # - ./memos/ks.yaml
   # - ./miniflux/ks.yaml
   - ./minio/ks.yaml
@@ -21,7 +21,7 @@ resources:
   - ./opnsense/ks.yaml
   - ./paperless/ks.yaml
   # - ./pgadmin/ks.yaml
-  # - ./postgresql/ks.yaml
+  - ./postgresql/ks.yaml
   - ./redis/ks.yaml
   - ./restart-pod/ks.yaml
   - ./reverse-proxy/ks.yaml
