@@ -12,5 +12,5 @@ resources:
   - ./readarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sonarr/ks.yaml
-  # - ./tautulli/ks.yaml
-  # - ./unpackerr/ks.yaml
+  - ./tautulli/ks.yaml
+  - ./unpackerr/ks.yaml
