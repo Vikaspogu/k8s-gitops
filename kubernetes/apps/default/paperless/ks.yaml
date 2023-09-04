@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-paperless
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/default/paperless/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: paperless
+      namespace: default
+  interval: 15m
+  dependsOn:
+    - name: cluster-apps-ingress-nginx
+    - name: cluster-apps-external-secrets-stores

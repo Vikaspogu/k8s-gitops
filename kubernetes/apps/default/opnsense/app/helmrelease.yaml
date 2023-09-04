@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: opnsense-backup
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: cronjob
+      cronjob:
+        concurrencyPolicy: Forbid
+        schedule: "50 10 * * *"
+    restartPolicy: OnFailure
+    image:
+      repository: quay.io/rhn_gps_vpogu/alpine
+      tag: 3.14@sha256:7c0231727be1e17edd257a4710825a1a82a4f237568ecb17b77e18b11e059072
+    command: ["/bin/bash", "/app/opnsense-backup.sh"]
+    envFrom:
+      - secretRef:
+          name: opnsense-secret
+    service:
+      main:
+        enabled: false
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: opnsense-backup-configmap
+        subPath: opnsense-backup.sh
+        mountPath: /app/opnsense-backup.sh
+        defaultMode: 0775
+        readOnly: true
