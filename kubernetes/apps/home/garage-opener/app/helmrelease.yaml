@@ -30,7 +30,7 @@ spec:
     image:
       repository: vikaspogu/garage-opener
       pullPolicy: IfNotPresent
-      tag: "sha-a487a86"
+      tag: "sha-97475a5"
 
     strategy:
       type: Recreate
