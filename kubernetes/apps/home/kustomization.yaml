@@ -9,6 +9,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./mealie/ks.yaml
   - ./node-red/ks.yaml
-  # - ./room-assistant/ks.yaml
+  - ./room-assistant/ks.yaml
   - ./teslamate/ks.yaml
   - ./zigbee2mqtt/ks.yaml
