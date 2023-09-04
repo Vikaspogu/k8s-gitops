@@ -24,6 +24,7 @@ includes:
   precommit: .taskfiles/PrecommitTasks.yml
   snapshot: .taskfiles/SnapshotTasks.yml
   brew: .taskfiles/BrewTasks.yaml
+  volsync: .taskfiles/VolSync/Tasks.yaml
 
 tasks:
 
