@@ -28,13 +28,23 @@ spec:
       repository: ghcr.io/toboshii/hajimari
       tag: v0.3.1
     hajimari:
-      defaultEnable: false
+      title: Apps
+      darkTheme: espresso
+      alwaysTargetBlank: true
+      showGreeting: false
+      showAppGroups: false
+      showAppStatus: false
+      showBookmarkGroups: false
+      showGlobalBookmarks: false
+      showAppUrls: false
+      defaultEnable: true
       namespaceSelector:
         matchNames:
           - downloads
           - data
           - default
           - home
+          - kube-system
           - media
           - monitoring
           - networking
