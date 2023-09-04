@@ -35,12 +35,12 @@ rook:
     k8s-2-nuc-6i3syh:
       ansible_host: 10.30.30.22
       ceph_drives:
-        - /dev/nvme0n1p1
+        - /dev/nvme0n1
     k8s-3-hp-4590t:
       ansible_host: 10.30.30.23
       ceph_drives:
-        - /dev/nvme0n1p1
+        - /dev/nvme0n1
     k8s-4-hp-6500t:
       ansible_host: 10.30.30.24
       ceph_drives:
-        - /dev/nvme0n1p1
+        - /dev/nvme0n1
