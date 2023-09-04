@@ -95,4 +95,4 @@ spec:
                 - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - k8s-5-pi4-garage
+                    - k8s-6-pi4-garage
