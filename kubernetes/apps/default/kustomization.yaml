@@ -7,15 +7,15 @@ resources:
   # - ./bookstack/ks.yaml
   - ./external-secrets/ks.yaml
   # - ./hajimari/ks.yaml
-  # - ./kopia-web/ks.yaml
-  # - ./kube-ops-view/ks.yaml
+  - ./kopia-web/ks.yaml
+  - ./kube-ops-view/ks.yaml
   # - ./libreddit/ks.yaml
   # - ./linkding/ks.yaml
   # - ./lldap/ks.yaml
   # - ./mariadb/ks.yaml
   # - ./memos/ks.yaml
   # - ./miniflux/ks.yaml
-  # - ./minio/ks.yaml
+  - ./minio/ks.yaml
   - ./onepassword-connect/ks.yaml
   # - ./opnsense/ks.yaml
   # - ./paperless/ks.yaml
