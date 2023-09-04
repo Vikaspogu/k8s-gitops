@@ -38,7 +38,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: "stirling-pdf"
           hajimari.io/icon: "file-pdf"
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,10.30.0.0/16
+          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         hosts:
           - host: "pdf.${SECRET_DOMAIN}"
             paths:
