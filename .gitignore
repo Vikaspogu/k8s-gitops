@@ -11,5 +11,5 @@ kubeconfig
 *.key
 # Ansible
 xanmanning.k3s*
-.venv
+.venv*
 *backup

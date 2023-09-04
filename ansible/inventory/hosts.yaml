@@ -1,0 +1,46 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        k8s-0-nuc-di5wyk:
+          ansible_user: vikaspogu
+          ansible_host: 10.30.30.20
+        k8s-1-nuc-6cayh:
+          ansible_user: vikaspogu
+          ansible_host: 10.30.30.21
+        k8s-2-nuc-6i3syh:
+          ansible_user: vikaspogu
+          ansible_host: 10.30.30.22
+    worker:
+      hosts:
+        k8s-3-hp-4590t:
+          ansible_user: vikaspogu
+          ansible_host: 10.30.30.23
+        k8s-4-hp-6500t:
+          ansible_user: vikaspogu
+          ansible_host: 10.30.30.24
+        k8s-5-nuc-7i5bnk:
+          ansible_user: vikaspogu
+          ansible_host: 10.30.30.25
+        k8s-6-pi4-garage:
+          ansible_user: vikaspogu
+          ansible_host: 10.30.30.26
+
+rook:
+  vars:
+    ansible_user: vikaspogu
+    ansible_ssh_port: 22
+  hosts:
+    k8s-2-nuc-6i3syh:
+      ansible_host: 10.30.30.22
+      ceph_drives:
+        - /dev/nvme0n1p1
+    k8s-3-hp-4590t:
+      ansible_host: 10.30.30.23
+      ceph_drives:
+        - /dev/nvme0n1p1
+    k8s-4-hp-6500t:
+      ansible_host: 10.30.30.24
+      ceph_drives:
+        - /dev/nvme0n1p1
