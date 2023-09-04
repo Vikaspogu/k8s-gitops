@@ -30,7 +30,7 @@ metadata:
   name: linkding
   namespace: default
 spec:
-  sourcePVC: linkding-config
+  sourcePVC: linkding-data
   trigger:
     schedule: "0 20 * * *"
   restic:
