@@ -6,8 +6,8 @@ resources:
   - ./bazarr/ks.yaml
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
-  # - ./plex/ks.yaml
-  # - ./plex-auto-languages/ks.yaml
+  - ./plex/ks.yaml
+  - ./plex-auto-languages/ks.yaml
   # - ./radarr/ks.yaml
   # - ./readarr/ks.yaml
   # - ./recyclarr/ks.yaml
