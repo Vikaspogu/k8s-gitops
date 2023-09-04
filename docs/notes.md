@@ -61,6 +61,12 @@ sudo lvextend -l +100%FREE  /dev/mapper/fedora-root
 sudo xfs_growfs /dev/mapper/fedora-root
 ```
 
+Debian
+
+```bash
+resize2fs /dev/sda2
+```
+
 ## Rook Manual Data Backup
 
 ### Create the toolbox container

@@ -12,7 +12,6 @@
         - { name: k8s-2-nuc-6i3syh, label: feature.node.kubernetes.io/custom-coral-tpu=true }
         - { name: k8s-3-hp-4590t, label: feature.node.kubernetes.io/custom-zigbee=true }
         - { name: k8s-3-hp-4590t, label: feature.node.kubernetes.io/custom-air-sensor=true }
-        - { name: k8s-6-pi4-office, label: feature.node.kubernetes.io/custom-room-assistant=true }
         - { name: k8s-0-nuc-di5wyk, label: feature.node.kubernetes.io/custom-plex=true }
 
     - name: Taint arm nodes
@@ -27,8 +26,7 @@
                 key: k3s-arm
                 value: "true"
       loop:
-        - k8s-5-pi4-garage
-        - k8s-6-pi4-office
+        - k8s-6-pi4-garage
 
     - name: Add labels to worker nodes
       kubernetes.core.k8s:
@@ -42,9 +40,8 @@
       loop:
         - k8s-3-hp-4590t
         - k8s-4-hp-6500t
-        - k8s-5-pi4-garage
-        - k8s-6-pi4-office
-        - k8s-7-nuc-7i5bnk
+        - k8s-5-nuc-7i5bnk
+        - k8s-6-pi4-garage
 
     - name: Get a list of all node objects
       kubernetes.core.k8s_info:
