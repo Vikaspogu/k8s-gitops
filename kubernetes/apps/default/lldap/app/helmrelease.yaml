@@ -54,8 +54,9 @@ spec:
     service:
       main:
         type: LoadBalancer
-        externalIPs: ["${SVC_LLDAP_ADDR}"]
-        externalTrafficPolicy: Local
+        annotations:
+          io.cilium/lb-ipam-ips: "${SVC_LLDAP_ADDR}"
+        externalTrafficPolicy: Cluster
         ports:
           http:
             port: *http-port

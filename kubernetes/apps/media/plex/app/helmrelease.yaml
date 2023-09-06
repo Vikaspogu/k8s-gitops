@@ -61,9 +61,8 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/allow-shared-ip: plex
-        loadBalancerIP: ${SVC_PLEX_ADDR}
-        externalTrafficPolicy: Local
+          io.cilium/lb-ipam-ips: "${SVC_PLEX_ADDR}"
+        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 32400
