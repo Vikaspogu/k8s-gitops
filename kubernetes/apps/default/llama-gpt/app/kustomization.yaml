@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: default
 resources:
   - https://github.com/getumbrel/llama-gpt/deploy/kubernetes?ref=master
+  - ./ingress.yaml
