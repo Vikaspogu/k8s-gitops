@@ -31,7 +31,7 @@ spec:
         imagePullPolicy: IfNotPresent
         envFrom: &envFrom
           - secretRef:
-              name: miniflux-secret
+              name: babybuddy-secret
     image:
       repository: lscr.io/linuxserver/babybuddy
       tag: v2.0.4-ls102
