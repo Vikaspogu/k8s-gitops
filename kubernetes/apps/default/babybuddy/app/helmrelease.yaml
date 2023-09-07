@@ -38,6 +38,7 @@ spec:
     env:
       TZ: ${TIMEZONE}
       CSRF_TRUSTED_ORIGINS: https://baby.${SECRET_DOMAIN}
+      DB_ENGINE: django.db.backends.postgresql
     envFrom: *envFrom
     service:
       main:
