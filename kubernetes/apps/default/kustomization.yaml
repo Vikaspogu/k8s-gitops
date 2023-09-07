@@ -4,8 +4,8 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./authelia/ks.yaml
+  - ./babybuddy/ks.yaml
   - ./bookstack/ks.yaml
-  # - ./discord-template-notifier/ks.yaml
   - ./external-secrets/ks.yaml
   - ./hajimari/ks.yaml
   - ./kopia-web/ks.yaml
