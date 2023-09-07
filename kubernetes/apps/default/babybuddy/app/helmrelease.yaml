@@ -38,6 +38,7 @@ spec:
     env:
       TZ: ${TIMEZONE}
       CSRF_TRUSTED_ORIGINS: https://baby.${SECRET_DOMAIN}
+    envFrom: *envFrom
     service:
       main:
         ports:
