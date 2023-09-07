@@ -12,7 +12,6 @@ resources:
   - ./kube-ops-view/ks.yaml
   - ./libreddit/ks.yaml
   - ./linkding/ks.yaml
-  - ./llama-gpt/ks.yaml
   - ./lldap/ks.yaml
   - ./mariadb/ks.yaml
   - ./memos/ks.yaml
