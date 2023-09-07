@@ -25,6 +25,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-init:14.9
+        imagePullPolicy: IfNotPresent
+        envFrom: &envFrom
+          - secretRef:
+              name: miniflux-secret
     image:
       repository: lscr.io/linuxserver/babybuddy
       tag: v2.0.4-ls102
