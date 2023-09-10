@@ -57,6 +57,9 @@ spec:
       config:
         enabled: true
         existingClaim: tautulli-config
+      add-ons:
+        enabled: true
+        type: emptyDir
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
