@@ -71,7 +71,8 @@ radarr:
       type: movie
     quality_profiles:
       - name: HD - 720p/1080p
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
     custom_formats:
       - trash_ids:
           # Movie Versions
