@@ -84,7 +84,6 @@ While kube-vip is very nice for having a API server ready to go and running in y
 
 RSS is used to distribute packets over CPU cores using a hashing function – either with support in the hardware which offloads the hashing for you, or in software. Click [here](https://forum.opnsense.org/index.php?topic=24409.0) to learn more about it.
 
-
 1. System > Settings > Tunables
     1. Add `net.inet.rss.enabled` and set the value to `1`
     2. Add `net.inet.rss.bits` and set to `2`
@@ -94,6 +93,7 @@ RSS is used to distribute packets over CPU cores using a hashing function – ei
     6. Save
 2. Reboot
 3. Verify with `sudo netstat -Q`
+
     ```text
     Configuration:
     Setting                        Current        Limit
@@ -142,6 +142,7 @@ To ease the use of application configuration I have a SMTP Relay running on Opns
       3. Save
     - Apply
 4. Verify
+
     ```sh
     swaks --server opnsense.turbo.ac --port 25 --to <email-address> --from <email-address>
     ```

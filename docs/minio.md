@@ -1,4 +1,6 @@
-## Minio
+# Minio
+
+## Bucket Creation
 
 ```admonish info
 This requires installing the Minio `mc` CLI tool
