@@ -36,7 +36,7 @@ spec:
       PAPERLESS_OCR_LANGUAGE: ara+eng
       PAPERLESS_OCR_LANGUAGES: eng ara
       PAPERLESS_PORT: 8000
-      PAPERLESS_REDIS: redis://localhost:6379
+      PAPERLESS_REDIS: redis://redis.default.svc.cluster.local:6379
       PAPERLESS_TASK_WORKERS: 1
       PAPERLESS_TIME_ZONE: "${TIMEZONE}"
       PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
@@ -105,8 +105,8 @@ spec:
 #      limits:
 #        memory: 6572M
 
-    additionalContainers:
-      redis:
-        name: broker
-        image: redis:7.2
-        imagePullPolicy: IfNotPresent
+    # additionalContainers:
+    #   redis:
+    #     name: broker
+    #     image: redis:7.2
+    #     imagePullPolicy: IfNotPresent

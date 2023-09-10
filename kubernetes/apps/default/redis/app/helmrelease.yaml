@@ -5,7 +5,8 @@ metadata:
   name: redis
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
+  timeout: 15m
   chart:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
@@ -16,16 +17,23 @@ spec:
         name: bitnami
         namespace: flux-system
       interval: 15m
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
-    global:
-      storageClass: ceph-block
+    master:
+      persistence:
+        enabled: false
+    replica:
+      persistence:
+        enabled: false
     auth:
       enabled: false
       sentinel: false
@@ -35,6 +43,8 @@ spec:
       getMasterTimeout: 10
       startupProbe:
         failureThreshold: 2
+      persistence:
+        enabled: false
     metrics:
       enabled: true
       serviceMonitor:
