@@ -4,6 +4,7 @@ resources:
   - ./namespace.yaml
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
+  - ./flaresolverr/ks.yaml
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
