@@ -10,11 +10,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: bazarr
-      namespace: media
   interval: 15m
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
