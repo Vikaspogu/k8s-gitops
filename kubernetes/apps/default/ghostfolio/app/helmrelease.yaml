@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app ghostfolio
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 5
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-init:14.9
+        imagePullPolicy: IfNotPresent
+        envFrom: &envFrom
+          - secretRef:
+              name: ghostfolio-secret
+    image:
+      repository: docker.io/ghostfolio/ghostfolio
+      tag: 2.0.0
+    env:
+      NODE_ENV: production
+      REDIS_HOST: redis.default.svc.cluster.local
+      REDIS_PORT: 6379
+    envFrom: *envFrom
+    service:
+      main:
+        ports:
+          http:
+            port: 3333
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/icon: mdi:cash-multiple
+          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+        hosts:
+          - host: &host "portfolio.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi

@@ -7,6 +7,7 @@ resources:
   - ./babybuddy/ks.yaml
   - ./bookstack/ks.yaml
   - ./external-secrets/ks.yaml
+  - ./ghostfolio/ks.yaml
   - ./hajimari/ks.yaml
   - ./kopia-web/ks.yaml
   - ./kube-ops-view/ks.yaml
