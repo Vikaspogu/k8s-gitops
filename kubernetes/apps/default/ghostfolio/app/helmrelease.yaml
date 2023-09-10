@@ -41,7 +41,7 @@ spec:
       tag: 2.0.0
     env:
       NODE_ENV: production
-      REDIS_HOST: redis.default.svc.cluster.local
+      REDIS_HOST: localhost
       REDIS_PORT: 6379
     envFrom: *envFrom
     service:
@@ -68,3 +68,7 @@ spec:
       requests:
         cpu: 100m
         memory: 256Mi
+    sidecars:
+      redis:
+        image: public.ecr.aws/docker/library/redis:7.0.11
+        imagePullPolicy: IfNotPresent
