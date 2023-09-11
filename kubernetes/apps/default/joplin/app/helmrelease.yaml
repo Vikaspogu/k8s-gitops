@@ -43,6 +43,13 @@ spec:
       APP_BASE_URL: https://joplin.${SECRET_DOMAIN}
       APP_PORT: &port 8080
       DB_CLIENT: pg
+      MAILER_ENABLED: 1
+      MAILER_HOST: "smtp.sendgrid.net"
+      MAILER_PORT: 587
+      MAILER_SECURE: 1
+      MAILER_AUTH_USER: "apikey"
+      MAILER_NOREPLY_NAME: Joplin
+      MAILER_NOREPLY_EMAIL: "no-reply@${SECRET_DOMAIN}"
     envFrom: *envFrom
     service:
       main:
