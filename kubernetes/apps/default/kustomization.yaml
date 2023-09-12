@@ -5,11 +5,12 @@ resources:
   - ./namespace.yaml
   - ./authelia/ks.yaml
   - ./babybuddy/ks.yaml
-  - ./bookstack/ks.yaml
+  # - ./bookstack/ks.yaml
   - ./external-secrets/ks.yaml
   - ./ghostfolio/ks.yaml
   - ./hajimari/ks.yaml
   - ./joplin/ks.yaml
+  - ./it-tools/ks.yaml
   - ./kopia-web/ks.yaml
   - ./kube-ops-view/ks.yaml
   - ./libreddit/ks.yaml
