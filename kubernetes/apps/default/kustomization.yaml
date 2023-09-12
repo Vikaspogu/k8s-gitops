@@ -16,8 +16,8 @@ resources:
   - ./libreddit/ks.yaml
   - ./linkding/ks.yaml
   - ./lldap/ks.yaml
-  - ./mariadb/ks.yaml
-  - ./memos/ks.yaml
+  # - ./mariadb/ks.yaml
+  # - ./memos/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./onepassword-connect/ks.yaml
