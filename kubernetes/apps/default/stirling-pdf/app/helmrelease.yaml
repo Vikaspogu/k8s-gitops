@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/frooodle/s-pdf
-      tag: 0.14.1
+      tag: 0.14.2
     service:
       main:
         ports:
