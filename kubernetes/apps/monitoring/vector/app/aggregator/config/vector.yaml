@@ -82,12 +82,15 @@ transforms:
       pass: '.filteraction == "pass"'
       therest: '.filteraction != "pass"'
 
-  opnsense_firewall_geotag:
-    type: geoip
+  opnsense_firewall_geoip_remap:
+    type: remap
     inputs: ["opnsense_firewall_split.pass"]
-    database: "/usr/share/GeoIP/GeoLite2-City.mmdb"
-    source: filtersrcip
-    target: "geotag"
+    source: |
+      .geoip = get_enrichment_table_record!(
+          "geoip_table", {
+              "ip": .message.SRC
+          }
+      )
 
 #
 # Sinks
@@ -119,7 +122,7 @@ sinks:
       node: '{{ kubernetes.pod_node_name }}'
 
   opnsense:
-    inputs: ["opnsense_firewall_split.therest", "opnsense_firewall_geotag"]
+    inputs: ["opnsense_firewall_split.therest", "opnsense_firewall_geoip_remap"]
     type: loki
     endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding: { codec: json }
