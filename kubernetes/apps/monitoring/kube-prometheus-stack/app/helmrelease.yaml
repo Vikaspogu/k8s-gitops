@@ -166,15 +166,20 @@ spec:
           - hosts:
               - *host
       prometheusSpec:
-        replicas: 1
+        replicas: 2
         replicaExternalLabelName: "replica"
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 6h
         enableAdminAPI: true
         walCompression: true
+        enableFeatures:
+          - auto-gomaxprocs
+          - memory-snapshot-on-shutdown
+          - new-service-discovery-manager
+        retention: 2d
+        retentionSize: 15GB
         storageSpec:
           volumeClaimTemplate:
             spec:
