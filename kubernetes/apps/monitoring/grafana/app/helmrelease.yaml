@@ -120,7 +120,9 @@ spec:
         opnsense-nodeexporter:
           gnetId: 18957
           revision: 1
-          datasource: Prometheus
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         ceph-cluster:
           gnetId: 2842
           revision: 14
