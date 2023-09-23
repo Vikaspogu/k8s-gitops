@@ -64,6 +64,9 @@ spec:
           kubernetes:
             enabled: true
             port: 6010
+          opnsense:
+            enabled: true
+            port: 6020
     persistence:
       config:
         enabled: true
