@@ -24,7 +24,7 @@ sources:
     version: "2"
     address: 0.0.0.0:6010
 
-  opnsense_logs:
+  opnsense_source:
     type: syslog
     address: 0.0.0.0:6020
     mode: udp
