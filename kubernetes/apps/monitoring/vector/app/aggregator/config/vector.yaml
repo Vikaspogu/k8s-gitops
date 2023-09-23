@@ -27,7 +27,7 @@ sources:
   opnsense_logs:
     type: syslog
     address: 0.0.0.0:6020
-    version: "2"
+    mode: udp
 
 #
 # Transforms
@@ -43,54 +43,39 @@ transforms:
       # Drop pod_labels
       del(.pod_labels)
 
-  opnsense_firewall_filterlog:
+  opnsense_remap:
     type: remap
-    inputs: ["opnsense_source"]
+    inputs:
+      - opnsense_source
     source: |
-      if .appname == "filterlog" {
-        message_array = parse_csv!(string!(.message))
-        # ipv4 and ipv6
-        if message_array[8] == "4" || message_array[8] == "6" {
-          .filteriface   = message_array[4]
-          .filterflow    = message_array[7]
-          .filteraction  = message_array[6]
-          .filteripver   = message_array[8]
-          # ipv4
-          if message_array[8] == "4" {
-            .filterproto   = message_array[16]
-            .filterflags   = message_array[23]
-            .filtersrcip   = message_array[18]
-            .filtersrcport = message_array[20]
-            .filterdstip   = message_array[19]
-            .filterdstport = message_array[21]
-          # ipv6
-          } else if message_array[8] == "6" {
-            .filterproto   = message_array[12]
-            #.filterflags   = "IPv6 not fully supported"
-            .filtersrcip   = message_array[15]
-            .filtersrcport = message_array[17]
-            .filterdstip   = message_array[16]
-            .filterdstport = message_array[18]
+      msg = parse_csv!(string!(.message))
+      # Only parse IPv4 / IPv6
+      if msg[8] == "4" || msg[8] == "6" {
+        .filter_interface = msg[4]
+        .filter_direction = msg[7]
+        .filter_action = msg[6]
+        .filter_ip_version = msg[8]
+        .filter_protocol = msg[16]
+        .filter_source_ip = msg[18]
+        .filter_destination_ip = msg[19]
+        if (msg[16] == "icmp" || msg[16] == "igmp" || msg[16] == "gre") {
+          .filter_data = msg[20]
+        } else {
+          .filter_source_port = msg[20]
+          .filter_destination_port = msg[21]
+          .filter_data_length = msg[22]
+          if msg[8] == "4" && msg[16] == "tcp" {
+            .filter_tcp_flags = msg[23]
           }
         }
       }
 
-  opnsense_firewall_split:
+  opnsense_route:
     type: route
-    inputs: ["opnsense_firewall_filterlog"]
+    inputs:
+      - opnsense_remap
     route:
-      pass: '.filteraction == "pass"'
-      therest: '.filteraction != "pass"'
-
-  opnsense_firewall_geoip_remap:
-    type: remap
-    inputs: ["opnsense_firewall_split.pass"]
-    source: |
-      .geoip = get_enrichment_table_record!(
-          "geoip_table", {
-              "ip": .message.SRC
-          }
-      )
+      pass_action: .filter_action == "pass"
 
 #
 # Sinks
@@ -122,13 +107,14 @@ sinks:
       node: '{{ kubernetes.pod_node_name }}'
 
   opnsense:
-    inputs: ["opnsense_logs"]
     type: loki
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local
-    encoding: { codec: json }
-    out_of_order_action: rewrite_timestamp
     batch:
-      max_bytes: 400000
+      max_bytes: 2049000
+    encoding:
+      codec: json
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    inputs:
+      - opnsense_route._unmatched
     labels:
-      syslog_identifier: '{{SYSLOG_IDENTIFIER }}'
-      hostname: '{{ host }}'
+      hostname: opnsense
+    out_of_order_action: accept
