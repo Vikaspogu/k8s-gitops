@@ -24,10 +24,10 @@ sources:
     version: "2"
     address: 0.0.0.0:6010
 
-  opnsense_source:
+  opnsense_logs:
     type: syslog
     address: 0.0.0.0:6020
-    mode: tcp
+    version: "2"
 
 #
 # Transforms
@@ -122,14 +122,13 @@ sinks:
       node: '{{ kubernetes.pod_node_name }}'
 
   opnsense:
-    inputs: ["opnsense_firewall_split.therest", "opnsense_firewall_geoip_remap"]
+    inputs: ["opnsense_logs"]
     type: loki
     endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding: { codec: json }
-    out_of_order_action: accept
-    remove_label_fields: true
-    remove_timestamp: true
+    out_of_order_action: rewrite_timestamp
+    batch:
+      max_bytes: 400000
     labels:
-      logtype: "net"
-      server: "firewall"
+      syslog_identifier: '{{SYSLOG_IDENTIFIER }}'
       hostname: '{{ host }}'
