@@ -43,53 +43,51 @@ transforms:
       # Drop pod_labels
       del(.pod_labels)
 
-  # [63950.153039] [wan-local-default-D]IN=eth4 OUT= MAC=xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx SRC=xxx.xxx.xxx.xxx DST=xxx.xxx.xxx.xxx LEN=40 TOS=0x00 PREC=0x00 TTL=240 ID=60610 PROTO=TCP SPT=53451 DPT=2002 WINDOW=1024 RES=0x00 SYN URGP=0
-  opnsense_firewall_route:
-    type: route
+  opnsense_firewall_filterlog:
+    type: remap
     inputs: ["opnsense_source"]
-    route:
-      firewall: |
-        .facility == "kern" && match!(.message, r'^\[(.*?)\].(.*)')
-
-  opnsense_firewall_remap:
-    type: remap
-    inputs: ["opnsense_firewall_route.firewall"]
     source: |
-      # Parse firewall rule message
-      split_message, split_err = parse_regex(.message, r'^\[.*\].\[(?P<rule>.*?)\](?P<fields>.*)')
-      if split_err != null {
-          abort
-      }
-      # Extract separate fields from message
-      split_message.fields, split_err = strip_whitespace(split_message.fields)
-      if split_err != null {
-          abort
-      }
-      .message, parse_err = parse_key_value(split_message.fields, whitespace: "strict")
-      if parse_err != null {
-          abort
-      }
-      # Add more information about the triggered rule
-      .message.RULE, parse_err = parse_regex(split_message.rule, r'^(?P<from_zone>\w+)-(?P<to_zone>\w+)-(?P<id>\w+)-(?P<action>\w+)$')
-      if parse_err != null {
-          abort
-      }
-
-  opnsense_firewall_wan_route:
-    type: route
-    inputs: ["opnsense_firewall_remap"]
-    route:
-      from_wan: .message.RULE.from_zone == "wan"
-
-  opnsense_firewall_geoip_remap:
-    type: remap
-    inputs: ["opnsense_firewall_wan_route.from_wan"]
-    source: |
-      .geoip = get_enrichment_table_record!(
-          "geoip_table", {
-              "ip": .message.SRC
+      if .appname == "filterlog" {
+        message_array = parse_csv!(string!(.message))
+        # ipv4 and ipv6
+        if message_array[8] == "4" || message_array[8] == "6" {
+          .filteriface   = message_array[4]
+          .filterflow    = message_array[7]
+          .filteraction  = message_array[6]
+          .filteripver   = message_array[8]
+          # ipv4
+          if message_array[8] == "4" {
+            .filterproto   = message_array[16]
+            .filterflags   = message_array[23]
+            .filtersrcip   = message_array[18]
+            .filtersrcport = message_array[20]
+            .filterdstip   = message_array[19]
+            .filterdstport = message_array[21]
+          # ipv6
+          } else if message_array[8] == "6" {
+            .filterproto   = message_array[12]
+            #.filterflags   = "IPv6 not fully supported"
+            .filtersrcip   = message_array[15]
+            .filtersrcport = message_array[17]
+            .filterdstip   = message_array[16]
+            .filterdstport = message_array[18]
           }
-      )
+        }
+      }
+
+  opnsense_firewall_split:
+    type: route
+    inputs: ["opnsense_firewall_filterlog"]
+    route:
+      pass: '.filteraction == "pass"'
+      therest: '.filteraction != "pass"'
+
+  opnsense_firewall_geotag:
+    type: geoip
+    inputs: ["opnsense_firewall_split.pass"]
+    database: "/usr/share/GeoIP/GeoLite2-City.mmdb"
+    source: filtersrcip
+    target: "geotag"
 
 #
 # Sinks
@@ -121,7 +119,7 @@ sinks:
       node: '{{ kubernetes.pod_node_name }}'
 
   opnsense:
-    inputs: ["opnsense_source", "opnsense_firewall_geoip_remap"]
+    inputs: ["opnsense_firewall_split.therest", "opnsense_firewall_geotag"]
     type: loki
     endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding: { codec: json }
@@ -129,4 +127,6 @@ sinks:
     remove_label_fields: true
     remove_timestamp: true
     labels:
+      logtype: "net"
+      server: "firewall"
       hostname: '{{ host }}'
