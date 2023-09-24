@@ -15,7 +15,7 @@ spec:
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/bazarr'
+        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/jellyfin'
         RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
         AWS_ACCESS_KEY_ID: '{{ .access_key }}'
         AWS_SECRET_ACCESS_KEY: '{{ .secret_key }}'
@@ -30,7 +30,7 @@ metadata:
   name: jellyfin
   namespace: media
 spec:
-  sourcePVC: config-jellyfin-0
+  sourcePVC: jellyfin-config
   trigger:
     schedule: "0 20 * * *"
   restic:
