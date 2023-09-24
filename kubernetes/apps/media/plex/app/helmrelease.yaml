@@ -79,11 +79,7 @@ spec:
         type: emptyDir
         medium: Memory
       media:
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
+        existingClaim: media
         enabled: true
         mountPath: /nfs-nas-pvc
     podSecurityContext:

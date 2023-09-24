@@ -69,11 +69,7 @@ spec:
         enabled: true
         existingClaim: radarr-config
       nfs-nas-pvc:
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
+        existingClaim: media
         enabled: true
         mountPath: /nfs-nas-pvc
     resources:

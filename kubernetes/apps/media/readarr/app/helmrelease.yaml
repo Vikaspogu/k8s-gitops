@@ -66,12 +66,8 @@ spec:
         enabled: true
         existingClaim: readarr-config
       nfs-nas-pvc:
+        existingClaim: media
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
         mountPath: /nfs-nas-pvc
       media:
         enabled: true
