@@ -83,6 +83,63 @@
       "valueName": "total"
     },
     {
+      "circleMaxSize": 30,
+      "circleMinSize": 2,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(50, 172, 45, 0.97)"
+      ],
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "decimals": 0,
+      "esMetric": "Count",
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 2,
+      "initialZoom": 1,
+      "locationData": "countries",
+      "mapCenter": "(0°, 0°)",
+      "mapCenterLatitude": 0,
+      "mapCenterLongitude": 0,
+      "maxDataPoints": 1,
+      "mouseWheelZoom": false,
+      "showLegend": true,
+      "stickyLabels": false,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "metric",
+        "queryType": "geohash"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "expr": "sum(count_over_time({hostname=\"opnsense\"} | json | appname = \"filterlog\" | filter_interface = \"igc0\" | filter_action = \"block\"[$__interval])) by (geoip_country_code)",
+          "legendFormat": "{{geoip_country_code}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "0,10",
+      "title": "Blocked connections by GeoIP",
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "",
+      "unitSingle": "",
+      "valueName": "total"
+    },
+    {
       "datasource": {
         "type": "loki",
         "uid": "P8E80F9AEF21F6940"
