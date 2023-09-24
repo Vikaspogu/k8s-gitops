@@ -135,7 +135,7 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "topk(10, \n  sum by (filter_destination_port) (\n  count_over_time(\n      {hostname=\"opnsense\"} \n      | json \n      | appname = \"filterlog\"\n      | filter_destination_port != \"\"\n      | filter_action = \"pass\"\n      | filter_interface = \"igb0\"\n      [$__range]\n    )\n  )\n)",
+          "expr": "topk(10, \n  sum by (filter_destination_port) (\n  count_over_time(\n      {hostname=\"opnsense\"} \n      | json \n      | appname = \"filterlog\"\n      | filter_destination_port != \"\"\n      | filter_action = \"pass\"\n      | filter_interface = \"igc0\"\n      [$__range]\n    )\n  )\n)",
           "instant": true,
           "legendFormat": "{{filter_destination_port}}",
           "range": false,
