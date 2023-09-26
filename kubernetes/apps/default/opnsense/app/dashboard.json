@@ -337,7 +337,7 @@
           }
         }
       ],
-      "type": "bargauge"
+      "type": "barchart"
     }
   ],
   "schemaVersion": 34,
