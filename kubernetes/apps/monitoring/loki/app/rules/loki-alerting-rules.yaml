@@ -15,6 +15,16 @@ groups:
         annotations:
           app: "{{ $labels.app }}"
           summary: "{{ $labels.app }} is unable to reach mqtt"
+      - alert: ZigbeeDeviceOffline
+        expr: |
+          sum(count_over_time({app="zigbee2mqtt"} |~ "(?i)offline"[5m])) > 0
+        for: 5m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          app: "{{ $labels.app }}"
+          summary: "{{ $labels.message }}"
 
   #
   # frigate
