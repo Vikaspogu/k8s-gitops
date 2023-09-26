@@ -86,9 +86,9 @@
       "circleMaxSize": 30,
       "circleMinSize": 2,
       "colors": [
-        "rgba(245, 54, 54, 0.9)",
+        "rgb(255, 255, 0, 0.97)",
         "rgba(237, 129, 40, 0.89)",
-        "rgb(255, 255, 0, 0.97)"
+        "rgba(245, 54, 54, 0.9)"
       ],
       "datasource": {
         "type": "loki",
@@ -132,7 +132,7 @@
           "refId": "A"
         }
       ],
-      "thresholds": "0,10",
+      "thresholds": "0,50",
       "title": "Blocked connections by GeoIP",
       "type": "grafana-worldmap-panel",
       "unitPlural": "",
@@ -200,6 +200,106 @@
         }
       ],
       "title": "Top 10 allowed incoming ports",
+      "transformations": [
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": true,
+                "field": "Value #A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "rowsToFields",
+          "options": {
+            "mappings": [
+              {
+                "fieldName": "Time",
+                "handlerKey": "field.value"
+              },
+              {
+                "fieldName": "filter_source_port",
+                "handlerKey": "field.name"
+              },
+              {
+                "fieldName": "Value #A",
+                "handlerKey": "field.value"
+              },
+              {
+                "fieldName": "filter_destination_port",
+                "handlerKey": "field.name"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "expr": "topk(10, \n  sum by (geoip_country_name) (\n  count_over_time(\n      {hostname=\"opnsense\"} \n      | json \n      | appname = \"filterlog\"\n      | filter_source_ip != \"\"\n      | filter_action = \"block\"\n      | filter_interface = \"igc0\"\n      [$__range]\n    )\n  )\n)",
+          "instant": true,
+          "legendFormat": "{{geoip_country_name}}",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Top 10 blocked countries",
       "transformations": [
         {
           "id": "sortBy",
