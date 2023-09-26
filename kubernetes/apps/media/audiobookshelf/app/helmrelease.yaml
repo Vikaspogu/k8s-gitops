@@ -66,4 +66,4 @@ spec:
         volumeSpec:
           nfs:
             server: "${SECRET_NAS_ADDRESS}"
-            path: /volume1/media/Books
+            path: /volume1/media
