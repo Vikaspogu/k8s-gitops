@@ -33,8 +33,6 @@ spec:
       TZ: ${TIMEZONE}
       APP_PORT: &port 8080
       TRILIUM_DATA_DIR: /home/node/trilium-data
-      TRILIUM_USER_UID: 1001
-      TRILIUM_USER_GID: 1001
     persistence:
       config:
         enabled: true
@@ -60,13 +58,11 @@ spec:
         tls:
           - hosts:
               - *host
-    securityContext:
-      capabilities:
-        drop:
-          - ALL
-      runAsNonRoot: true
-      runAsUser: 1001
-      allowPrivilegeEscalation: false
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     resources:
       requests:
         cpu: 100m
