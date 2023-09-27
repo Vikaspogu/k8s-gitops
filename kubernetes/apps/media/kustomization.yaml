@@ -10,7 +10,6 @@ resources:
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./plex-auto-languages/ks.yaml
-  - ./podgrab/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
   - ./recyclarr/ks.yaml
