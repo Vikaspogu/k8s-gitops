@@ -42,7 +42,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
           hajimari.io/enable: "true"
           hajimari.io/appName: "Audiobook"
-          hajimari.io/icon: podcast
+          hajimari.io/icon: mdi:book-music
           nginx.ingress.kubernetes.io/proxy-body-size: "2G"
           nginx.ingress.kubernetes.io/proxy-buffering: "off"
           nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
