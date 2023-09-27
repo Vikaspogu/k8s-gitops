@@ -3,19 +3,19 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: memos-restic
+  name: trilium-restic
   namespace: default
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: memos-restic-secret
+    name: trilium-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/memos'
+        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/trilium'
         RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
         AWS_ACCESS_KEY_ID: '{{ .access_key }}'
         AWS_SECRET_ACCESS_KEY: '{{ .secret_key }}'
@@ -27,16 +27,16 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: memos
+  name: trilium
   namespace: default
 spec:
-  sourcePVC: memos-config
+  sourcePVC: trilium-config
   trigger:
     schedule: "0 20 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 5
-    repository: memos-restic-secret
+    repository: trilium-restic-secret
     cacheCapacity: 5Gi
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block

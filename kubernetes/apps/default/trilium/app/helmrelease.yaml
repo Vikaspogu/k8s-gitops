@@ -1,11 +1,12 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app memos
+  name: &app trilium
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -14,45 +15,43 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
+  maxHistory: 5
   install:
     createNamespace: true
     remediation:
-      retries: 3
+      retries: 5
   upgrade:
-    cleanupOnFail: true
     remediation:
-      retries: 3
+      retries: 5
   uninstall:
     keepHistory: false
   values:
-    enableServiceLinks: false
     image:
-      repository: ghcr.io/usememos/memos
-      tag: 0.15.2
+      repository: zadam/trilium
+      tag: 0.60.4
+    env:
+      TZ: ${TIMEZONE}
+      APP_PORT: &port 8080
+      TRILIUM_DATA_DIR: /srv/trilium-data
+    persistence:
+      config:
+        enabled: true
+        existingClaim: trilium-config
+        mountPath: /srv/trilium-data
     service:
       main:
         ports:
           http:
-            port: 5230
-    env:
-      TZ: ${TIMEZONE}
-    persistence:
-      config:
-        enabled: true
-        existingClaim: memos-config
-        mountPath: /var/opt/memos
+            port: *port
     ingress:
       main:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Memos"
-          hajimari.io/icon: "note-text"
+          hajimari.io/icon: mdi:text
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "trilium.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -61,7 +60,5 @@ spec:
               - *host
     resources:
       requests:
-        cpu: 50m
+        cpu: 100m
         memory: 256Mi
-      limits:
-        memory: 500Mi

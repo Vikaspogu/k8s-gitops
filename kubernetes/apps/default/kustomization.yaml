@@ -5,7 +5,6 @@ resources:
   - ./namespace.yaml
   - ./authelia/ks.yaml
   - ./babybuddy/ks.yaml
-  # - ./bookstack/ks.yaml
   - ./external-secrets/ks.yaml
   - ./ghostfolio/ks.yaml
   - ./hajimari/ks.yaml
@@ -16,8 +15,6 @@ resources:
   - ./libreddit/ks.yaml
   - ./linkding/ks.yaml
   - ./lldap/ks.yaml
-  # - ./mariadb/ks.yaml
-  # - ./memos/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./onepassword-connect/ks.yaml
@@ -29,3 +26,4 @@ resources:
   - ./restart-pod/ks.yaml
   - ./reverse-proxy/ks.yaml
   - ./stirling-pdf/ks.yaml
+  - ./trilium/ks.yaml

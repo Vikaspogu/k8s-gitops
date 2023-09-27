@@ -2,20 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-mariadb
+  name: cluster-apps-trilium
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/mariadb/app
+  path: ./kubernetes/apps/default/trilium/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: mariadb
-      namespace: default
   interval: 15m
+  retryInterval: 1m
+  timeout: 3m
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-ingress-nginx
     - name: cluster-apps-external-secrets-stores
