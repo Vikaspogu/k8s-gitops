@@ -32,11 +32,12 @@ spec:
     env:
       TZ: ${TIMEZONE}
       APP_PORT: &port 8080
-      TRILIUM_DATA_DIR: /srv/trilium-data
+      TRILIUM_DATA_DIR: /home
     persistence:
       config:
         enabled: true
         existingClaim: trilium-config
+        mountPath: /home
     service:
       main:
         ports:
