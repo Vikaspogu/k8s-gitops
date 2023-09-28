@@ -31,7 +31,7 @@ spec:
       tag: 0.60.4
     env:
       TZ: ${TIMEZONE}
-      APP_PORT: &port 8080
+      TRILIUM_PORT: &port 8080
       TRILIUM_DATA_DIR: /home/node/trilium-data
     persistence:
       config:
