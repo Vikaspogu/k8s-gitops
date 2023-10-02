@@ -27,6 +27,8 @@ spec:
     enablePodMonitor: true
   bootstrap:
     initdb:
+      secret:
+        name: cloudnative-pg-secret
       import:
         type: monolith
         databases:
