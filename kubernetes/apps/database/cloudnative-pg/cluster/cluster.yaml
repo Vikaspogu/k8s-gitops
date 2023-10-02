@@ -41,7 +41,7 @@ spec:
         host: postgresql.default.svc.cluster.local
         user: postgres
         dbname: postgres
-        sslmode: require
+        sslmode: disable
       password:
         name: cloudnative-pg-secret
         key: INIT_POSTGRES_SUPER_PASS
