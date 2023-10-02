@@ -21,7 +21,6 @@ resources:
   - ./paperless/ks.yaml
   - ./pgadmin/ks.yaml
   - ./postgresql/ks.yaml
-  - ./redis/ks.yaml
   - ./restart-pod/ks.yaml
   - ./reverse-proxy/ks.yaml
   - ./stirling-pdf/ks.yaml
