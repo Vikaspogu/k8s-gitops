@@ -25,23 +25,19 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  bootstrap:
-    initdb:
-      import:
-        type: monolith
-        databases:
-          - "*"
-        roles:
-          - "*"
-        source:
-          externalCluster: cluster-default-postgres
-  externalClusters:
-    - name: cluster-default-postgres
-      connectionParameters:
-        host: postgresql.default.svc.cluster.local
-        user: postgres
-        dbname: postgres
-        sslmode: disable
-      password:
-        name: cloudnative-pg-secret
-        key: INIT_POSTGRES_SUPER_PASS
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: &s3 s3://postgres/
+      endpointURL: &endpoint http://minio.default.svc:9000
+      serverName: &currentCluster postgres-v4
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: aws-access-key-id
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: aws-secret-access-key
