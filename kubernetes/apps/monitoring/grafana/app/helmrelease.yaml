@@ -123,49 +123,78 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
+        cloudflared:
+          gnetId: 17457 # https://grafana.com/grafana/dashboards/17457?tab=revisions
+          revision: 6
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        external-dns:
+          gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
+          revision: 1
+          datasource: Prometheus
+        minio:
+          gnetId: 13502 # https://grafana.com/grafana/dashboards/13502?tab=revisions
+          revision: 23
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        cloudnative-pg:
+          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
+          datasource: Prometheus
+        cert-manager:
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+          datasource: Prometheus
+        external-secrets:
+          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
+          datasource: Prometheus
+        miniflux:
+          url: https://raw.githubusercontent.com/miniflux/v2/main/contrib/grafana/dashboard.json
+          datasource: Prometheus
+      ceph:
         ceph-cluster:
-          gnetId: 2842
-          revision: 14
+          gnetId: 2842 # https://grafana.com/grafana/dashboards/2842?tab=revisions
+          revision: 17
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5336
         ceph-osd:
-          gnetId: 5336
-          revision: 5
+          gnetId: 5336 # https://grafana.com/grafana/dashboards/5336?tab=revisions
+          revision: 9
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5342
         ceph-pools:
-          gnetId: 5342
-          revision: 5
+          gnetId: 5342 # https://grafana.com/grafana/dashboards/5342?tab=revisions
+          revision: 9
           datasource: Prometheus
-        # # Ref: https://grafana.com/grafana/dashboards/15549
-        nginx-dashboard:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
+      flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
           datasource: Prometheus
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11315
-        unifi-client-insights:
-          gnetId: 11315
-          revision: 8
+        flux-logs:
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11311
-        unifi-network-sites:
-          gnetId: 11311
-          revision: 4
+      nginx:
+        nginx:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11314
-        unifi-uap-insights:
-          gnetId: 11314
+        nginx-request-handling-performance:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+          datasource: Prometheus
+      unifi:
+        unifi-insights:
+          gnetId: 11315 # https://grafana.com/grafana/dashboards/11315?tab=revisions
           revision: 9
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11312
-        unifi-usw-insights:
-          gnetId: 11312
-          revision: 8
+        unifi-network-sites:
+          gnetId: 11311 # https://grafana.com/grafana/dashboards/11311?tab=revisions
+          revision: 5
+          datasource: Prometheus
+        unifi-uap:
+          gnetId: 11314 # https://grafana.com/grafana/dashboards/11314?tab=revisions
+          revision: 10
+          datasource: Prometheus
+        unifi-usw:
+          gnetId: 11312 # https://grafana.com/grafana/dashboards/11312?tab=revisions
+          revision: 9
           datasource: Prometheus
       teslamate:
         charge-level:

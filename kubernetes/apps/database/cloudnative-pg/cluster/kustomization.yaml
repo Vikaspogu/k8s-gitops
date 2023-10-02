@@ -5,3 +5,4 @@ kind: Kustomization
 namespace: database
 resources:
   - ./cluster.yaml
+  - ./prometheusrule.yaml
