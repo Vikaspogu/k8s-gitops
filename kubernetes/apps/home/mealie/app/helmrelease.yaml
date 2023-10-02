@@ -41,7 +41,7 @@ spec:
           TOKEN_TIME: 43830
           DB_ENGINE: sqlite
           POSTGRES_USER: mealie
-          POSTGRES_SERVER: postgresql.default
+          POSTGRES_SERVER: postgres-rw.database
           POSTGRES_PORT: 5431
           POSTGRES_DB: mealie
           BASE_URL: https://mealie.${SECRET_DOMAIN}
