@@ -26,11 +26,11 @@ spec:
       repository: quay.io/minio/minio
       tag: RELEASE.2023-09-30T07-02-29Z
     env:
-      TZ: "America/Chicago"
+      TZ: "${TIMEZONE}"
       MINIO_UPDATE: "off"
       MINIO_BROWSER_REDIRECT_URL: "https://minio.${SECRET_DOMAIN}"
       MINIO_SERVER_URL: "https://s3.${SECRET_DOMAIN}"
-      MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+      MINIO_PROMETHEUS_URL: http://prometheus-operated.monitoring.svc.cluster.local:9090
       MINIO_PROMETHEUS_JOB_ID: minio
       MINIO_API_CORS_ALLOW_ORIGIN: "https://{{ .Release.Name }}.${SECRET_DOMAIN},https://s3.${SECRET_DOMAIN}"
     envFrom:
