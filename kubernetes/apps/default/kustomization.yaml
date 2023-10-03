@@ -20,7 +20,7 @@ resources:
   - ./opnsense/ks.yaml
   - ./paperless/ks.yaml
   - ./pgadmin/ks.yaml
-  - ./postgresql/ks.yaml
+  # - ./postgresql/ks.yaml
   - ./restart-pod/ks.yaml
   - ./reverse-proxy/ks.yaml
   - ./stirling-pdf/ks.yaml
