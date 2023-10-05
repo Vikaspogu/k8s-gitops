@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,17 +26,21 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: docker.io/binwiederhier/ntfy
-      tag: v2.7.0@sha256:15a229aeb4b599ef626fdd316a05db7100f0b9a96e1fd3f602917241d6b5e18a
-    args: [serve]
-    env:
-      TZ: "${TIMEZONE}"
-      NTFY_BASE_URL: "https://ntfy.${SECRET_DOMAIN}"
-      NTFY_LISTEN_HTTP: ":8080"
-      NTFY_BEHIND_PROXY: "true"
-      NTFY_AUTH_FILE: "/authfile/user.db"
-      NTFY_AUTH_DEFAULT_ACCESS: "write-only"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/binwiederhier/ntfy
+              tag: v2.7.0@sha256:15a229aeb4b599ef626fdd316a05db7100f0b9a96e1fd3f602917241d6b5e18a
+            args: [serve]
+            env:
+              TZ: "${TIMEZONE}"
+              NTFY_BASE_URL: "https://ntfy.${SECRET_DOMAIN}"
+              NTFY_LISTEN_HTTP: ":8080"
+              NTFY_BEHIND_PROXY: "true"
+              NTFY_AUTH_FILE: "/authfile/user.db"
+              NTFY_AUTH_DEFAULT_ACCESS: "write-only"
     service:
       main:
         ports:
@@ -53,20 +57,26 @@ spec:
           - host: "ntfy.${SECRET_DOMAIN}"
             paths:
               - path: /
+                service:
+                  name: main
+                  port: http
                 pathType: Prefix
         tls:
           - hosts:
               - "ntfy.${SECRET_DOMAIN}"
-    podSecurityContext:
-      runAsUser: &uid 568
-      runAsGroup: *uid
-      fsGroup: *uid
-      fsGroupChangePolicy: Always
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: &uid 568
+        runAsGroup: *uid
+        fsGroup: *uid
+        fsGroupChangePolicy: Always
     persistence:
       config:
         enabled: true
         existingClaim: ntfy-config
-        mountPath: /authfile
+        globalMounts:
+          - path: /authfile
     resources:
       requests:
         cpu: 10m
