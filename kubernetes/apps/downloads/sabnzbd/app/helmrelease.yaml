@@ -30,8 +30,8 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/onedr0p/sabnzbd
-      tag: 4.1.0@sha256:d7eabae44168417a6acbc8f6e8510b0187a3f26d648941b3cf61b4c04a904da2
+      repository: lscr.io/linuxserver/sabnzbd
+      tag: 4.1.0-ls129
     podAnnotations:
       setGateway: "true"
     hostname: sabnzbd
@@ -102,13 +102,6 @@ spec:
             path: "/volume1/media"
         enabled: true
         mountPath: /nfs-nas-pvc
-      config-file:
-        enabled: true
-        type: configMap
-        name: notify-script
-        subPath: notify.sh
-        mountPath: /config/notify.sh
-        readOnly: true
     resources:
       requests:
         cpu: 10m
