@@ -108,6 +108,7 @@ spec:
         name: notify-script
         subPath: notify.sh
         mountPath: /config/notify.sh
+        defaultMode: 0775
         readOnly: true
     resources:
       requests:
