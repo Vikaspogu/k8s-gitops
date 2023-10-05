@@ -13,6 +13,6 @@ spec:
   interval: 20m
   wait: true
   dependsOn:
-    - name: cluster-apps-postgresql
+    - name: cluster-apps-cloudnative-pg
     - name: cluster-apps-ingress-nginx
     - name: cluster-apps-external-secrets-stores

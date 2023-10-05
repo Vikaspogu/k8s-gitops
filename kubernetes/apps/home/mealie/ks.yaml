@@ -18,6 +18,6 @@ spec:
   interval: 15m
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-postgresql
+    - name: cluster-apps-cloudnative-pg
     - name: cluster-apps-ingress-nginx
     - name: cluster-apps-external-secrets-stores
