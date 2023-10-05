@@ -102,6 +102,13 @@ spec:
             path: "/volume1/media"
         enabled: true
         mountPath: /nfs-nas-pvc
+      config-file:
+        enabled: true
+        type: configMap
+        name: notify-script
+        subPath: notify.sh
+        mountPath: /config/notify.sh
+        readOnly: true
     resources:
       requests:
         cpu: 10m
