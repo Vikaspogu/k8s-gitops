@@ -30,14 +30,14 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: lscr.io/linuxserver/sabnzbd
-      tag: 4.1.0-ls129
+      repository: ghcr.io/onedr0p/sabnzbd
+      tag: 4.1.0@sha256:d7eabae44168417a6acbc8f6e8510b0187a3f26d648941b3cf61b4c04a904da2
     podAnnotations:
       setGateway: "true"
     hostname: sabnzbd
     env:
       TZ: ${TIMEZONE}
-      SABNZBD__PORT: &port 8080
+      SABNZBD__PORT: &port 80
       SABNZBD__HOST_WHITELIST_ENTRIES: >-
         sabnzbd,
         sabnzbd.downloads,
@@ -55,7 +55,7 @@ spec:
             port: *port
     probes:
       liveness: &probes
-        enabled: false
+        enabled: true
         custom: true
         spec:
           httpGet:
@@ -84,6 +84,12 @@ spec:
         tls:
           - hosts:
               - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      supplementalGroups:
+        - 65536
     persistence:
       config:
         enabled: true
