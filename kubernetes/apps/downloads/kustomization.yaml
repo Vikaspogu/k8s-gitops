@@ -4,4 +4,5 @@ resources:
   - ./namespace.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
+  - ./sabnzbd/ks.yaml
   - ./youtubedl-material/ks.yaml
