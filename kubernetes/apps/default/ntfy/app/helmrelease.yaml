@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: docker.io/binwiederhier/ntfy
-      tag: v2.7.0@sha256:15a229aeb4b599ef626fdd316a05db7100f0b9a96e1fd3f602917241d6b5e18a
+      tag: v2.7.0@sha256:da08556da89a3f7317557fd39cf302c6e4691b4f8ce3a68aa7be86c4141e11c8
     args: [serve]
     env:
       TZ: "${TIMEZONE}"
