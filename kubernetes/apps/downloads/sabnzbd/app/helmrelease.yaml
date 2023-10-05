@@ -94,14 +94,14 @@ spec:
       config:
         enabled: true
         existingClaim: sabnzbd-config
-      media:
-        enabled: true
+      nfs-nas-pvc:
         type: custom
         volumeSpec:
           nfs:
             server: ${SECRET_NAS_ADDRESS}
             path: "/volume1/media"
-        mountPath: /media
+        enabled: true
+        mountPath: /nfs-nas-pvc
     resources:
       requests:
         cpu: 10m
