@@ -32,35 +32,6 @@ spec:
     cleanPrometheusOperatorObjectNames: true
     fullnameOverride: prometheus
     alertmanager:
-      config:
-        global:
-          resolve_timeout: 5m
-        receivers:
-          - name: "null"
-          - name: "discord"
-            webhook_configs:
-              - url: "http://alertmanager-discord:9094"
-        route:
-          group_by: ["alertname", "job"]
-          group_wait: 1m
-          group_interval: 10m
-          repeat_interval: 12h
-          receiver: "discord"
-          routes:
-            - receiver: "null"
-              matchers:
-                - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
-              continue: false
-            - receiver: "discord"
-              matchers:
-                - severity = "critical"
-              continue: true
-        inhibit_rules:
-          - source_matchers:
-              - severity = "critical"
-            target_matchers:
-              - severity = "warning"
-            equal: ["alertname", "namespace"]
       ingress:
         enabled: true
         pathType: Prefix
