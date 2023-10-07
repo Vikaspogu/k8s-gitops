@@ -47,15 +47,15 @@ spec:
           - hosts:
               - "alert-manager.${SECRET_DOMAIN}"
       alertmanagerSpec:
+        replicas: 2
+        useExistingSecret: true
+        configSecret: alertmanager-secret
         storage:
           volumeClaimTemplate:
             spec:
               resources:
                 requests:
                   storage: 2Gi
-        tolerations:
-          - key: "arm"
-            operator: "Exists"
     grafana:
       enabled: false
       forceDeployDashboards: true
