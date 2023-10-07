@@ -50,9 +50,15 @@ spec:
       persistentVolume:
         data:
           enabled: true
+          accessModes:
+            - ReadWriteMany
+          storageClassName: "ceph-fs"
           size: 1Gi
         config:
           enabled: true
+          accessModes:
+            - ReadWriteMany
+          storageClassName: "ceph-fs"
           size: 1Gi
       metrics:
         enabled: false
@@ -87,4 +93,8 @@ spec:
       persistentVolume:
         # -- Persistent volume for config folder. Stores local config (parsers, scenarios etc.)
         config:
-          enabled: false
+          enabled: true
+          accessModes:
+            - ReadWriteMany
+          storageClassName: "ceph-fs"
+          size: 100Mi
