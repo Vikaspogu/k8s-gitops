@@ -34,3 +34,10 @@ spec:
       pluginTolerations:
         - key: "k3s-arm"
           operator: "Exists"
+    resources:
+      limits:
+        cpu: 7500m
+        memory: 512Mi
+      requests:
+        cpu: 2500m
+        memory: 128Mi
