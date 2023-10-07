@@ -50,14 +50,10 @@ spec:
       persistentVolume:
         data:
           enabled: true
-          accessModes:
-            - ReadWriteMany
           size: 1Gi
         config:
           enabled: true
-          accessModes:
-            - ReadWriteMany
-          size: 100Mi
+          size: 1Gi
       metrics:
         enabled: false
         serviceMonitor:
