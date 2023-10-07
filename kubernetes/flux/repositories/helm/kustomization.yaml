@@ -10,6 +10,7 @@ resources:
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
   - ./coredns.yaml
+  - ./crowdsec.yaml
   - ./descheduler.yaml
   - ./dysnix.yaml
   - ./emqx.yaml
