@@ -55,7 +55,7 @@ spec:
             spec:
               resources:
                 requests:
-                  storage: 2Gi
+                  storage: 1Gi
     grafana:
       enabled: false
       forceDeployDashboards: true
