@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/sabnzbd
-      tag: 4.1.0@sha256:c404e18ec4cfe6f723aa04981bd9f887a485f64e069167aeb35e76f4257859a0
+      tag: 4.1.0@sha256:b11b8d22e5ca140d6a0ad3e6cdfcb9376f4c5f6284459d9cf0fbd70042bbdd84
     podAnnotations:
       setGateway: "true"
     hostname: sabnzbd
