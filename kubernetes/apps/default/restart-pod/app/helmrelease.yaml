@@ -37,7 +37,7 @@ spec:
     restartPolicy: OnFailure
     image:
       repository: ghcr.io/onedr0p/kubernetes-kubectl
-      tag: 1.28.2@sha256:123741e0ff2d48184d2fcfc88f09be8fb0a1508fc69df0708bc927d57cff3156
+      tag: 1.28.2@sha256:042bad029205e40a9c0e0f3150ab173c61cbb69eba326dac425e4fc419b83963
     command: ["/bin/bash", "/app/restart-pod.sh"]
     service:
       main:
