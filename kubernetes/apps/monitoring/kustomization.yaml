@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
+  - ./goldilocks/ks.yaml
   - ./grafana/ks.yaml
   - ./kube-state-metrics/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
@@ -11,3 +12,4 @@ resources:
   - ./node-exporter/ks.yaml
   - ./unifi-poller/ks.yaml
   - ./vector/ks.yaml
+  - ./vpa/ks.yaml
