@@ -6,3 +6,4 @@ metadata:
   labels:
     routed-gateway: "true"
     kustomize.toolkit.fluxcd.io/prune: disabled
+    goldilocks.fairwinds.com/enabled: "true"
