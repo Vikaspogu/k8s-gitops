@@ -26,6 +26,9 @@ kubernetes:
         k8s-6-pi4-garage:
           ansible_user: vikaspogu
           ansible_host: 10.30.30.26
+        k8s-7-nuc-7i5bnk:
+          ansible_user: vikaspogu
+          ansible_host: 10.30.30.27
 
 rook:
   vars:
@@ -42,5 +45,9 @@ rook:
         - /dev/nvme0n1
     k8s-4-hp-6500t:
       ansible_host: 10.30.30.24
+      ceph_drives:
+        - /dev/nvme0n1
+    k8s-7-nuc-7i5bnk:
+      ansible_host: 10.30.30.27
       ceph_drives:
         - /dev/nvme0n1

@@ -42,6 +42,7 @@
         - k8s-4-hp-6500t
         - k8s-5-nuc-7i5bnk
         - k8s-6-pi4-garage
+        - k8s-7-nuc-7i5bnk
 
     - name: Get a list of all node objects
       kubernetes.core.k8s_info:
