@@ -44,10 +44,13 @@ spec:
           hajimari.io/icon: "monitor-dashboard"
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         hosts:
-          - goldilocks.${SECRET_DOMAIN}
+          - host: &host goldilocks.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                type: Prefix
         tls:
           - hosts:
-              - goldilocks.${SECRET_DOMAIN}
+              - *host
         resources:
           requests:
             cpu: 25m
