@@ -37,21 +37,21 @@ spec:
     dashboard:
       replicaCount: 1
       ingress:
-      enabled: true
-      ingressClassName: "nginx"
-      annotations:
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "monitor-dashboard"
-        nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-      hosts:
-        - goldilocks.${SECRET_DOMAIN}
-      tls:
-        - hosts:
-            - goldilocks.${SECRET_DOMAIN}
-      resources:
-        requests:
-          cpu: 25m
-          memory: 50Mi
-        limits:
-          cpu: 500m
-          memory: 200Mi
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "monitor-dashboard"
+          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+        hosts:
+          - goldilocks.${SECRET_DOMAIN}
+        tls:
+          - hosts:
+              - goldilocks.${SECRET_DOMAIN}
+        resources:
+          requests:
+            cpu: 25m
+            memory: 50Mi
+          limits:
+            cpu: 500m
+            memory: 200Mi
