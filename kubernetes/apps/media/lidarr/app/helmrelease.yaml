@@ -93,6 +93,6 @@ spec:
     resources:
       requests:
         memory: 250Mi
-        cpu: 500m
+        cpu: 200m
       limits:
-        memory: 1000Mi
+        memory: 750Mi

@@ -67,14 +67,20 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     resources:
       requests:
-        cpu: 10m
-        memory: 250Mi
+        cpu: 11m
+        memory: 110M
       limits:
-        memory: 500Mi
+        memory: 250Mi
     sidecars:
       jbops:
         image: registry.k8s.io/git-sync/git-sync:v4.0.0
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 11m
+            memory: 37M
+          limits:
+            memory: 100M
         args:
           - --repo=https://github.com/blacktwin/JBOPS
           - --ref=master

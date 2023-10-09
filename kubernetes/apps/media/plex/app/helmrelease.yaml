@@ -68,7 +68,7 @@ spec:
             port: 32400
     resources:
       requests:
-        # cpu: "750m"
+        # cpu: "2"
         memory: 2Gi
     persistence:
       config:

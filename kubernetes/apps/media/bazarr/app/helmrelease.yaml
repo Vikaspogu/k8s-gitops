@@ -60,6 +60,12 @@ spec:
         tls:
           - hosts:
               - "bazarr.${SECRET_DOMAIN}"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 250Mi
+      limits:
+        memory: 512Mi
     persistence:
       config:
         enabled: true

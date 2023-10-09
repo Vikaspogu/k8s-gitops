@@ -78,7 +78,7 @@ spec:
         mountPath: /nfs-nas-pvc
     resources:
       requests:
-        cpu: 10m
-        memory: 250Mi
+        cpu: 15m
+        memory: 381M
       limits:
         memory: 2000Mi
