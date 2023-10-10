@@ -8,6 +8,9 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-external-secrets-stores
+    - name: cluster-apps-downloads-gateway
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-ingress-nginx
   path: ./kubernetes/apps/downloads/sabnzbd/app
   prune: true
   sourceRef:
