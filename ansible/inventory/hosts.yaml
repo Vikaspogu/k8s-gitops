@@ -14,21 +14,18 @@ kubernetes:
           ansible_host: 10.30.30.22
     worker:
       hosts:
-        k8s-3-hp-4590t:
+        k8s-3-nuc-7i5bnk:
           ansible_user: vikaspogu
           ansible_host: 10.30.30.23
-        k8s-4-hp-6500t:
+        k8s-4-nuc-7i5bnk:
           ansible_user: vikaspogu
           ansible_host: 10.30.30.24
-        k8s-5-nuc-7i5bnk:
+        k8s-5-beelink-ser5-pro:
           ansible_user: vikaspogu
           ansible_host: 10.30.30.25
         k8s-6-pi4-garage:
           ansible_user: vikaspogu
           ansible_host: 10.30.30.26
-        k8s-7-nuc-7i5bnk:
-          ansible_user: vikaspogu
-          ansible_host: 10.30.30.27
 
 rook:
   vars:
@@ -39,15 +36,15 @@ rook:
       ansible_host: 10.30.30.22
       ceph_drives:
         - /dev/nvme0n1
-    k8s-3-hp-4590t:
+    k8s-3-nuc-7i5bnk:
       ansible_host: 10.30.30.23
       ceph_drives:
         - /dev/nvme0n1
-    k8s-4-hp-6500t:
+    k8s-4-nuc-7i5bnk:
       ansible_host: 10.30.30.24
       ceph_drives:
         - /dev/nvme0n1
-    k8s-7-nuc-7i5bnk:
-      ansible_host: 10.30.30.27
+    k8s-5-beelink-ser5-pro:
+      ansible_host: 10.30.30.25
       ceph_drives:
         - /dev/nvme0n1
