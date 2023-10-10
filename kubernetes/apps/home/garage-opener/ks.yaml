@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-garage-opener
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/home/garage-opener/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: garage-opener
+      namespace: home
+  interval: 15m

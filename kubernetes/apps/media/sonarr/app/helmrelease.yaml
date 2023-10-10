@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sonarr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    image:
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 4.0.0.695@sha256:9a175bd657503c1fdb2462e1b1ca04f1c30f027323ece9a3e08b308b6041562d
+    env:
+      TZ: "${TIMEZONE}"
+      SONARR__INSTANCE_NAME: Sonarr
+      SONARR__PORT: &port 80
+      SONARR__LOG_LEVEL: info
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "Sonarr"
+          hajimari.io/icon: "television-box"
+          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/sonarr/dracula.css"></head>';
+            sub_filter_once on;
+        hosts:
+          - host: "sonarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "sonarr.${SECRET_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sonarr-config
+      nfs-nas-pvc:
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media"
+        enabled: true
+        mountPath: /nfs-nas-pvc
+    resources:
+      requests:
+        cpu: 15m
+        memory: 381M
+      limits:
+        memory: 2000Mi

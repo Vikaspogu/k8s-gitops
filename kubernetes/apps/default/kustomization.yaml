@@ -3,25 +3,25 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
-  # - ./authelia/ks.yaml
-  # - ./babybuddy/ks.yaml
+  - ./authelia/ks.yaml
+  - ./babybuddy/ks.yaml
   - ./external-secrets/ks.yaml
-  # - ./ghostfolio/ks.yaml
-  # - ./hajimari/ks.yaml
-  # - ./it-tools/ks.yaml
+  - ./ghostfolio/ks.yaml
+  - ./hajimari/ks.yaml
+  - ./it-tools/ks.yaml
   - ./kopia-web/ks.yaml
-  # - ./kube-ops-view/ks.yaml
-  # - ./libreddit/ks.yaml
-  # - ./linkding/ks.yaml
-  # - ./lldap/ks.yaml
-  # - ./miniflux/ks.yaml
+  - ./kube-ops-view/ks.yaml
+  - ./libreddit/ks.yaml
+  - ./linkding/ks.yaml
+  - ./lldap/ks.yaml
+  - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   # - ./ntfy/ks.yaml
   - ./onepassword-connect/ks.yaml
-  # - ./opnsense/ks.yaml
-  # - ./paperless/ks.yaml
-  # - ./pgadmin/ks.yaml
+  - ./opnsense/ks.yaml
+  - ./paperless/ks.yaml
+  - ./pgadmin/ks.yaml
   # - ./restart-pod/ks.yaml
-  # - ./reverse-proxy/ks.yaml
-  # - ./stirling-pdf/ks.yaml
-  # - ./trilium/ks.yaml
+  - ./reverse-proxy/ks.yaml
+  - ./stirling-pdf/ks.yaml
+  - ./trilium/ks.yaml
