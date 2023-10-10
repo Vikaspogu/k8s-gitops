@@ -20,7 +20,7 @@ resources:
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
   - ./paperless/ks.yaml
-  - ./pgadmin/ks.yaml
+  # - ./pgadmin/ks.yaml
   # - ./restart-pod/ks.yaml
   - ./reverse-proxy/ks.yaml
   - ./stirling-pdf/ks.yaml
