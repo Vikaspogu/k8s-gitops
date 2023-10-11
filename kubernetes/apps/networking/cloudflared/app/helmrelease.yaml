@@ -90,18 +90,19 @@ spec:
         enabled: true
         type: configMap
         name: cloudflared-configmap
-        subPath: config.yaml
         globalMounts:
           - path: /etc/cloudflared/config/config.yaml
-        readOnly: true
+            subPath: config.yaml
+            readOnly: true
       creds:
         enabled: true
         type: secret
         name: cloudflared
-        subPath: credentials.json
         globalMounts:
           - path: /etc/cloudflared/creds/credentials.json
-        readOnly: true
+            subPath: credentials.json
+            readOnly: true
+
     resources:
       requests:
         cpu: 100m
