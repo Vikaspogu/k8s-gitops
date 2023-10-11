@@ -16,12 +16,10 @@ resources:
   - ./lldap/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
-  # - ./ntfy/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
   - ./paperless/ks.yaml
-  # - ./pgadmin/ks.yaml
-  # - ./restart-pod/ks.yaml
+  - ./pgadmin/ks.yaml
   - ./reverse-proxy/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./trilium/ks.yaml
