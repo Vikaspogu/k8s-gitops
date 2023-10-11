@@ -35,19 +35,24 @@ spec:
           reloader.stakater.com/auto: "true"
         initContainers:
           01-init-geoip:
-            image: ghcr.io/maxmind/geoipupdate:v6.0.0
-            imagePullPolicy: IfNotPresent
+            image:
+              repository: ghcr.io/maxmind/geoipupdate
+              tag: v6.0
+              pullPolicy: IfNotPresent
             env:
-              - { name: GEOIPUPDATE_EDITION_IDS, value: GeoLite2-City }
-              - { name: GEOIPUPDATE_FREQUENCY, value: "0" }
-              - { name: GEOIPUPDATE_VERBOSE, value: "true" }
+              - name: GEOIPUPDATE_EDITION_IDS
+                value: GeoLite2-City
+              - name: GEOIPUPDATE_FREQUENCY
+                value: "0"
+              - name: GEOIPUPDATE_VERBOSE
+                value: "true"
             envFrom:
               - secretRef:
                   name: vector-aggregator-secret
             volumeMounts:
               - { name: geoip, mountPath: /usr/share/GeoIP }
 
-        controller:
+        containers:
           main:
             image:
               repository: ghcr.io/onedr0p/vector
