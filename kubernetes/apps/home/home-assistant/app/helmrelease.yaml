@@ -79,7 +79,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        className: "nginx"
         annotations:
           external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
@@ -99,7 +99,7 @@ spec:
               - home-assistant.${SECRET_DOMAIN}
       codeserver:
         enabled: true
-        ingressClassName: "nginx"
+        className: "nginx"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Hass-VSCode"
