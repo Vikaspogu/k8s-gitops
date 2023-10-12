@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,11 +27,55 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/onedr0p/home-assistant
-      tag: 2023.10.1@sha256:13f3ccf4faa5a640053b10422d08d151fd00568e1e362007816a810660ab87e5
-    env:
-      TZ: "${TIMEZONE}"
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/home-assistant
+              tag: 2023.10.1@sha256:13f3ccf4faa5a640053b10422d08d151fd00568e1e362007816a810660ab87e5
+            env:
+              TZ: "${TIMEZONE}"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 1000Mi
+          codeserver:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.17.1@sha256:69f3b3952cd7a9680c290cf2c8030888064c759b7b599505eda5b52bdd841e74
+              pullPolicy: IfNotPresent
+            env:
+              TZ: "${TIMEZONE}"
+            args:
+              - --user-data-dir
+              - "/config/.vscode"
+              - --auth
+              - "none"
+              - --port
+              - "12321"
+              - "/config"
+            volumeMounts:
+              - name: config
+                mountPath: /config
+
     ingress:
       main:
         enabled: true
@@ -47,70 +91,49 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - home-assistant.${SECRET_DOMAIN}
+      codeserver:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "Hass-VSCode"
+          hajimari.io/icon: "microsoft-visual-studio-code"
+          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+        hosts:
+          - host: hass-config.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: codeserver
+                  port: http
+        tls:
+          - hosts:
+              - hass-config.${SECRET_DOMAIN}
+
     service:
       main:
         ports:
           http:
             port: 8123
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
+      codeserver:
+        type: ClusterIP
+        controller: main
+        ports:
+          http:
+            enabled: true
+            port: 12321
+            protocol: TCP
+            targetPort: 12321
+
+
     persistence:
       config:
         enabled: true
         existingClaim: home-assistant-config
-    addons:
-      codeserver:
-        enabled: true
-        image:
-          repository: codercom/code-server
-          tag: 4.17.1
-        env:
-          TZ: "${TIMEZONE}"
-        workingDir: "/config"
-        args:
-          - --auth
-          - "none"
-          - --user-data-dir
-          - "/config/.vscode"
-          - --extensions-dir
-          - "/config/.vscode"
-        ingress:
-          enabled: true
-          annotations:
-            kubernetes.io/ingress.class: "nginx"
-            hajimari.io/enable: "true"
-            hajimari.io/appName: "Hass-VSCode"
-            hajimari.io/icon: "microsoft-visual-studio-code"
-            nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-          hosts:
-            - host: hass-config.${SECRET_DOMAIN}
-              paths:
-                - path: /
-                  pathType: Prefix
-          tls:
-            - hosts:
-                - hass-config.${SECRET_DOMAIN}
-        volumeMounts:
-          - name: config
-            mountPath: /config
-    resources:
-      requests:
-        cpu: 100m
-        memory: 250Mi
-      limits:
-        memory: 1000Mi
