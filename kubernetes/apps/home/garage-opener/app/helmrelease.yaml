@@ -64,7 +64,7 @@ spec:
                   failureThreshold: 3
                   httpGet:
                     path: /status
-                    port: http
+                    port: 8080
                   initialDelaySeconds: 30
                   periodSeconds: 10
                   timeoutSeconds: 10
@@ -75,7 +75,7 @@ spec:
                   failureThreshold: 3
                   httpGet:
                     path: /status
-                    port: http
+                    port: 8080
                   initialDelaySeconds: 30
                   periodSeconds: 10
                   timeoutSeconds: 10
