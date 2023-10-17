@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -23,21 +23,40 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: ghcr.io/onedr0p/readarr-nightly
-      tag: 0.3.9.2268@sha256:348425cafc5f2fd27cab7f6493bccec5d379c31177e2ffea203c7e83780c4b3c
-    env:
-      TZ: "${TIMEZONE}"
-      READARR__PORT: &port 8080
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            supplementalGroups:
+              - 65536
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/readarr-nightly
+              tag: 0.3.9.2268@sha256:348425cafc5f2fd27cab7f6493bccec5d379c31177e2ffea203c7e83780c4b3c
+            env:
+              TZ: "${TIMEZONE}"
+              READARR__PORT: 8080
+            resources:
+              requests:
+                cpu: 15m
+                memory: 110M
+              limits:
+                memory: 250M
+
     service:
       main:
         ports:
           http:
-            port: *port
+            port: 8080
+
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        className: "nginx"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Readarr"
@@ -52,15 +71,13 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - "readarr.${SECRET_DOMAIN}"
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      supplementalGroups:
-        - 65536
+
     persistence:
       config:
         enabled: true
@@ -72,7 +89,8 @@ spec:
             server: ${SECRET_NAS_ADDRESS}
             path: "/volume1/media"
         enabled: true
-        mountPath: /nfs-nas-pvc
+        globalMounts:
+          - path: /nfs-nas-pvc
       media:
         enabled: true
         type: custom
@@ -80,10 +98,5 @@ spec:
           nfs:
             server: "${SECRET_NAS_ADDRESS}"
             path: /volume1/media/Books
-        mountPath: /media
-    resources:
-      requests:
-        cpu: 15m
-        memory: 110M
-      limits:
-        memory: 250M
+        globalMounts:
+          - path: /media

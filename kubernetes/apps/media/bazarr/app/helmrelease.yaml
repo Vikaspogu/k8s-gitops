@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -24,30 +24,54 @@ spec:
     remediation:
       retries: 5
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/bazarr
-      tag: 1.3.1@sha256:840242bb1dfb337e5bfa579af039738bbf9948f6f33deecf451ebdd9ca509e31
-    env:
-      TZ: "${TIMEZONE}"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+        containers:
+          subcleaner:
+            name: subcleaner
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.1.0
+              pullPolicy: IfNotPresent
+            args:
+              - --repo=https://github.com/KBlixt/subcleaner.git
+              - --branch=master
+              - --wait=86400 # 1 day
+              - --root=/add-ons/
+            volumeMounts:
+              - { name: add-ons, mountPath: /add-ons }
+          main:
+            image:
+              repository: ghcr.io/onedr0p/bazarr
+              tag: 1.3.1@sha256:840242bb1dfb337e5bfa579af039738bbf9948f6f33deecf451ebdd9ca509e31
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 50m
+                memory: 250Mi
+              limits:
+                memory: 512Mi
     service:
       main:
         ports:
           http:
             port: 6767
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
+
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        className: "nginx"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:subtitles-outline
@@ -57,20 +81,19 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - "bazarr.${SECRET_DOMAIN}"
-    resources:
-      requests:
-        cpu: 50m
-        memory: 250Mi
-      limits:
-        memory: 512Mi
+
     persistence:
       config:
         enabled: true
         existingClaim: bazarr-config
-        mountPath: /config
+        globalMounts:
+          - path: /config
       media:
         type: custom
         volumeSpec:
@@ -78,25 +101,16 @@ spec:
             server: ${SECRET_NAS_ADDRESS}
             path: "/volume1/media"
         enabled: true
-        mountPath: /nfs-nas-pvc
+        globalMounts:
+          - path: /nfs-nas-pvc
       add-ons:
         enabled: true
         type: emptyDir
-        mountPath: /add-ons
+        globalMounts:
+          - path: /add-ons
       scripts:
         enabled: true
         type: configMap
         name: bazarr-scripts # overriden by kustomizeconfig
         defaultMode: 0775
         readOnly: true
-    sidecars:
-      subcleaner:
-        name: subcleaner
-        image: registry.k8s.io/git-sync/git-sync:v4.1.0
-        args:
-          - --repo=https://github.com/KBlixt/subcleaner.git
-          - --branch=master
-          - --wait=86400 # 1 day
-          - --root=/add-ons/
-        volumeMounts:
-          - { name: add-ons, mountPath: /add-ons }

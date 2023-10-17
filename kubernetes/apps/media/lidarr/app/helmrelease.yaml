@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -23,28 +23,41 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: ghcr.io/onedr0p/lidarr-develop
-      tag: 1.4.5.3639@sha256:8afcbef8d7867849cecfe7a4b3e9db3f02231b0351c73edb2af7c09b892dee23
-    env:
-      TZ: "${TIMEZONE}"
-      LIDARR__PORT: &port 80
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            supplementalGroups:
+              - 65536
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/lidarr-develop
+              tag: 1.4.5.3639@sha256:8afcbef8d7867849cecfe7a4b3e9db3f02231b0351c73edb2af7c09b892dee23
+            env:
+              TZ: "${TIMEZONE}"
+              LIDARR__PORT: &port 80
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 200m
+              limits:
+                memory: 750Mi
+
     service:
       main:
         ports:
           http:
-            port: *port
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      supplementalGroups:
-        - 65536
+            port: 80
+
     ingress:
       main:
         enabled: true
+        className: "nginx"
         annotations:
-          kubernetes.io/ingress.class: "nginx"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Lidarr"
           hajimari.io/icon: music-box
@@ -58,24 +71,13 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - "lidarr.${SECRET_DOMAIN}"
-    metrics:
-      enabled: false
-      serviceMonitor:
-        interval: 3m
-        scrapeTimeout: 1m
-      prometheusRule:
-        enabled: true
-      exporter:
-        image:
-          repository: ghcr.io/onedr0p/exportarr
-          tag: v1.5.5
-        env:
-          port: 9794
-          additionalMetrics: true
-          unknownQueueItems: false
+
     persistence:
       config:
         enabled: true
@@ -87,12 +89,5 @@ spec:
           nfs:
             server: "${SECRET_NAS_ADDRESS}"
             path: /volume1/media
-        mountPath: /nfs-nas-pvc
-      backup:
-        enabled: false
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 200m
-      limits:
-        memory: 750Mi
+        globalMounts:
+          - path: /nfs-nas-pvc

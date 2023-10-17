@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -23,21 +23,33 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.700@sha256:9ae40655d519479d4d70a8d67f929142a0fc2d10df0b75a0947ee3a6c8da7f53
-    env:
-      TZ: "${TIMEZONE}"
-      SONARR__INSTANCE_NAME: Sonarr
-      SONARR__PORT: &port 80
-      SONARR__LOG_LEVEL: info
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.0.700@sha256:9ae40655d519479d4d70a8d67f929142a0fc2d10df0b75a0947ee3a6c8da7f53
+            env:
+              TZ: "${TIMEZONE}"
+              SONARR__INSTANCE_NAME: Sonarr
+              SONARR__PORT: &port 80
+              SONARR__LOG_LEVEL: info
+            resources:
+              requests:
+                cpu: 15m
+                memory: 381M
+              limits:
+                memory: 2000Mi
+
     service:
       main:
         ports:
@@ -46,8 +58,8 @@ spec:
     ingress:
       main:
         enabled: true
+        className: "nginx"
         annotations:
-          kubernetes.io/ingress.class: "nginx"
           hajimari.io/enable: "true"
           hajimari.io/appName: "Sonarr"
           hajimari.io/icon: "television-box"
@@ -61,6 +73,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - "sonarr.${SECRET_DOMAIN}"
@@ -75,10 +90,5 @@ spec:
             server: ${SECRET_NAS_ADDRESS}
             path: "/volume1/media"
         enabled: true
-        mountPath: /nfs-nas-pvc
-    resources:
-      requests:
-        cpu: 15m
-        memory: 381M
-      limits:
-        memory: 2000Mi
+        globalMounts:
+          - path: /nfs-nas-pvc

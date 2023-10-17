@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,11 +22,46 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: ghcr.io/onedr0p/tautulli
-      tag: 2.13.1@sha256:525209414d149214584819313b0ec7507a3259dfa5f8d618692c34b54f172db9
-    env:
-      TZ: "${TIMEZONE}"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+        containers:
+          jbops:
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.1.0
+            resources:
+              requests:
+                cpu: 11m
+                memory: 37M
+              limits:
+                memory: 100M
+            args:
+              - --repo=https://github.com/blacktwin/JBOPS
+              - --ref=master
+              - --period=24h
+              - --root=/add-ons
+            volumeMounts:
+              - { name: add-ons, mountPath: /add-ons }
+          main:
+            image:
+              repository: ghcr.io/onedr0p/tautulli
+              tag: 2.13.1@sha256:525209414d149214584819313b0ec7507a3259dfa5f8d618692c34b54f172db9
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 11m
+                memory: 110M
+              limits:
+                memory: 250Mi
     service:
       main:
         ports:
@@ -35,7 +70,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        className: "nginx"
         annotations:
           hajimari.io/appName: "Tautulli"
           hajimari.io/icon: "chart-bar"
@@ -60,31 +95,3 @@ spec:
       add-ons:
         enabled: true
         type: emptyDir
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-    resources:
-      requests:
-        cpu: 11m
-        memory: 110M
-      limits:
-        memory: 250Mi
-    sidecars:
-      jbops:
-        image: registry.k8s.io/git-sync/git-sync:v4.1.0
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 11m
-            memory: 37M
-          limits:
-            memory: 100M
-        args:
-          - --repo=https://github.com/blacktwin/JBOPS
-          - --ref=master
-          - --period=24h
-          - --root=/add-ons
-        volumeMounts:
-          - { name: add-ons, mountPath: /add-ons }

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -23,24 +23,42 @@ spec:
     remediation:
       retries: 5
   values:
-    controllerType: deployment
-    image:
-      repository: ghcr.io/sct/overseerr
-      tag: 1.33.2
-    env:
-      TZ: "${TIMEZONE}"
-      LOG_LEVEL: "info"
-      PORT: &port 80
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            supplementalGroups:
+              - 65536
+        containers:
+          main:
+            image:
+              repository: ghcr.io/sct/overseerr
+              tag: 1.33.2
+            env:
+              TZ: "${TIMEZONE}"
+              LOG_LEVEL: "info"
+              PORT: &port 80
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 500m
+              limits:
+                memory: 1500Mi
+
     service:
       main:
         ports:
           http:
-            port: *port
+            port: 80
+
     ingress:
       main:
         enabled: true
+        className: "nginx"
         annotations:
-          kubernetes.io/ingress.class: "nginx"
           external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
           hajimari.io/enable: "true"
@@ -58,17 +76,16 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - "overseerr.${SECRET_DOMAIN}"
+
     persistence:
       config:
         enabled: true
         existingClaim: overseerr-config
-        mountPath: /app/config
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 500m
-      limits:
-        memory: 1500Mi
+        globalMounts:
+          - path: /app/config
