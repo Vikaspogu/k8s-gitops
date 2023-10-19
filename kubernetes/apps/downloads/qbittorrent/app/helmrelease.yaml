@@ -56,21 +56,18 @@ spec:
                 memory: 3000Mi
     service:
       main:
-        ports:
-          http:
-            port: 8080
-      bittorrent:
-        enabled: true
         annotations:
           io.cilium/lb-ipam-ips: "${SVC_QBITTORRENT_ADDR}"
         type: LoadBalancer
+        externalTrafficPolicy: Cluster
         ports:
+          http:
+            port: 8080
           bittorrent:
             enabled: true
             port: 56059
             protocol: TCP
             targetPort: 56059
-        externalTrafficPolicy: Cluster
 
     ingress:
       main:
