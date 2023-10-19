@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,27 +26,40 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: zadam/trilium
-      tag: 0.60.4
-    env:
-      TZ: ${TIMEZONE}
-      TRILIUM_PORT: &port 8080
-      TRILIUM_DATA_DIR: /home/node/trilium-data
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: zadam/trilium
+              tag: 0.60.4
+            env:
+              TZ: ${TIMEZONE}
+              TRILIUM_PORT: &port 8080
+              TRILIUM_DATA_DIR: /home/node/trilium-data
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 750Mi
     persistence:
       config:
         enabled: true
         existingClaim: trilium-config
-        mountPath: /home/node/trilium-data
+        globalMounts:
+          - path: /home/node/trilium-data
     service:
       main:
         ports:
           http:
-            port: *port
+            port: 8080
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        className: "nginx"
         annotations:
           hajimari.io/icon: mdi:text
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
@@ -55,12 +68,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    securityContext:
-      privileged: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi

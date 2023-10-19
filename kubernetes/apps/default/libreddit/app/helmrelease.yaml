@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,21 +27,29 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      strategy: RollingUpdate
-    image:
-      repository: ghcr.io/auricom/libreddit
-      tag: 0.30.1
-    env:
-      LIBREDDIT_DEFAULT_THEME: "dracula"
-      LIBREDDIT_DEFAULT_SHOW_NSFW: "on"
-      LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS: "on"
-      LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "FunnyAnimals+homeassistant+selfhosted+investing"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/auricom/libreddit
+              tag: 0.30.1
+            env:
+              LIBREDDIT_DEFAULT_THEME: "dracula"
+              LIBREDDIT_DEFAULT_SHOW_NSFW: "on"
+              LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS: "on"
+              LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "FunnyAnimals+homeassistant+selfhosted+investing"
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 250Mi
     service:
       main:
         ports:
           http:
-            port: &port 8080
+            port: 8080
     probes:
       liveness: &probes
         enabled: true
@@ -49,7 +57,7 @@ spec:
         spec:
           httpGet:
             path: /settings
-            port: *port
+            port: 8080
           initialDelaySeconds: 0
           periodSeconds: 10
           timeoutSeconds: 1
@@ -60,7 +68,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Reddit"
@@ -71,12 +79,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    resources:
-      requests:
-        cpu: 5m
-        memory: 50Mi
-      limits:
-        memory: 250Mi
