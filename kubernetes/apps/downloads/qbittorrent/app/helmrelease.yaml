@@ -107,12 +107,9 @@ spec:
         enabled: true
         existingClaim: qb-config
       nfs-nas-media:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: "/volume1/media"
         globalMounts:
           - path: /nfs-nas-pvc
-            readOnly: false
+            readOnly: true
