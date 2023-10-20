@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,41 +25,44 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: docker.io/1password/connect-api
-      tag: 1.7.2
-    env:
-      OP_BUS_PORT: "11220"
-      OP_BUS_PEERS: "localhost:11221"
-      OP_HTTP_PORT: &port 8080
-      OP_SESSION:
-        valueFrom:
-          secretKeyRef:
-            name: onepassword-connect-secret
-            key: onepassword-credentials.json
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+          annotations:
+            reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/1password/connect-api
+              tag: 1.7.2
+            env:
+              OP_BUS_PORT: "11220"
+              OP_BUS_PEERS: "localhost:11221"
+              OP_HTTP_PORT: &port 8080
+              OP_SESSION:
+                valueFrom:
+                  secretKeyRef:
+                    name: onepassword-connect-secret
+                    key: onepassword-credentials.json
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10Mi
+              limits:
+                memory: 100Mi
     service:
       main:
         ports:
           http:
-            port: *port
+            port: 8080
+
     ingress:
       main:
         enabled: false
-        ingressClassName: "nginx"
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:folder-play-outline
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-        hosts:
-          - host: &host "1pwconnect.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-        tls:
-          - hosts:
-              - *host
+
     probes:
       liveness:
         enabled: true
@@ -81,17 +84,10 @@ spec:
           initialDelaySeconds: 15
       startup:
         enabled: false
-    podSecurityContext:
-      runAsUser: 999
-      runAsGroup: 999
+
     persistence:
       shared:
         enabled: true
         type: emptyDir
-        mountPath: /home/opuser/.op/data
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 100Mi
+        globalMounts:
+          - path: /home/opuser/.op/data

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -23,34 +23,55 @@ spec:
       retries: 5
 
   values:
-    image:
-      repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.17.4
-
-    env:
-      COMPOSE_PROJECT_NAME: paperless
-      PAPERLESS_CONSUMER_POLLING: "60"
-      PAPERLESS_CONSUMER_RECURSIVE: "true"
-      PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
-      PAPERLESS_ENABLE_HTTP_REMOTE_USER: "false"
-      PAPERLESS_OCR_LANGUAGE: eng
-      PAPERLESS_PORT: 8000
-      PAPERLESS_REDIS: redis://localhost:6379
-      PAPERLESS_TASK_WORKERS: 2
-      PAPERLESS_TIKA_ENABLED: 1
-      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
-      PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
-      PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-      PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
-      PAPERLESS_ALLOWED_HOSTS: paperless.${SECRET_DOMAIN}
-      PAPERLESS_TRUSTED_PROXIES: 10.42.0.0/16,10.30.10.0/24,10.30.30.0/24
-      USERMAP_UID: 1002
-      USERMAP_GID: 1002
-
-    envFrom:
-      - secretRef:
-          name: *app
-
+    controllers:
+      main:
+        containers:
+          gotenburg:
+            image:
+              repository: thecodingmachine/gotenberg
+              tag: 7.9.2
+            env:
+              - { name: DISABLE_GOOGLE_CHROME, value: "1" }
+          redis:
+            image:
+              repository: public.ecr.aws/docker/library/redis
+              tag: 7.2.2
+          tika:
+            image:
+              repository: ghcr.io/paperless-ngx/tika
+              tag: 2.9.0-full
+          main:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 1.17.4
+            env:
+              COMPOSE_PROJECT_NAME: paperless
+              PAPERLESS_CONSUMER_POLLING: "60"
+              PAPERLESS_CONSUMER_RECURSIVE: "true"
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+              PAPERLESS_ENABLE_HTTP_REMOTE_USER: "false"
+              PAPERLESS_OCR_LANGUAGE: eng
+              PAPERLESS_PORT: 8000
+              PAPERLESS_REDIS: redis://localhost:6379
+              PAPERLESS_TASK_WORKERS: 2
+              PAPERLESS_TIKA_ENABLED: 1
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
+              PAPERLESS_TIME_ZONE: "${TIMEZONE}"
+              PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
+              PAPERLESS_ALLOWED_HOSTS: paperless.${SECRET_DOMAIN}
+              PAPERLESS_TRUSTED_PROXIES: 10.42.0.0/16,10.30.10.0/24,10.30.30.0/24
+              USERMAP_UID: 1002
+              USERMAP_GID: 1002
+            envFrom:
+              - secretRef:
+                  name: *app
+            resources:
+              requests:
+                cpu: 23m
+                memory: 256M
+              limits:
+                memory: 756M
     service:
       main:
         ports:
@@ -60,7 +81,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        className: "nginx"
         annotations:
           external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
@@ -72,52 +93,38 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
 
     persistence:
       data:
-        enabled: true
-        mountPath: /usr/src/paperless/data
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
         path: "${SECRET_NAS_PAPERLESS_PATH}/data"
+        globalMounts:
+          - path: /usr/src/paperless/data
       media:
         enabled: true
-        mountPath: /usr/src/paperless/media
+        globalMounts:
+          - path: /usr/src/paperless/media
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
         path: "${SECRET_NAS_PAPERLESS_PATH}/media"
       consume:
         enabled: true
-        mountPath: /usr/src/paperless/consume
+        globalMounts:
+          - path: /usr/src/paperless/consume
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
         path: "${SECRET_NAS_PAPERLESS_PATH}/incoming"
       export:
         enabled: true
-        mountPath: /usr/src/paperless/export
+        globalMounts:
+          - path: /usr/src/paperless/export
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
         path: "${SECRET_NAS_PAPERLESS_PATH}/export"
-
-    resources:
-      requests:
-        cpu: 23m
-#        memory: 2975M
-#      limits:
-#        memory: 6572M
-
-    sidecars:
-      gotenburg:
-        image: thecodingmachine/gotenberg:7.9.2
-        imagePullPolicy: IfNotPresent
-        env:
-          - { name: DISABLE_GOOGLE_CHROME, value: "1" }
-      redis:
-        image: public.ecr.aws/docker/library/redis:7.2.2
-        imagePullPolicy: IfNotPresent
-      tika:
-        image: ghcr.io/paperless-ngx/tika:2.9.0-full
-        imagePullPolicy: IfNotPresent

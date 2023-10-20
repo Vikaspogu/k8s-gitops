@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,35 +25,48 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        imagePullPolicy: IfNotPresent
-        envFrom: &envFrom
-          - secretRef:
-              name: babybuddy-secret
-    image:
-      repository: lscr.io/linuxserver/babybuddy
-      tag: v2.0.4-ls102
-    env:
-      TZ: ${TIMEZONE}
-      CSRF_TRUSTED_ORIGINS: https://baby.${SECRET_DOMAIN}
-      DB_ENGINE: django.db.backends.postgresql
-    envFrom: *envFrom
+    controllers:
+      main:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+            envFrom: &envFrom
+              - secretRef:
+                  name: babybuddy-secret
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+
+        containers:
+          main:
+            image:
+              repository: lscr.io/linuxserver/babybuddy
+              tag: v2.0.4-ls102
+            env:
+              TZ: ${TIMEZONE}
+              CSRF_TRUSTED_ORIGINS: https://baby.${SECRET_DOMAIN}
+              DB_ENGINE: django.db.backends.postgresql
+            envFrom: *envFrom
+
     service:
       main:
         ports:
           http:
             port: 8000
+
     persistence:
       config:
         enabled: true
-        mountPath: /config
+        globalMounts:
+          - path: /config
         existingClaim: babybuddy-config
+
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Baby Buddy"
@@ -64,6 +77,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
