@@ -5,5 +5,3 @@ namespace: default
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
-patchesStrategicMerge:
-  - ./patches/sync.yaml
