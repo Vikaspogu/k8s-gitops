@@ -52,13 +52,13 @@ spec:
           enabled: true
           accessModes:
             - ReadWriteMany
-          storageClassName: "ceph-fs"
+          storageClassName: "ceph-filesystem"
           size: 1Gi
         config:
           enabled: true
           accessModes:
             - ReadWriteMany
-          storageClassName: "ceph-fs"
+          storageClassName: "ceph-filesystem"
           size: 1Gi
       metrics:
         enabled: false
