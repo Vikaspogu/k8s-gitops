@@ -12,4 +12,3 @@ resources:
   - ./node-exporter/ks.yaml
   - ./unifi-poller/ks.yaml
   - ./vector/ks.yaml
-  - ./vpa/ks.yaml
