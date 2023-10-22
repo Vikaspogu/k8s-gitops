@@ -96,5 +96,5 @@ spec:
           enabled: true
           accessModes:
             - ReadWriteMany
-          storageClassName: "ceph-fs"
+          storageClassName: "ceph-filesystem"
           size: 100Mi
