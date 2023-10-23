@@ -52,7 +52,7 @@ spec:
               tag: "sha-97475a5"
             env:
               ENVIRONMENT: prod
-              MQTT_BROKER: emqx.home.svc.cluster.local
+              MQTT_BROKER: mosquitto.home.svc.cluster.local
               OPEN_PIN: "15"
             securityContext:
               privileged: true
