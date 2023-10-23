@@ -36,6 +36,11 @@ spec:
       env:
         - name: TZ
           value: "${TIMEZONE}"
+        - name: BOUNCER_KEY_INGRESS
+          valueFrom:
+            secretKeyRef:
+              name: *app
+              key: BOUNCER_KEY_INGRESS
       dashboard:
         enabled: false
       persistentVolume:
@@ -62,20 +67,19 @@ spec:
           memory: 100Mi
     agent:
       env:
+        - name: DISABLE_crONLINE_API
+          value: "true"
+        # As we are running Nginx, we want to install the Nginx collection
+        - name: COLLECTIONS
+          value: "crowdsecurity/nginx crowdsecurity/linux crowdsecurity/base-http-scenarios crowdsecurity/http-cve crowdsecurity/pgsql crowdsecurity/sshd LePresidente/authelia"
+        - name: PARSERS
+          value: "crowdsecurity/cri-logs"
         - name: TZ
           value: "${TIMEZONE}"
-        - name: COLLECTIONS
-          value: >-
-            crowdsecurity/linux
-            crowdsecurity/sshd
-            crowdsecurity/nginx
-            crowdsecurity/base-http-scenarios
-            crowdsecurity/http-cve
-            crowdsecurity/pgsql
-            LePresidente/authelia
-        - name: PARSERS
-          value: >-
-            crowdsecurity/cri-logs
+        - name: DISABLE_ONLINE_API
+          value: "false"
+        - name: TZ
+          value: "${TIMEZONE}"
       acquisition:
         - namespace: networking
           podName: ingress-nginx-controller-*
