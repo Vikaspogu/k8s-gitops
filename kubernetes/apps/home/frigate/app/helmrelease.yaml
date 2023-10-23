@@ -37,7 +37,7 @@ spec:
       enabled: true
     config: |
       mqtt:
-        host: emqx.home.svc.cluster.local
+        host: mosquitto.home.svc.cluster.local
         topic_prefix: frigate
       detectors:
         coral:
