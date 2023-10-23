@@ -28,9 +28,8 @@ spec:
       tag: "7.8"
     strategy:
       type: Recreate
-    envFrom:
-      - secretRef:
-          name: pgadmin
+    envVarsFromSecrets:
+      - pgadmin
     existingSecret: "pgadmin"
     secretKeys:
       pgadminPasswordKey: PGADMIN_DEFAULT_PASSWORD

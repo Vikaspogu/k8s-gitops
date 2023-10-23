@@ -46,7 +46,7 @@ spec:
               tag: v2.0.4-ls102
             env:
               TZ: ${TIMEZONE}
-              CSRF_TRUSTED_ORIGINS: https://baby.${SECRET_DOMAIN}
+              CSRF_TRUSTED_ORIGINS: http://127.0.0.1:8000,https://baby.${SECRET_DOMAIN}
               DB_ENGINE: django.db.backends.postgresql
             envFrom: *envFrom
 
