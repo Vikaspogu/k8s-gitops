@@ -68,6 +68,8 @@ spec:
         default: true
       allowSnippetAnnotations: true
       config:
+        plugins: "crowdsec"
+        lua-shared-dicts: "crowdsec_cache: 50m"
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
