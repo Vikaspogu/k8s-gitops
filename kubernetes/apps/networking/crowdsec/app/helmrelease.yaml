@@ -29,7 +29,7 @@ spec:
     container_runtime: containerd
     image:
       repository: ghcr.io/crowdsecurity/crowdsec
-      tag: v1.5.4
+      tag: v1.5.5
     podAnnotations:
       secret.reloader.stakater.com/reload: *app
     lapi:
