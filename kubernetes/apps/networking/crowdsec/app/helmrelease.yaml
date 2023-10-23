@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app crowdsec
+  namespace: networking
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: *app
+      version: 0.9.9
+      sourceRef:
+        kind: HelmRepository
+        name: crowdsec
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  # https://github.com/crowdsecurity/helm-charts/blob/main/charts/crowdsec/values.yaml
+  values:
+    container_runtime: containerd
+    image:
+      repository: ghcr.io/crowdsecurity/crowdsec
+      tag: v1.5.4
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *app
+    lapi:
+      dashboard:
+        enabled: false
+      persistentVolume:
+        data:
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
+          storageClassName: ceph-block
+          size: 1Gi
+        config:
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
+          storageClassName: ceph-block
+          size: 100Mi
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      strategy:
+        type: Recreate
+      resources:
+        limits:
+          memory: 100Mi
+    agent:
+      env:
+        - name: COLLECTIONS
+          value: >-
+            crowdsecurity/linux
+            crowdsecurity/sshd
+            crowdsecurity/nginx
+            crowdsecurity/base-http-scenarios
+            crowdsecurity/http-cve
+            crowdsecurity/pgsql
+            LePresidente/authelia
+        - name: PARSERS
+          value: >-
+            crowdsecurity/cri-logs
+      acquisition:
+        - namespace: networking
+          podName: ingress-nginx-controller-*
+          program: nginx
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      resources:
+        limits:
+          memory: 100Mi
+      persistentVolume:
+        config:
+          enabled: false

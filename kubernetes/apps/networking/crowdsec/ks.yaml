@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-crowdsec
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-rook-ceph-cluster
+  path: ./kubernetes/apps/networking/crowdsec/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  interval: 10m
+  wait: true
