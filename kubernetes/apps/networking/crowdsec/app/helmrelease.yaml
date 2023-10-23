@@ -36,8 +36,6 @@ spec:
       env:
         - name: TZ
           value: "${TIMEZONE}"
-        - name: DISABLE_ONLINE_API
-          value: "true"
       dashboard:
         enabled: false
       persistentVolume:
@@ -66,8 +64,6 @@ spec:
       env:
         - name: TZ
           value: "${TIMEZONE}"
-        - name: DISABLE_ONLINE_API
-          value: "true"
         - name: COLLECTIONS
           value: >-
             crowdsecurity/linux
