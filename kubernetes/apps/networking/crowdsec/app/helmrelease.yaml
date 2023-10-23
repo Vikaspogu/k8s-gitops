@@ -84,6 +84,9 @@ spec:
         - namespace: networking
           podName: ingress-nginx-controller-*
           program: nginx
+        - namespace: default
+          podName: authelia-*
+          program: authelia
       metrics:
         enabled: true
         serviceMonitor:
