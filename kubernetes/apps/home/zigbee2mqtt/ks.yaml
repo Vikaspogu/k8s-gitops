@@ -17,6 +17,6 @@ spec:
       namespace: home
   interval: 15m
   dependsOn:
-    - name: cluster-apps-emqx
+    - name: cluster-apps-mosquitto
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-ingress-nginx

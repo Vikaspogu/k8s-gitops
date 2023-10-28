@@ -18,6 +18,6 @@ spec:
   interval: 15m
   dependsOn:
     - name: cluster-apps-cloudnative-pg
-    - name: cluster-apps-emqx
+    - name: cluster-apps-mosquitto
     - name: cluster-apps-ingress-nginx
     - name: cluster-apps-external-secrets-stores
