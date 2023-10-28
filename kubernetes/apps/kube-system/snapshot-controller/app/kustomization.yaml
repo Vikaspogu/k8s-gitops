@@ -5,4 +5,4 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./snapshot-controller
-  - ./snapshot-validation-webhook
+  # - ./snapshot-validation-webhook
