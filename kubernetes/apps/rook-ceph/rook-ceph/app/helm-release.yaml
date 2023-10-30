@@ -30,7 +30,7 @@ spec:
       enabled: true
     csi:
       csiAddons:
-        enabled: true
+        enabled: false
       pluginTolerations:
         - key: "k3s-arm"
           operator: "Exists"
