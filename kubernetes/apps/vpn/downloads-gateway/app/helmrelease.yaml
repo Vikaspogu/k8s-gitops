@@ -8,14 +8,13 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: pod-gateway
-      version: 5.6.2
+      version: 6.5.1
+      interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: angelnu
         namespace: flux-system
-      interval: 15m
   maxHistory: 2
   install:
     createNamespace: true
@@ -31,8 +30,60 @@ spec:
     image:
       repository: ghcr.io/angelnu/pod-gateway
       tag: v1.8.1@sha256:690b6365728fe9012ad4cdfca38334992664596513dca187d1b93d2025205776
-    routed_namespaces:
-      - downloads
+    DNS: 172.16.1.1
+
+    addons:
+      vpn:
+        enabled: true
+        type: gluetun
+        image:
+          # TODO: Replace with ghcr.io/qdm12/gluetun when a versioned tag is available
+          repository: docker.io/qmcgaw/gluetun
+          tag: v3.35.0@sha256:a98d1ec99e09a1b806aff7f0c3d8a133a8ede7d3d7a250b62029a39a61f01525
+        env:
+          - name: VPN_SERVICE_PROVIDER
+            value: mullvad
+          - name: VPN_TYPE
+            value: wireguard
+          - name: VPN_INTERFACE
+            value: wg0
+          - name: FIREWALL
+            value: "off"
+          - name: DOT
+            value: "off"
+          - name: SERVER_CITIES
+            value: Chicago IL
+          # - name: SERVER_HOSTNAMES
+          #   value: nl5-wireguard
+        envFrom:
+          - secretRef:
+              name: pod-gateway
+
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+
+        networkPolicy:
+          enabled: true
+          egress:
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: ${VPN_PORT}
+                  protocol: TCP
+                - port: ${VPN_PORT}
+                  protocol: UDP
+            - to:
+                - namespaceSelector: {}
+
+      netshoot:
+        enabled: true
+
+    podAnnotations:
+      secret.reloader.stakater.com/reload: pod-gateway
+
     publicPorts:
       - hostname: qbittorrent
         IP: 10
@@ -62,57 +113,25 @@ spec:
             port: ${VPN_FORWARDED_PORT_1}
           - type: tcp
             port: ${VPN_FORWARDED_PORT_1}
-    DNS: 172.16.1.1
+
+    routed_namespaces:
+      - downloads
+
     settings:
-      VPN_INTERFACE: tun0
-      VXLAN_IP_NETWORK: 172.16.1
       VPN_BLOCK_OTHER_TRAFFIC: true
-      VPN_TRAFFIC_PORT: "${VPN_PORT}"
+      VPN_INTERFACE: wg0
       NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
       VPN_LOCAL_CIDRS: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
+      VPN_TRAFFIC_PORT: "51820"
+      VXLAN_ID: 43
+      VXLAN_IP_NETWORK: 172.16.1
+
     webhook:
-      image:
-        repository: ghcr.io/k8s-at-home/gateway-admision-controller
-        tag: v3.6.0
+      gatewayAnnotation: setGateway
       gatewayDefault: false
       gatewayLabel: setGateway
-      gatewayAnnotation: setGateway
       namespaceSelector:
         label: "routed-gateway"
-    addons:
-      netshoot:
-        enabled: true
-      vpn:
-        enabled: true
-        type: openvpn
-        openvpn:
-          authSecret: openvpn
-        securityContext:
-          privileged: true
-        env:
-          - name: TZ
-            value: "${TIMEZONE}"
-          - name: IPTABLES_BACKEND
-            value: nft
-          - name: KILLSWITCH
-            value: "false"
-        configFileSecret: openvpn
-        resources:
-          requests:
-            cpu: "100m"
-            memory: 64Mi
-          limits:
-            memory: 128Mi
-        networkPolicy:
-          enabled: true
-          egress:
-            - to:
-                - ipBlock:
-                    cidr: 0.0.0.0/0
-              ports:
-                - port: ${VPN_PORT}
-                  protocol: TCP
-                - port: ${VPN_PORT}
-                  protocol: UDP
-            - to:
-                - namespaceSelector: {}
+      image:
+        repository: ghcr.io/angelnu/gateway-admision-controller
+        tag: v3.9.0@sha256:4e169da5af107a9c6c784d3e03c89da07fad45f18358ab5b7177662df12d955a
