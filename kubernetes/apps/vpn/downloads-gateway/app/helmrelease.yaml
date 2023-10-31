@@ -54,7 +54,7 @@ spec:
           - name: SERVER_CITIES
             value: Atlanta GA
           - name: SERVER_HOSTNAMES
-            value: us167-wireguard
+            value: us-atl-wg-107
           - name: LOG_LEVEL
             value: debug
 
