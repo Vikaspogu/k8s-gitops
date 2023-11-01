@@ -29,6 +29,11 @@ sources:
     address: 0.0.0.0:6020
     mode: udp
 
+  unifi_source:
+    type: syslog
+    address: 0.0.0.0:6030
+    mode: udp
+
 #
 # Transforms
 #
@@ -140,4 +145,17 @@ sinks:
       - opnsense_geoip_block
     labels:
       hostname: opnsense
+    out_of_order_action: accept
+
+  unifi:
+    type: loki
+    batch:
+      max_bytes: 2049000
+    encoding:
+      codec: json
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    inputs:
+      - unifi_source
+    labels:
+      hostname: unifi
     out_of_order_action: accept
