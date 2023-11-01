@@ -51,7 +51,7 @@ transforms:
   opnsense_filterlog:
     type: "remap"
     inputs:
-      - "opnsense"
+      - "opnsense_source"
     source: |-
       if .appname == "filterlog" {
         message_array = parse_csv!(string!(.message))
