@@ -6,12 +6,6 @@
   become: false
   tasks:
 
-    - name: Add labels to nodes
-      shell: "kubectl label nodes {{item.name}} {{item.label}} --overwrite"
-      loop:
-        - { name: k8s-2-nuc-6i3syh, label: feature.node.kubernetes.io/custom-coral-tpu=true }
-        - { name: k8s-1-nuc-6cayh, label: feature.node.kubernetes.io/custom-zigbee=true }
-
     - name: Taint arm nodes
       kubernetes.core.k8s:
         state: patched
@@ -26,34 +20,34 @@
       loop:
         - k8s-6-pi4-garage
 
-    - name: Add labels to worker nodes
-      kubernetes.core.k8s:
-        state: patched
-        kind: Node
-        name: "{{ item }}"
-        definition:
-          metadata:
-            labels:
-              node-role.kubernetes.io/worker: "true"
-      loop:
-        - k8s-3-nuc-7i5bnk
-        - k8s-4-nuc-7i5bnk
-        - k8s-5-beelink-ser5-pro
-        - k8s-6-pi4-garage
+    # - name: Add labels to worker nodes
+    #   kubernetes.core.k8s:
+    #     state: patched
+    #     kind: Node
+    #     name: "{{ item }}"
+    #     definition:
+    #       metadata:
+    #         labels:
+    #           node-role.kubernetes.io/worker: "true"
+    #   loop:
+    #     - k8s-3-nuc-7i5bnk
+    #     - k8s-4-nuc-7i5bnk
+    #     - k8s-5-beelink-ser5-pro
+    #     - k8s-6-pi4-garage
 
-    - name: Get a list of all node objects
-      kubernetes.core.k8s_info:
-        api_version: v1
-        kind: Node
-      register: nodes_list
+    # - name: Get a list of all node objects
+    #   kubernetes.core.k8s_info:
+    #     api_version: v1
+    #     kind: Node
+    #   register: nodes_list
 
-    - name: Add k3s-upgrade labels to nodes
-      kubernetes.core.k8s:
-        state: patched
-        kind: Node
-        name: "{{ item.metadata.name }}"
-        definition:
-          metadata:
-            labels:
-              k3s-upgrade: "true"
-      loop: "{{ nodes_list.resources }}"
+    # - name: Add k3s-upgrade labels to nodes
+    #   kubernetes.core.k8s:
+    #     state: patched
+    #     kind: Node
+    #     name: "{{ item.metadata.name }}"
+    #     definition:
+    #       metadata:
+    #         labels:
+    #           k3s-upgrade: "true"
+    #   loop: "{{ nodes_list.resources }}"
