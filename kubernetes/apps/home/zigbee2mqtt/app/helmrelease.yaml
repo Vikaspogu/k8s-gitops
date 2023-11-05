@@ -114,5 +114,5 @@ spec:
       usb:
         enabled: true
         type: hostPath
-        hostPath: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2434255-if00
+        hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0c5862b5a19ded11a3c5d1a5a7669f5d-if00-port0
         hostPathType: CharDevice
