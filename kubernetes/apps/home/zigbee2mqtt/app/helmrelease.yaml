@@ -38,7 +38,7 @@ spec:
         containers:
           main:
             image:
-              repository: koenkk/zigbee2mqtt
+              repository: ghcr.io/koenkk/zigbee2mqtt
               tag: 1.33.2
             env:
               TZ: ${TIMEZONE}
@@ -50,13 +50,14 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
               ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: "false"
               ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
-              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: 8080
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
               ZIGBEE2MQTT_CONFIG_FRONTEND_URL: "https://zigbee2mqtt.${SECRET_DOMAIN}"
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
@@ -78,15 +79,11 @@ spec:
       main:
         ports:
           http:
-            port: 8080
-          metrics:
-            enabled: true
-            port: 9000
+            port: *port
 
     ingress:
       main:
         enabled: true
-        primary: true
         className: "nginx"
         annotations:
           hajimari.io/enable: "true"
@@ -115,4 +112,3 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0c5862b5a19ded11a3c5d1a5a7669f5d-if00-port0
-        hostPathType: CharDevice
