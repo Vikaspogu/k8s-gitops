@@ -57,7 +57,6 @@ spec:
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
-              ZIGBEE2MQTT_CONFIG_FRONTEND: true
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
               ZIGBEE2MQTT_CONFIG_FRONTEND_URL: "https://zigbee2mqtt.${SECRET_DOMAIN}"
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
@@ -67,7 +66,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0c5862b5a19ded11a3c5d1a5a7669f5d-if00-port0
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &serial /dev/ttyUSB0
             securityContext:
               privileged: true
             resources:
@@ -112,4 +111,4 @@ spec:
       usb:
         enabled: true
         type: hostPath
-        hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0c5862b5a19ded11a3c5d1a5a7669f5d-if00-port0
+        hostPath: *serial
