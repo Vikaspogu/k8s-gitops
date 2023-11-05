@@ -29,6 +29,13 @@ spec:
     controllers:
       main:
         pod:
+          securityContext:
+            # runAsUser: 568
+            # runAsGroup: 568
+            # fsGroup: 568
+            # fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 20
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
@@ -66,7 +73,8 @@ spec:
               ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &serial /dev/ttyUSB0
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ezsp
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0c5862b5a19ded11a3c5d1a5a7669f5d-if00-port0
             securityContext:
               privileged: true
             resources:
@@ -111,4 +119,4 @@ spec:
       usb:
         enabled: true
         type: hostPath
-        hostPath: *serial
+        hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0c5862b5a19ded11a3c5d1a5a7669f5d-if00-port0
