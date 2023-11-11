@@ -132,10 +132,18 @@ data:
             type: prowlarr
             url: http://prowlarr.downloads.svc.cluster.local
             key: {{HOMEPAGE_VAR_PROWLARR_API_KEY}}
+      - Bazarr:
+          href: https://bazarr.${SECRET_DOMAIN}
+          icon: bazarr.png
+          description: Subtitles
+          widget:
+            type: bazarr
+            url: http://bazarr.media.svc.cluster.local
+            key: {{HOMEPAGE_VAR_BAZARR_API_KEY}}
       - Radarr:
           href: https://radarr.${SECRET_DOMAIN}
           icon: radarr.png
-          description: TODO
+          description: Movies
           widget:
             type: radarr
             url: http://radarr.media.svc.cluster.local
@@ -143,7 +151,7 @@ data:
       - Sonarr:
           href: https://sonarr.${SECRET_DOMAIN}
           icon: sonarr.png
-          description: TODO
+          description: TV Shows
           widget:
             type: sonarr
             url: http://sonarr.media.svc.cluster.local
