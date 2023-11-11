@@ -107,7 +107,7 @@ data:
               username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
               password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
     - Media:
-      - Jellyfin:
+      - Plex:
           href: https://plex.${SECRET_DOMAIN}
           icon: plex.png
           description: Mediaserver
@@ -121,7 +121,7 @@ data:
           description: TODO
           widget:
             type: qbittorrent
-            url: http://qbittorrent.media.svc.cluster.local
+            url: http://qbittorrent.downloads.svc.cluster.local
             username: ${HOMEPAGE_VAR_QBITTORRENT_USERNAME}
             password: ${HOMEPAGE_VAR_QBITTORRENT_PASSWORD}
       - Prowlarr:
@@ -130,7 +130,7 @@ data:
           description: TODO
           widget:
             type: prowlarr
-            url: http://prowlarr.media.svc.cluster.local
+            url: http://prowlarr.downloads.svc.cluster.local
             key: ${HOMEPAGE_VAR_PROWLARR_API_KEY}
       - Radarr:
           href: https://radarr.${SECRET_DOMAIN}
