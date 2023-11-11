@@ -98,21 +98,21 @@ data:
               tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}
               key: {{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}
         - OPNSense:
-            href: https://router.{{DOMAIN_NAME}}
+            href: https://router.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: cloudflare-zero-trust.png
             description: Router
             widget:
               type: opnsense
-              url: https://router.{{DOMAIN_NAME}}
+              url: https://router.{{HOMEPAGE_VAR_DOMAIN_NAME}}
               username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
               password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
     - Storage:
         - LochNAS:
-            href: https://nas.{{DOMAIN_NAME}}
+            href: https://nas.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: synology-dsm.png
             widget:
               type: diskstation
-              url: https://nas.{{DOMAIN_NAME}}:5001
+              url: https://nas.{{HOMEPAGE_VAR_DOMAIN_NAME}}:5001
               username: {{HOMEPAGE_VAR_DSM_USER}}
               password: {{HOMEPAGE_VAR_DSM_PASSWORD}}
   widgets.yaml: |
@@ -145,7 +145,7 @@ data:
           timeStyle: short
           hourCycle: h23
     - unifi_console:
-        url: https://unifi.{{DOMAIN_NAME}}
+        url: https://unifi.{{HOMEPAGE_VAR_DOMAIN_NAME}}
         username: {{HOMEPAGE_VAR_UNIFI_USER}}
         password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
   docker.yaml: ""
