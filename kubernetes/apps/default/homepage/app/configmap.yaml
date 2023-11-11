@@ -106,13 +106,55 @@ data:
               url: https://router.{{HOMEPAGE_VAR_DOMAIN_NAME}}
               username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
               password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
+    - Media:
+      - Jellyfin:
+          href: https://plex.${SECRET_DOMAIN}
+          icon: plex.png
+          description: Mediaserver
+          widget:
+            type: plex
+            url: http://{{HOMEPAGE_VAR_PLEX_IP}}:32400
+            key: ${HOMEPAGE_VAR_PLEX_API_KEY}
+      - qBittorrent:
+          href: https://qb.${SECRET_DOMAIN}
+          icon: qbittorrent.png
+          description: TODO
+          widget:
+            type: qbittorrent
+            url: http://qbittorrent.media.svc.cluster.local
+            username: ${HOMEPAGE_VAR_QBITTORRENT_USERNAME}
+            password: ${HOMEPAGE_VAR_QBITTORRENT_PASSWORD}
+      - Prowlarr:
+          href: https://prowlarr.${SECRET_DOMAIN}
+          icon: prowlarr.png
+          description: TODO
+          widget:
+            type: prowlarr
+            url: http://prowlarr.media.svc.cluster.local
+            key: ${HOMEPAGE_VAR_PROWLARR_API_KEY}
+      - Radarr:
+          href: https://radarr.${SECRET_DOMAIN}
+          icon: radarr.png
+          description: TODO
+          widget:
+            type: radarr
+            url: http://radarr.media.svc.cluster.local
+            key: ${HOMEPAGE_VAR_RADARR_API_KEY}
+      - Sonarr:
+          href: https://sonarr.${SECRET_DOMAIN}
+          icon: sonarr.png
+          description: TODO
+          widget:
+            type: sonarr
+            url: http://sonarr.media.svc.cluster.local
+            key: ${HOMEPAGE_VAR_SONARR_API_KEY}
     - Storage:
-        - LochNAS:
+        - NAS:
             href: https://nas.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: synology-dsm.png
             widget:
               type: diskstation
-              url: https://nas.{{HOMEPAGE_VAR_DOMAIN_NAME}}:5001
+              url: {{HOMEPAGE_VAR_NAS_IP}}
               username: {{HOMEPAGE_VAR_DSM_USER}}
               password: {{HOMEPAGE_VAR_DSM_PASSWORD}}
   widgets.yaml: |
@@ -145,7 +187,7 @@ data:
           timeStyle: short
           hourCycle: h23
     - unifi_console:
-        url: https://unifi.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+        url: http://{{HOMEPAGE_VAR_UNIFI_IP}}
         username: {{HOMEPAGE_VAR_UNIFI_USER}}
         password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
   docker.yaml: ""
