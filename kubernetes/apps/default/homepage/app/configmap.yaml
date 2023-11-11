@@ -132,6 +132,14 @@ data:
             type: prowlarr
             url: http://prowlarr.downloads.svc.cluster.local
             key: {{HOMEPAGE_VAR_PROWLARR_API_KEY}}
+      - Overseerr:
+          href: https://overseerr.${SECRET_DOMAIN}
+          icon: overseerr.png
+          description: Request media
+          widget:
+            type: overseerr
+            url: http://overseerr.media.svc.cluster.local
+            key: {{HOMEPAGE_VAR_OVERSEERR_API_KEY}}
       - Bazarr:
           href: https://bazarr.${SECRET_DOMAIN}
           icon: bazarr.png
@@ -156,6 +164,21 @@ data:
             type: sonarr
             url: http://sonarr.media.svc.cluster.local
             key: {{HOMEPAGE_VAR_SONARR_API_KEY}}
+    - Personal:
+        - Ghostfolio:
+            href: https://ghostfolio.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: ghostfolio.png
+            widget:
+              type: ghostfolio
+              url: http://ghostfolio.default.svc.cluster.local:3333
+              key: {{HOMEPAGE_VAR_GHOSTFOLIO_API_KEY}}
+        - Miniflux:
+            href: https://miniflux.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: miniflux.png
+            widget:
+              type: miniflux
+              url: http://miniflux.default.svc.cluster.local:8080
+              key: {{HOMEPAGE_VAR_MINIFLUX_API_TOKEN}}
     - Storage:
         - NAS:
             href: https://nas.{{HOMEPAGE_VAR_DOMAIN_NAME}}
