@@ -15,7 +15,6 @@ data:
     # https://simpleicons.org/
     title: Dashboard
     favicon: https://github.com/walkxcode/dashboard-icons/blob/main/png/heimdall.png
-    background: https://wallpapercave.com/wp/wp2766843.jpg?auto=format&fit=crop&w=2560&q=80
     theme: dark
     headerStyle: clean
     hideVersion: true
