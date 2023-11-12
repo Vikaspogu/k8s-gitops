@@ -83,10 +83,12 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: mdi-rss
           external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
           hajimari.io/enable: "true"
-          gethomepage.dev/enabled: "true"
           hajimari.io/icon: mdi:rss
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"

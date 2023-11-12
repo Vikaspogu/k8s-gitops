@@ -97,6 +97,9 @@ spec:
     ingress:
       enabled: true
       annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Ingress
+        gethomepage.dev/icon: mdi-cctv
         kubernetes.io/ingress.class: "nginx"
         hajimari.io/enable: "true"
         hajimari.io/appName: "Frigate"

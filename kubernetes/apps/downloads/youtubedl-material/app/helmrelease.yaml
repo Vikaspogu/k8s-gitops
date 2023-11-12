@@ -70,6 +70,9 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: mdi-youtube
           hajimari.io/enable: "true"
           hajimari.io/appName: "YoutubeDL"
           hajimari.io/icon: youtube

@@ -40,8 +40,10 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
-          hajimari.io/enable: "true"
           gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: mdi-file-pdf
+          hajimari.io/enable: "true"
           hajimari.io/appName: "stirling-pdf"
           hajimari.io/icon: "file-pdf"
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16

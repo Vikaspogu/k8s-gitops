@@ -52,6 +52,9 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: si-tesla
           hajimari.io/enable: "true"
           hajimari.io/icon: "car-connected"
           hajimari.io/appName: ${SECRET_TESLAMATE_DB}

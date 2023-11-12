@@ -81,6 +81,9 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: mdi-home-assistant
           external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
           hajimari.io/enable: "true"
@@ -101,6 +104,9 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: mdi-microsoft-visual-studio-code
           hajimari.io/enable: "true"
           hajimari.io/appName: "Hass-VSCode"
           hajimari.io/icon: "microsoft-visual-studio-code"

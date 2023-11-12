@@ -37,6 +37,8 @@ spec:
           10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         hajimari.io/icon: sawtooth-wave
         hajimari.io/enable: "true"
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Ingress
       hosts:
         - host: &host "gitops.${SECRET_DOMAIN}"
           paths:

@@ -70,8 +70,10 @@ spec:
         enabled: true
         className: nginx
         annotations:
-          hajimari.io/enable: "true"
           gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: reddit.png
+          hajimari.io/enable: "true"
           hajimari.io/appName: "Reddit"
           hajimari.io/icon: simple-icons:reddit
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16

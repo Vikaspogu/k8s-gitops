@@ -64,6 +64,9 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: mdi-cloud-search
           hajimari.io/enable: "true"
           hajimari.io/appName: "Prowlarr"
           hajimari.io/icon: cloud-search

@@ -75,7 +75,6 @@ spec:
         ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          gethomepage.dev/enabled: "true"
           hajimari.io/appName: "Hajimari"
           hajimari.io/icon: "weather-sunset"
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16

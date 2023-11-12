@@ -22,33 +22,18 @@ data:
       searchDescriptions: true
       hideInternetSearch: true
     layout:
-      Security:
-        style: row
-        columns: 2
-        icon: mdi-shield-home
-      Home:
-        style: row
-        columns: 2
-        icon: mdi-home-analytics
       Media:
         style: row
-        columns: 2
+        columns: 3
         icon: mdi-play-circle
-      Personal:
-        style: row
-        columns: 2
-        icon: mdi-monitor-dashboard
       Downloads:
         style: row
         columns: 3
         icon: mdi-download-circle
-      Automation:
+      Personal:
         style: row
         columns: 3
-        icon: mdi-home-automation
-      Monitoring:
-        style: column
-        icon: mdi-monitor-eye
+        icon: mdi-monitor-dashboard
       Infrastructure:
         style: column
         icon: mdi-server-network
@@ -58,6 +43,10 @@ data:
       System:
         style: column
         icon: mdi-application
+      Ingress:
+        style: row
+        columns: 3
+        icon: mdi-routes
   custom.css: ""
   custom.js: ""
   bookmarks.yaml: |
@@ -101,7 +90,7 @@ data:
               url: https://router.{{HOMEPAGE_VAR_DOMAIN_NAME}}
               username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
               password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
-    - Media:
+    - Downloads:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
           icon: qbittorrent.png
@@ -127,6 +116,7 @@ data:
             type: sabnzbd
             url: http://sabnzbd.downloads.svc.cluster.local
             key: {{HOMEPAGE_VAR_SABNZBD_API_KEY}}
+    - Media:
       - Plex:
           href: https://plex.${SECRET_DOMAIN}
           icon: plex.png
