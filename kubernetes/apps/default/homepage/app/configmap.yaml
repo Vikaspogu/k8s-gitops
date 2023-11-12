@@ -117,7 +117,7 @@ data:
           description: TODO
           widget:
             type: prowlarr
-            url: http://prowlarr.downloads.svc.cluster.local
+            url: http://prowlarr.downloads.svc.cluster.local:9696
             key: {{HOMEPAGE_VAR_PROWLARR_API_KEY}}
       - Sabnzbd:
           href: https://sabnzbd.${SECRET_DOMAIN}
