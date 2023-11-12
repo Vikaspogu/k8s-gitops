@@ -58,6 +58,7 @@ spec:
             args:
               - server
               - start
+              - --disable-csrf-token-checks
               - --insecure
               - --address
               - 0.0.0.0:80
