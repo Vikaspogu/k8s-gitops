@@ -83,13 +83,22 @@ data:
     - Infrastructure:
         - OPNSense:
             href: https://router.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: cloudflare-zero-trust.png
+            icon: opnsense.png
             description: Router
             widget:
               type: opnsense
               url: https://router.{{HOMEPAGE_VAR_DOMAIN_NAME}}
               username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
               password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
+        - Proxmox:
+            href: {{HOMEPAGE_VAR_PROXMOX_IP}}
+            icon: proxmox.png
+            description: Proxmox
+            widget:
+              type: proxmox
+              url: {{HOMEPAGE_VAR_PROXMOX_IP}}
+              username: {{HOMEPAGE_VAR_PROXMOX_USER}}
+              password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
     - Downloads:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
