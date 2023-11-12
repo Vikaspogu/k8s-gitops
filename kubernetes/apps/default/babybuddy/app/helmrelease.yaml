@@ -70,7 +70,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-baby
+          gethomepage.dev/icon: babybuddy.png
           hajimari.io/enable: "true"
           hajimari.io/appName: "Baby Buddy"
           hajimari.io/icon: "baby"

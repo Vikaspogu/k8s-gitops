@@ -72,7 +72,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-youtube
+          gethomepage.dev/icon: youtube.png
           hajimari.io/enable: "true"
           hajimari.io/appName: "YoutubeDL"
           hajimari.io/icon: youtube

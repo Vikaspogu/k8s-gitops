@@ -90,7 +90,7 @@ spec:
           hajimari.io/icon: "note-multiple"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-note-multiple
+          gethomepage.dev/icon: paperless-ngx.png
         hosts:
           - host: &host "paperless.${SECRET_DOMAIN}"
             paths:

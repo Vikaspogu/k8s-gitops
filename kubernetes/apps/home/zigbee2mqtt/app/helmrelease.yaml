@@ -91,7 +91,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-zigbee
+          gethomepage.dev/icon: zigbee2mqtt.png
           hajimari.io/enable: "true"
           hajimari.io/icon: zigbee
           hajimari.io/appName: "Zigbee2MQTT"

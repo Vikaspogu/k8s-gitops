@@ -66,7 +66,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-cloud-search
+          gethomepage.dev/icon: prowlarr.png
           hajimari.io/enable: "true"
           hajimari.io/appName: "Prowlarr"
           hajimari.io/icon: cloud-search

@@ -76,7 +76,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-download-network
+          gethomepage.dev/icon: qbittorrent.png
           hajimari.io/enable: "true"
           hajimari.io/appName: "QBtorrent"
           hajimari.io/icon: "download-network"

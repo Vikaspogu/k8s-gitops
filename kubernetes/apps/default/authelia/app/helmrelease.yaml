@@ -39,7 +39,7 @@ spec:
         hajimari.io/icon: shield-account
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Ingress
-        gethomepage.dev/icon: mdi-shield-account
+        gethomepage.dev/icon: authelia.png
       subdomain: auth
       tls:
         enabled: true

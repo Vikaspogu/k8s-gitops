@@ -99,7 +99,7 @@ spec:
       annotations:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Ingress
-        gethomepage.dev/icon: mdi-cctv
+        gethomepage.dev/icon: frigate.png
         kubernetes.io/ingress.class: "nginx"
         hajimari.io/enable: "true"
         hajimari.io/appName: "Frigate"

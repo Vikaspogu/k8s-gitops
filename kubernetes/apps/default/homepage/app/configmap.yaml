@@ -157,6 +157,14 @@ data:
             type: sonarr
             url: http://sonarr.media.svc.cluster.local
             key: {{HOMEPAGE_VAR_SONARR_API_KEY}}
+      - Audiobookshelf:
+          href: https://ab.${SECRET_DOMAIN}
+          icon: audiobookshelf.png
+          description: Audiobooks
+          widget:
+            type: audiobookshelf
+            url: http://audiobookshelf.media.svc.cluster.local
+            key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}
     - Personal:
         - Ghostfolio:
             href: https://ghostfolio.{{HOMEPAGE_VAR_DOMAIN_NAME}}

@@ -42,7 +42,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-file-pdf
+          gethomepage.dev/icon: stirling-pdf.png
           hajimari.io/enable: "true"
           hajimari.io/appName: "stirling-pdf"
           hajimari.io/icon: "file-pdf"

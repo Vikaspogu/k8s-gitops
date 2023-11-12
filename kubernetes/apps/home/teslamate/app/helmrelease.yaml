@@ -54,7 +54,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: si-tesla
+          gethomepage.dev/icon: teslamate.png
           hajimari.io/enable: "true"
           hajimari.io/icon: "car-connected"
           hajimari.io/appName: ${SECRET_TESLAMATE_DB}
