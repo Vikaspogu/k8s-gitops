@@ -34,6 +34,10 @@ data:
         style: row
         columns: 2
         icon: mdi-play-circle
+      Personal:
+        style: row
+        columns: 2
+        icon: mdi-monitor-dashboard
       Downloads:
         style: row
         columns: 3
@@ -88,15 +92,6 @@ data:
               href: https://github.com/vikaspogu/k8s-gitops
   services.yaml: |
     - Infrastructure:
-        - Cloudflared:
-            href: https://dash.cloudflare.com/
-            icon: cloudflare-zero-trust.png
-            description: Cloudflared Tunnel
-            widget:
-              type: cloudflared
-              accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID}}
-              tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}
-              key: {{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}
         - OPNSense:
             href: https://router.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: cloudflare-zero-trust.png
@@ -107,14 +102,6 @@ data:
               username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
               password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
     - Media:
-      - Plex:
-          href: https://plex.${SECRET_DOMAIN}
-          icon: plex.png
-          description: Mediaserver
-          widget:
-            type: plex
-            url: http://{{HOMEPAGE_VAR_PLEX_IP}}:32400
-            key: {{HOMEPAGE_VAR_PLEX_API_KEY}}
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
           icon: qbittorrent.png
@@ -132,6 +119,22 @@ data:
             type: prowlarr
             url: http://prowlarr.downloads.svc.cluster.local
             key: {{HOMEPAGE_VAR_PROWLARR_API_KEY}}
+      - Sabnzbd:
+          href: https://sabnzbd.${SECRET_DOMAIN}
+          icon: sabnzbd.png
+          description: TODO
+          widget:
+            type: sabnzbd
+            url: http://sabnzbd.downloads.svc.cluster.local
+            key: {{HOMEPAGE_VAR_SABNZBD_API_KEY}}
+      - Plex:
+          href: https://plex.${SECRET_DOMAIN}
+          icon: plex.png
+          description: Mediaserver
+          widget:
+            type: plex
+            url: http://{{HOMEPAGE_VAR_PLEX_IP}}:32400
+            key: {{HOMEPAGE_VAR_PLEX_API_KEY}}
       - Overseerr:
           href: https://overseerr.${SECRET_DOMAIN}
           icon: overseerr.png
