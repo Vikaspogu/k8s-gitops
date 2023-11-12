@@ -33,6 +33,7 @@ spec:
             external-dns/is-public: "true"
             hajimari.io/appName: nas
             hajimari.io/enable: "true"
+            gethomepage.dev/enabled: "true"
             hajimari.io/icon: "nas"
             kubernetes.io/ingress.class: "nginx"
           tls:

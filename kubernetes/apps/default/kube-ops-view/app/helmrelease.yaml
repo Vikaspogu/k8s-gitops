@@ -50,6 +50,7 @@ spec:
         className: "nginx"
         annotations:
           hajimari.io/enable: "true"
+          gethomepage.dev/enabled: "true"
           hajimari.io/appName: "kube-ops-view"
           hajimari.io/icon: "server"
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
