@@ -189,6 +189,12 @@ data:
               url: {{HOMEPAGE_VAR_NAS_IP}}
               username: {{HOMEPAGE_VAR_DSM_USER}}
               password: {{HOMEPAGE_VAR_DSM_PASSWORD}}
+        - Kopia:
+            href: https://kopia.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: kopia.png
+            widget:
+              type: kopia
+              url: http://kopia.default.svc.cluster.local:80
   widgets.yaml: |
     - search:
         provider: [google]

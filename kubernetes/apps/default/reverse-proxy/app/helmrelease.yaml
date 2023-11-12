@@ -37,7 +37,7 @@ spec:
             kubernetes.io/ingress.class: "nginx"
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
-            gethomepage.dev/icon: synology.ong
+            gethomepage.dev/icon: synology-dsm.png
           tls:
             - hosts:
                 - nas.${SECRET_DOMAIN}
