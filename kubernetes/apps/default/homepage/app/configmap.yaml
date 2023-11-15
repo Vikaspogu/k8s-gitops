@@ -165,7 +165,7 @@ data:
             key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}
     - Personal:
         - Ghostfolio:
-            href: https://ghostfolio.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            href: https://portfolio.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: ghostfolio.png
             widget:
               type: ghostfolio
