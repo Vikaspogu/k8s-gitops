@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: zadam/trilium
-              tag: 0.61.14
+              tag: 0.62.2
             env:
               TZ: ${TIMEZONE}
               TRILIUM_PORT: &port 8080
