@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: teslamate/teslamate
-              tag: 1.28.0
+              tag: 1.28.1
             envFrom:
               - secretRef:
                   name: teslamate
