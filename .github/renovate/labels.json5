@@ -1,4 +1,5 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],
@@ -11,6 +12,10 @@
     {
       "matchUpdateTypes": ["patch"],
       "labels": ["type/patch"]
+    },
+    {
+      "matchUpdateTypes": ["digest"],
+      "labels": ["type/digest"]
     },
     {
       "matchDatasources": ["docker"],
@@ -39,6 +44,10 @@
     {
       "matchDatasources": ["pypi"],
       "addLabels": ["renovate/pip"]
+    },
+    {
+      "matchDatasources": ["grafana-dashboards", "custom.grafana-dashboards"],
+      "addLabels": ["renovate/grafana-dashboard"]
     }
   ]
 }
