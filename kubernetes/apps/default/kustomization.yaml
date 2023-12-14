@@ -3,17 +3,17 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
-  - ./actual/ks.yaml
+  # - ./actual/ks.yaml
   - ./authelia/ks.yaml
   - ./babybuddy/ks.yaml
   - ./external-secrets/ks.yaml
   - ./ghostfolio/ks.yaml
   - ./hajimari/ks.yaml
-  - ./homepage/ks.yaml
+  # - ./homepage/ks.yaml
   - ./it-tools/ks.yaml
   - ./kopia-web/ks.yaml
   - ./kube-ops-view/ks.yaml
-  - ./libreddit/ks.yaml
+  # - ./libreddit/ks.yaml
   - ./linkding/ks.yaml
   - ./lldap/ks.yaml
   - ./miniflux/ks.yaml
