@@ -34,6 +34,12 @@ spec:
       annotations:
         grafana_folder: System
     backgroundController:
+      resources:
+        limits:
+          memory: 250Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
       serviceMonitor:
         enabled: true
       rbac:
