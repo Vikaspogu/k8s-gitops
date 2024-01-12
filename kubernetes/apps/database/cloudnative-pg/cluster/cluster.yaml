@@ -9,7 +9,7 @@ metadata:
     kyverno.io/ignore: "true"
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.5-12
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1-13
   inheritedMetadata:
     labels:
       kube-image-keeper.enix.io/image-caching-policy: ignore
@@ -19,6 +19,7 @@ spec:
     storageClass: ceph-block
   superuserSecret:
     name: cloudnative-pg-secret
+  enableSuperuserAccess: true
   postgresql:
     parameters:
       max_connections: "600"
@@ -27,7 +28,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v4
+      source: &previousCluster pgsql-v16
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
@@ -36,7 +37,7 @@ spec:
         maxParallel: 8
       destinationPath: &s3 s3://postgres/
       endpointURL: &endpoint http://minio.default.svc:9000
-      serverName: &currentCluster postgres-v5
+      serverName: &currentCluster postgres-v16
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
