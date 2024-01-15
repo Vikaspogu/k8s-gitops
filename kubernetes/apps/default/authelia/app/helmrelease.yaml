@@ -136,17 +136,12 @@ spec:
               redirect_uris: ["https://miniflux.${SECRET_DOMAIN}/oauth2/oidc/callback"]
               userinfo_signing_algorithm: none
       session:
+        name: "${SECRET_DOMAIN}_auth_session"
         redis:
-          high_availability:
-            enabled: true
-            sentinel_name: redis-master
-            nodes:
-              - host: redis-node-0.redis-headless.database.svc.cluster.local
-                port: 26379
-              - host: redis-node-1.redis-headless.database.svc.cluster.local
-                port: 26379
-              - host: redis-node-2.redis-headless.database.svc.cluster.local
-                port: 26379
+          enabled: true
+          enabledSecret: true
+          host: authelia-redis-master.database.svc.cluster.local
+          port: 6379
       storage:
         postgres:
           enabled: true
