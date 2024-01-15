@@ -2,7 +2,7 @@
 timezone: "America/Chicago"
 github_username: "Vikaspogu"
 coredns_addr: "10.43.0.10"
-kube_vip_addr: "10.30.30.200"
+kube_vip_addr: "10.30.30.150"
 cluster_cidr: "10.42.0.0/16"
 service_cidr: "10.43.0.0/16"
 node_cidr: "10.30.30.0/24"

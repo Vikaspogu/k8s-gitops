@@ -5,6 +5,4 @@
 k3s_control_node: false
 k3s_agent:
   node-ip: "{{ ansible_host }}"
-  node-label:
-    node-role.kubernetes.io/worker: "true"
-    k3s-upgrade: "true"
+  pause-image: registry.k8s.io/pause:3.9
