@@ -32,7 +32,7 @@ spec:
     architecture: standalone
     auth:
       enabled: true
-      existingSecret: redis-secrets
+      existingSecret: redis-secret
       existingSecretPasswordKey: redis_password
     master:
       persistence:
