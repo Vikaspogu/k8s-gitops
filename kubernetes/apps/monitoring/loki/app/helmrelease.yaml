@@ -45,7 +45,7 @@ spec:
           reject_old_samples: true
           reject_old_samples_max_age: 168h
           max_cache_freshness_per_query: 10m
-          split_queries_by_interval: 15m
+          split_queries_by_interval: 30m
           ingestion_rate_mb: 50
           ingestion_burst_size_mb: 1000
           per_stream_rate_limit: 5MB
@@ -110,11 +110,12 @@ spec:
         registry: ghcr.io
       ingress:
         enabled: false
-        ingressClassName: nginx
+        ingressclassName: internal
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Loki"
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Observability
+          gethomepage.dev/name: Loki
+          gethomepage.dev/icon: mdi-logs
         hosts:
           - host: &host loki.${SECRET_DOMAIN}
             paths:

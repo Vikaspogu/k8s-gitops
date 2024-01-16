@@ -1,0 +1,12 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: "nas"
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: "10.30.30.100"
+  share: "/volume1/media"
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+mountOptions: ["hard", "noatime"]

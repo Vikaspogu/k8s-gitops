@@ -6,7 +6,7 @@ metadata:
   namespace: media
 spec:
   releaseName: *app
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,13 +15,16 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       main:
@@ -46,13 +49,13 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "nginx"
+        className: external
         annotations:
-          external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Audiobook"
-          hajimari.io/icon: mdi:book-music
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Audiobooks
+          gethomepage.dev/icon: mdi:book-music
           nginx.ingress.kubernetes.io/proxy-body-size: "2G"
           nginx.ingress.kubernetes.io/proxy-buffering: "off"
           nginx.ingress.kubernetes.io/proxy-request-buffering: "off"

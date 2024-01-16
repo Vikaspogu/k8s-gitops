@@ -5,7 +5,7 @@ metadata:
   name: home-assistant
   namespace: home
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -14,10 +14,8 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 15m
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -79,16 +77,12 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "nginx"
+        className: external
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Ingress
+          gethomepage.dev/group: Home
           gethomepage.dev/icon: home-assistant.png
-          external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "home-assistant"
-          hajimari.io/appName: "Home Assistant"
         hosts:
           - host: home-assistant.${SECRET_DOMAIN}
             paths:
@@ -102,15 +96,11 @@ spec:
               - home-assistant.${SECRET_DOMAIN}
       codeserver:
         enabled: true
-        className: "nginx"
+        className: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: code-server.png
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Hass-VSCode"
-          hajimari.io/icon: "microsoft-visual-studio-code"
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         hosts:
           - host: hass-config.${SECRET_DOMAIN}
             paths:

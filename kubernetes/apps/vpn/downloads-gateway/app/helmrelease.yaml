@@ -5,19 +5,17 @@ metadata:
   name: downloads-gateway
   namespace: vpn
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: pod-gateway
       version: 6.5.1
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: angelnu
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:

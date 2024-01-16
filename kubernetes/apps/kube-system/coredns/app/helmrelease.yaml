@@ -1,9 +1,8 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: coredns
-  namespace: kube-system
 spec:
   interval: 30m
   chart:
@@ -28,13 +27,6 @@ spec:
     fullnameOverride: coredns
     replicaCount: 1
     k8sAppLabelOverride: kube-dns
-    resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
-      requests:
-        cpu: 100m
-        memory: 128M
     service:
       name: kube-dns
       clusterIP: "${COREDNS_ADDR}"

@@ -5,7 +5,7 @@ metadata:
   name: weave-gitops
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: weave-gitops
@@ -14,9 +14,8 @@ spec:
         kind: HelmRepository
         name: weave-gitops
         namespace: flux-system
-  maxHistory: 3
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -31,7 +30,7 @@ spec:
       username: admin
     ingress:
       enabled: true
-      className: nginx
+      className: internal
       annotations:
         nginx.ingress.kubernetes.io/whitelist-source-range: |
           10.0.0.0/8,172.16.0.0/12,192.168.0.0/16

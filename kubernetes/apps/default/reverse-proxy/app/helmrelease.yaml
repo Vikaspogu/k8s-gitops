@@ -5,7 +5,7 @@ metadata:
   name: reverse-proxy
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: reverse-proxy
@@ -14,7 +14,17 @@ spec:
         kind: HelmRepository
         name: angelnu
         namespace: flux-system
-      interval: 15m
+      interval: 30m
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     generateTLS:
       enabled: true
@@ -30,11 +40,7 @@ spec:
         ingress:
           annotations:
             external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
-            external-dns/is-public: "true"
-            hajimari.io/appName: nas
-            hajimari.io/enable: "true"
-            hajimari.io/icon: "nas"
-            kubernetes.io/ingress.class: "nginx"
+            kubernetes.io/ingress.class: "external"
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
             gethomepage.dev/icon: synology-dsm.png

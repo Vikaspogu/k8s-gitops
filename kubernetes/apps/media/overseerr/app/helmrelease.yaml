@@ -5,7 +5,7 @@ metadata:
   name: overseerr
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -14,14 +14,16 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 15m
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       main:
@@ -57,12 +59,12 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "nginx"
+        className: internal
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Overseerr"
-          hajimari.io/icon: eye-circle
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Overseerr
+          gethomepage.dev/icon: eye-circle
         hosts:
           - host: "overseerr.${SECRET_DOMAIN}"
             paths:

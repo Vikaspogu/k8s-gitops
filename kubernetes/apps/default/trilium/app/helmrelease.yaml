@@ -15,14 +15,14 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 5
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
   uninstall:
     keepHistory: false
   values:
@@ -59,10 +59,12 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "nginx"
+        className: internal
         annotations:
-          hajimari.io/icon: mdi:text
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Home
+          gethomepage.dev/name: Trillium
+          gethomepage.dev/icon: mdi-text
         hosts:
           - host: &host "trilium.${SECRET_DOMAIN}"
             paths:

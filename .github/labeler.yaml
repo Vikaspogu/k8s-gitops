@@ -2,9 +2,9 @@
 area/ansible:
   - changed-files:
       - any-glob-to-any-file: ansible/**/*
-area/docs:
+area/bootstrap:
   - changed-files:
-      - any-glob-to-any-file: docs/**/*
+      - any-glob-to-any-file: bootstrap/**/*
 area/github:
   - changed-files:
       - any-glob-to-any-file: .github/**/*

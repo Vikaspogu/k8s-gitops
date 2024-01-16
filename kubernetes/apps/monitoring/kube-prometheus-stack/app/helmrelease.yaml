@@ -5,7 +5,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
@@ -17,13 +17,10 @@ spec:
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
-    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
     remediation:
       retries: 3
   uninstall:
@@ -35,12 +32,12 @@ spec:
       ingress:
         enabled: true
         pathType: Prefix
-        ingressClassName: "nginx"
+        ingressclassName: internal
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Alerts"
-          hajimari.io/icon: "alert"
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Observability
+          gethomepage.dev/name: Alert Manager
+          gethomepage.dev/icon: "alert"
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
         tls:
@@ -125,12 +122,12 @@ spec:
       ingress:
         enabled: true
         pathType: Prefix
-        ingressClassName: "nginx"
+        ingressclassName: internal
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: simple-icons:prometheus
-          hajimari.io/name: "Prometheus"
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Observability
+          gethomepage.dev/name: Prometheus
+          gethomepage.dev/icon: simple-icons:prometheus
         hosts:
           - &host "prometheus.${SECRET_DOMAIN}"
         tls:

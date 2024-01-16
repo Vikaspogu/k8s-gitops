@@ -5,7 +5,7 @@ metadata:
   name: &app minio
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -14,13 +14,16 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       main:
@@ -77,15 +80,11 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
+        className: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: minio-light.png
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-          hajimari.io/icon: mdi:pail
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Minio"
         hosts:
           - host: &host-console "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -99,9 +98,8 @@ spec:
               - *host-console
       s3:
         enabled: true
-        className: nginx
+        className: external
         annotations:
-          external-dns/is-public: "true"
           external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
           nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-body-size: 1024m

@@ -5,7 +5,7 @@ metadata:
   name: readarr
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -14,14 +14,16 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 15m
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       main:
@@ -56,12 +58,12 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "nginx"
+        className: internal
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Readarr"
-          hajimari.io/icon: book-open-page-variant-outline
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Readarr
+          gethomepage.dev/icon: mdi-book-open-page-variant-outline
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/readarr/dracula.css"></head>';

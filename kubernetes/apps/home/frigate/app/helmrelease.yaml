@@ -5,7 +5,7 @@ metadata:
   name: frigate
   namespace: home
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       # renovate: registryUrl=https://blakeblackshear.github.io/blakeshome-charts/
@@ -15,14 +15,16 @@ spec:
         kind: HelmRepository
         name: blakeshome
         namespace: flux-system
-      interval: 15m
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     image:
       repository: docker.io/blakeblackshear/frigate
@@ -101,10 +103,6 @@ spec:
         gethomepage.dev/group: Ingress
         gethomepage.dev/icon: frigate.png
         kubernetes.io/ingress.class: "nginx"
-        hajimari.io/enable: "true"
-        hajimari.io/appName: "Frigate"
-        hajimari.io/icon: cctv
-        nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
       hosts:
         - host: "frigate.${SECRET_DOMAIN}"
           paths:

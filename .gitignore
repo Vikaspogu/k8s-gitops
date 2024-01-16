@@ -1,15 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 # Trash
 .DS_Store
 Thumbs.db
 # k8s
 kubeconfig
-# vscode-sops
 .decrypted~*.yaml
 .config.env
 *.agekey
 *.pub
 *.key
+# Private
+.private
 # Ansible
-xanmanning.k3s*
 .venv*
+# Taskfile
+.task
+# Brew
+Brewfile.lock.json
+# intellij
+.idea
+# wiki
+wiki
 *backup
