@@ -11,10 +11,9 @@ resources:
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
   - ./coredns.yaml
-  - ./crowdsec.yaml
+  - ./csi-driver-nfs.yaml
   - ./descheduler.yaml
   - ./dysnix.yaml
-  - ./emqx.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./fairwinds.yaml
@@ -23,15 +22,14 @@ resources:
   - ./ingress-nginx.yaml
   - ./intel.yaml
   - ./jetstack.yaml
-  - ./k8s-at-home.yaml
   - ./k8s-gateway.yaml
   - ./kubereboot.yaml
   - ./kubernetes-dashboard.yaml
   - ./kyverno.yaml
   - ./lwolf.yaml
-  - ./metallb.yaml
   - ./metrics-server.yaml
   - ./node-feature-discovery.yaml
+  - ./openebs.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml

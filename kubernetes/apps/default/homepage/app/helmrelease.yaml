@@ -1,9 +1,8 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: homepage
-  namespace: default
 spec:
   interval: 30m
   chart:
@@ -14,43 +13,43 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
+    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       main:
-        replicas: 1
-        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-
         containers:
           main:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.8.4
             env:
-              TZ: ${TIMEZONE}
+              TZ: "${TIMEZONE}"
             envFrom:
               - secretRef:
                   name: homepage-secret
             resources:
               requests:
                 cpu: 15m
-                memory: 200M
+                memory: 250M
               limits:
-                memory: 500Mi
-
+                memory: 1G
     service:
       main:
         ports:
           http:
             port: 3000
-
     ingress:
       main:
         enabled: true
@@ -68,7 +67,6 @@ spec:
         tls:
           - hosts:
               - *host
-
     persistence:
       config:
         enabled: true
@@ -87,6 +85,5 @@ spec:
             path: /app/config/settings.yaml
           - subPath: widgets.yaml
             path: /app/config/widgets.yaml
-
     serviceAccount:
       create: true

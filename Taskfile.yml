@@ -1,39 +1,78 @@
 ---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
 vars:
-  PYTHON_BIN: python3
-  PROJECT_DIR:
-    sh: "git rev-parse --show-toplevel"
+  BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
   ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
 
 env:
   KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
-  SOPS_AGE_KEY_FILE: ~/.config/sops/age/keys.txt
-  PATH: "{{.ROOT_DIR}}/.venv/bin:$PATH"
-  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
-  ANSIBLE_COLLECTIONS_PATH: "{{.ROOT_DIR}}/.venv/galaxy"
-  ANSIBLE_ROLES_PATH: "{{.ROOT_DIR}}/.venv/galaxy/ansible_roles"
-  ANSIBLE_VARS_ENABLED: "host_group_vars,community.sops.sops"
-  K8S_AUTH_KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
 
 includes:
-  ansible: .taskfiles/AnsibleTasks.yml
-  cluster: .taskfiles/ClusterTasks.yml
-  precommit: .taskfiles/PrecommitTasks.yml
-  snapshot: .taskfiles/SnapshotTasks.yml
-  brew: .taskfiles/BrewTasks.yaml
+  ansible: .taskfiles/Ansible/Taskfile.yaml
+  kubernetes:
+    aliases: ["k8s"]
+    taskfile: .taskfiles/Kubernetes/Taskfile.yaml
+  flux: .taskfiles/Flux/Taskfile.yaml
+  k0s: .taskfiles/K0s/Taskfile.yaml
+  repo: .taskfiles/Repo/Taskfile.yaml
+  sops: .taskfiles/Sops/Taskfile.yaml
+  workstation: .taskfiles/Workstation/Taskfile.yaml
   volsync: .taskfiles/VolSync/Tasks.yaml
 
 tasks:
 
   default: task -l
 
-  deps:
-    desc: Create a Python virtual env and install required packages
+  init:
+    desc: Initialize configuration files
     cmds:
-      - "{{.PYTHON_BIN}} -m venv {{.ROOT_DIR}}/.venv"
-      - .venv/bin/python3 -m pip install --upgrade pip setuptools wheel
-      - .venv/bin/python3 -m pip install --upgrade --requirement "{{.ROOT_DIR}}/requirements.txt"
-      - .venv/bin/ansible-galaxy install --role-file "{{.ROOT_DIR}}/requirements.yaml" --force
+      - cp -n {{.BOOTSTRAP_DIR}}/vars/addons.sample.yaml {{.BOOTSTRAP_DIR}}/vars/addons.yaml
+      - cp -n {{.BOOTSTRAP_DIR}}/vars/config.sample.yaml {{.BOOTSTRAP_DIR}}/vars/config.yaml
+      - cmd: echo "=== Configuration files copied ==="
+        silent: true
+      - cmd: echo "Proceed with updating the configuration files..."
+        silent: true
+      - cmd: echo "{{.BOOTSTRAP_DIR}}/vars/config.yaml"
+        silent: true
+      - cmd: echo "{{.BOOTSTRAP_DIR}}/vars/addons.yaml"
+        silent: true
+    status:
+      - test -f "{{.BOOTSTRAP_DIR}}/vars/addons.yaml"
+      - test -f "{{.BOOTSTRAP_DIR}}/vars/config.yaml"
+
+  configure:
+    desc: Configure repository from Ansible vars
+    prompt: Any conflicting config in the root kubernetes and ansible directories will be overwritten... continue?
+    cmds:
+      - task: .pre-validate
+      - task: .template
+      - task: .post-validate
+
+  .pre-validate:
+    internal: true
+    cmd: ./.venv/bin/ansible-playbook {{.BOOTSTRAP_DIR}}/validate.yaml
+    env:
+      ANSIBLE_DISPLAY_SKIPPED_HOSTS: "false"
+    preconditions:
+      - { msg: "addons file not found", sh: "test -f {{.BOOTSTRAP_DIR}}/vars/addons.yaml" }
+      - { msg: "config file not found", sh: "test -f {{.BOOTSTRAP_DIR}}/vars/config.yaml" }
+
+  .template:
+    internal: true
+    cmds:
+      - ./.venv/bin/makejinja --force
+      - task: sops:encrypt:all
+    preconditions:
+      - { msg: "bootstrap addons file not found", sh: "test -f {{.BOOTSTRAP_DIR}}/vars/addons.yaml" }
+      - { msg: "bootstrap config file not found", sh: "test -f {{.BOOTSTRAP_DIR}}/vars/config.yaml" }
+      - { msg: "makejinja loader file not found", sh: "test -f {{.BOOTSTRAP_DIR}}/scripts/loader.py" }
+      - { msg: "makejinja config file not found", sh: "test -f {{.ROOT_DIR}}/makejinja.toml" }
+
+  .post-validate:
+    internal: true
+    cmd: ./.github/scripts/kubeconform.sh {{.KUBERNETES_DIR}}
+    preconditions:
+      - { msg: "kubeconform file not found", sh: "test -f ./.github/scripts/kubeconform.sh" }

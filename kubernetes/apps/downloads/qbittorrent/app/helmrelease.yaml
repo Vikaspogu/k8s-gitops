@@ -6,7 +6,7 @@ metadata:
   namespace: downloads
 spec:
   releaseName: qbittorrent
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,15 +15,14 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 15m
-  maxHistory: 5
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
   uninstall:
     keepHistory: false
   values:
@@ -72,10 +71,10 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "nginx"
+        className: internal
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Ingress
+          gethomepage.dev/group: Media
           gethomepage.dev/icon: qbittorrent.png
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
           # Custom themes provided by https://github.com/gilbN/theme.park

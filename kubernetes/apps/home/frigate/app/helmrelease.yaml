@@ -5,7 +5,7 @@ metadata:
   name: frigate
   namespace: home
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       # renovate: registryUrl=https://blakeblackshear.github.io/blakeshome-charts/
@@ -15,14 +15,16 @@ spec:
         kind: HelmRepository
         name: blakeshome
         namespace: flux-system
-      interval: 15m
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     image:
       repository: docker.io/blakeblackshear/frigate

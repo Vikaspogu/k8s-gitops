@@ -6,7 +6,7 @@ metadata:
   name: kyverno
   namespace: kyverno
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: kyverno
@@ -17,13 +17,12 @@ spec:
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
   uninstall:
     keepHistory: false
   values:

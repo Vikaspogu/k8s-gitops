@@ -5,7 +5,7 @@ metadata:
   name: &app pgadmin4
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: pgadmin4
@@ -14,13 +14,16 @@ spec:
         kind: HelmRepository
         name: runix
         namespace: flux-system
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     image:
       registry: docker.io

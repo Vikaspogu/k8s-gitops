@@ -5,7 +5,7 @@ metadata:
   name: hajimari
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       # renovate: registryUrl=https://hajimari.io
@@ -15,14 +15,16 @@ spec:
         kind: HelmRepository
         name: hajimari
         namespace: flux-system
-      interval: 15m
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     image:
       repository: ghcr.io/toboshii/hajimari
@@ -72,12 +74,11 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        ingressClassName: "internal"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Hajimari"
           hajimari.io/icon: "weather-sunset"
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         hosts:
           - host: "hajimari.${SECRET_DOMAIN}"
             paths:
