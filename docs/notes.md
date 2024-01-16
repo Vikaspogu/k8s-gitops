@@ -6,6 +6,16 @@
 
 ## OS
 
+### NVME
+
+Erase nvme disk
+
+```bash
+sudo apt install nvme-cli
+systemtctl suspend #if below command fails
+sudo nvme format -s1 /dev/nvme0n1
+```
+
 ### Resize
 
 ```bash
