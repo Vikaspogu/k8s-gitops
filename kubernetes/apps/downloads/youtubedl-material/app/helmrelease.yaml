@@ -73,9 +73,6 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: youtube.png
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "YoutubeDL"
-          hajimari.io/icon: youtube
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         hosts:
           - host: &host "youtubedl.${SECRET_DOMAIN}"

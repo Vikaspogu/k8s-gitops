@@ -72,9 +72,9 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
-          hajimari.io/appName: "Tautulli"
-          hajimari.io/icon: "chart-bar"
-          hajimari.io/enable: "true"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: tautulli.png
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
