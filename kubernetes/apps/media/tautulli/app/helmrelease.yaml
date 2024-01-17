@@ -36,7 +36,7 @@ spec:
           jbops:
             image:
               repository: registry.k8s.io/git-sync/git-sync
-              tag: v4.1.0
+              tag: v4.2.0
             resources:
               requests:
                 cpu: 11m
