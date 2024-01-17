@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: pgadmin4
     app.kubernetes.io/name: pgadmin4
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce
