@@ -50,12 +50,13 @@ jobs:
     needs: ["changed-clusters"]
     permissions:
       pull-requests: write
+    if: ${{ needs.changed-files.outputs.matrix != '[]' }}
     strategy:
       matrix:
-        paths: ${{ fromJSON(needs.changed-clusters.outputs.matrix) }}
-        resources: ["helmrelease", "kustomization"]
-      max-parallel: 4
-      fail-fast: false
+        paths: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
+        resources:
+          - helmrelease
+          - kustomization
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@v1
