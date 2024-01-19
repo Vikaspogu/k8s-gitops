@@ -40,7 +40,7 @@ data:
             - icon: github.png
               href: https://github.com/onedr0p/flux-cluster-template
   services.yaml: |
-    - Network:
+    - Infrastructure:
         - Cloudflared:
             href: https://dash.cloudflare.com
             icon: cloudflare-zero-trust.png
@@ -50,7 +50,6 @@ data:
               accountid: "{{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID}}"
               tunnelid: "{{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}"
               key: "{{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}"
-    - Infrastructure:
         - OPNSense:
             href: {{HOMEPAGE_VAR_OPNSENSE_URL}}
             icon: opnsense.png

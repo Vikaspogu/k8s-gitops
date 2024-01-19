@@ -4,4 +4,3 @@ namespace: observability
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./dashboards

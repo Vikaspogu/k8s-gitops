@@ -1,12 +1,19 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: observability
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./scrapeconfigs
+  - ./prometheusrules
 configMapGenerator:
   - name: alertmanager-config-tpl
     files:
-      - alertmanager.yaml=./config/alertmanager.yaml
+      - alertmanager.yaml=./resources/alertmanager.yaml
+  - name: kube-state-metrics-configmap
+    files:
+      - kube-state-metrics.yaml=./resources/kube-state-metrics.yaml
 generatorOptions:
   disableNameSuffixHash: true
