@@ -20,7 +20,8 @@ includes:
   repo: .taskfiles/Repo/Taskfile.yaml
   sops: .taskfiles/Sops/Taskfile.yaml
   workstation: .taskfiles/Workstation/Taskfile.yaml
-  volsync: .taskfiles/VolSync/Tasks.yaml
+  volsync: .taskfiles/VolSync/Taskfile.yaml
+  snapshot: .taskfiles/Snapshot/Taskfile.yaml
 
 tasks:
 

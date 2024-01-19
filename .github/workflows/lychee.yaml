@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: "Lychee"
 
 on:
@@ -7,10 +8,9 @@ on:
     branches: ["main"]
     paths: [".github/workflows/lychee.yaml"]
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *" # Every day at midnight
 
 env:
-  LYCHEE_OUTPUT: lychee/out.md
   WORKFLOW_ISSUE_TITLE: "Link Checker Dashboard 🔗"
 
 jobs:
@@ -18,20 +18,45 @@ jobs:
     name: Lychee
     runs-on: ubuntu-latest
     steps:
-      - name: Scan for broken links
-        uses: lycheeverse/lychee-action@v1
-        id: lychee
+      - name: Generate Token
+        uses: actions/create-github-app-token@v1
+        id: app-token
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          args: --verbose --no-progress --exclude-mail './**/*.md'
-          output: "${{ env.LYCHEE_OUTPUT }}"
-          debug: true
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: "${{ steps.app-token.outputs.token }}"
+
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Setup Workflow Tools
+        shell: bash
+        run: brew install lychee
+
+      - name: Scan For Broken Links
+        shell: bash
+        env:
+          GITHUB_TOKEN: "${{ steps.app-token.outputs.token }}"
+        run: |
+          lychee --verbose --no-progress \
+              --format markdown \
+              --output results.md \
+              --exclude-all-private \
+              --exclude-mail \
+              ./**/*.md || true
+
+      - name: Print Output
+        run: cat results.md
 
       - name: Find Link Checker Issue
         id: find-issue
         shell: bash
         env:
-          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GH_TOKEN: "${{ steps.app-token.outputs.token }}"
         run: |
           issue_number=$( \
               gh issue list \
@@ -46,7 +71,7 @@ jobs:
       - name: Create or Update Issue
         uses: peter-evans/create-issue-from-file@v4
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
+          token: "${{ steps.app-token.outputs.token }}"
           title: "${{ env.WORKFLOW_ISSUE_TITLE }}"
           issue-number: "${{ steps.find-issue.outputs.issue-number || '' }}"
-          content-filepath: "${{ env.LYCHEE_OUTPUT }}"
+          content-filepath: results.md

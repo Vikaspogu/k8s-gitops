@@ -6,19 +6,19 @@
   become: false
   tasks:
 
-    - name: Taint arm nodes
-      kubernetes.core.k8s:
-        state: patched
-        kind: Node
-        name: "{{ item }}"
-        definition:
-          spec:
-            taints:
-              - effect: NoSchedule
-                key: k3s-arm
-                value: "true"
-      loop:
-        - k8s-6-pi4-garage
+    # - name: Taint arm nodes
+    #   kubernetes.core.k8s:
+    #     state: patched
+    #     kind: Node
+    #     name: "{{ item }}"
+    #     definition:
+    #       spec:
+    #         taints:
+    #           - effect: NoSchedule
+    #             key: k3s-arm
+    #             value: "true"
+    #   loop:
+    #     - k8s-6-pi4-garage
 
     - name: Add labels to worker nodes
       kubernetes.core.k8s:
@@ -30,10 +30,8 @@
             labels:
               node-role.kubernetes.io/worker: "true"
       loop:
-        - k8s-3-nuc-7i5bnk
-        - k8s-4-nuc-7i5bnk
-        - k8s-5-beelink-ser5-pro
-        - k8s-6-pi4-garage
+        - k8s-3-un1265
+        - k8s-4-ser
 
     - name: Get a list of all node objects
       kubernetes.core.k8s_info:

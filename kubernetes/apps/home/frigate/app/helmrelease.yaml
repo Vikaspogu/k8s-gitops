@@ -102,8 +102,7 @@ spec:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Ingress
         gethomepage.dev/icon: frigate.png
-        kubernetes.io/ingress.class: "nginx"
-        nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+        kubernetes.io/ingress.class: "internal"
       hosts:
         - host: "frigate.${SECRET_DOMAIN}"
           paths:

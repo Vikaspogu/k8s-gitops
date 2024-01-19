@@ -37,8 +37,7 @@ spec:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: "database"
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          gethomepage.dev/icon: "si-ceph"
         host:
           name: &host "rook.${SECRET_DOMAIN}"
           path: "/"
@@ -51,13 +50,9 @@ spec:
       [global]
       bdev_enable_discard = true
       bdev_async_discard = true
-      osd_class_update_on_start = false
     cephClusterSpec:
       network:
         provider: host
-        connections:
-          compression:
-            enabled: true
       crashCollector:
         disable: false
       dashboard:
@@ -70,13 +65,13 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "k8s-2-nuc-6i3syh"
+          - name: "k8s-2-7i5bnk"
             devices:
               - name: "nvme0n1"
-          - name: "k8s-4-nuc-7i5bnk"
+          - name: "k8s-3-ser"
             devices:
               - name: "nvme0n1"
-          - name: "k8s-5-beelink-ser5-pro"
+          - name: "k8s-4-un1265"
             devices:
               - name: "nvme0n1"
     cephBlockPools:
@@ -118,14 +113,13 @@ spec:
             resources:
               requests:
                 cpu: 1000m
-                memory: 4Gi
+                memory: 1Gi
               limits:
                 memory: 4Gi
         storageClass:
           enabled: true
           isDefault: false
           name: ceph-filesystem
-          pool: data0
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           parameters:
@@ -156,8 +150,8 @@ spec:
                 cpu: 1000m
                 memory: 1Gi
               limits:
-                memory: 2Gi
-            instances: 2
+                memory: 4Gi
+            instances: 1
           healthCheck:
             bucket:
               interval: 60s

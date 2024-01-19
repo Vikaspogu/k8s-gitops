@@ -28,7 +28,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster pgsql-v16-0113
+      source: &previousCluster pgsql-v16-0115
   backup:
     retentionPolicy: 20d
     barmanObjectStore:
@@ -37,7 +37,7 @@ spec:
         maxParallel: 8
       destinationPath: &s3 s3://postgres/
       endpointURL: &endpoint http://minio.default.svc:9000
-      serverName: &currentCluster pgsql-v16-0115
+      serverName: &currentCluster pgsql-v16-0118
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
