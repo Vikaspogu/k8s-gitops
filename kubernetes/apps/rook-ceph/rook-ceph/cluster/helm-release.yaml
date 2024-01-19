@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -68,10 +67,10 @@ spec:
           - name: "k8s-2-7i5bnk"
             devices:
               - name: "nvme0n1"
-          - name: "k8s-3-ser"
+          - name: "k8s-3-un1265"
             devices:
               - name: "nvme0n1"
-          - name: "k8s-4-un1265"
+          - name: "k8s-4-ser"
             devices:
               - name: "nvme0n1"
     cephBlockPools:
