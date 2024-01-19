@@ -4,10 +4,9 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./grafana/ks.yaml
-  - ./kube-state-metrics/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./kubernetes-dashboard/ks.yaml
   - ./loki/ks.yaml
-  - ./node-exporter/ks.yaml
+  - ./smartctl-exporter/ks.yaml
   - ./unifi-poller/ks.yaml
   - ./vector/ks.yaml
