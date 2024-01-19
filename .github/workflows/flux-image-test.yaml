@@ -1,38 +1,30 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: "Flux Image Test"
+name: "Flux Helm Release Image Test"
 
 on:
   pull_request:
-    branches: ["main"]
-    paths: ["kubernetes/**"]
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  changed-clusters:
-    name: Changed Clusters
+  changed-files:
+    name: Get Changed Files
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.changed-clusters.outputs.all_changed_and_modified_files }}
+      matrix: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: "${{ secrets.BOT_APP_ID }}"
-          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: "${{ steps.app-token.outputs.token }}"
           fetch-depth: 0
 
-      - name: Get Changed Clusters
-        id: changed-clusters
+      - name: Get changed files
+        id: changed-files
         uses: tj-actions/changed-files@v42
         with:
           files: kubernetes/**
@@ -41,52 +33,51 @@ jobs:
           json: true
           escape_json: false
 
-      - name: List All Changed Clusters
-        run: echo "${{ steps.changed-clusters.outputs.all_changed_and_modified_files }}"
+      - name: List all changed files
+        run: echo "${{ steps.changed-files.outputs.all_changed_and_modified_files }}"
 
   extract-images:
     name: Extract Images
     runs-on: ubuntu-latest
-    needs: ["changed-clusters"]
+    needs:
+      - changed-files
+    if: ${{ needs.changed-files.outputs.matrix != '[]' }}
     permissions:
-      pull-requests: write
+      pull-requests: read
     strategy:
       matrix:
-        paths: ${{ fromJSON(needs.changed-clusters.outputs.matrix) }}
+        paths: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
       max-parallel: 4
       fail-fast: false
     outputs:
       matrix: ${{ steps.extract-images.outputs.images }}
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: "${{ secrets.BOT_APP_ID }}"
-          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
-      - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-
-      - name: Setup Workflow Tools
-        shell: bash
-        run: brew install jo yq
-
-      - name: Checkout Default Branch
+      - name: Checkout default branch
         uses: actions/checkout@v4
         with:
-          token: "${{ steps.app-token.outputs.token }}"
           ref: "${{ github.event.repository.default_branch }}"
           path: default
 
-      - name: Checkout Pull Request Branch
+      - name: Checkout Pull Request branch
         uses: actions/checkout@v4
         with:
-          token: "${{ steps.app-token.outputs.token }}"
           path: pull
 
+      - name: Install Flux
+        uses: fluxcd/flux2/action@main
+        with:
+          version: "latest"
+
+      - name: Install yq
+        uses: frenck/action-setup-yq@v1
+
+      - name: Install jo
+        uses: awalsh128/cache-apt-pkgs-action@v1.3.1
+        with:
+          packages: jo
+
       - name: Gather Images in Default Branch
-        uses: docker://ghcr.io/allenporter/flux-local:main
+        uses: docker://ghcr.io/allenporter/flux-local:pr-472
         with:
           args: >-
             get cluster
@@ -96,7 +87,7 @@ jobs:
             --output-file default.yaml
 
       - name: Gather Images in Pull Request Branch
-        uses: docker://ghcr.io/allenporter/flux-local:main
+        uses: docker://ghcr.io/allenporter/flux-local:pr-472
         with:
           args: >-
             get cluster
@@ -121,31 +112,37 @@ jobs:
         id: extract-images
         shell: bash
         run: |
-          images=$(jo -a $(grep -vf default.txt pull.txt))
-          echo "images=${images}" >> $GITHUB_OUTPUT
+          diff="$(grep -vf default.txt pull.txt || true)"
+          images=$(jo -a "${diff}")
+          echo "images=${images}" >> "${GITHUB_OUTPUT}"
           echo "${images}"
 
   test-images:
-    if: ${{ needs.extract-images.outputs.matrix != '[]' }}
-    name: Test images
+    name: Test images from Helm Release
     runs-on: ubuntu-latest
-    needs: ["extract-images"]
+    needs:
+      - "extract-images"
+    if: ${{ needs.extract-images.outputs.matrix != '[null]' }}
     strategy:
       matrix:
         images: ${{ fromJSON(needs.extract-images.outputs.matrix) }}
       max-parallel: 4
       fail-fast: false
     steps:
-      - name: Test Images
+      - name: Test Images from Helm Release
         run: docker pull ${{ matrix.images }}
 
-  # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   test-images-success:
+    needs:
+      - test-images
     if: ${{ always() }}
-    needs: ["test-images"]
-    name: Test Images Successful
+    name: Test images from Helm Release successful
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
-        name: Check matrix status
+      - name: Check matrix status
+        if: >-
+          ${{
+               contains(needs.*.result, 'failure')
+            || contains(needs.*.result, 'cancelled')
+          }}
         run: exit 1
