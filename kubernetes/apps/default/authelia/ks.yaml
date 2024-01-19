@@ -20,5 +20,5 @@ spec:
   timeout: 5m
   dependsOn:
     - name: redis
-    - name: ingress-nginx
+    - name: nginx-internal
     - name: external-secrets-stores

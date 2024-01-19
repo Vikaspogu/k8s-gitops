@@ -20,5 +20,5 @@ spec:
   timeout: 5m
   dependsOn:
     - name: external-dns
-    - name: ingress-nginx
+    - name: nginx-internal
     - name: external-secrets-stores

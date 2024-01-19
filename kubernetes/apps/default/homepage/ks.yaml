@@ -13,4 +13,4 @@ spec:
   interval: 30m
   dependsOn:
     - name: external-secrets-stores
-    - name: ingress-nginx
+    - name: nginx-internal

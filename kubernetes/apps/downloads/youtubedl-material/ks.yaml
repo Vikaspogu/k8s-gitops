@@ -21,4 +21,4 @@ spec:
   dependsOn:
     - name: downloads-gateway
     - name: rook-ceph-cluster
-    - name: ingress-nginx
+    - name: nginx-internal

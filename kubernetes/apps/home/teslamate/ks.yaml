@@ -21,5 +21,5 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
     - name: mosquitto
-    - name: ingress-nginx
+    - name: nginx-internal
     - name: external-secrets-stores

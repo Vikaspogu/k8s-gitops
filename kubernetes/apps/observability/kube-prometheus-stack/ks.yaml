@@ -19,6 +19,6 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
-    - name: ingress-nginx
+    - name: nginx-internal
     - name: external-secrets-stores
     - name: rook-ceph-cluster
