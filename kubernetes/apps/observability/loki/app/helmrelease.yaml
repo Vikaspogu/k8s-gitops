@@ -110,7 +110,7 @@ spec:
         registry: ghcr.io
       ingress:
         enabled: false
-        ingressclassName: internal
+        ingressClassName: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress

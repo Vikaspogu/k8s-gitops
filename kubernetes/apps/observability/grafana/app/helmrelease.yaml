@@ -368,7 +368,7 @@ spec:
       enabled: false
     ingress:
       enabled: true
-      ingressclassName: internal
+      ingressClassName: internal
       annotations:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Ingress

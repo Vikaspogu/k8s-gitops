@@ -38,7 +38,7 @@ spec:
       ingress:
         enabled: true
         pathType: Prefix
-        ingressclassName: internal
+        ingressClassName: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
@@ -122,7 +122,7 @@ spec:
       ingress:
         enabled: true
         pathType: Prefix
-        ingressclassName: internal
+        ingressClassName: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
