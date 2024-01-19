@@ -20,6 +20,6 @@ spec:
   timeout: 5m
   dependsOn:
     - name: rook-ceph-cluster
-    - name: cloudnative-pg
+    - name: cloudnative-pg-cluster
     - name: ingress-nginx
     - name: external-secrets-stores
