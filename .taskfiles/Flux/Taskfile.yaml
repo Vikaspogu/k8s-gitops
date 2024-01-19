@@ -21,9 +21,7 @@ tasks:
       # Install Secrets and Kustomizations
       - cat {{.ROOT_DIR}}/age.key | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
       - sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml | kubectl apply --server-side --filename -
-      - sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets-user.sops.yaml | kubectl apply --server-side --filename -
       - kubectl apply --server-side --filename {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
-      - kubectl apply --server-side --filename {{.KUBERNETES_DIR}}/flux/vars/cluster-settings-user.yaml
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/config
     preconditions:
       - { msg: "Flux already appears installed", sh: "kubectl get namespace flux-system &>/dev/null && exit 1 || exit 0" }
