@@ -83,7 +83,7 @@ spec:
         className: external
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Home
+          gethomepage.dev/group: Ingress
           gethomepage.dev/icon: miniflux.png
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         hosts:

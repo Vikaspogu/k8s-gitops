@@ -91,7 +91,7 @@ spec:
         className: internal
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Media
+          gethomepage.dev/group: Ingress
           gethomepage.dev/icon: sabnzbd.png
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
