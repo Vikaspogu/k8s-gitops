@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: csi-driver-nfs
+  name: openebs
 spec:
   interval: 30m
   chart:
     spec:
-      chart: csi-driver-nfs
-      version: v4.6.0
+      chart: openebs
+      version: 3.10.0
       sourceRef:
         kind: HelmRepository
-        name: csi-driver-nfs
+        name: openebs
         namespace: flux-system
   maxHistory: 2
   install:
@@ -24,5 +24,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    externalSnapshotter:
-      enabled: false
+    localprovisioner:
+      hostpathClass:
+        enabled: true
+        name: openebs-hostpath
+        isDefaultClass: false
+        basePath: "/var/openebs/local"
