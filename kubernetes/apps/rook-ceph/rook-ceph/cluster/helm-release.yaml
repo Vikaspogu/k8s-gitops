@@ -54,7 +54,7 @@ spec:
       crashCollector:
         disable: false
       dashboard:
-        enabled: false
+        enabled: true
         ssl: false
       storage:
         useAllNodes: false
