@@ -39,10 +39,10 @@ spec:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
                   - matchExpressions:
-                      - key: kubernetes.io/hostname
+                      - key: kubernetes.io/arch
                         operator: In
                         values:
-                          - k8s-6-pi4-garage
+                          - arm64
         containers:
           main:
             image:
