@@ -36,6 +36,9 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: "si-ceph"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_ssl_protocols TLSv1.3;
         host:
           name: &host "rook.${SECRET_DOMAIN}"
           path: "/"
@@ -54,9 +57,9 @@ spec:
       crashCollector:
         disable: false
       dashboard:
-        enabled: false
+        enabled: true
         urlPrefix: /
-        ssl: false
+        ssl: true
       storage:
         useAllNodes: false
         useAllDevices: false
