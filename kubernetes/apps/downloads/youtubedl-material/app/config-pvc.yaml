@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: youtubedl
     app.kubernetes.io/name: youtubedl
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

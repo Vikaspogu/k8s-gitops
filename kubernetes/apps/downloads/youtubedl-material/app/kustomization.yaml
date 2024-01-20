@@ -5,4 +5,3 @@ namespace: downloads
 resources:
   - ./config-pvc.yaml
   - ./helmrelease.yaml
-  - ./volsync.yaml
