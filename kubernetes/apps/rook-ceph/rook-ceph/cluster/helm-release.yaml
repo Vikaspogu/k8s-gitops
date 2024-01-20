@@ -33,7 +33,9 @@ spec:
       dashboard:
         ingressClassName: internal
         annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          nginx.ingress.kubernetes.io/server-snippet: |
+            proxy_ssl_verify off;
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: "si-ceph"
