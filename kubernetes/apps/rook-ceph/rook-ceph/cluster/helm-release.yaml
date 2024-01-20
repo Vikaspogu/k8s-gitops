@@ -36,6 +36,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: "si-ceph"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
         host:
           name: &host "rook.${SECRET_DOMAIN}"
           path: "/"
