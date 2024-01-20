@@ -39,6 +39,34 @@ sudo xfs_growfs -d /
 sudo dnf remove --oldinstallonly --setopt installonly_limit=2 kernel -y
 ```
 
+### Debian Wifi ARM
+
+Configure WPA2
+
+Edit /etc/network/interfaces file, enter:
+
+```bash
+# vi /etc/network/interfaces
+```
+
+Setup wlan0 with the SSID and PSK as follows:
+
+```bash
+auto wlan0
+iface wlan0 inet dhcp
+    wpa-ssid YOUR-SSID-HERE
+    wpa-psk YOUR-PASSWORD-HERE
+```
+
+Make sure you use strong pass-phrase. Save and close the file. You can now connect to the interface, enter:
+
+```bash
+# ifup wlan0
+# ifconfig wlan0
+# ping router-ip-here
+# ping google.com
+```
+
 ### Networking (Fedora)
 
 ```bash
