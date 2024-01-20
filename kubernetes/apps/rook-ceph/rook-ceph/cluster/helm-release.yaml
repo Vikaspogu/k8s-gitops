@@ -58,7 +58,6 @@ spec:
         disable: false
       dashboard:
         enabled: true
-        urlPrefix: /ceph-dashboard
         port: 8443
         ssl: true
       storage:
