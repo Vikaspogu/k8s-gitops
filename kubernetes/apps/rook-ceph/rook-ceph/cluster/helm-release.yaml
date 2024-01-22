@@ -57,6 +57,13 @@ spec:
         enabled: true
         urlPrefix: /
         ssl: false
+      mgr:
+        limits:
+          cpu: "2"
+          memory: "1024Mi"
+        requests:
+          cpu: "750m"
+          memory: "1024Mi"
       storage:
         useAllNodes: false
         useAllDevices: false
