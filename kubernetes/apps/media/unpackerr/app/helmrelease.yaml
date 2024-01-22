@@ -39,7 +39,7 @@ spec:
           main:
             image:
               repository: docker.io/golift/unpackerr
-              tag: 0.13.0
+              tag: 0.13.1
             env:
               TZ: America/Chicago
               UN_WEBSERVER_METRICS: "true"
