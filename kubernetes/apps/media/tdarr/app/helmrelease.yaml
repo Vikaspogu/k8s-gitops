@@ -1,0 +1,137 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: tdarr
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 100
+        capabilities:
+          add:
+            - CHOWN
+        fsGroupChangePolicy: "OnRootMismatch"
+        # Required for passthrough of /dev/dri devices from NFD
+        # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-focal.html
+        supplementalGroups:
+          - 44
+          - 109
+          # Custom Camelus Group(s)
+          - 65541
+          - 65536
+          - 65537
+    controllers:
+      main:
+        type: deployment
+        containers:
+          main:
+            image:
+              repository: ghcr.io/haveagitgat/tdarr_acc
+              tag: 2.17.01
+              pullPolicy: IfNotPresent
+            env:
+              webUIPort: &web-port 8265
+              serverIP: 0.0.0.0
+              serverPort: &server-port 8266
+              TZ: ${TZ}
+              ffmpegPath: "/usr/local/bin/ffmpeg"
+              PGID: 65537
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+
+    persistence:
+      server:
+        enabled: true
+        existingClaim: tdarr-data-v1
+        globalMounts:
+          - path: /app/server
+      config:
+        enabled: true
+        existingClaim: tdarr-config-v1
+        globalMounts:
+          - path: /app/configs
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: &mediaPath "/volume1/media"
+        mountPath: *mediaPath
+        readOnly: false
+      cache:
+        enabled: true
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: "/volume1/media/cache/tdarr"
+        mountPath: /cache
+
+    service:
+      main:
+        ports:
+          http:
+            port: *web-port
+          server:
+            enabled: true
+            protocol: TCP
+            port: *server-port
+
+    ingress:
+      main:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: material-symbols:switch-video-outline
+        hosts:
+          - host: "tdarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - "tdarr.${SECRET_DOMAIN}"
+
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - plex
+              topologyKey: kubernetes.io/hostname
+              namespaces:
+                - media
