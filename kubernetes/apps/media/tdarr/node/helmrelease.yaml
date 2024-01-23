@@ -55,8 +55,6 @@ spec:
               pullPolicy: IfNotPresent
             env:
               TZ: "${TZ}"
-              # PUID: "568"
-              # PGID: "568"
               serverIP: tdarr.media.svc.cluster.local
               serverPort: 8266
               ffmpegPath: "/usr/local/bin/ffmpeg"
@@ -69,14 +67,6 @@ spec:
                 cpu: 10m
                 memory: 250Mi
     affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: intel.feature.node.kubernetes.io/gpu
-                  operator: In
-                  values:
-                    - "true"
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
