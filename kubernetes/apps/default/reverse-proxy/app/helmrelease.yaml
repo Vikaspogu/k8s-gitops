@@ -48,7 +48,6 @@ spec:
           tls:
             - hosts:
                 - nas.${SECRET_DOMAIN}
-              secretName: nas-tls
           hosts:
             - host: nas.${SECRET_DOMAIN}
               path: /

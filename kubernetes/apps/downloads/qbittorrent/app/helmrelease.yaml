@@ -95,7 +95,6 @@ spec:
         tls:
           - hosts:
               - "qb.${SECRET_DOMAIN}"
-            secretName: "{{ .Release.Name }}-tls"
 
     persistence:
       config:
