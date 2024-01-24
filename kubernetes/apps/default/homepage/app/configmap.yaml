@@ -159,12 +159,6 @@ data:
             type: audiobookshelf
             url: http://audiobookshelf.media.svc.cluster.local
             key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}
-      - Tdarr:
-          href: https://tdarr.${SECRET_DOMAIN}
-          icon: tdarr.png
-          widget:
-            type: tdarr
-            url: http://tdarr.media.svc.cluster.local
   widgets.yaml: |
     - resources:
         backend: kubernetes
