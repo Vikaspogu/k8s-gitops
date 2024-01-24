@@ -48,12 +48,12 @@ spec:
     persistence:
       server:
         enabled: true
-        existingClaim: tdarr-data-v1
+        existingClaim: tdarr-data
         globalMounts:
           - path: /app/server
       config:
         enabled: true
-        existingClaim: tdarr-config-v1
+        existingClaim: tdarr-config
         globalMounts:
           - path: /app/configs
       media:
@@ -69,7 +69,7 @@ spec:
         enabled: true
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
-        path: "/volume1/media/cache/tdarr"
+        path: "/volume1/media/containers/tdarr_node/cache"
         mountPath: /cache
 
     service:
