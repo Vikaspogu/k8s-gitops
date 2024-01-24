@@ -42,7 +42,7 @@ spec:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Ingress
         gethomepage.dev/icon: pgadmin.png
-        kubernetes.io/ingress.class: nginx
+      ingressClassName: internal
       hosts:
         - host: &host "pgadmin4.${SECRET_DOMAIN}"
           paths:
