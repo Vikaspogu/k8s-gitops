@@ -46,7 +46,7 @@ data:
             icon: npm.png
             widget:
               type: npm
-              url: http://npm.homenet
+              url: http://{{HOMEPAGE_VAR_NPM_URL}}
               username: "{{HOMEPAGE_VAR_NPM_USERNAME}}"
               password: "{{HOMEPAGE_VAR_NPM_PASSWORD}}"
         - Cloudflared:
