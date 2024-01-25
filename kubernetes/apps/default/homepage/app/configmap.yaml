@@ -43,11 +43,11 @@ data:
     - Infrastructure:
         - NPM:
             href: http://npm.homenet
-            icon: npm.png
+            icon: nginxproxymanager.png
             widget:
               type: npm
               url: http://{{HOMEPAGE_VAR_NPM_URL}}
-              username: "{{HOMEPAGE_VAR_NPM_USERNAME}}"
+              username: "Vikas"
               password: "{{HOMEPAGE_VAR_NPM_PASSWORD}}"
         - Cloudflared:
             href: https://dash.cloudflare.com
