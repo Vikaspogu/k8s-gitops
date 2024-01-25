@@ -42,11 +42,11 @@ data:
   services.yaml: |
     - Infrastructure:
         - NPM:
-            href: http://npm.homenet/
+            href: http://npm.homenet
             icon: npm.png
             widget:
               type: npm
-              url: http://npm.homenet/
+              url: http://npm.homenet
               username: "{{HOMEPAGE_VAR_NPM_USERNAME}}"
               password: "{{HOMEPAGE_VAR_NPM_PASSWORD}}"
         - Cloudflared:
