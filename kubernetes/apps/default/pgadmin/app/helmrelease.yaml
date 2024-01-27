@@ -8,14 +8,15 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: pgadmin4
-      version: 1.23.1
+      chart: app-template
+      version: 2.5.0
       sourceRef:
         kind: HelmRepository
-        name: runix
+        name: bjw-s
         namespace: flux-system
   maxHistory: 2
   install:
+    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -25,38 +26,63 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      registry: docker.io
-      repository: dpage/pgadmin4
-      tag: "8.2"
-    strategy:
-      type: Recreate
-    envVarsFromSecrets:
-      - pgadmin
-    existingSecret: "pgadmin"
-    secretKeys:
-      pgadminPasswordKey: PGADMIN_DEFAULT_PASSWORD
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          volume-permissions:
+            image:
+              repository: dpage/pgadmin4
+              tag: "8.2@sha256:3b480788bfd84c9c46f09ce4984867f36fa8b8d8736b2044b376506cb0702ae2"
+            command: ["/bin/chown", "-R", "5050:5050", "/var/lib/pgadmin"]
+            volumeMounts:
+              - name: config
+                mountPath: /var/lib/pgadmin
+            securityContext:
+              runAsUser: 0
+        containers:
+          main:
+            image:
+              repository: dpage/pgadmin4
+              tag: "8.2@sha256:3b480788bfd84c9c46f09ce4984867f36fa8b8d8736b2044b376506cb0702ae2"
+            env:
+              PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+            envFrom:
+              - secretRef:
+                  name: pgadmin-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 80
     ingress:
-      enabled: true
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Ingress
-        gethomepage.dev/icon: pgadmin.png
-      ingressClassName: internal
-      hosts:
-        - host: &host "pgadmin4.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - *host
-    persistentVolume:
-      enabled: true
-      existingClaim: pgadmin-config
-    resources:
-      requests:
-        cpu: 15m
-        memory: 164M
-      limits:
-        memory: 512M
+      main:
+        enabled: true
+        className: "internal"
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: pgadmin.png
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: pgadmin-config
+        globalMounts:
+          - path: /var/lib/pgadmin
