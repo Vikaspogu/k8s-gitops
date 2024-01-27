@@ -92,7 +92,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: babybuddy.png
+          gethomepage.dev/icon: si-gnubash
         hosts:
           - host: &host sh.${SECRET_DOMAIN}
             paths:
