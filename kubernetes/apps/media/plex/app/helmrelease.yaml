@@ -28,6 +28,8 @@ spec:
     controllers:
       main:
         pod:
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -50,8 +52,10 @@ spec:
               TZ: ${TIMEZONE}
             resources:
               requests:
-                cpu: "2"
-                memory: 2Gi
+                cpu: 100m
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 16Gi
 
     ingress:
       main:
@@ -92,10 +96,10 @@ spec:
       config:
         enabled: true
         existingClaim: plex-config
-      transcode:
-        enabled: false
+      tmp:
         type: emptyDir
-        medium: Memory
+      transcode:
+        type: emptyDir
       media:
         type: custom
         volumeSpec:

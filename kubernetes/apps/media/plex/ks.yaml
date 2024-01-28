@@ -19,6 +19,7 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
+    - name: intel-device-plugin-gpu
     - name: rook-ceph-cluster
     - name: nginx-internal
     - name: external-secrets-stores
