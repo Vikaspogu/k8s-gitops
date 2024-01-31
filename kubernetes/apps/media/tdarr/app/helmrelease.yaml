@@ -75,9 +75,3 @@ spec:
             server: ${SECRET_NAS_ADDRESS}
         mountPath: *mediaPath
         readOnly: false
-      cache:
-        enabled: true
-        type: nfs
-        server: ${SECRET_NAS_ADDRESS}
-        path: /volume1/docker/tdarr/transcode_cache
-        mountPath: /cache
