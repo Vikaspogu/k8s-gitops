@@ -49,16 +49,6 @@ spec:
                 memory: 250Mi
               limits:
                 cpu: 4
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: intel.feature.node.kubernetes.io/gpu
-                  operator: In
-                  values:
-                    - "true"
-
     service:
       main:
         enabled: false
