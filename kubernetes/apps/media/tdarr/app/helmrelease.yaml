@@ -1,0 +1,83 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: tdarr-node
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: deployment
+        containers:
+          main:
+            image:
+              repository: ghcr.io/haveagitgat/tdarr_node_acc
+              tag: 2.17.01
+              pullPolicy: IfNotPresent
+            env:
+              TZ: "${TIMEZONE}"
+              serverIP: "10.30.10.196"
+              serverPort: 8266
+              ffmpegPath: "/usr/local/bin/ffmpeg"
+              nodeName:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: intel.feature.node.kubernetes.io/gpu
+                  operator: In
+                  values:
+                    - "true"
+
+    service:
+      main:
+        enabled: false
+        ports:
+          enabled: false
+          http:
+            port: 8265
+
+    persistence:
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            path: &mediaPath /volume1/media
+            server: ${SECRET_NAS_ADDRESS}
+        mountPath: *mediaPath
+        readOnly: false
+      cache:
+        enabled: true
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: /volume1/docker/tdarr/transcode_cache
+        mountPath: /cache
