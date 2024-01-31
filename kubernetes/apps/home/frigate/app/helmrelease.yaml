@@ -8,14 +8,12 @@ spec:
   interval: 30m
   chart:
     spec:
-      # renovate: registryUrl=https://blakeblackshear.github.io/blakeshome-charts/
-      chart: frigate
-      version: 7.2.0
+      chart: app-template
+      version: 2.5.0
       sourceRef:
         kind: HelmRepository
-        name: blakeshome
+        name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -25,97 +23,123 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: intel-device-plugin-gpu
+      namespace: tools
+    - name: mosquitto
+      namespace: home
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
   values:
-    image:
-      repository: docker.io/blakeblackshear/frigate
-      tag: 0.11.1
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate"
-    env:
-      TZ: ${TIMEZONE}
-    envFromSecrets:
-      - frigate-secret
-    coral:
-      enabled: true
-    config: |
-      mqtt:
-        host: mosquitto.home.svc.cluster.local
-        topic_prefix: frigate
-      detectors:
-        coral:
-          type: edgetpu
-          device: usb
-      database:
-        path: /data/frigate.db
-      objects:
-        track:
-          - person
-          - dog
-        filters:
-          person:
-            min_area: 5000
-            max_area: 100000
-            threshold: 0.7
-            mask: 99,568,1235,720,1280,335,380,348
-      record:
-        enabled: true
-        retain_days: 4
-        events:
-          retain:
-            default: 10
-          objects:
-            - person
-            - dog
-      cameras:
-        doorbell:
-          ffmpeg:
-            inputs:
-              - path: rtsp://{FRIGATE_RSTP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_FRONTDOOR_CAMERA}/live0
-                roles:
-                  - detect
-                  - record
-                  - rtmp
-          zones:
-            front_zone:
-              coordinates: 89,552,1203,685,1280,324,383,344
-          mqtt:
-            enabled: True
-            timestamp: True
-            bounding_box: True
-            crop: False
-    persistence:
-      data:
-        enabled: true
-    probes:
-      startup:
-        enabled: true
-    extraVolumes:
-      - name: media
-        persistentVolumeClaim:
-          claimName: frigate-config
-    extraVolumeMounts:
-      - mountPath: /media
-        name: media
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/blakeblackshear/frigate
+              tag: 0.13.0-rc1@sha256:24dce42044a0f9631813beea9d49afb266e9bef77ed6972cd1486e14463d7dc6
+            env:
+              TZ: ${TIMEZONE}
+              LIBVA_DRIVER_NAME: i965
+            envFrom:
+              - secretRef:
+                  name: frigate-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/version
+                    port: &port 5000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                gpu.intel.com/i915: "1"
+                memory: 8Gi
+        pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values: ["plex"]
+                  topologyKey: kubernetes.io/hostname
+          nodeSelector:
+            google.feature.node.kubernetes.io/coral: "true"
+            intel.feature.node.kubernetes.io/gpu: "true"
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+          rtsp:
+            port: 8554
     ingress:
-      enabled: true
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Ingress
-        gethomepage.dev/icon: frigate.png
-        kubernetes.io/ingress.class: "internal"
-      hosts:
-        - host: "frigate.${SECRET_DOMAIN}"
-          paths:
-            - "/"
-      tls:
-        - hosts:
-            - "frigate.${SECRET_DOMAIN}"
-    resources:
-      limits:
-        memory: 2500Mi
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - { key: "google.feature.node.kubernetes.io/coral", operator: In, values: ["true"] }
+      main:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: frigate.png
+          kubernetes.io/ingress.class: "internal"
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: frigate-config
+        globalMounts:
+          - path: /data
+      config-file:
+        type: configMap
+        name: frigate-configmap
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: true
+      cache:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 4Gi
+        globalMounts:
+          - path: /dev/shm
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/bus/usb
+        hostPathType: Directory
+        globalMounts:
+          - path: /dev/bus/usb
+      media:
+        type: nfs
+        server: "${SECRET_NAS_ADDRESS}"
+        path: /volume1/media/k8s-data/frigate
+        globalMounts:
+          - path: /media
