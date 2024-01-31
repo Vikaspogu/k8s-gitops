@@ -45,8 +45,10 @@ spec:
                     fieldPath: spec.nodeName
             resources:
               requests:
-                cpu: 10m
+                cpu: 2
                 memory: 250Mi
+              limits:
+                cpu: 4
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
