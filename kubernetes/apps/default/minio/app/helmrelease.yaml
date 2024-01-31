@@ -49,10 +49,10 @@ spec:
             args: ["server", "/data", "--console-address", ":9001"]
             resources:
               requests:
-                memory: 250Mi
+                memory: 500Mi
                 cpu: 100m
               limits:
-                memory: 1024Mi
+                memory: 1500Mi
 
     service:
       main:
