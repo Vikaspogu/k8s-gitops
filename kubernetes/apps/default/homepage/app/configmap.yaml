@@ -139,6 +139,21 @@ data:
             type: overseerr
             url: http://overseerr.media.svc.cluster.local
             key: {{HOMEPAGE_VAR_OVERSEERR_API_KEY}}
+      - Jellyfin:
+          href: https://jellyfin.${SECRET_DOMAIN}
+          icon: jellyfin.png
+          widget:
+            type: jellyfin
+            url: http://jellyfin.media.svc.cluster.local:8096
+            key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
+            enableNowPlaying: true
+      - Jellyseerr:
+          href: https://jellyseerr.${SECRET_DOMAIN}
+          icon: jellyseerr.png
+          widget:
+            type: jellyseerr
+            url: http://jellyseerr.media.svc.cluster.local
+            key: {{HOMEPAGE_VAR_JELLYSEERR_API_KEY}}
       - Bazarr:
           href: https://bazarr.${SECRET_DOMAIN}
           icon: bazarr.png
