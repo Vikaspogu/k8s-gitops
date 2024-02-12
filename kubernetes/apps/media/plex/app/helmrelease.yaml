@@ -43,7 +43,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/plex
-              tag: 1.32.8.7639-fb6452ebf@sha256:76dce9fa27f91b96bf164c4cb2b25e55e59f6efee83f4b0760b240d465bf6ae4
+              tag: 1.32.8.7639-fb6452ebf@sha256:53ea2e3cb1173d69c5613f83304ccbb95c59433de4f4d2ca0b9ff1236e67054a
             envFrom:
               - secretRef:
                   name: plex
