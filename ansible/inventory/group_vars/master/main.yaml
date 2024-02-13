@@ -8,6 +8,7 @@ k3s_server:
   tls-san:
     - "{{ kube_api_addr }}"
   docker: false
+  embedded-registry: true
   flannel-backend: "none"             # This needs to be in quotes
   disable:
     - coredns                         # Disable coredns                 - replaced with Coredns Helm Chart
