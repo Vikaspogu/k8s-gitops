@@ -27,6 +27,7 @@ spec:
   values:
     controllers:
       main:
+        replicas: 0
         pod:
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"

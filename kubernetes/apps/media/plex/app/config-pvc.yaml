@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: plex
     app.kubernetes.io/name: plex
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

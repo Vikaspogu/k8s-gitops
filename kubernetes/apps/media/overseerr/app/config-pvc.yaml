@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: overseerr
     app.kubernetes.io/name: overseerr
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

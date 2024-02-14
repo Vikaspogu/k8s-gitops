@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: tautulli
     app.kubernetes.io/name: tautulli
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce
