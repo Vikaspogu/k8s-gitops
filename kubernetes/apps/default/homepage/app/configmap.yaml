@@ -46,7 +46,7 @@ data:
             icon: si-nginxproxymanager
             widget:
               type: npm
-              url: http://{{HOMEPAGE_VAR_NPM_URL}}
+              url: {{HOMEPAGE_VAR_NPM_URL}}
               username: "{{HOMEPAGE_VAR_NPM_USERNAME}}"
               password: "{{HOMEPAGE_VAR_NPM_PASSWORD}}"
         - Cloudflared:
