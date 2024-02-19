@@ -42,7 +42,7 @@ data:
   services.yaml: |
     - Infrastructure:
         - NPM:
-            href: http://npm.homenet
+            href: {{HOMEPAGE_VAR_NPM_URL}}
             icon: si-nginxproxymanager
             widget:
               type: npm
