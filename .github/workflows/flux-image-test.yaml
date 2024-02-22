@@ -32,10 +32,10 @@ jobs:
         run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git jo
 
       - name: Setup Workflow Tools
-        uses: jdx/rtx-action@61c1bfbed63c70a82ff0ce3301bde41875b17844 # v1
+        uses: jdx/mise-action@v2
         with:
           install: true
-          rtx_toml: |
+          mise_toml: |
             [tools]
             flux2 = "latest"
             yq = "latest"
