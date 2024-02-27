@@ -42,7 +42,7 @@ spec:
           main:
             image:
               repository: docker.io/cyfershepard/jellystat
-              tag: unstable@sha256:2f262550320936201bcd912d561fa73c70e0e1b324bbb1102a6cd1a41ba446bd
+              tag: unstable@sha256:61f249dff4ef271aea3687c0f3af53c30793e9cf2be2cae7d374be41d6baf2b2
             env:
               TZ: ${TIMEZONE}
             envFrom:
