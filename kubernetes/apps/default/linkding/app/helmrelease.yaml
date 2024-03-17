@@ -31,7 +31,7 @@ spec:
           main:
             image:
               repository: sissbruecker/linkding
-              tag: 1.24.0
+              tag: 1.24.2
               pullPolicy: IfNotPresent
             env:
               TZ: ${TIMEZONE}
