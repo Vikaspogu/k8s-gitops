@@ -28,7 +28,7 @@ metadata:
   name: obsidian-livesync
   namespace: default
 spec:
-  sourcePVC: obsidian-livesync-config
+  sourcePVC: obsidian-livesync-data
   trigger:
     schedule: "0 20 * * *"
   restic:
