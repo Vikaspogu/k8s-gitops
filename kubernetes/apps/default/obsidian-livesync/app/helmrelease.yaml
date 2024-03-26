@@ -88,7 +88,7 @@ spec:
               - path: /opt/couchdb/data
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
