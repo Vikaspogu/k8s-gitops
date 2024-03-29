@@ -23,4 +23,5 @@ resources:
   - ./pgadmin/ks.yaml
   - ./reverse-proxy/ks.yaml
   - ./stirling-pdf/ks.yaml
+  - ./syncthing/ks.yaml
   - ./trilium/ks.yaml
