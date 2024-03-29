@@ -28,8 +28,6 @@ spec:
   values:
     controllers:
       syncthing:
-        labels:
-          nfsMount: "true"
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -94,8 +92,10 @@ spec:
           - hosts: [*host]
     persistence:
       data:
-        type: nfs
-        server: ${SECRET_NAS_ADDRESS}
-        path: "/volume1/media/syncthing"
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media/k8s-data/syncthing"
         globalMounts:
           - path: /var/syncthing
