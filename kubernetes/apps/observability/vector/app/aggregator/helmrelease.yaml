@@ -35,7 +35,7 @@ spec:
           01-init-geoip:
             image:
               repository: ghcr.io/maxmind/geoipupdate
-              tag: v6.1
+              tag: v7.0
               pullPolicy: IfNotPresent
             env:
               - name: GEOIPUPDATE_EDITION_IDS
