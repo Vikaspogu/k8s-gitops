@@ -1,28 +1,28 @@
 ---
 kubernetes:
   children:
-    master:
+    controllers:
       hosts:
-        k8s-0-6i3syh:
-          ansible_user: vikaspogu
-          ansible_host: 10.30.30.20
-        k8s-1-7i5bnk:
-          ansible_user: vikaspogu
-          ansible_host: 10.30.30.21
-        k8s-2-7i5bnk:
-          ansible_user: vikaspogu
-          ansible_host: 10.30.30.22
-    worker:
+        "k8s-0-6i3syh":
+          ansible_user: "vikaspogu"
+          ansible_host: "10.30.30.20"
+        "k8s-1-7i5bnk":
+          ansible_user: "vikaspogu"
+          ansible_host: "10.30.30.21"
+        "k8s-2-7i5bnk":
+          ansible_user: "vikaspogu"
+          ansible_host: "10.30.30.22"
+    workers:
       hosts:
-        k8s-3-un1265:
-          ansible_user: vikaspogu
-          ansible_host: 10.30.30.23
-        k8s-4-ser:
-          ansible_user: vikaspogu
-          ansible_host: 10.30.30.24
-        k8s-5-pi4-garage:
-          ansible_user: vikaspogu
-          ansible_host: 10.30.30.25
+        "k8s-3-un1265":
+          ansible_user: "vikaspogu"
+          ansible_host: "10.30.30.23"
+        "k8s-4-ser":
+          ansible_user: "vikaspogu"
+          ansible_host: "10.30.30.24"
+        "k8s-5-pi4-garage":
+          ansible_user: "vikaspogu"
+          ansible_host: "10.30.30.25"
 
 rook:
   vars:

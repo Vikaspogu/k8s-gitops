@@ -5,8 +5,8 @@ flux-bin
 go-task
 go-yq
 helm
+helmfile
 jq
-k0sctl-bin
 kubeconform
 kubectl-bin
 kustomize
@@ -14,3 +14,4 @@ moreutils
 sops
 stern-bin
 talhelper-bin
+talosctl

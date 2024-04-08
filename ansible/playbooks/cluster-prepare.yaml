@@ -15,33 +15,17 @@
       block:
         - name: Locale | Set timezone
           community.general.timezone:
-            name: "{{ timezone | default('Etc/UTC') }}"
+            name: "America/Chicago"
 
     - name: Packages
       block:
         - name: Packages | Install
           ansible.builtin.apt:
             name: apt-transport-https,ca-certificates,conntrack,curl,dirmngr,gdisk,gnupg,hdparm,htop,
-              iptables,iputils-ping,ipvsadm,libseccomp2,lm-sensors,ntp,neofetch,net-tools,nfs-common,
+              iptables,iputils-ping,ipvsadm,libseccomp2,lm-sensors,net-tools,nfs-common,
               nvme-cli,open-iscsi,parted,psmisc,python3,python3-apt,python3-kubernetes,python3-yaml,
               smartmontools,socat,software-properties-common,unzip,util-linux
             install_recommends: false
-
-    - name: User Configuration
-      block:
-        - name: User Configuration | SSH keys
-          ansible.posix.authorized_key:
-            user: "{{ ansible_user }}"
-            key: "https://github.com/{{ github_username }}.keys"
-        - name: User Configuration | Silence login
-          ansible.builtin.file:
-            dest: "{{ '/home/' + ansible_user if ansible_user != 'root' else '/root' }}/.hushlogin"
-            state: touch
-            owner: "{{ ansible_user }}"
-            group: "{{ ansible_user }}"
-            mode: "0644"
-            modification_time: preserve
-            access_time: preserve
 
     - name: Network Configuration
       notify: Reboot
@@ -61,7 +45,7 @@
               ff02::2 ip6-allrouters
             dest: /etc/hosts
             mode: preserve
-        # https://github.com/onedr0p/flux-cluster-template/discussions/635
+        # https://github.com/onedr0p/cluster-template/discussions/635
         - name: Network Configuration | Remove immutable flag from /etc/resolv.conf
           ansible.builtin.file:
             attributes: -i
@@ -79,15 +63,11 @@
             content: |
               search .
               nameserver 1.1.1.1
+              nameserver 1.0.0.1
 
     - name: System Configuration
       notify: Reboot
       block:
-        - name: System Configuration | Neofetch
-          ansible.builtin.copy:
-            dest: /etc/profile.d/neofetch.sh
-            mode: "0755"
-            content: neofetch --config none
         - name: System Configuration | Disable apparmor
           when: ansible_facts.services['apparmor.service'] is defined
           ansible.builtin.systemd:
@@ -105,12 +85,8 @@
             dest: "/etc/modules-load.d/{{ item }}.conf"
             mode: "0644"
             content: "{{ item }}"
-          loop: ["br_netfilter", "ceph", "ip_vs", "ip_vs_rr", "nbd", "overlay", "rbd"]
+          loop: ["br_netfilter", "ceph", "ip_vs", "ip_vs_rr", "iptable_mangle", "iptable_raw", "nbd", "overlay", "rbd", "xt_socket"]
           register: modules_status
-        - name: System Configuration | Start NTP modules
-          ansible.builtin.systemd:
-            name: ntp
-            state: started
         - name: System Configuration | Reload Kernel modules # noqa: no-changed-when no-handler
           when: modules_status.changed
           ansible.builtin.systemd:
@@ -128,9 +104,11 @@
               fs.inotify.max_queued_events: 65536
               fs.inotify.max_user_watches: 524288
               fs.inotify.max_user_instances: 8192
+              net.core.rmem_max: 2500000
+              net.core.wmem_max: 2500000
 
   handlers:
     - name: Reboot
       ansible.builtin.reboot:
-        msg: Rebooting nodes
+        msg: Rebooting hosts
         reboot_timeout: 3600
