@@ -85,7 +85,7 @@ spec:
 
     publicPorts:
       - hostname: qbittorrent
-        IP: 10
+        IP: 14
         ports:
           - type: udp
             port: 56202
