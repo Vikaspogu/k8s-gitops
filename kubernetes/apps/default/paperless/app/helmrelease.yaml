@@ -62,7 +62,7 @@ spec:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
               PAPERLESS_ALLOWED_HOSTS: paperless.${SECRET_DOMAIN}
-              PAPERLESS_TRUSTED_PROXIES: 10.69.0.0/16,10.30.10.0/24,10.30.30.0/24
+              PAPERLESS_TRUSTED_PROXIES: 10.42.0.0/16,10.30.10.0/24,10.30.30.0/24
               USERMAP_UID: 1002
               USERMAP_GID: 1002
             envFrom:
