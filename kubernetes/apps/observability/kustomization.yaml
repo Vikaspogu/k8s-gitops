@@ -6,6 +6,6 @@ resources:
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./kubernetes-dashboard/ks.yaml
-  - ./loki/ks.yaml
+  # - ./loki/ks.yaml
   - ./unifi-poller/ks.yaml
-  - ./vector/ks.yaml
+  # - ./vector/ks.yaml
