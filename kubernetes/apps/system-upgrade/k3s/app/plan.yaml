@@ -43,6 +43,8 @@ spec:
     matchExpressions:
       - key: node-role.kubernetes.io/control-plane
         operator: DoesNotExist
+  tolerations:
+    - { key: "k3s-arm", operator: "Exists" }
   prepare:
     image: rancher/k3s-upgrade
     args: ["prepare", "controllers"]
