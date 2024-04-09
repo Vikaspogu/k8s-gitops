@@ -4,4 +4,4 @@ resources:
   - ./externalsecret.yaml
   - ./config-pvc.yaml
   - ./helmrelease.yaml
-  - ./volsync.yaml
+  # - ./volsync.yaml
