@@ -16,7 +16,9 @@ spec:
     bgpControlPlane:
       enabled: true
     bpf:
-      masquerade: false
+      masquerade: true
+    bgp:
+      enabled: false
     cgroup:
       automount:
         enabled: false

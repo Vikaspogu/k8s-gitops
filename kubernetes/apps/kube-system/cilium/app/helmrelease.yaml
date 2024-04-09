@@ -25,7 +25,12 @@ spec:
     bgpControlPlane:
       enabled: true
     bpf:
-      masquerade: false
+      masquerade: true
+    bgp:
+      enabled: false
+      announce:
+        loadbalancerIP: true
+        podCIDR: false
     cgroup:
       automount:
         enabled: false
@@ -69,6 +74,10 @@ spec:
         ingress:
           enabled: true
           className: internal
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/icon: si-cilium
           hosts:
             - "hubble.${SECRET_DOMAIN}"
           tls:
