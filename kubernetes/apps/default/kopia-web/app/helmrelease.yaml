@@ -36,8 +36,8 @@ spec:
         initContainers:
           wait-for-repo:
             image:
-              repository: kopia/kopia
-              tag: 20240407.0.213333
+              repository: docker.io/kopia/kopia
+              tag: 0.16.1@sha256:827a11a37c8e161b49a086dd0de948ed16205a5262667f009f212df077696ed7
             command:
               - /bin/bash
               - -c
@@ -52,8 +52,8 @@ spec:
         containers:
           main:
             image:
-              repository: kopia/kopia
-              tag: 20240407.0.213333
+              repository: docker.io/kopia/kopia
+              tag: 0.16.1@sha256:827a11a37c8e161b49a086dd0de948ed16205a5262667f009f212df077696ed7
             env:
               TZ: "${TIMEZONE}"
               KOPIA_PASSWORD: "none"
@@ -121,9 +121,17 @@ spec:
         type: configMap
         name: *app
         globalMounts:
-          - path: /config/repository.config
+          - path: /app/config/repository.config
             subPath: repository.config
             readOnly: true
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /app/cache
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /app/logs
       snapshots:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
