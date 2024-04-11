@@ -1,0 +1,20 @@
+---
+- name: NTP Setup
+  hosts: kubernetes
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  tasks:
+    - name: Install NTP package
+      apt:
+        name: ntp,ntpdate
+        state: present
+
+    - name: Start the NTP service
+      service:
+        name: ntp
+        enabled: yes
+        state: started
+
+    - name: Synchronize time using ntpdate
+      command: ntpdate -u pool.ntp.org
