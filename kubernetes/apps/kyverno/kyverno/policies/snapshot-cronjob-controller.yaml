@@ -79,12 +79,6 @@ spec:
                   spec:
                     automountServiceAccountToken: false
                     restartPolicy: OnFailure
-                    # Stagger jobs to run randomly within X seconds to avoid bringing down all apps at once
-                    initContainers:
-                      - name: wait
-                        image: docker.io/kopia/kopia:0.16.1@sha256:566406c5be7b9e78cf50e51871899610ee1239eb550df023b51a4261fbebc692
-                        command: ["/scripts/sleep.sh"]
-                        args: ["1", "1800"]
                     containers:
                       - name: snapshot
                         image: docker.io/kopia/kopia:0.16.1@sha256:566406c5be7b9e78cf50e51871899610ee1239eb550df023b51a4261fbebc692
