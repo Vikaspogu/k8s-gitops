@@ -13,7 +13,7 @@
     - name: Start the NTP service
       service:
         name: ntp
-        enabled: yes
+        enabled: true
         state: started
 
     - name: Synchronize time using ntpdate
