@@ -29,7 +29,7 @@ spec:
       main:
         type: cronjob
         cronjob:
-          schedule: "50 10 * * *"
+          schedule: "05 11 * * *"
           ttlSecondsAfterFinished: 86400
         containers:
           main:
