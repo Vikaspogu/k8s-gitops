@@ -12,7 +12,6 @@ resources:
   - ./it-tools/ks.yaml
   - ./kopia-web/ks.yaml
   - ./kube-ops-view/ks.yaml
-  - ./linkding/ks.yaml
   - ./lldap/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
@@ -24,4 +23,3 @@ resources:
   - ./reverse-proxy/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
-  - ./trilium/ks.yaml
