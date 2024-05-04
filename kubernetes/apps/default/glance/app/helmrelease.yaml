@@ -47,7 +47,7 @@ spec:
         controller: glance
         ports:
           http:
-            port: 3000
+            port: 8080
     ingress:
       glance:
         enabled: true
