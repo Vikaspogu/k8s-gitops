@@ -1,3 +1,7 @@
+theme:
+  background-color: 225 14 15
+  primary-color: 157 47 65
+  contrast-multiplier: 1.1
 pages:
   - name: Home
     columns:
@@ -10,13 +14,9 @@ pages:
             collapse-after: 3
             cache: 3h
             feeds:
-              - url: https://ciechanow.ski/atom.xml
-              - url: https://www.joshwcomeau.com/rss.xml
-                title: Josh Comeau
-              - url: https://samwho.dev/rss.xml
-              - url: https://awesomekling.github.io/feed.xml
-              - url: https://ishadeed.com/feed.xml
-                title: Ahmad Shadeed
+              - url: https://noted.lol/rss/
+              - url: https://selfh.st/rss/
+              - url: https://homenetworkguy.com/index.xml
 
       - size: full
         widgets:
