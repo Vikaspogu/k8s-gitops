@@ -17,7 +17,7 @@ pages:
               - url: https://noted.lol/rss/
               - url: https://selfh.st/rss/
               - url: https://homenetworkguy.com/index.xml
-
+              - url: https://smarthomescene.com/feed/
       - size: full
         widgets:
           - type: hacker-news
