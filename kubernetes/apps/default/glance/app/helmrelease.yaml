@@ -44,13 +44,14 @@ spec:
                 memory: 1G
     service:
       glance:
+        controller: glance
         ports:
           http:
             port: 3000
     ingress:
       glance:
         enabled: true
-        ingressClassName: "internal"
+        className: "internal"
         hosts:
           - host: &host glance.${SECRET_DOMAIN}
             paths:
