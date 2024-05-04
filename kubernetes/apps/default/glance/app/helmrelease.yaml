@@ -52,6 +52,10 @@ spec:
       glance:
         enabled: true
         className: "internal"
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: si-rss
         hosts:
           - host: &host glance.${SECRET_DOMAIN}
             paths:
