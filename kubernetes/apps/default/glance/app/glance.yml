@@ -34,7 +34,7 @@ pages:
       - size: small
         widgets:
           - type: weather
-            location: Rochester,MN, USA
+            location: Rochester, Minnesota, United States
 
           - type: stocks
             stocks:
