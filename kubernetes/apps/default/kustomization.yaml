@@ -8,6 +8,7 @@ resources:
   - ./babybuddy/ks.yaml
   - ./external-secrets/ks.yaml
   - ./ghostfolio/ks.yaml
+  - ./glance/ks.yaml
   - ./homepage/ks.yaml
   - ./it-tools/ks.yaml
   - ./kopia-web/ks.yaml
