@@ -70,9 +70,6 @@ spec:
               - --port
               - "12321"
               - "/config"
-            volumeMounts:
-              - name: config
-                mountPath: /config
 
     ingress:
       app:
