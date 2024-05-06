@@ -31,7 +31,7 @@ spec:
       createPrometheusRules: true
     ingress:
       dashboard:
-        className: internal
+        ingressClassName: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
