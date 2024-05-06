@@ -81,6 +81,7 @@ spec:
       readiness: *probes
       startup:
         enabled: false
+
     ingress:
       app:
         enabled: true
@@ -102,6 +103,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
         tls:
           - hosts:
               - *host
