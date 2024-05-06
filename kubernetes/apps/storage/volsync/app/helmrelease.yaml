@@ -16,11 +16,11 @@ spec:
   maxHistory: 2
   install:
     remediation:
-      retries: 3
+      retries: 5
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 3
+      retries: 5
   uninstall:
     keepHistory: false
   dependsOn:
