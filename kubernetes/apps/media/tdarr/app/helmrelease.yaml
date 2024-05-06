@@ -52,10 +52,7 @@ spec:
     service:
       app:
         enabled: false
-        ports:
-          enabled: false
-          http:
-            port: 8265
+        controller: app
 
     persistence:
       media:

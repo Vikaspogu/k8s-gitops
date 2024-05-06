@@ -51,8 +51,6 @@ spec:
               - --ref=master
               - --period=24h
               - --root=/add-ons
-            volumeMounts:
-              - { name: add-ons, mountPath: /add-ons }
           app:
             image:
               repository: ghcr.io/onedr0p/tautulli

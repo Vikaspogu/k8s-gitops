@@ -125,7 +125,6 @@ spec:
         globalMounts:
           - path: /app/config/repository.config
             subPath: repository.config
-            readOnly: true
       cache:
         type: emptyDir
         globalMounts:

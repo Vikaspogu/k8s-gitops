@@ -40,7 +40,6 @@ spec:
               - 100
         containers:
           subcleaner:
-            name: subcleaner
             image:
               repository: registry.k8s.io/git-sync/git-sync
               tag: v4.2.2
@@ -50,8 +49,6 @@ spec:
               - --branch=master
               - --wait=86400 # 1 day
               - --root=/add-ons/
-            volumeMounts:
-              - { name: add-ons, mountPath: /add-ons }
           app:
             image:
               repository: ghcr.io/onedr0p/bazarr
@@ -116,4 +113,3 @@ spec:
         type: configMap
         name: bazarr-scripts # overriden by kustomizeconfig
         defaultMode: 0775
-        readOnly: true
