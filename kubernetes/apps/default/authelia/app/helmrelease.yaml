@@ -123,7 +123,8 @@ spec:
               authorization_policy: two_factor
               pre_configured_consent_duration: 1y
               scopes: ["openid", "profile", "groups", "email"]
-              redirect_uris: ["https://grafana.${SECRET_DOMAIN}/login/generic_oauth"]
+              redirect_uris:
+                ["https://grafana.${SECRET_DOMAIN}/login/generic_oauth"]
               userinfo_signing_algorithm: none
             - id: miniflux
               description: Miniflux
@@ -132,7 +133,8 @@ spec:
               authorization_policy: two_factor
               pre_configured_consent_duration: 1y
               scopes: ["openid", "profile", "groups", "email"]
-              redirect_uris: ["https://miniflux.${SECRET_DOMAIN}/oauth2/oidc/callback"]
+              redirect_uris:
+                ["https://miniflux.${SECRET_DOMAIN}/oauth2/oidc/callback"]
               userinfo_signing_algorithm: none
       session:
         name: "${SECRET_DOMAIN}_auth_session"
@@ -164,5 +166,5 @@ spec:
               name: authelia
             patch:
               - op: add
-                path: /spec/className
-                value: nginx
+                path: /spec/ingressClassName
+                value: external
