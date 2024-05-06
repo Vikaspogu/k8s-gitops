@@ -62,5 +62,6 @@ spec:
           nfs:
             path: &mediaPath /volume1/media
             server: ${SECRET_NAS_ADDRESS}
-        mountPath: *mediaPath
-        readOnly: false
+        globalMounts:
+          - path: *mediaPath
+            readOnly: false
