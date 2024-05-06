@@ -118,7 +118,7 @@ spec:
             port: 8123
       codeserver:
         type: ClusterIP
-        controller: codeserver
+        controller: app
         ports:
           http:
             enabled: true
