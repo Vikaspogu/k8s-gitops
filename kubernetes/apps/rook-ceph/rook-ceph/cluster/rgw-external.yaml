@@ -36,7 +36,7 @@ kind: Ingress
 metadata:
   name: rook-ceph-rgw
 spec:
-  ingressClassName: internal
+  className: internal
   rules:
     - host: &host rook-ceph-rgw.${SECRET_DOMAIN}
       http:

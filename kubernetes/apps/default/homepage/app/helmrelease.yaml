@@ -54,7 +54,7 @@ spec:
     ingress:
       app:
         enabled: true
-        ingressClassName: "internal"
+        className: "internal"
         hosts:
           - host: &host home.${SECRET_DOMAIN}
             paths:
