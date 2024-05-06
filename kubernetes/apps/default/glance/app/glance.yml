@@ -25,6 +25,8 @@ pages:
           - type: videos
             channels:
               - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
+              - UCZNhwA1B5YqiY1nLzmM0ZRg # Christian Lempa
+              - UCfz8x0lVzJpb_dgWm9kPVrw # DevOps Toolkit
 
           - type: reddit
             subreddit: selfhosted
