@@ -69,21 +69,6 @@ spec:
                 value: "11221"
               - name: OP_BUS_PEERS
                 value: "localhost:11220"
-            readinessProbe:
-              httpGet:
-                path: /health
-                port: *port
-              initialDelaySeconds: 15
-            livenessProbe:
-              httpGet:
-                path: /heartbeat
-                port: *port
-              failureThreshold: 3
-              periodSeconds: 30
-              initialDelaySeconds: 15
-            volumeMounts:
-              - name: shared
-                mountPath: /home/opuser/.op/data
     service:
       app:
         controller: app
@@ -94,6 +79,20 @@ spec:
     ingress:
       app:
         enabled: false
+        className: "internal"
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
 
     probes:
       liveness:
