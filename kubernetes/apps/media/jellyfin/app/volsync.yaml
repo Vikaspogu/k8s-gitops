@@ -28,7 +28,7 @@ metadata:
   name: jellyfin
   namespace: media
 spec:
-  sourcePVC: config-jellyfin-0
+  sourcePVC: jellyfin-config
   trigger:
     schedule: "0 20 * * *"
   restic:
