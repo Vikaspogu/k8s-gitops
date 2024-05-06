@@ -68,6 +68,7 @@ spec:
     serviceMonitor:
       app:
         enabled: true
+        serviceName: app
         endpoints:
           - port: api
             scheme: http

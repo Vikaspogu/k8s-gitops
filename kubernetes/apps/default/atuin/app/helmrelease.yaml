@@ -79,7 +79,7 @@ spec:
             port: *metricsPort
     serviceMonitor:
       app:
-        controller: app
+        serviceName: app
         enabled: true
         endpoints:
           - port: metrics
