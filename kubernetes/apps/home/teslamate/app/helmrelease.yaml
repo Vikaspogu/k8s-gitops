@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,9 +26,9 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         containers:
-          main:
+          app:
             image:
               repository: teslamate/teslamate
               tag: 1.28.5
@@ -41,13 +41,14 @@ spec:
               DISABLE_MQTT: "false"
               MQTT_HOST: "mosquitto.home.svc.cluster.local"
     service:
-      main:
+      app:
+        controller: app
         type: ClusterIP
         ports:
           http:
             port: 4000
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -60,7 +61,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
         tls:

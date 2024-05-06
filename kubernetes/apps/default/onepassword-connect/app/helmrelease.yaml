@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         pod:
           securityContext:
             runAsUser: 999
@@ -34,7 +34,7 @@ spec:
           annotations:
             reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/1password/connect-api
               tag: 1.7.2
@@ -85,13 +85,14 @@ spec:
               - name: shared
                 mountPath: /home/opuser/.op/data
     service:
-      main:
+      app:
+        controller: app
         ports:
           http:
             port: 8080
 
     ingress:
-      main:
+      app:
         enabled: false
 
     probes:

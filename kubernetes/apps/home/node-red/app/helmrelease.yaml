@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -36,7 +36,7 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: "OnRootMismatch"
         containers:
-          main:
+          app:
             image:
               repository: nodered/node-red
               tag: 3.1.9
@@ -54,13 +54,14 @@ spec:
               limits:
                 memory: 750Mi
     service:
-      main:
+      app:
+        controller: app
         type: ClusterIP
         ports:
           http:
             port: 1880
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -73,7 +74,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

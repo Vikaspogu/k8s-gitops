@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -38,9 +38,9 @@ spec:
         setGateway: "true"
       hostname: prowlarr
     controllers:
-      main:
+      app:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/prowlarr-nightly
               tag: 1.17.2.4493@sha256:08a479d42e31ca86a52c5f6e00172f2ca4ada161a8a51ec916d5a76480856362
@@ -55,12 +55,13 @@ spec:
               limits:
                 memory: 750Mi
     service:
-      main:
+      app:
+        controller: app
         ports:
           http:
             port: 9696
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -77,7 +78,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

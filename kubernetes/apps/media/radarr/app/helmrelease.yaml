@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         pod:
           securityContext:
             runAsUser: 568
@@ -36,7 +36,7 @@ spec:
             supplementalGroups:
               - 100
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/radarr-develop
               tag: 5.5.2.8781@sha256:4b7de43df00613272532de7ecfc6a3207cb0a74fdcb2b05dd110ec2ebb493352
@@ -52,13 +52,14 @@ spec:
                 cpu: 250m
                 memory: 350Mi
     service:
-      main:
+      app:
+        controller: app
         ports:
           http:
             port: 80
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -75,7 +76,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

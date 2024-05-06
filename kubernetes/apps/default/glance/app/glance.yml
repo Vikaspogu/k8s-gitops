@@ -24,13 +24,14 @@ pages:
 
           - type: videos
             channels:
-              - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
-              - UCv6J_jJa8GJqFwQNgNrMuww # ServeTheHome
               - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
 
           - type: reddit
             subreddit: selfhosted
-
+          - type: reddit
+            subreddit: homelab
+          - type: reddit
+            subreddit: homeautomation
       - size: small
         widgets:
           - type: weather

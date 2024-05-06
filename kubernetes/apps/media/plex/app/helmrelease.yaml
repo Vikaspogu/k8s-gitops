@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         pod:
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
@@ -40,7 +40,7 @@ spec:
               - 109
               - 100
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/plex
               tag: 1.40.2.8395-c67dce28e@sha256:a2a3149c1326e7777bfe9def135c687d884652f78d34e92264b0dab765908215
@@ -58,7 +58,7 @@ spec:
                 memory: 16Gi
 
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:
@@ -76,14 +76,15 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
 
     service:
-      main:
+      app:
+        controller: app
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "${SVC_PLEX_ADDR}"

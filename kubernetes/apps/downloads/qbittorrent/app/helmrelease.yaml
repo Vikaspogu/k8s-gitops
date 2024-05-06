@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -37,9 +37,9 @@ spec:
         setGateway: "true"
       hostname: qbittorrent
     controllers:
-      main:
+      app:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: 4.6.4@sha256:b9af0f2173572a69d2c02eab8f701ef7b04f61689efe1c5338b96445d528dec4
@@ -54,7 +54,8 @@ spec:
               limits:
                 memory: 3000Mi
     service:
-      main:
+      app:
+        controller: app
         annotations:
           io.cilium/lb-ipam-ips: "${SVC_QBITTORRENT_ADDR}"
         type: LoadBalancer
@@ -69,7 +70,7 @@ spec:
             targetPort: 56059
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -90,7 +91,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

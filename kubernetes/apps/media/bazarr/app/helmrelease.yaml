@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -52,7 +52,7 @@ spec:
               - --root=/add-ons/
             volumeMounts:
               - { name: add-ons, mountPath: /add-ons }
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/bazarr
               tag: 1.4.2@sha256:62558b2f9210b288f01e96753c99699dc2fab7c27f9e678f994bd0068bc6d41e
@@ -65,13 +65,14 @@ spec:
               limits:
                 memory: 512Mi
     service:
-      main:
+      app:
+        controller: app
         ports:
           http:
             port: 6767
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -84,7 +85,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

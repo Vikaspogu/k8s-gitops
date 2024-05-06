@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         pod:
           securityContext:
             runAsUser: 568
@@ -35,7 +35,7 @@ spec:
             supplementalGroups:
               - 65536
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/readarr-nightly
               tag: 0.3.27.2532@sha256:9211795e4a8e0855c9a29c7c6ea2f4eebe28e5de1cd4d43b5500310a55837c72
@@ -50,13 +50,14 @@ spec:
                 memory: 1026M
 
     service:
-      main:
+      app:
+        controller: app
         ports:
           http:
             port: 8080
 
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -73,7 +74,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

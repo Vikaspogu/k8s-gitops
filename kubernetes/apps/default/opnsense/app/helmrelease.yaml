@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,13 +26,13 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         type: cronjob
         cronjob:
           schedule: "05 11 * * *"
           ttlSecondsAfterFinished: 86400
         containers:
-          main:
+          app:
             image:
               repository: quay.io/rhn_gps_vpogu/alpine
               tag: 3.14@sha256:7c0231727be1e17edd257a4710825a1a82a4f237568ecb17b77e18b11e059072
@@ -41,7 +41,7 @@ spec:
               - secretRef:
                   name: opnsense-secret
     service:
-      main:
+      app:
         enabled: false
 
     persistence:

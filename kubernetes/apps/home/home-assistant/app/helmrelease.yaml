@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      app:
         pod:
           securityContext:
             runAsUser: 568
@@ -36,7 +36,7 @@ spec:
             supplementalGroups:
               - 100
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/home-assistant
               tag: 2024.4.4@sha256:f2cb8e343ff32450b881a0c579e0805ef0bf4135b367bb3032bd9d0ec1618fd4
@@ -75,7 +75,7 @@ spec:
                 mountPath: /config
 
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:
@@ -89,7 +89,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -107,20 +107,21 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: codeserver
+                  identifier: codeserver
                   port: http
         tls:
           - hosts:
               - hass-config.${SECRET_DOMAIN}
 
     service:
-      main:
+      app:
+        controller: app
         ports:
           http:
             port: 8123
       codeserver:
         type: ClusterIP
-        controller: main
+        controller: codeserver
         ports:
           http:
             enabled: true

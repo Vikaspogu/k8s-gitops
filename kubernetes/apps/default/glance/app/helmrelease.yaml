@@ -26,11 +26,11 @@ spec:
     keepHistory: false
   values:
     controllers:
-      glance:
+      app:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          glance:
+          app:
             image:
               repository: glanceapp/glance
               tag: v0.3.0
@@ -43,13 +43,13 @@ spec:
               limits:
                 memory: 1G
     service:
-      glance:
-        controller: glance
+      app:
+        controller: app
         ports:
           http:
             port: 8080
     ingress:
-      glance:
+      app:
         enabled: true
         className: "internal"
         annotations:
@@ -62,7 +62,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  identifier: glance
+                  identifier: app
                   port: http
         tls:
           - hosts:
