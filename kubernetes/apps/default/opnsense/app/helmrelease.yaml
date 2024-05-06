@@ -42,6 +42,7 @@ spec:
                   name: opnsense-secret
     service:
       app:
+        controller: app
         enabled: false
 
     persistence:
@@ -52,5 +53,4 @@ spec:
         globalMounts:
           - path: /app/opnsense-backup.sh
             subPath: opnsense-backup.sh
-            defaultMode: 0775
             readOnly: true
