@@ -27,15 +27,11 @@ spec:
   values:
     defaultPodOptions:
       enableServiceLinks: false
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
     controllers:
       jellyfin:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
-          nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
