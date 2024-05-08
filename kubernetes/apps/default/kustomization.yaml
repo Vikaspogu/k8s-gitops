@@ -20,6 +20,7 @@ resources:
   - ./obsidian-livesync/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
+  - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
   - ./pgadmin/ks.yaml
   - ./reverse-proxy/ks.yaml
