@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/readarr-nightly
-              tag: 0.3.27.2534@sha256:2583c5a74807137fcadd6c377054800213fad381b565bc6f62f45a220ef5921d
+              tag: 0.3.27.2538@sha256:643e06dc57ad8ad55c72779d0ded4b9178a972f32b2c259fafd5187cf6c98408
             env:
               TZ: "${TIMEZONE}"
               READARR__PORT: 8080
