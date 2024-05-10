@@ -74,13 +74,6 @@ data:
               url: {{HOMEPAGE_VAR_PROXMOX_IP}}
               username: {{HOMEPAGE_VAR_PROXMOX_USER}}
               password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
-        - Ghostfolio:
-            href: https://portfolio.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: ghostfolio.png
-            widget:
-              type: ghostfolio
-              url: http://ghostfolio.default.svc.cluster.local:3333
-              key: {{HOMEPAGE_VAR_GHOSTFOLIO_API_KEY}}
         - Miniflux:
             href: https://miniflux.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: miniflux.png
