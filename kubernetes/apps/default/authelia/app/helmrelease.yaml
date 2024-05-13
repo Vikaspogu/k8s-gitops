@@ -158,13 +158,3 @@ spec:
           identifier: ${SECRET_DOMAIN}
     secret:
       existingSecret: authelia
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              kind: Ingress
-              name: authelia
-            patch:
-              - op: add
-                path: /spec/ingressClassName
-                value: external
