@@ -36,3 +36,4 @@ resources:
   - ./rook-ceph.yaml
   - ./runix.yaml
   - ./stakater.yaml
+  - ./synology-csi.yaml
