@@ -11,3 +11,4 @@ resources:
   - ./node-red/ks.yaml
   - ./teslamate/ks.yaml
   - ./zigbee2mqtt/ks.yaml
+  - ./zwave/ks.yaml
