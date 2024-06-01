@@ -28,9 +28,6 @@ spec:
     controllers:
       zwave:
         pod:
-          securityContext:
-            supplementalGroups:
-              - 20
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
@@ -61,9 +58,7 @@ spec:
                   failureThreshold: 3
               readiness: *probes
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              privileged: true
             resources:
               requests:
                 cpu: 10m
@@ -104,12 +99,10 @@ spec:
         existingClaim: zwave-config
         globalMounts:
           - path: /usr/src/app/store
-      tmp:
-        type: emptyDir
       usb:
         enabled: true
         type: hostPath
         hostPath: /dev/serial/by-id/usb-Zooz_800_Z-Wave_Stick_533D004242-if00
         hostPathType: CharDevice
         globalMounts:
-          - path: /dev/serial/by-id/usb-Zooz_800_Z-Wave_Stick_533D004242-if00
+          - path: /dev/ttyUSB0
