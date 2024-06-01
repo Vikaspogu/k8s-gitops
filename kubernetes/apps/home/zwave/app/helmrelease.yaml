@@ -27,6 +27,16 @@ spec:
   values:
     controllers:
       zwave:
+        pod:
+          securityContext:
+            supplementalGroups:
+              - 20
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - { key: "feature.node.kubernetes.io/usb-02_1a86_55d4.present", operator: In, values: ["true"] }
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
