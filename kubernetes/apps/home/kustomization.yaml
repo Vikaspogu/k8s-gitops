@@ -10,5 +10,6 @@ resources:
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
   - ./teslamate/ks.yaml
+  - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml
