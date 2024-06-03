@@ -7,3 +7,5 @@ configMapGenerator:
   - name: valetudopng-configmap
     files:
       - ./config.yml
+generatorOptions:
+  disableNameSuffixHash: true
