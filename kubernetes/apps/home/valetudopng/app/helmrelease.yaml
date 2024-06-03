@@ -36,7 +36,7 @@ spec:
               tag: v1.0.17
             env:
               TZ: ${TIMEZONE}
-              PORT: &port 80
+              PORT: &port 3000
             probes:
               liveness: &probes
                 enabled: true
@@ -61,8 +61,6 @@ spec:
         ports:
           http:
             port: *port
-          websocket:
-            port: 3000
 
     ingress:
       app:
