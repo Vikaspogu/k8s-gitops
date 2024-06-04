@@ -35,7 +35,7 @@ spec:
 
     controllers:
       pairdrop:
-        replicas: 2
+        replicas: 1
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
