@@ -28,8 +28,6 @@ spec:
     controllers:
       app:
         pod:
-          nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -54,8 +52,7 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                gpu.intel.com/i915: 1
-                memory: 16Gi
+                memory: 4Gi
 
     ingress:
       app:
