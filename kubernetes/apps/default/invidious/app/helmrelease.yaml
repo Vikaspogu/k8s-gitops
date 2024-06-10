@@ -63,7 +63,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: si:youtube
+          gethomepage.dev/icon: si-youtube
         hosts:
           - host: &host "invidious.${SECRET_DOMAIN}"
             paths:
