@@ -9,7 +9,7 @@
     ":dependencyDashboard",
     ":semanticCommits",
     ":skipStatusChecks",
-    ":timezone(America/Chicago)",
+    ":timezone(America/New_York)",
     "github>vikaspogu/k8s-gitops//.github/renovate/allowedVersions.json5",
     "github>vikaspogu/k8s-gitops//.github/renovate/autoMerge.json5",
     "github>vikaspogu/k8s-gitops//.github/renovate/clusters.json5",

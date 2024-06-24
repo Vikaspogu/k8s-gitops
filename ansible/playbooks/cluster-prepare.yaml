@@ -15,7 +15,7 @@
       block:
         - name: Locale | Set timezone
           community.general.timezone:
-            name: "America/Chicago"
+            name: "America/New_York"
 
     - name: Packages
       block:
