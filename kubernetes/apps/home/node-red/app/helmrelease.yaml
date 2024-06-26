@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: nodered/node-red
-              tag: 4.0.0
+              tag: 4.0.1
             env:
               TZ: "${TIMEZONE}"
               NODE_RED_ENABLE_PROJECTS: "true"
