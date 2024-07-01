@@ -57,7 +57,7 @@ objects:
 
 go2rtc:
   streams:
-    frigate_frontdoor: rtsp://{FRIGATE_RSTP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_FRONTDOOR_CAMERA}554/cam/realmonitor?channel=1&subtype=0
+    frigate_frontdoor: rtsp://{FRIGATE_RSTP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_FRONTDOOR_CAMERA}:554/cam/realmonitor?channel=1&subtype=0
 
 cameras:
   frigate_frontdoor:
