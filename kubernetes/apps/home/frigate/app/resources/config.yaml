@@ -57,8 +57,8 @@ objects:
 
 go2rtc:
   streams:
-    frigate_front: {UNIFI_RTSP_FRONT}
-    frigate_doorbell: {UNIFI_RTSP_DOORBELL}
+    frigate_front: {FRIGATE_RTSP_FRONT}
+    frigate_doorbell: {FRIGATE_RTSP_DOORBELL}
 
 cameras:
   frigate_front:
