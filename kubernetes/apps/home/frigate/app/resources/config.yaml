@@ -57,16 +57,31 @@ objects:
 
 go2rtc:
   streams:
-    frigate_frontdoor: rtsp://{FRIGATE_RSTP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_FRONTDOOR_CAMERA}/cam/realmonitor?channel=1&subtype=0
+    frigate_front: {UNIFI_RTSP_FRONT}
+    frigate_doorbell: {UNIFI_RTSP_DOORBELL}
 
 cameras:
-  frigate_frontdoor:
+  frigate_front:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_frontdoor
+        - path: rtsp://localhost:8554/frigate_front
           roles: ["detect", "record"]
     detect:
       width: 960
+      height: 720
+      fps: 10
+    objects:
+      filters:
+        person:
+          mask:
+            - 0,0,960,0,960,280,0,283
+  frigate_doorbell:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_doorbell
+          roles: ["detect", "record"]
+    detect:
+      width: 1280
       height: 720
       fps: 10
     objects:
