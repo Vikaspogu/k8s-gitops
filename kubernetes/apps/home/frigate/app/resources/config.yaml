@@ -18,33 +18,25 @@ detectors:
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
-  hwaccel_args:
-    [
-      "-hwaccel",
-      "vaapi",
-      "-hwaccel_device",
-      "/dev/dri/renderD128",
-      "-hwaccel_output_format",
-      "yuv420p",
-    ]
+  hwaccel_args: preset-intel-qsv-h264
   output_args:
-    record: preset-record-generic
+    record: preset-record-ubiquiti
 
 snapshots:
   enabled: true
   timestamp: false
   bounding_box: true
   retain:
-    default: 10
+    default: 1
 
 record:
   enabled: true
   retain:
-    days: 10
+    days: 1
     mode: all
   events:
     retain:
-      default: 10
+      default: 1
       mode: active_objects
 
 objects:
