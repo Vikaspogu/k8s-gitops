@@ -58,7 +58,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_front
-          roles: ["detect", "record"]
+          roles: ["record"]
     detect:
       width: 960
       height: 720
@@ -72,7 +72,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_doorbell
-          roles: ["detect", "record"]
+          roles: ["record"]
     detect:
       width: 1280
       height: 720
