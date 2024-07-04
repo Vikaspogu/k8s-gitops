@@ -57,6 +57,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_front
+          input_args: preset-rtsp-restream
           roles: ["detect", "record"]
     detect:
       width: 960
