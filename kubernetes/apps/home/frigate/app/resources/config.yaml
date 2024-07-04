@@ -18,9 +18,17 @@ detectors:
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
-  hwaccel_args: preset-vaapi
+  hwaccel_args:
+    [
+      "-hwaccel",
+      "vaapi",
+      "-hwaccel_device",
+      "/dev/dri/renderD128",
+      "-hwaccel_output_format",
+      "yuv420p",
+    ]
   output_args:
-    record: preset-record-ubiquiti
+    record: preset-record-generic
 
 snapshots:
   enabled: true
@@ -57,9 +65,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_front
-          input_args: preset-rtsp-restream
           roles:
             - detect
+            - record
     objects:
       filters:
         person:
@@ -70,9 +78,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_doorbell
-          input_args: preset-rtsp-restream
           roles:
             - detect
+            - record
     objects:
       filters:
         person:
