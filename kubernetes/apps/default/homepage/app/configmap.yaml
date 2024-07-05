@@ -126,13 +126,6 @@ data:
             url: http://jellyfin.media.svc.cluster.local:8096
             key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
             enableNowPlaying: true
-      - Plex:
-          href: https://plex.${SECRET_DOMAIN}
-          icon: plex.png
-          widget:
-            type: plex
-            url: http://{{HOMEPAGE_VAR_PLEX_IP}}:32400
-            key: {{HOMEPAGE_VAR_PLEX_API_KEY}}
       - Overseerr:
           href: https://overseerr.${SECRET_DOMAIN}
           icon: overseerr.png
