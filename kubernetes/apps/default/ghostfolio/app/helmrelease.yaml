@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: docker.io/ghostfolio/ghostfolio
-              tag: 2.93.0
+              tag: 2.94.0
             env:
               NODE_ENV: production
               REDIS_HOST: localhost
