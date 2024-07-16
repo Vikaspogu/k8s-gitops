@@ -41,20 +41,34 @@ spec:
               tag: 0.3.32.2579@sha256:1f47163ba5779cb0ee2bfd8c12426a157a7796851583fb44808273ee736a5b9c
             env:
               TZ: "${TIMEZONE}"
-              READARR__PORT: 8080
+              READARR__AUTH__METHOD: External
+              READARR__AUTH__REQUIRED: DisabledForLocalAddresses
             resources:
               requests:
                 cpu: 15m
                 memory: 512M
               limits:
                 memory: 1026M
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &port 8787
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
 
     service:
       app:
         controller: app
         ports:
           http:
-            port: 8080
+            port: *port
 
     ingress:
       app:
