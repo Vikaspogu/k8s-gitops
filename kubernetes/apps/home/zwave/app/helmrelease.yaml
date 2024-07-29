@@ -33,7 +33,11 @@ spec:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
                   - matchExpressions:
-                      - { key: "feature.node.kubernetes.io/usb-02_1a86_55d4.present", operator: In, values: ["true"] }
+                      - {
+                          key: "feature.node.kubernetes.io/usb-02_1a86_55d4.present",
+                          operator: In,
+                          values: ["true"],
+                        }
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -80,7 +84,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: zwave.png
+          gethomepage.dev/icon: mdi:z-wave
         hosts:
           - host: "zwave.${SECRET_DOMAIN}"
             paths:
