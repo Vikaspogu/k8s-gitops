@@ -45,7 +45,9 @@ spec:
                 cpu: 200m
               limits:
                 memory: 2Gi
-
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
             probes:
               liveness:
                 enabled: true
@@ -80,3 +82,10 @@ spec:
         tls:
           - hosts:
               - "openui.${SECRET_DOMAIN}"
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: ollama-data
+        globalMounts:
+          - path: /app/backend/data
