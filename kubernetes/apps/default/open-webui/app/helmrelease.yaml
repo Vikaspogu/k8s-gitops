@@ -39,7 +39,7 @@ spec:
               tag: ollama
             env:
               DATA_DIR: /app/backend/data
-              WEBUI_AUTH: "false"
+              WEBUI_AUTH: "true"
               ENABLE_SIGNUP: "false"
               MODEL_FILTER_LIST: "llama3:instruct;gemma:instruct"
             resources:
