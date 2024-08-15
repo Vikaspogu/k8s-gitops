@@ -1,6 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./externalsecret-vpn.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml

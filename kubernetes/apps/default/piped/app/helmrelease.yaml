@@ -43,28 +43,6 @@ spec:
           envFrom:
             - secretRef:
                 name: &secret piped-db-creds
-      additionalContainers:
-        gluetun:
-          image: docker.io/qmcgaw/gluetun:v3.39.0@sha256:2f011a9aca767af62008d879eefcbc80a8645bd4fd4466ab312cc941cb658ad1
-          imagePullPolicy: IfNotPresent
-          env:
-            VPN_TYPE: wireguard
-            VPN_SERVICE_PROVIDER: mullvad
-            VPN_INTERFACE: wg0
-            FIREWALL: "off"
-            DOT: "off"
-            DNS_KEEP_NAMESERVER: "on"
-            SERVER_CITIES: "Ashburn VA"
-            HTTPPROXY: "on"
-            HTTPPROXY_LISTENING_ADDRESS: ":8888"
-            HTTPPROXY_STEALTH: "on"
-          envFrom:
-            - secretRef:
-                name: piped-vpnconfig
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
       image:
         repository: "docker.io/1337kavin/piped"
         tag: "latest"
