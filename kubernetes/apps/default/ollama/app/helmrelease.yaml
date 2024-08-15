@@ -87,7 +87,7 @@ spec:
         advancedMounts:
           ollama:
             main:
-              - path: /.ollama
+              - path: /root/.ollama
       models:
         enabled: true
         existingClaim: ollama-models
