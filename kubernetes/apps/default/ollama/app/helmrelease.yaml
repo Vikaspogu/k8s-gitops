@@ -41,26 +41,25 @@ spec:
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
-
         containers:
           app:
             image:
               repository: docker.io/ollama/ollama
               tag: 0.3.6
-
             env:
               TZ: ${TIMEZONE}
+              LIBVA_DRIVER_NAME: i965
               OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*"
-
+              OLLAMA_MODELS: &pvc /models
             resources:
               requests:
-                cpu: 200m
-                memory: 8Gi
-              limits:
-                gpu.intel.com/i915: "1"
+                cpu: 2000m
                 memory: 16Gi
-
+                gpu.intel.com/i915: "1"
+              limits:
+                memory: 16Gi
+                gpu.intel.com/i915: "1"
             probes:
               liveness:
                 enabled: true
@@ -71,10 +70,21 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-
+        pod:
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
     service:
       app:
         controller: *app
         ports:
           http:
             port: &port 11434
+
+    persistence:
+      models:
+        enabled: true
+        existingClaim: ollama-models
+        advancedMounts:
+          backend:
+            main:
+              - path: *pvc
