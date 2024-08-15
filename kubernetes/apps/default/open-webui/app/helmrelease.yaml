@@ -36,18 +36,21 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: ollama
+              tag: main
             env:
               DATA_DIR: /app/backend/data
+              OLLAMA_BASE_URL: http://ollama.default.svc:11434
               WEBUI_AUTH: "true"
               ENABLE_SIGNUP: "false"
               MODEL_FILTER_LIST: "llama3:instruct;gemma:instruct"
             resources:
               requests:
                 cpu: 200m
-                memory: 8Gi
               limits:
-                memory: 16Gi
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
             probes:
               liveness:
                 enabled: true
@@ -84,11 +87,6 @@ spec:
               - "openui.${SECRET_DOMAIN}"
 
     persistence:
-      config:
-        enabled: true
-        existingClaim: open-webui-config
-        globalMounts:
-          - path: /root/.ollama
       data:
         enabled: true
         existingClaim: open-webui-data
