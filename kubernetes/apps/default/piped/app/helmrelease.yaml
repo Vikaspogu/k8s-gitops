@@ -45,7 +45,7 @@ spec:
                 name: &secret piped-db-creds
       additionalContainers:
         gluetun:
-          image: registry.skysolutions.fi/docker.io/qmcgaw/gluetun:v3.39.0
+          image: docker.io/qmcgaw/gluetun:v3.39.0@sha256:2f011a9aca767af62008d879eefcbc80a8645bd4fd4466ab312cc941cb658ad1
           imagePullPolicy: IfNotPresent
           env:
             VPN_TYPE: wireguard
@@ -54,6 +54,9 @@ spec:
             FIREWALL: "off"
             DOT: "off"
             SERVER_CITIES: "Ashburn VA"
+            HTTPPROXY: "on"
+            HTTPPROXY_LISTENING_ADDRESS: ":8888"
+            HTTPPROXY_STEALTH: "on"
           envFrom:
             - secretRef:
                 name: piped-vpnconfig
@@ -71,6 +74,7 @@ spec:
         PORT: 8080
         HTTP_WORKERS: 4
         PROXY_PART: https://pproxy.${SECRET_DOMAIN}
+        HTTP_PROXY: 127.0.0.1:8888
         # DISABLE_REGISTRATION: false
         database:
           connection_url: jdbc:postgresql://postgres-rw.database.svc.cluster.local/piped
