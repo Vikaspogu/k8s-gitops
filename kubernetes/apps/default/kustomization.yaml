@@ -18,6 +18,7 @@ resources:
   - ./opnsense/ks.yaml
   - ./paperless/ks.yaml
   - ./pgadmin/ks.yaml
+  - ./piped/ks.yaml
   - ./reverse-proxy/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
