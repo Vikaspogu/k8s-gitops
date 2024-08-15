@@ -85,6 +85,6 @@ spec:
         enabled: true
         existingClaim: ollama-models
         advancedMounts:
-          backend:
+          ollama:
             main:
               - path: *pvc
