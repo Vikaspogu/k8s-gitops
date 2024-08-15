@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: open-webui-config
+  namespace: default
+  labels:
+    app.kubernetes.io/name: open-webui-config
+    app.kubernetes.io/instance: open-webui
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ceph-block

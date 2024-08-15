@@ -83,6 +83,11 @@ spec:
     persistence:
       config:
         enabled: true
+        existingClaim: open-webui-config
+        globalMounts:
+          - path: /root/.ollama
+      data:
+        enabled: true
         existingClaim: open-webui-data
         globalMounts:
           - path: /app/backend/data
