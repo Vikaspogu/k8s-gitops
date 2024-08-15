@@ -6,13 +6,13 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./flaresolverr/ks.yaml
-  - ./jellyfin/ks.yaml
-  - ./jellyplex-watched/ks.yaml
+  # - ./jellyfin/ks.yaml
+  # - ./jellyplex-watched/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sonarr/ks.yaml
-  - ./tautulli/ks.yaml
-  - ./tdarr/ks.yaml
+  # - ./tautulli/ks.yaml
+  # - ./tdarr/ks.yaml
