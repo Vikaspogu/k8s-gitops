@@ -3,8 +3,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ollama-ui
-  namespace: ollama
+  name: &app ollama
+  namespace: default
 spec:
   interval: 30m
   chart:
@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      ollama-ui:
+      ollama:
         type: deployment
         annotations:
           reloader.stakater.com/auto: "true"
@@ -36,18 +36,15 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: main
+              tag: ollama
             env:
-              OLLAMA_BASE_URL: http://ollama.ollama.svc:11434
               WEBUI_AUTH: false
             resources:
               requests:
                 cpu: 200m
+                memory: 8Gi
               limits:
-                memory: 2Gi
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
+                memory: 16Gi
             probes:
               liveness:
                 enabled: true
