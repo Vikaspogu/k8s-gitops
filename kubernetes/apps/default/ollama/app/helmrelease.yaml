@@ -81,6 +81,13 @@ spec:
             port: &port 11434
 
     persistence:
+      config:
+        enabled: true
+        existingClaim: ollama-config
+        advancedMounts:
+          ollama:
+            main:
+              - path: /.ollama
       models:
         enabled: true
         existingClaim: ollama-models
