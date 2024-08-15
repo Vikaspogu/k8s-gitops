@@ -51,7 +51,7 @@ spec:
               LIBVA_DRIVER_NAME: i965
               OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*"
-              OLLAMA_MODELS: &pvc /models
+              OLLAMA_MODELS: &model-pvc /models
             resources:
               requests:
                 cpu: 2000m
@@ -84,14 +84,10 @@ spec:
       config:
         enabled: true
         existingClaim: ollama-config
-        advancedMounts:
-          ollama:
-            main:
-              - path: /root/.ollama
+        globalMounts:
+          - path: /root/.ollama
       models:
         enabled: true
         existingClaim: ollama-models
-        advancedMounts:
-          ollama:
-            main:
-              - path: *pvc
+        globalMounts:
+          - path: *model-pvc
