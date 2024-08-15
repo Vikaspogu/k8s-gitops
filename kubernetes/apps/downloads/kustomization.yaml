@@ -5,4 +5,3 @@ resources:
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./sabnzbd/ks.yaml
-  - ./piped/ks.yaml
