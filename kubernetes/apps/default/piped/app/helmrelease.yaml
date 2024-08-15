@@ -53,6 +53,7 @@ spec:
             VPN_INTERFACE: wg0
             FIREWALL: "off"
             DOT: "off"
+            DNS_KEEP_NAMESERVER: "on"
             SERVER_CITIES: "Ashburn VA"
             HTTPPROXY: "on"
             HTTPPROXY_LISTENING_ADDRESS: ":8888"
