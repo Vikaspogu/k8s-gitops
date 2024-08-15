@@ -48,7 +48,7 @@ spec:
           image: registry.skysolutions.fi/docker.io/qmcgaw/gluetun:v3.39.0
           imagePullPolicy: IfNotPresent
           env:
-            VPN_TYPE: mullvad
+            VPN_TYPE: wireguard
             VPN_SERVICE_PROVIDER: mullvad
             VPN_INTERFACE: wg0
             FIREWALL: "off"
