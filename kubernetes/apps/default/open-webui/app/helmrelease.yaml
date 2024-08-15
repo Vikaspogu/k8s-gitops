@@ -37,6 +37,11 @@ spec:
             image:
               repository: ghcr.io/open-webui/open-webui
               tag: ollama
+            env:
+              DATA_DIR: /app/backend/data
+              WEBUI_AUTH: "false"
+              ENABLE_SIGNUP: "false"
+              MODEL_FILTER_LIST: "llama3:instruct;gemma:instruct"
             resources:
               requests:
                 cpu: 200m
