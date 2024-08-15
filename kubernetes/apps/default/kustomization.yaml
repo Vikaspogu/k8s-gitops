@@ -16,6 +16,7 @@ resources:
   - ./obsidian-livesync/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
+  - ./open-webui/ks.yaml
   - ./paperless/ks.yaml
   - ./pgadmin/ks.yaml
   - ./piped/ks.yaml
