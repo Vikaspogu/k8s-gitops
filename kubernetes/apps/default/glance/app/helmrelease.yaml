@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: glanceapp/glance
-              tag: v0.6.0
+              tag: v0.6.1
             env:
               TZ: "${TIMEZONE}"
             resources:
