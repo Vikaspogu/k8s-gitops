@@ -40,9 +40,6 @@ spec:
               DATABASE_HOST: postgres-rw.database
               DISABLE_MQTT: "false"
               MQTT_HOST: "mosquitto.home.svc.cluster.local"
-              TESLA_API_HOST: https://api.myteslamate.com
-              TESLA_AUTH_HOST: https://api.myteslamate.com
-              TESLA_AUTH_PATH: /api/oauth2/v3
     service:
       app:
         controller: app
