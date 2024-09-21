@@ -110,7 +110,9 @@ spec:
             subject: ["group:admins", "group:users"]
             policy: two_factor
       session:
-        name: "${SECRET_DOMAIN}_auth_session"
+        cookies:
+          - domain: "${SECRET_DOMAIN}"
+            subdomain: 'auth'
         redis:
           enabled: true
           enabledSecret: true
