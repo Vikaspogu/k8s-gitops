@@ -123,11 +123,11 @@ spec:
           enabled: true
           host: postgres-rw.database.svc.cluster.local
       notifier:
+        disable_startup_check: true
         smtp:
           enabled: true
           enabledSecret: true
-          host: "smtp.sendgrid.net"
-          port: 587
+          address: "smtp.sendgrid.net:587"
           username: "apikey"
           sender: "no-reply@${SECRET_DOMAIN}"
           identifier: ${SECRET_DOMAIN}
