@@ -77,7 +77,7 @@ spec:
         ldap:
           enabled: true
           implementation: custom
-          url: ldap://lldap.default.svc.cluster.local:389
+          address: ldap://lldap.default.svc.cluster.local:389
           base_dn: dc=home,dc=arpa
           username_attribute: "uid"
           users_filter: "(&({username_attribute}={input})(objectClass=person))"
@@ -121,7 +121,9 @@ spec:
       storage:
         postgres:
           enabled: true
-          address: postgres-rw.database.svc.cluster.local
+          address: 'tcp://postgres-rw.database.svc.cluster.local:5432'
+          database: authelia
+          username: authelia
       notifier:
         disable_startup_check: true
         smtp:
