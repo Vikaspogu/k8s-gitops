@@ -121,7 +121,7 @@ spec:
       storage:
         postgres:
           enabled: true
-          host: postgres-rw.database.svc.cluster.local
+          address: postgres-rw.database.svc.cluster.local
       notifier:
         disable_startup_check: true
         smtp:
