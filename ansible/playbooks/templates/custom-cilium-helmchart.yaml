@@ -8,7 +8,7 @@ spec:
   repo: https://helm.cilium.io/
   chart: cilium
   # renovate: datasource=helm depName=cilium repository=https://helm.cilium.io
-  version: 1.15.3
+  version: 1.16.1
   targetNamespace: kube-system
   bootstrap: true
   valuesContent: |-
@@ -26,11 +26,7 @@ spec:
     cluster:
       id: 1
       name: home-cluster
-    containerRuntime:
-      integration: containerd
-      socketPath: /var/run/k3s/containerd/containerd.sock
-    # NOTE: devices might need to be set if you have more than one active NIC on your hosts
-    # devices: eno+ eth+
+    enableRuntimeDeviceDetection: true
     endpointRoutes:
       enabled: true
     hubble:
