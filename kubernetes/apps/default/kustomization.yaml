@@ -5,21 +5,38 @@ resources:
   - ./namespace.yaml
   - ./actual/ks.yaml
   - ./atuin/ks.yaml
+  - ./audiobookshelf/ks.yaml
+  - ./bazarr/ks.yaml
+  - ./cloudnative-pg/ks.yaml
   - ./external-secrets/ks.yaml
+  - ./flaresolverr/ks.yaml
   - ./glance/ks.yaml
+  - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./kopia-web/ks.yaml
   - ./lldap/ks.yaml
   - ./miniflux/ks.yaml
   - ./minio/ks.yaml
+  - ./mosquitto/ks.yaml
+  - ./node-red/ks.yaml
   - ./obsidian-livesync/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
   - ./open-webui/ks.yaml
+  - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./pgadmin/ks.yaml
   - ./piped/ks.yaml
+  - ./plex/ks.yaml
+  - ./radarr/ks.yaml
+  - ./readarr/ks.yaml
+  - ./recyclarr/ks.yaml
   - ./reverse-proxy/ks.yaml
+  - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
+  - ./teslamate/ks.yaml
+  - ./valetudopng/ks.yaml
+  - ./zigbee2mqtt/ks.yaml
+  - ./zwave/ks.yaml
