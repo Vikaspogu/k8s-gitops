@@ -10,7 +10,7 @@ endpoint: https://10.30.30.150:6443
 clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
-  - "10.69.0.0/16"
+  - "10.96.0.0/16"
 additionalApiServerCertSans: &sans
   - "10.30.30.150"
   - 127.0.0.1 # KubePrism
@@ -22,9 +22,9 @@ cniConfig:
 
 nodes:
   - hostname: "k8s-0-6i3syh"
-    ipAddress: ""
+    ipAddress: "10.30.30.20"
     installDiskSelector:
-      serial: "sda"
+      model: "SAMSUNG MZ7LN256"
     talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
     controlPlane: true
     networkInterfaces:
@@ -35,9 +35,9 @@ nodes:
         vip:
           ip: "10.30.30.150"
   - hostname: "k8s-1-7i5bnk"
-    ipAddress: ""
+    ipAddress: "10.30.30.21"
     installDiskSelector:
-      serial: "nvme0n1"
+      serial: "50026B7382439F6F"
     talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
     controlPlane: true
     networkInterfaces:
@@ -48,9 +48,9 @@ nodes:
         vip:
           ip: "10.30.30.150"
   - hostname: "k8s-2-7i5bnk"
-    ipAddress: ""
+    ipAddress: "10.30.30.22"
     installDiskSelector:
-      serial: "sda"
+      size: '< 1TB'
     talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
     controlPlane: true
     networkInterfaces:
@@ -61,9 +61,9 @@ nodes:
         vip:
           ip: "10.30.30.150"
   - hostname: "k8s-3-un1265"
-    ipAddress: ""
+    ipAddress: "10.30.30.23"
     installDiskSelector:
-      serial: "sda"
+      model: "CT500MX500SSD1"
     talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
     controlPlane: false
     networkInterfaces:
@@ -72,9 +72,9 @@ nodes:
         dhcp: true
         mtu: 1500
   - hostname: "k8s-4-ser"
-    ipAddress: ""
+    ipAddress: "10.30.30.24"
     installDiskSelector:
-      serial: "sda"
+      model: "CT500MX500SSD1"
     talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
     controlPlane: false
     networkInterfaces:
