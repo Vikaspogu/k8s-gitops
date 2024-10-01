@@ -6,9 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  url: "https://github.com/Vikaspogu/k8s-gitops.git"
   ref:
     branch: "main"
-  url: "https://github.com/Vikaspogu/k8s-gitops.git"
   ignore: |
     # exclude all
     /*

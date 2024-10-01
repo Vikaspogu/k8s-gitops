@@ -1,0 +1,108 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+---
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.8.0
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.31.1
+
+clusterName: "home-kubernetes"
+endpoint: https://10.30.30.150:6443
+clusterPodNets:
+  - "10.69.0.0/16"
+clusterSvcNets:
+  - "10.69.0.0/16"
+additionalApiServerCertSans: &sans
+  - "10.30.30.150"
+  - 127.0.0.1 # KubePrism
+additionalMachineCertSans: *sans
+
+# Disable built-in Flannel to use Cilium
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "k8s-0-6i3syh"
+    ipAddress: ""
+    installDiskSelector:
+      serial: "sda"
+    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "94:c6:91:a9:46:37"
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: "10.30.30.150"
+  - hostname: "k8s-1-7i5bnk"
+    ipAddress: ""
+    installDiskSelector:
+      serial: "nvme0n1"
+    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "94:c6:91:1a:bc:3f"
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: "10.30.30.150"
+  - hostname: "k8s-2-7i5bnk"
+    ipAddress: ""
+    installDiskSelector:
+      serial: "sda"
+    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "94:c6:91:1f:78:53"
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: "10.30.30.150"
+  - hostname: "k8s-3-un1265"
+    ipAddress: ""
+    installDiskSelector:
+      serial: "sda"
+    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "58:47:ca:73:35:71"
+        dhcp: true
+        mtu: 1500
+  - hostname: "k8s-4-ser"
+    ipAddress: ""
+    installDiskSelector:
+      serial: "sda"
+    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "b0:41:6f:0c:00:07"
+        dhcp: true
+        mtu: 1500
+
+# Global patches
+patches:
+  - # Force nameserver
+    |-
+    machine:
+      network:
+        nameservers:
+          - 10.30.0.1
+  - "@./patches/global/cluster-discovery.yaml"
+  - "@./patches/global/containerd.yaml"
+  - "@./patches/global/disable-search-domain.yaml"
+  - "@./patches/global/hostdns.yaml"
+  - "@./patches/global/kubelet.yaml"
+  - "@./patches/global/openebs-local.yaml"
+  - "@./patches/global/sysctl.yaml"
+
+# Controller patches
+controlPlane:
+  patches:
+    - "@./patches/controller/api-access.yaml"
+    - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/disable-admission-controller.yaml"
+    - "@./patches/controller/etcd.yaml"

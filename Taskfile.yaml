@@ -4,7 +4,6 @@ version: "3"
 
 vars:
   # Directories
-  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
   PRIVATE_DIR: "{{.ROOT_DIR}}/.private"
@@ -41,9 +40,10 @@ includes:
   volsync: .taskfiles/VolSync/Taskfile.yaml
   snapshot: .taskfiles/Snapshot/Taskfile.yaml
 
+
 tasks:
 
-  default: task -l
+  default: task --list
 
   init:
     desc: Initialize configuration files
@@ -53,26 +53,30 @@ tasks:
       - cmd: echo Proceed with updating the configuration files...
       - cmd: echo {{.BOOTSTRAP_CONFIG_FILE}}
     status:
-      - test -f "{{.BOOTSTRAP_CONFIG_FILE}}"
+      - test -f {{.BOOTSTRAP_CONFIG_FILE}}
     silent: true
 
   configure:
     desc: Configure repository from bootstrap vars
-    prompt: Any conflicting config in the root kubernetes and ansible directories will be overwritten... continue?
+    prompt: Any conflicting config in the kubernetes directory will be overwritten... continue?
     deps: ["workstation:direnv", "workstation:venv", "sops:age-keygen", "init"]
     cmds:
       - task: .template
-      - task: sops:encrypt
+      # - task: sops:encrypt
       - task: .validate
 
   .template:
     internal: true
     cmd: "{{.VIRTUAL_ENV}}/bin/makejinja"
     preconditions:
-      - { msg: "Missing virtual environment", sh: "test -d {{.VIRTUAL_ENV}}" }
-      - { msg: "Missing Makejinja config file", sh: "test -f {{.MAKEJINJA_CONFIG_FILE}}" }
-      - { msg: "Missing Makejinja plugin file", sh: "test -f {{.BOOTSTRAP_DIR}}/scripts/plugin.py" }
-      - { msg: "Missing bootstrap config file", sh: "test -f {{.BOOTSTRAP_CONFIG_FILE}}" }
+      - msg: Missing virtual environment
+        sh: test -d {{.VIRTUAL_ENV}}
+      - msg: Missing Makejinja config file
+        sh: test -f {{.MAKEJINJA_CONFIG_FILE}}
+      - msg: Missing Makejinja plugin file
+        sh: test -f {{.BOOTSTRAP_DIR}}/scripts/plugin.py
+      - msg: Missing bootstrap config file
+        sh: test -f {{.BOOTSTRAP_CONFIG_FILE}}
 
   .validate:
     internal: true

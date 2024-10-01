@@ -1,0 +1,107 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      app:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 44
+              - 109
+              - 100
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/plex
+              tag: 1.41.0.8994-f2c27da23@sha256:8e1a094b0cd9c980e2b2e22daf2c2b212893bdb8e1e9e6452aefba9448466ff1
+            envFrom:
+              - secretRef:
+                  name: plex
+            env:
+              ADVERTISE_IP: "http://${SVC_PLEX_ADDR}:32400"
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 4Gi
+
+    ingress:
+      app:
+        enabled: true
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Method $request_method;
+        hosts:
+          - host: &host "plex.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    service:
+      app:
+        controller: app
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${SVC_PLEX_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          http:
+            port: 32400
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: plex-config
+      tmp:
+        type: emptyDir
+      transcode:
+        type: emptyDir
+      media:
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media"
+        enabled: true
+        globalMounts:
+          - path: /nfs-nas-pvc
