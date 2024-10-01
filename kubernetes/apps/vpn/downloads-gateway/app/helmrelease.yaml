@@ -58,9 +58,10 @@ spec:
               name: pod-gateway
 
         securityContext:
-          capabilities:
-            add:
-              - NET_ADMIN
+          privileged: true
+          # capabilities:
+          #   add:
+          #     - NET_ADMIN
 
         networkPolicy:
           enabled: true
