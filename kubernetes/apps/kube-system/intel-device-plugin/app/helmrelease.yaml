@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: intel-device-plugin-operator
-  namespace: tools
+  namespace: kube-system
 spec:
   interval: 30m
   chart:
@@ -28,4 +28,4 @@ spec:
     keepHistory: false
   dependsOn:
     - name: node-feature-discovery
-      namespace: tools
+      namespace: kube-system

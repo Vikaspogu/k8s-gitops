@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   dependsOn:
     - name: cloudflared
-      namespace: networking
+      namespace: network
   values:
     fullnameOverride: nginx-external
     controller:
