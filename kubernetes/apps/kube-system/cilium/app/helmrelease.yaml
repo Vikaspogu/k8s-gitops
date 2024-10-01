@@ -8,39 +8,22 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.16.1
+      version: 1.16.2
       sourceRef:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
   install:
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cilium-helm-values
   values:
-    autoDirectNodeRoutes: true
-    bgpControlPlane:
-      enabled: true
-    bpf:
-      masquerade: true
-    bgp:
-      enabled: false
-      announce:
-        loadbalancerIP: true
-        podCIDR: false
-    cgroup:
-      automount:
-        enabled: false
-      hostRoot: /sys/fs/cgroup
-    cluster:
-      id: 1
-      name: home-cluster
-    enableRuntimeDeviceDetection: true
-    endpointRoutes:
-      enabled: true
     hubble:
       enabled: true
       metrics:
@@ -70,31 +53,8 @@ spec:
         ingress:
           enabled: true
           className: internal
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/icon: si-cilium
-          hosts:
-            - "hubble.${SECRET_DOMAIN}"
-          tls:
-            - hosts:
-                - "hubble.${SECRET_DOMAIN}"
-    ipam:
-      mode: kubernetes
-    ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
-    k8sServiceHost: 127.0.0.1
-    k8sServicePort: 6444
-    kubeProxyReplacement: true
-    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    l2announcements:
-      enabled: true
-    loadBalancer:
-      algorithm: maglev
-      mode: dsr
-    localRedirectPolicy: true
+          hosts: ["hubble.${SECRET_DOMAIN}"]
     operator:
-      replicas: 1
-      rollOutPods: true
       prometheus:
         enabled: true
         serviceMonitor:
@@ -112,23 +72,3 @@ spec:
       enabled: true
       annotations:
         grafana_folder: Cilium
-    rollOutCiliumPods: true
-    routingMode: native
-    securityContext:
-      capabilities:
-        ciliumAgent:
-          - CHOWN
-          - KILL
-          - NET_ADMIN
-          - NET_RAW
-          - IPC_LOCK
-          - SYS_ADMIN
-          - SYS_RESOURCE
-          - DAC_OVERRIDE
-          - FOWNER
-          - SETGID
-          - SETUID
-        cleanCiliumState:
-          - NET_ADMIN
-          - SYS_ADMIN
-          - SYS_RESOURCE

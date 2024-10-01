@@ -121,7 +121,7 @@ spec:
       storage:
         postgres:
           enabled: true
-          address: 'tcp://postgres-rw.database.svc.cluster.local:5432'
+          address: 'tcp://postgres-rw.default.svc.cluster.local:5432'
           database: authelia
           username: authelia
       notifier:

@@ -56,7 +56,7 @@ spec:
         HTTP_PROXY: 127.0.0.1:8888
         # DISABLE_REGISTRATION: false
         database:
-          connection_url: jdbc:postgresql://postgres-rw.database.svc.cluster.local/piped
+          connection_url: jdbc:postgresql://postgres-rw.default.svc.cluster.local/piped
           secret:
             name: *secret
             username: DB_USERNAME

@@ -1,12 +1,9 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
 # Trash
 .DS_Store
 Thumbs.db
 # k8s
 kubeconfig
+talosconfig
 .decrypted~*.yaml
 .config.env
 *.agekey
@@ -14,6 +11,7 @@ kubeconfig
 *.key
 # Private
 .private
+.bin
 # Ansible
 .venv*
 # Taskfile
@@ -24,4 +22,5 @@ Brewfile.lock.json
 .idea
 # wiki
 wiki
-*backup
+# Bootstrap
+/config.yaml
