@@ -33,8 +33,10 @@ resources:
   - ./openebs.yaml
   - ./piped.yaml
   - ./piraeus.yaml
+  - ./postfinance.yaml
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
   - ./runix.yaml
+  - ./spegel.yaml
   - ./stakater.yaml
   - ./synology-csi.yaml
