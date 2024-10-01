@@ -16,46 +16,32 @@ jobs:
     name: Flux Diff
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: write
     strategy:
       matrix:
+        paths: ["kubernetes"]
         resources: ["helmrelease", "kustomization"]
-      max-parallel: 4
-      fail-fast: false
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69 # v1
-        id: app-token
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          app-id: "${{ secrets.BOT_APP_ID }}"
-          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
-      - name: Setup System Tools
-        shell: bash
-        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git
+          path: pull
 
       - name: Checkout Default Branch
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+        uses: actions/checkout@v4
         with:
-          token: "${{ steps.app-token.outputs.token }}"
           ref: "${{ github.event.repository.default_branch }}"
           path: default
 
-      - name: Checkout Pull Request Branch
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-        with:
-          token: "${{ steps.app-token.outputs.token }}"
-          path: pull
-
       - name: Diff Resources
-        uses: docker://ghcr.io/allenporter/flux-local:main
+        uses: docker://ghcr.io/allenporter/flux-local:v5.5.1
         with:
           args: >-
-            --log-level DEBUG
             diff ${{ matrix.resources }}
             --unified 6
-            --path-orig /github/workspace/default/kubernetes
-            --path /github/workspace/pull/kubernetes
+            --path /github/workspace/pull/${{ matrix.paths }}/flux
+            --path-orig /github/workspace/default/${{ matrix.paths }}/flux
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
             --all-namespaces
@@ -72,23 +58,11 @@ jobs:
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add comment
-        uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc # v2.8.2
+        uses: mshick/add-pr-comment@v2
         with:
-          repo-token: "${{ steps.app-token.outputs.token }}"
           message-id: "${{ github.event.pull_request.number }}/${{ matrix.paths }}/${{ matrix.resources }}"
           message-failure: Diff was not successful
           message: |
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
-
-  # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
-  flux-diff-success:
-    if: ${{ always() }}
-    needs: ["flux-diff"]
-    name: Flux Diff Successful
-    runs-on: ubuntu-latest
-    steps:
-      - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
-        name: Check matrix status
-        run: exit 1
