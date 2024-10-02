@@ -46,12 +46,14 @@ spec:
               - secretRef:
                   name: plex
             env:
-              ADVERTISE_IP: "http://${SVC_PLEX_ADDR}:32400"
+              ADVERTISE_IP: "http://${SVC_PLEX_ADDR}:32400,https://plex.${SECRET_DOMAIN}"
+              PLEX_NO_AUTH_NETWORKS: 10.30.20.0/24
               TZ: ${TIMEZONE}
             resources:
               requests:
                 cpu: 100m
               limits:
+                gpu.intel.com/i915: 1
                 memory: 4Gi
 
     ingress:
@@ -60,11 +62,7 @@ spec:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
-          nginx.ingress.kubernetes.io/auth-method: GET
-          nginx.ingress.kubernetes.io/auth-response-headers: |-
-            Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          nginx.ingress.kubernetes.io/auth-snippet: |
-            proxy_set_header X-Forwarded-Method $request_method;
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: &host "plex.${SECRET_DOMAIN}"
             paths:
