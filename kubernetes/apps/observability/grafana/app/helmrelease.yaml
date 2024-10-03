@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: grafana
-      version: 8.5.1
+      version: 8.5.2
       sourceRef:
         kind: HelmRepository
         name: grafana
@@ -283,6 +283,8 @@ spec:
         - hosts:
             - grafana.${SECRET_DOMAIN}
     persistence:
+      enabled: false
+    testFramework:
       enabled: false
   valuesFrom:
     - kind: Secret
