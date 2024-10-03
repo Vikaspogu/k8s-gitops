@@ -70,7 +70,7 @@ spec:
           - name: TeslaMate
             type: postgres
             access: proxy
-            url: postgres-rw.database.svc.cluster.local:5432
+            url: postgres-rw.default.svc.cluster.local:5432
             database: teslamate
             user: teslamate
             secureJsonData:
@@ -110,12 +110,6 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
-        minio:
-          # renovate: depName="MinIO Dashboard"
-          gnetId: 13502
-          revision: 26
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
