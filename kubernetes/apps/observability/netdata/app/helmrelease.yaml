@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netdata
+  namespace: observability
+spec:
+  interval: 30m
+  releaseName: netdata
+  chart:
+    spec:
+      chart: netdata
+      version: 3.7.104
+      sourceRef:
+        kind: HelmRepository
+        name: netdata
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: netdata/netdata
+      tag: "v1.47.3"
+    ingress:
+      enabled: false
+    env:
+      TZ: ${TIMEZONE}
+    parent:
+      enabled: false
+    child:
+      enabled: true
+      configs:
+        stream:
+          enabled: true
+          path: /etc/netdata/stream.conf
+          data: |
+            [stream]
+              enabled = yes
+              destination = ${SECRET_NETDATA_PARENT_URL}
+              ssl skip certificate verification = yes
+              api key = ${SECRET_NETDATA_API_KEY}
+              timeout seconds = 60
+              buffer size bytes = 1048576
+              reconnect delay seconds = 5
+              initial clock resync iterations = 60

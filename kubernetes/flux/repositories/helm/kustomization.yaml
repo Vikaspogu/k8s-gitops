@@ -29,6 +29,7 @@ resources:
   - ./kyverno.yaml
   - ./lwolf.yaml
   - ./metrics-server.yaml
+  - ./netdata.yaml
   - ./node-feature-discovery.yaml
   - ./openebs.yaml
   - ./piped.yaml
