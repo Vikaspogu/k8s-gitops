@@ -51,3 +51,19 @@ spec:
               buffer size bytes = 1048576
               reconnect delay seconds = 5
               initial clock resync iterations = 60
+    k8sState:
+      enabled: true
+      configs:
+        stream:
+          enabled: true
+          path: /etc/netdata/stream.conf
+          data: |
+            [stream]
+              enabled = yes
+              destination = ${SECRET_NETDATA_PARENT_URL}
+              ssl skip certificate verification = yes
+              api key = ${SECRET_NETDATA_API_KEY}
+              timeout seconds = 60
+              buffer size bytes = 1048576
+              reconnect delay seconds = 5
+              initial clock resync iterations = 60
