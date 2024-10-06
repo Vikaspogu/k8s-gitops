@@ -30,7 +30,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster pgsql-v16-1001
+      source: &previousCluster pgsql-v16-0409
   backup:
     retentionPolicy: 20d
     barmanObjectStore:
