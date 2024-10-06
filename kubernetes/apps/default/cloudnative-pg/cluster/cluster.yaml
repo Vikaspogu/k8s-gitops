@@ -39,7 +39,7 @@ spec:
         maxParallel: 8
       destinationPath: &s3 s3://postgres/
       endpointURL: &endpoint http://minio.default.svc:9000
-      serverName: &currentCluster pgsql-v16-100624
+      serverName: &currentCluster pgsql-v16-1006
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
