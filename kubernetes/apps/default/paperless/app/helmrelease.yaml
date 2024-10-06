@@ -31,7 +31,7 @@ spec:
           gotenburg:
             image:
               repository: thecodingmachine/gotenberg
-              tag: 8.11.0
+              tag: 8.11.1
             env:
               - { name: DISABLE_GOOGLE_CHROME, value: "1" }
           redis:
