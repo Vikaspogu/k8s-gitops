@@ -37,7 +37,7 @@ spec:
           redis:
             image:
               repository: public.ecr.aws/docker/library/redis
-              tag: 7.4.0
+              tag: 7.4.1
           tika:
             image:
               repository: ghcr.io/paperless-ngx/tika
