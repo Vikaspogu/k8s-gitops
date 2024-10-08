@@ -23,7 +23,7 @@ resources:
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
-  # - ./open-webui/ks.yaml
+  - ./open-webui/ks.yaml
   - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./pgadmin/ks.yaml
