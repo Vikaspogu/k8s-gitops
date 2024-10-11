@@ -39,7 +39,7 @@ pages:
       - size: small
         widgets:
           - type: weather
-            location: Rochester, Minnesota, United States
+            location: Columbus, Ohio, United States
 
           - type: stocks
             stocks:
