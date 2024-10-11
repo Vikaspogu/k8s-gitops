@@ -41,6 +41,10 @@ data:
               href: https://github.com/onedr0p/flux-cluster-template
   services.yaml: |
     - Infrastructure:
+        - Netdata:
+            widget:
+              type: netdata
+              url: {{HOMEPAGE_VAR_NETDATA_URL}}
         - NPM:
             href: {{HOMEPAGE_VAR_NPM_URL}}
             icon: si-nginxproxymanager
