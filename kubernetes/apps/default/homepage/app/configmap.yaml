@@ -42,6 +42,8 @@ data:
   services.yaml: |
     - Infrastructure:
         - Netdata:
+            href: {{HOMEPAGE_VAR_NPM_URL}}
+            icon: si-netdata
             widget:
               type: netdata
               url: {{HOMEPAGE_VAR_NETDATA_URL}}
