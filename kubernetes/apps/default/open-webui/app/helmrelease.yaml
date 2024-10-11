@@ -41,8 +41,7 @@ spec:
               DATA_DIR: /app/backend/data
               OLLAMA_BASE_URL: http://ollama.default.svc:11434
               WEBUI_AUTH: "true"
-              ENABLE_SIGNUP: "true"
-              MODEL_FILTER_LIST: "llama3:instruct;gemma:instruct"
+              ENABLE_SIGNUP: "false"
             resources:
               requests:
                 cpu: 200m
