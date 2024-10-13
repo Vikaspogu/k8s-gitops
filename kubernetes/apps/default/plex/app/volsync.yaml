@@ -14,10 +14,10 @@ spec:
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/plex'
-        RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
-        AWS_ACCESS_KEY_ID: '{{ .access_key }}'
-        AWS_SECRET_ACCESS_KEY: '{{ .secret_key }}'
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/plex"
+        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+        AWS_ACCESS_KEY_ID: "{{ .access_key }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .secret_key }}"
   dataFrom:
     - extract:
         key: minio
@@ -35,7 +35,7 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 5
     repository: plex-restic-secret
-    cacheCapacity: 5Gi
+    cacheCapacity: 40Gi
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block
     moverSecurityContext:
