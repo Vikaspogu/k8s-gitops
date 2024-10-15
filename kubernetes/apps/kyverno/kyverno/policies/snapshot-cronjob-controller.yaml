@@ -81,7 +81,7 @@ spec:
                     restartPolicy: OnFailure
                     containers:
                       - name: snapshot
-                        image: docker.io/kopia/kopia:20241014.0.101711@sha256:1cb43bf7448593f8d8589c62f1a5e43cbd3735dc2813f8b6696e8f7ba4d7f259
+                        image: docker.io/kopia/kopia:20241015.0.70729@sha256:79f38b589c45ac20e78ab1194416a0c2331616e38458ee1b1875c113a621fea5
                         env:
                           - name: KOPIA_CACHE_DIRECTORY
                             value: /snapshots/{{ namespace }}/{{ appName }}/{{ claimName }}/cache
