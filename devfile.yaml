@@ -6,9 +6,11 @@ metadata:
 components:
   - name: dev-tools
     container:
-      image: quay.io/rhn_gps_vpogu/devspaces-fedora40-tooling:1.0.1
+      image: quay.io/rhn_gps_vpogu/devspaces-fedora40-tooling:2.0.0
       memoryLimit: 4Gi
       mountSources: true
       env:
         - name: SHELL
           value: "/bin/zsh"
+        - name: VSCODE_DEFAULT_WORKSPACE
+          value: "/projects/openshift-multicluster/code-workspace"
