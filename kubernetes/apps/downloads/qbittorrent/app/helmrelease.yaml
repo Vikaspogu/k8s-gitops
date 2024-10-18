@@ -49,10 +49,10 @@ spec:
               QBITTORRENT__BT_PORT: &port-bt 56059
             resources:
               requests:
-                memory: 250Mi
+                memory: 1000Mi
                 cpu: 500m
               limits:
-                memory: 3000Mi
+                memory: 4000Mi
     service:
       app:
         controller: app
