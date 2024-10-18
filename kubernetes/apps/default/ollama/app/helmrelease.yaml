@@ -79,7 +79,18 @@ spec:
         ports:
           http:
             port: &port 11434
-
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        hosts:
+          - host: "ollama.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
     persistence:
       config:
         enabled: true
