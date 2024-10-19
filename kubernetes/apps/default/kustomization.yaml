@@ -19,7 +19,7 @@ resources:
   - ./minio/ks.yaml
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
-  - ./obsidian-livesync/ks.yaml
+  # - ./obsidian-livesync/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
