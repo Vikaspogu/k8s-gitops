@@ -96,7 +96,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: sonarr.png
+          gethomepage.dev/icon: si-searxng
         hosts:
           - host: "search.${SECRET_DOMAIN}"
             paths:

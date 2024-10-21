@@ -19,6 +19,7 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
+    - name: searxng-redis
     - name: nginx-internal
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
