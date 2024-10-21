@@ -19,7 +19,6 @@ resources:
   - ./minio/ks.yaml
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
-  # - ./obsidian-livesync/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./opnsense/ks.yaml
@@ -33,6 +32,7 @@ resources:
   - ./readarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./reverse-proxy/ks.yaml
+  - ./searxng/ks.yaml
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
