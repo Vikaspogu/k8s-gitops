@@ -101,6 +101,9 @@ search:
   autocomplete_min: 2
   default_lang: "all"
   max_page: 0
+  formats:
+    - html
+    - json
 server:
   base_url: "https://search.${SECRET_DOMAIN}/"
   image_proxy: true
