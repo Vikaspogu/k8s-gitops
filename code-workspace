@@ -1,19 +1,19 @@
 {
-    "folders": [
-        {
-            "path": "."
-        },
-        {
-            "name": "k8s-gitops",
-            "path": "/projects/k8s-gitops"
-        }
-    ],
-    "extensions": {
-        "recommendations": [
-            "redhat.vscode-yaml",
-            "mhutchie.git-graph",
-            "eamodio.gitlens",
-            "catppuccin.catppuccin-vsc",
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "name": "k8s-gitops",
+      "path": "/projects/k8s-gitops"
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "redhat.vscode-yaml",
+      "mhutchie.git-graph",
+      "eamodio.gitlens",
+      "catppuccin.catppuccin-vsc",
       "albert.TabOut",
       "britesnow.vscode-toggle-quotes",
       "fcrespo82.markdown-table-formatter",
@@ -23,20 +23,21 @@
       "will-stone.in-any-case",
       "EditorConfig.editorconfig",
       "PKief.material-icon-theme",
-      "Gruntfuggly.todo-tree"
-        ]
-    },
-    "settings": {
-        "workbench.colorTheme": "Catppuccin Frappé",
-        "editor.fontFamily": "'CaskaydiaCove Nerd Font'",
-        "editor.tabSize": 2,
-        "editor.wordWrap": "on",
-        "files.autoSave": "off",
-        "editor.semanticHighlighting.enabled": true,
-        "terminal.integrated.minimumContrastRatio": 1,
-        "window.titleBarStyle": "custom",
-        "gopls": {
-            "ui.semanticTokens": true
-        }
+      "Gruntfuggly.todo-tree",
+      "Continue.continue"
+    ]
+  },
+  "settings": {
+    "workbench.colorTheme": "Catppuccin Frappé",
+    "editor.fontFamily": "'CaskaydiaCove Nerd Font'",
+    "editor.tabSize": 2,
+    "editor.wordWrap": "on",
+    "files.autoSave": "off",
+    "editor.semanticHighlighting.enabled": true,
+    "terminal.integrated.minimumContrastRatio": 1,
+    "window.titleBarStyle": "custom",
+    "gopls": {
+      "ui.semanticTokens": true
     }
+  }
 }
