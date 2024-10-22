@@ -35,7 +35,6 @@ resources:
   - ./searxng/ks.yaml
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
-  - ./syncthing/ks.yaml
   - ./teslamate/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
