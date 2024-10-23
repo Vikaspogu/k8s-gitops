@@ -82,7 +82,17 @@ nodes:
           hardwareAddr: "b0:41:6f:0c:00:07"
         dhcp: true
         mtu: 1500
-
+  - hostname: "k8s-5-pxm"
+    ipAddress: "10.30.30.25"
+    installDiskSelector:
+      model: "QEMU HARDDISK"
+    talosImageURL: factory.talos.dev/installer/795f571fbcc74229bbf02c630ab192028d12ef4a3bda72ef67eed5186d2056b9
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "52:50:56:11:33:11"
+        dhcp: true
+        mtu: 1500
 # Global patches
 patches:
   - # Force nameserver

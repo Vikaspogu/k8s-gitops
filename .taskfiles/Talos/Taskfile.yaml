@@ -90,6 +90,26 @@ tasks:
       - msg: Node not found
         sh: talosctl --nodes {{.controller}} get machineconfig >/dev/null 2>&1
 
+  apply-config:
+    desc: Apply Talos configuration to a node
+    dir: "/Users/vikaspogu/Documents/git-repos/k8s-gitops/kubernetes/bootstrap/talos"
+    cmd: talosctl apply-config --mode={{.MODE}} --nodes {{.HOSTNAME}} --file {{.TALHELPER_CLUSTER_DIR}}/{{.CLUSTER_NAME}}-{{.HOSTNAME}}.yaml
+    vars:
+      MODE: '{{.MODE | default "no-reboot"}}'
+      CLUSTER_NAME:
+        sh: yq '.clusterName' {{.TALHELPER_CONFIG_FILE}}
+    requires:
+      vars: [HOSTNAME]
+    preconditions:
+      - msg: Missing talosconfig
+        sh: test -f {{.TALOSCONFIG}}
+      - msg: Unable to retrieve Talos config
+        sh: talosctl config info &>/dev/null
+      - msg: Node not found
+        sh: talosctl --nodes {{.HOSTNAME}} get machineconfig --insecure &>/dev/null
+      - msg: Talos config for node not found
+        sh: test -f {{.TALHELPER_CLUSTER_DIR}}/{{.CLUSTER_NAME}}-{{.HOSTNAME}}.yaml
+
   nuke:
     desc: Resets nodes back to maintenance mode
     dir: "{{.KUBERNETES_DIR}}/bootstrap/talos"

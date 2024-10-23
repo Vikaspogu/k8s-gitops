@@ -31,6 +31,7 @@ resources:
   - ./metrics-server.yaml
   - ./netdata.yaml
   - ./node-feature-discovery.yaml
+  - ./nvidia-device-plugin.yaml
   - ./openebs.yaml
   - ./piped.yaml
   - ./piraeus.yaml
