@@ -86,7 +86,7 @@ nodes:
     ipAddress: "10.30.30.25"
     installDiskSelector:
       model: "QEMU HARDDISK"
-    talosImageURL: factory.talos.dev/installer/795f571fbcc74229bbf02c630ab192028d12ef4a3bda72ef67eed5186d2056b9
+    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
     controlPlane: false
     networkInterfaces:
       - deviceSelector:

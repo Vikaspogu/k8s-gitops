@@ -31,4 +31,4 @@ spec:
       tag: v0.16.2
     runtimeClassName: nvidia
     nodeSelector:
-      feature.node.kubernetes.io/custom-nvidia-gpu: "true"
+      feature.node.kubernetes.io/pci-0300_1234.present: "true"
