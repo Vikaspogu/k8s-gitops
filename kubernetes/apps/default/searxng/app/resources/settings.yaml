@@ -52,13 +52,9 @@ engines:
     disabled: false
   - name: startpage
     disabled: false
-  - name: apple app store
-    disabled: false
   - name: ddg definitions
     disabled: false
   - name: tineye
-    disabled: false
-  - name: apple maps
     disabled: false
   - name: duckduckgo images
     disabled: false
@@ -89,6 +85,13 @@ engines:
     disabled: false
   - name: sourcehut
     disabled: false
+  - name: piped
+    engine: piped
+    disabled: false
+    piped_filter: videos
+    frontend_url: http://piped-frontendd.default:80
+    backend_url:
+      - http://piped-backend.default:8080
 general:
   instance_name: "Home SearxNG"
   privacypolicy_url: false
@@ -99,7 +102,7 @@ search:
   safe_search: 0
   autocomplete: "duckduckgo"
   autocomplete_min: 2
-  default_lang: "all"
+  default_lang: ""
   max_page: 0
   formats:
     - html
