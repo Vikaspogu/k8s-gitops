@@ -12,4 +12,3 @@ spec:
         - feature: pci.device
           matchExpressions:
             vendor: { op: In, value: ["10de"] }
-            device: { op: In, value: ["1e87", "1b81"] }
