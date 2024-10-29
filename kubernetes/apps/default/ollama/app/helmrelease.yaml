@@ -27,6 +27,7 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
+      runtimeClassName: nvidia
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
