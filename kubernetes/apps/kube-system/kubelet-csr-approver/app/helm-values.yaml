@@ -1,3 +1,3 @@
 ---
-providerRegex: ^(k8s-0-6i3syh|k8s-1-7i5bnk|k8s-2-7i5bnk|k8s-3-un1265|k8s-4-ser)$
+providerRegex: ^(k8s-0-6i3syh|k8s-1-7i5bnk|k8s-2-7i5bnk|k8s-3-un1265|k8s-4-ser|k8s-5-pxm)$
 bypassDnsResolution: true
