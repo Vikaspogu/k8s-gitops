@@ -25,6 +25,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      nodeSelector:
+        nvidia.feature.node.kubernetes.io/gpu: "true"
+      runtimeClassName: nvidia
     controllers:
       app:
         pod:
@@ -48,13 +52,16 @@ spec:
             env:
               ADVERTISE_IP: "http://${SVC_PLEX_ADDR}:32400,https://plex.${SECRET_DOMAIN}"
               PLEX_NO_AUTH_NETWORKS: 10.30.20.0/24
+              NVIDIA_DRIVER_CAPABILITIES: all
+              NVIDIA_VISIBLE_DEVICES: all
               TZ: ${TIMEZONE}
             resources:
               requests:
                 cpu: 100m
+                nvidia.com/gpu: 1
               limits:
-                gpu.intel.com/i915: 1
-                memory: 4Gi
+                nvidia.com/gpu: 1
+                memory: 12Gi
 
     ingress:
       app:

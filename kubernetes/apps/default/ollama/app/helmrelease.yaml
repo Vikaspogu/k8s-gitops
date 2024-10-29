@@ -27,6 +27,8 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
+      nodeSelector:
+        nvidia.feature.node.kubernetes.io/gpu: "true"
       runtimeClassName: nvidia
     controllers:
       ollama:
@@ -65,9 +67,6 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-        pod:
-          nodeSelector:
-            nvidia.feature.node.kubernetes.io/gpu: "true"
     service:
       app:
         controller: *app
