@@ -43,6 +43,7 @@ spec:
               TZ: ${TIMEZONE}
               NVIDIA_VISIBLE_DEVICES: all
               NVIDIA_DRIVER_CAPABILITIES: all
+              CUDA_VISIBLE_DEVICES: GPU-dbe22ad2-8707-a394-a7dd-5d865fc290f6
               OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*,app://obsidian.md*"
               OLLAMA_MODELS: &model-pvc /models
