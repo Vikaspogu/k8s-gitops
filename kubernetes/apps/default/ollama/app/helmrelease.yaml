@@ -56,10 +56,10 @@ spec:
               requests:
                 cpu: 2000m
                 memory: 16Gi
-                gpu.intel.com/i915: "1"
+                nvidia.com/gpu: 1
               limits:
                 memory: 16Gi
-                gpu.intel.com/i915: "1"
+                nvidia.com/gpu: 1
             probes:
               liveness:
                 enabled: true
@@ -72,7 +72,7 @@ spec:
                   periodSeconds: 5
         pod:
           nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
+            nvidia.feature.node.kubernetes.io/gpu: "true"
     service:
       app:
         controller: *app
