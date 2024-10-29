@@ -48,7 +48,6 @@ spec:
               tag: 0.3.14
             env:
               TZ: ${TIMEZONE}
-              LIBVA_DRIVER_NAME: i965
               OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*,app://obsidian.md*"
               OLLAMA_MODELS: &model-pvc /models
