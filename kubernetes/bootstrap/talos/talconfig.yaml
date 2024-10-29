@@ -82,6 +82,28 @@ nodes:
           hardwareAddr: "b0:41:6f:0c:00:07"
         dhcp: true
         mtu: 1500
+  - hostname: "k8s-5-pxm"
+    ipAddress: "10.30.30.25"
+    installDiskSelector:
+      model: "QEMU HARDDISK"
+    talosImageURL: factory.talos.dev/installer/6698d6f136c5bb37ca8bb8482c9084305084da0a5ead1f4dcae760796f8ab3a2
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "52:50:56:11:33:11"
+        dhcp: true
+        mtu: 1500
+    kernelModules:
+      - name: nvidia
+      - name: nvidia_uvm
+      - name: nvidia_drm
+      - name: nvidia_modeset
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/nvidia-container-toolkit-production
+            - siderolabs/nvidia-open-gpu-kernel-modules-production
 # Global patches
 patches:
   - # Force nameserver

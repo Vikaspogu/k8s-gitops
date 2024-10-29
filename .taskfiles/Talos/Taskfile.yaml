@@ -92,7 +92,7 @@ tasks:
 
   apply-config:
     desc: Apply Talos configuration to a node
-    dir: "/Users/vikaspogu/Documents/git-repos/k8s-gitops/kubernetes/bootstrap/talos"
+    dir: "{{.KUBERNETES_DIR}}/bootstrap/talos"
     cmd: talosctl apply-config --mode={{.MODE}} --nodes {{.HOSTNAME}} --file {{.TALHELPER_CLUSTER_DIR}}/{{.CLUSTER_NAME}}-{{.HOSTNAME}}.yaml
     vars:
       MODE: '{{.MODE | default "no-reboot"}}'
