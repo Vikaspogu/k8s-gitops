@@ -30,5 +30,12 @@ spec:
       repository: nvcr.io/nvidia/k8s-device-plugin
       tag: v0.16.2
     runtimeClassName: nvidia
-    nodeSelector:
-      feature.node.kubernetes.io/pci-0300_1234.present: "true"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/pci-10de.present
+                  operator: In
+                  values:
+                    - "true"
