@@ -86,8 +86,7 @@ data:
             widget:
               type: truenas
               url: http://{{HOMEPAGE_VAR_TRUENAS_PROXMOX_URL}}
-              username: {{HOMEPAGE_VAR_TRUENAS_USER}}
-              password: {{HOMEPAGE_VAR_TRUENAS_PASS}}
+              key: {{HOMEPAGE_VAR_TRUENAS_PROXMOX_API_KEY}}
               enablePools: true
               nasType: scale
         - TrueNAS-pxm-odin:
@@ -96,8 +95,7 @@ data:
             widget:
               type: truenas
               url: http://{{HOMEPAGE_VAR_TRUENAS_PXM_ODIN_URL}}
-              username: {{HOMEPAGE_VAR_TRUENAS_USER}}
-              password: {{HOMEPAGE_VAR_TRUENAS_PASS}}
+              key: {{HOMEPAGE_VAR_TRUENAS_PXM_ODIN_API_KEY}}
               enablePools: true
               nasType: scale
         - Miniflux:
