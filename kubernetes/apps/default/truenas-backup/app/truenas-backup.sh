@@ -16,7 +16,7 @@ http_signature=$(
         | base64
 )
 curl -k -X 'POST' \
-  "${TRUENAS_PXM_ODIN_URL}/api/v2.0/config/save" \
+  "https://${TRUENAS_PXM_ODIN_URL}/api/v2.0/config/save" \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' --user "${TRUENAS_USER}:${TRUENAS_PASS}" --output "/tmp/${config_filename}"
 
@@ -38,7 +38,7 @@ http_signature=$(
         | base64
 )
 curl -k -X 'POST' \
-  "${TRUENAS_PROXMOX_URL}/api/v2.0/config/save" \
+  "https://${TRUENAS_PROXMOX_URL}/api/v2.0/config/save" \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' --user "${TRUENAS_USER}:${TRUENAS_PASS}" --output "/tmp/${config_filename}"
 
