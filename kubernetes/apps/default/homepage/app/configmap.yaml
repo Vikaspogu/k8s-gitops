@@ -72,14 +72,6 @@ data:
               url: {{HOMEPAGE_VAR_OPNSENSE_URL}}
               username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
               password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
-        - Proxmox:
-            href: {{HOMEPAGE_VAR_PROXMOX_IP}}
-            icon: proxmox.png
-            widget:
-              type: proxmox
-              url: {{HOMEPAGE_VAR_PROXMOX_IP}}
-              username: {{HOMEPAGE_VAR_PROXMOX_USER}}
-              password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
         - TrueNAS-Proxmox:
             href: https://{{HOMEPAGE_VAR_TRUENAS_PROXMOX_URL}}
             icon: truenas.png
@@ -98,6 +90,14 @@ data:
               key: {{HOMEPAGE_VAR_TRUENAS_PXM_ODIN_API_KEY}}
               enablePools: true
               nasType: scale
+        - Proxmox:
+            href: {{HOMEPAGE_VAR_PROXMOX_IP}}
+            icon: proxmox.png
+            widget:
+              type: proxmox
+              url: {{HOMEPAGE_VAR_PROXMOX_IP}}
+              username: {{HOMEPAGE_VAR_PROXMOX_USER}}
+              password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
         - Miniflux:
             href: https://miniflux.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: miniflux.png
