@@ -29,7 +29,7 @@ spec:
       app:
         type: cronjob
         cronjob:
-          schedule: "05 11 * * *"
+          schedule: "@daily"
           ttlSecondsAfterFinished: 86400
         containers:
           app:
