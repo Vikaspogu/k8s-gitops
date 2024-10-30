@@ -85,7 +85,7 @@ data:
             icon: truenas.png
             widget:
               type: truenas
-              url: {{HOMEPAGE_VAR_TRUENAS_PROXMOX_URL}}
+              url: {{HOMEPAGE_VAR_TRUENAS_HTTP_PROXMOX_URL}}
               username: {{HOMEPAGE_VAR_TRUENAS_USER}}
               password: {{HOMEPAGE_VAR_TRUENAS_PASS}}
               enablePools: true
@@ -95,7 +95,7 @@ data:
             icon: truenas.png
             widget:
               type: truenas
-              url: {{HOMEPAGE_VAR_TRUENAS_PXM_ODIN_URL}}
+              url: {{HOMEPAGE_VAR_TRUENAS_HTTP_PXM_ODIN_URL}}
               username: {{HOMEPAGE_VAR_TRUENAS_USER}}
               password: {{HOMEPAGE_VAR_TRUENAS_PASS}}
               enablePools: true
