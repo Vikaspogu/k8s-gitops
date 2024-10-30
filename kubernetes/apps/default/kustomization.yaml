@@ -36,6 +36,7 @@ resources:
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./teslamate/ks.yaml
+  - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml
