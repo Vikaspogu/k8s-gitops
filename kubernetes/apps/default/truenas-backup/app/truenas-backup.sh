@@ -11,7 +11,7 @@ echo "Download TrueNAS pxm-odin config file ..."
 config_filename="pxm-odin-$(date "+%Y%m%d-%H%M%S").tar"
 http_filepath="truenas-backup/${config_filename}"
 http_signature=$(
-    printf "PUT\n\ntext/xml\n%s\n/%s" "${http_request_date}" "${http_filepath}" \
+    printf "PUT\n\napplication/tar\n%s\n/%s" "${http_request_date}" "${http_filepath}" \
         | openssl sha1 -hmac "${AWS_SECRET_ACCESS_KEY}" -binary \
         | base64
 )
@@ -33,7 +33,7 @@ echo "Download TrueNAS proxmox config file ..."
 config_filename="proxmox-$(date "+%Y%m%d-%H%M%S").tar"
 http_filepath="truenas-backup/${config_filename}"
 http_signature=$(
-    printf "PUT\n\ntext/xml\n%s\n/%s" "${http_request_date}" "${http_filepath}" \
+    printf "PUT\n\napplication/tar\n%s\n/%s" "${http_request_date}" "${http_filepath}" \
         | openssl sha1 -hmac "${AWS_SECRET_ACCESS_KEY}" -binary \
         | base64
 )
