@@ -80,6 +80,26 @@ data:
               url: {{HOMEPAGE_VAR_PROXMOX_IP}}
               username: {{HOMEPAGE_VAR_PROXMOX_USER}}
               password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
+        - TrueNAS-Proxmox:
+            href: {{HOMEPAGE_VAR_TRUENAS_PROXMOX_URL}}
+            icon: truenas.png
+            widget:
+              type: truenas
+              url: {{HOMEPAGE_VAR_TRUENAS_PROXMOX_URL}}
+              username: {{HOMEPAGE_VAR_TRUENAS_USER}}
+              password: {{HOMEPAGE_VAR_TRUENAS_PASS}}
+              enablePools: true
+              nasType: scale
+        - TrueNAS-pxm-odin:
+            href: {{HOMEPAGE_VAR_TRUENAS_PXM_ODIN_URL}}
+            icon: truenas.png
+            widget:
+              type: truenas
+              url: {{HOMEPAGE_VAR_TRUENAS_PXM_ODIN_URL}}
+              username: {{HOMEPAGE_VAR_TRUENAS_USER}}
+              password: {{HOMEPAGE_VAR_TRUENAS_PASS}}
+              enablePools: true
+              nasType: scale
         - Miniflux:
             href: https://miniflux.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: miniflux.png
