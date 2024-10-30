@@ -16,7 +16,7 @@ http_signature=$(
 )
 
 echo "Download TrueNAS pxm-odin config file ..."
-curl -Xk 'POST' \
+curl -k -X 'POST' \
   "${TRUENAS_PXM_ODIN_URL}/api/v2.0/config/save" \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' -d '{"secretseed": "true"}' --user "${TRUENAS_USER}:${TRUENAS_PASS}" --output "/tmp/pxm-odin-${config_filename}"
@@ -31,7 +31,7 @@ curl -fsSL \
     "${S3_URL}/${http_filepath}"
 
 echo "Download TrueNAS proxmox config file ..."
-curl -Xk 'POST' \
+curl -k -X 'POST' \
   "${TRUENAS_PROXMOX_URL}/api/v2.0/config/save" \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' -d '{"secretseed": "true"}' --user "${TRUENAS_USER}:${TRUENAS_PASS}" --output "/tmp/proxmox-${config_filename}"
