@@ -19,7 +19,7 @@ echo "Download TrueNAS pxm-odin config file ..."
 curl -Xk 'POST' \
   "${TRUENAS_PXM_ODIN_URL}/api/v2.0/config/save" \
   -H 'accept: */*' \
-  -H 'Content-Type: application/json' -d {"secretseed": true} --user "${TRUENAS_USER}:${TRUENAS_PASS}" --output "/tmp/pxm-odin-${config_filename}"
+  -H 'Content-Type: application/json' -d '{"secretseed": "true"}' --user "${TRUENAS_USER}:${TRUENAS_PASS}" --output "/tmp/pxm-odin-${config_filename}"
 
 echo "Upload backup to s3 bucket ..."
 curl -fsSL \
