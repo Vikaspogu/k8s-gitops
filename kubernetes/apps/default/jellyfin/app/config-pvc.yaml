@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: jellyfin
     app.kubernetes.io/name: jellyfin
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

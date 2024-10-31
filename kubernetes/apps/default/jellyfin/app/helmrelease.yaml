@@ -121,12 +121,12 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /transcode
-      default:
+      media:
         type: custom
         volumeSpec:
           nfs:
             server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/default"
+            path: "/volume1/media"
         enabled: true
         globalMounts:
           - path: /nfs-nas-pvc
