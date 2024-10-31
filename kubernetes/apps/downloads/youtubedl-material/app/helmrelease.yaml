@@ -45,17 +45,17 @@ spec:
         enabled: true
         existingClaim: youtubedl-config
         mountPath: /app/appdata
-      media:
-        enabled: true
+      nfs-nas-pvc:
         type: custom
         volumeSpec:
           nfs:
-            server: "${SECRET_NAS_ADDRESS}"
-            path: /volume1/media/YoutubeDL/
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media"
+        enabled: true
         globalMounts:
-          - path: /app/audio
+          - path: /nfs-nas-pvc/audio
             subPath: audio
-          - path: /app/video
+          - path: /nfs-nas-pvc/video
             subPath: video
 
     service:
