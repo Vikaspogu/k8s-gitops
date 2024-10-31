@@ -33,19 +33,18 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           app:
-            app:
-              image:
-                repository: ghcr.io/wizarrrr/wizarr
-                tag: 4.1.1
-            env:
-              APP_URL: https://invite.${SECRET_DOMAIN}
-              TZ: ${TIMEZONE}
-            resources:
-              requests:
-                cpu: 100m
-                memory: 512Mi
-              limits:
-                memory: 1Gi
+            image:
+              repository: ghcr.io/wizarrrr/wizarr
+              tag: 4.1.1
+          env:
+            APP_URL: https://invite.${SECRET_DOMAIN}
+            TZ: ${TIMEZONE}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              memory: 1Gi
 
     service:
       app:
