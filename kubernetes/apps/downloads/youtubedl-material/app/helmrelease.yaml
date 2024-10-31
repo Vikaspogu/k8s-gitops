@@ -41,10 +41,11 @@ spec:
               TZ: "${TIMEZONE}"
 
     persistence:
-      data:
+      config:
         enabled: true
         existingClaim: youtubedl-config
-        mountPath: /app/appdata
+        globalMounts:
+          - path: /app/appdata
       nfs-nas-pvc:
         type: custom
         volumeSpec:
