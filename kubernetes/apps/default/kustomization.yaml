@@ -15,6 +15,7 @@ resources:
   - ./homepage/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
+  - ./jellyseerr/ks.yaml
   - ./kopia-web/ks.yaml
   - ./lldap/ks.yaml
   - ./miniflux/ks.yaml
@@ -40,5 +41,6 @@ resources:
   - ./teslamate/ks.yaml
   - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
+  - ./wizarr/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml
