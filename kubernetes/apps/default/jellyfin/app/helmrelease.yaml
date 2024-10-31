@@ -27,22 +27,13 @@ spec:
   values:
     defaultPodOptions:
       enableServiceLinks: false
+      nodeSelector:
+        nvidia.feature.node.kubernetes.io/gpu: "true"
+      runtimeClassName: nvidia
     controllers:
       jellyfin:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 44
-              - 109
-              - 100
         containers:
           app:
             image:
@@ -54,14 +45,14 @@ spec:
               JELLYFIN_FFmpeg__analyzeduration: 50000000
               JELLYFIN_PublishedServerUrl: &loadBalancerIP ${SVC_JELLYFIN_ADDR}
               TZ: ${TIMEZONE}
+              NVIDIA_DRIVER_CAPABILITIES: all
+              NVIDIA_VISIBLE_DEVICES: all
             resources:
               requests:
-                gpu.intel.com/i915: 1
                 cpu: 100m
                 memory: 512Mi
               limits:
-                gpu.intel.com/i915: 1
-                memory: 4Gi
+                memory: 8Gi
             probes:
               liveness: &probes
                 enabled: true
