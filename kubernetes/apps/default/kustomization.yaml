@@ -13,6 +13,8 @@ resources:
   - ./glance/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
+  - ./jellyfin/ks.yaml
+  - ./jellyplex-watched/ks.yaml
   - ./kopia-web/ks.yaml
   - ./lldap/ks.yaml
   - ./miniflux/ks.yaml
