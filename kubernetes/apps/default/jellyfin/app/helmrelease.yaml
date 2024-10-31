@@ -62,7 +62,7 @@ spec:
                     path: /health
                     port: &port 8096
                   initialDelaySeconds: 0
-                  periodSeconds: 10
+                  periodSeconds: 30
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
