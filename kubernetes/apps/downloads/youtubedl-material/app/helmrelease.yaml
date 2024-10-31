@@ -53,10 +53,7 @@ spec:
             path: "/volume1/media"
         enabled: true
         globalMounts:
-          - path: /nfs-nas-pvc/audio
-            subPath: audio
-          - path: /nfs-nas-pvc/video
-            subPath: video
+          - path: /nfs-nas-pvc
 
     service:
       app:
