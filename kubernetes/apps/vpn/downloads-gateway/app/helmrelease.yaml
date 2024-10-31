@@ -89,7 +89,7 @@ spec:
             port: 56202
           - type: tcp
             port: 56202
-      - hostname: piped
+      - hostname: youtubedl
         IP: 11
         ports:
           - type: udp

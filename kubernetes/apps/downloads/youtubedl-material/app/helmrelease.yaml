@@ -1,0 +1,85 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: youtubedl
+  namespace: downloads
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    defaultPodOptions:
+      annotations:
+        setGateway: "true"
+        reloader.stakater.com/auto: "true"
+      hostname: youtubedl
+    controllers:
+      app:
+        containers:
+          app:
+            image:
+              repository: docker.io/tzahi12345/youtubedl-material
+              tag: latest
+            env:
+              TZ: "${TIMEZONE}"
+
+    persistence:
+      data:
+        enabled: true
+        existingClaim: youtubedl-config
+        mountPath: /app/appdata
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${SECRET_NAS_ADDRESS}"
+            path: /volume1/media/YoutubeDL/
+        globalMounts:
+          - path: /app/audio
+            subPath: audio
+          - path: /app/video
+            subPath: video
+
+    service:
+      app:
+        controller: app
+        ports:
+          http:
+            port: 17442
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: youtube.png
+        hosts:
+          - host: &host "youtubedl.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
