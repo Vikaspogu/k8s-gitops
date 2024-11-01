@@ -12,4 +12,4 @@ spec:
       matchFeatures:
         - feature: usb.device
           matchExpressions:
-            vendor: { op: In, value: ["10c4_ea60"] }
+            vendor: { op: In, value: ["10c4", "ea60"] }
