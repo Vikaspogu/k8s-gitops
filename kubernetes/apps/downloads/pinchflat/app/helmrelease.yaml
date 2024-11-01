@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: youtubedl
+  name: pinchflat
   namespace: downloads
 spec:
   interval: 30m
@@ -29,21 +29,47 @@ spec:
       annotations:
         setGateway: "true"
         reloader.stakater.com/auto: "true"
-      hostname: youtubedl
+      hostname: pinchflat
     controllers:
-      app:
+      pinchflat:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: docker.io/tzahi12345/youtubedl-material
-              tag: latest
+              repository: ghcr.io/kieraneglin/pinchflat
+              tag: v2024.10.30@sha256:b7b407edef530ccd49d4b0a1503d964227c11f330e05dfcfc8c1456d77ffafd5
             env:
-              TZ: "${TIMEZONE}"
-
+              TZ: America/New_York
+              TZ_DATA_DIR: /tmp/elixir_tz_data
+              PORT: &port 80
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthcheck
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 4Gi
     persistence:
       config:
         enabled: true
-        existingClaim: youtubedl-config
+        existingClaim: pinchflat-config
         globalMounts:
           - path: /app/appdata
       nfs-nas-pvc:
@@ -55,13 +81,12 @@ spec:
         enabled: true
         globalMounts:
           - path: /nfs-nas-pvc
-
     service:
       app:
-        controller: app
+        controller: pinchflat
         ports:
           http:
-            port: 17442
+            port: *port
     ingress:
       app:
         enabled: true
@@ -71,7 +96,7 @@ spec:
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: youtube.png
         hosts:
-          - host: &host "youtubedl.${SECRET_DOMAIN}"
+          - host: &host "pinchflat.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
