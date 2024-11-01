@@ -51,3 +51,20 @@ spec:
           hosts:
             - host: nas.${SECRET_DOMAIN}
               path: /
+      - name: truenas
+        enabled: true
+        ip: ${SECRET_TRUE_NAS_ADDRESS}
+        # -- Port used by host behind this reverse proxy
+        port: 80
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/icon: trenas.png
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - truenas.${SECRET_DOMAIN}
+          hosts:
+            - host: truenas.${SECRET_DOMAIN}
+              path: /
