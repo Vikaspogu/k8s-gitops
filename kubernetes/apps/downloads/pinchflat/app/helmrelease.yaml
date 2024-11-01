@@ -67,6 +67,10 @@ spec:
                 gpu.intel.com/i915: 1
                 memory: 4Gi
     persistence:
+      downloads:
+        type: emptyDir
+      tmp:
+        type: emptyDir
       config:
         enabled: true
         existingClaim: pinchflat-config
