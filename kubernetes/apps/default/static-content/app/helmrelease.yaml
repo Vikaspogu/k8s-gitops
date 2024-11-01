@@ -27,7 +27,7 @@ spec:
   values:
     controllers:
       static-content:
-        replicas: 2
+        replicas: 1
         strategy: RollingUpdate
         annotations:
           configmap.reloader.stakater.com/reload: &configmap static-content
