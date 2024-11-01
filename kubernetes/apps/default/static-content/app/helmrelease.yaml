@@ -34,8 +34,8 @@ spec:
         containers:
           app:
             image:
-              repository: public.ecr.aws/nginx/nginx
-              tag: "1.27.2"
+              repository: halverneus/static-file-server
+              tag: "v1.8.11"
             probes:
               liveness:
                 enabled: true
@@ -75,16 +75,9 @@ spec:
               - *host
 
     persistence:
-      nginx-config:
-        type: configMap
-        name: *configmap
-        globalMounts:
-          - path: /etc/nginx/nginx.conf
-            subPath: nginx.conf
-            readOnly: true
       data:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
         path: "/volume1/media/k8s-data/static-content"
         globalMounts:
-          - path: /www/data
+          - path: /web

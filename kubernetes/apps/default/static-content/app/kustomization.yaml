@@ -4,11 +4,3 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: static-content
-    files:
-      - ./resources/nginx.conf
-generatorOptions:
-  disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
