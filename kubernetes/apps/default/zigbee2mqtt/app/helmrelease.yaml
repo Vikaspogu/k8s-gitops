@@ -25,18 +25,11 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      nodeSelector:
+        zigbee.feature.node.kubernetes.io/device: "true"
     controllers:
       app:
-        pod:
-          securityContext:
-            supplementalGroups:
-              - 20
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - { key: "feature.node.kubernetes.io/usb-ff_10c4_ea60.present", operator: In, values: ["true"] }
         containers:
           app:
             image:

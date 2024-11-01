@@ -41,20 +41,6 @@ data:
               href: https://github.com/onedr0p/flux-cluster-template
   services.yaml: |
     - Infrastructure:
-        - Netdata:
-            href: {{HOMEPAGE_VAR_NPM_URL}}
-            icon: si-netdata
-            widget:
-              type: netdata
-              url: {{HOMEPAGE_VAR_NETDATA_URL}}
-        - NPM:
-            href: {{HOMEPAGE_VAR_NPM_URL}}
-            icon: si-nginxproxymanager
-            widget:
-              type: npm
-              url: {{HOMEPAGE_VAR_NPM_URL}}
-              username: "{{HOMEPAGE_VAR_NPM_USERNAME}}"
-              password: "{{HOMEPAGE_VAR_NPM_PASSWORD}}"
         - Cloudflared:
             href: https://dash.cloudflare.com
             icon: cloudflare-zero-trust.png

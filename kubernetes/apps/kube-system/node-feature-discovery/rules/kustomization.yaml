@@ -5,3 +5,5 @@ kind: Kustomization
 resources:
   - ./google-coral-device.yaml
   - ./nvidia.yaml
+  - ./zwave.yaml
+  - ./zigbee.yaml

@@ -1,0 +1,15 @@
+---
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: zwave-device
+spec:
+  rules:
+    - # Google Coral USB Accelerator
+      name: zwave.device
+      labels:
+        zwave.feature.node.kubernetes.io/device: "true"
+      matchFeatures:
+        - feature: usb.device
+          matchExpressions:
+            vendor: { op: In, value: ["1a86"] }
