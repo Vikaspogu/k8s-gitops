@@ -81,7 +81,7 @@ spec:
         volumeSpec:
           nfs:
             server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
+            path: "/volume1/media/YoutubeDL"
         enabled: true
         globalMounts:
           - path: /nfs-nas-pvc
