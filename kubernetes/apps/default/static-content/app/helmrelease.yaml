@@ -87,4 +87,4 @@ spec:
         server: ${SECRET_NAS_ADDRESS}
         path: "/volume1/media/k8s-data/static-content"
         globalMounts:
-          - path: /app/static-content
+          - path: /www/data
