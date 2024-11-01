@@ -68,3 +68,37 @@ spec:
           hosts:
             - host: truenas.${SECRET_DOMAIN}
               path: /
+      - name: truenas-odin
+        enabled: true
+        ip: ${SECRET_TRUE_NAS_ODIN_ADDRESS}
+        # -- Port used by host behind this reverse proxy
+        port: 80
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/icon: truenas.png
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - truenas-odin.${SECRET_DOMAIN}
+          hosts:
+            - host: truenas-odin.${SECRET_DOMAIN}
+              path: /
+      - name: netdata
+        enabled: true
+        ip: ${SECRET_PROXMOX_ADDRESS}
+        # -- Port used by host behind this reverse proxy
+        port: 19999
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/icon: netdata.png
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - netdata.${SECRET_DOMAIN}
+          hosts:
+            - host: netdata.${SECRET_DOMAIN}
+              path: /

@@ -44,7 +44,7 @@ spec:
           data: |
             [stream]
               enabled = yes
-              destination = ${SECRET_NETDATA_PARENT_URL}
+              destination = ${SECRET_PROXMOX_ADDRESS}
               ssl skip certificate verification = yes
               api key = ${SECRET_NETDATA_API_KEY}
               timeout seconds = 60
@@ -60,7 +60,7 @@ spec:
           data: |
             [stream]
               enabled = yes
-              destination = ${SECRET_NETDATA_PARENT_URL}
+              destination = ${SECRET_PROXMOX_ADDRESS}
               ssl skip certificate verification = yes
               api key = ${SECRET_NETDATA_API_KEY}
               timeout seconds = 60

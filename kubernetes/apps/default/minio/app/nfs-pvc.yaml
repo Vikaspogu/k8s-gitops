@@ -12,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: "${SECRET_NAS_ADDRESS}"
-    path: ${SECRET_NAS_MINIO_PATH}
+    path: /volume1/media/k8s-data/minio
   mountOptions:
     - async
     - noatime
