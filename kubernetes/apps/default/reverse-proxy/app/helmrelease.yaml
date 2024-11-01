@@ -61,7 +61,7 @@ spec:
           annotations:
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "TrueNAS"
+            gethomepage.dev/name: "TrueNAS Backup"
             gethomepage.dev/icon: truenas.png
           ingressClassName: internal
           tls:
@@ -79,7 +79,7 @@ spec:
           annotations:
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "TrueNAS Backup"
+            gethomepage.dev/name: "TrueNAS"
             gethomepage.dev/icon: truenas.png
           ingressClassName: internal
           tls:
