@@ -75,7 +75,7 @@ spec:
         enabled: true
         existingClaim: pinchflat-config
         globalMounts:
-          - path: /app/appdata
+          - path: /config
       nfs-nas-pvc:
         type: custom
         volumeSpec:
