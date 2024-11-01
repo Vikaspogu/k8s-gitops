@@ -84,7 +84,7 @@ spec:
             path: "/volume1/media/YoutubeDL"
         enabled: true
         globalMounts:
-          - path: /nfs-nas-pvc
+          - path: /downloads
     service:
       app:
         controller: pinchflat
