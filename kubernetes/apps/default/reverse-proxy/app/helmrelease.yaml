@@ -60,7 +60,7 @@ spec:
           annotations:
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
-            gethomepage.dev/icon: trenas.png
+            gethomepage.dev/icon: truenas.png
           ingressClassName: internal
           tls:
             - hosts:
