@@ -52,9 +52,9 @@ spec:
           hosts:
             - host: nas.${SECRET_DOMAIN}
               path: /
-      - name: truenas
+      - name: truenas-backup
         enabled: true
-        ip: ${SECRET_TRUE_NAS_ADDRESS}
+        ip: ${SECRET_TRUE_NAS_BACKUP_ADDRESS}
         # -- Port used by host behind this reverse proxy
         port: 80
         ingress:
@@ -66,27 +66,27 @@ spec:
           ingressClassName: internal
           tls:
             - hosts:
-                - truenas.${SECRET_DOMAIN}
+                - truenas-backup.${SECRET_DOMAIN}
           hosts:
-            - host: truenas.${SECRET_DOMAIN}
+            - host: truenas-backup.${SECRET_DOMAIN}
               path: /
-      - name: truenas-odin
+      - name: truenas-main
         enabled: true
-        ip: ${SECRET_TRUE_NAS_ODIN_ADDRESS}
+        ip: ${SECRET_TRUE_NAS_MAIN_ADDRESS}
         # -- Port used by host behind this reverse proxy
         port: 80
         ingress:
           annotations:
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "TrueNAS Odin"
+            gethomepage.dev/name: "TrueNAS Backup"
             gethomepage.dev/icon: truenas.png
           ingressClassName: internal
           tls:
             - hosts:
-                - truenas-odin.${SECRET_DOMAIN}
+                - truenas.${SECRET_DOMAIN}
           hosts:
-            - host: truenas-odin.${SECRET_DOMAIN}
+            - host: truenas.${SECRET_DOMAIN}
               path: /
       - name: netdata
         enabled: true
@@ -108,7 +108,7 @@ spec:
               path: /
       - name: filebrowser
         enabled: true
-        ip: ${SECRET_TRUE_NAS_ODIN_ADDRESS}
+        ip: ${SECRET_TRUE_NAS_MAIN_ADDRESS}
         port: 30044
         ingress:
           annotations:
