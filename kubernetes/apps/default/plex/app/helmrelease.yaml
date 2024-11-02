@@ -27,9 +27,6 @@ spec:
   values:
     defaultPodOptions:
       enableServiceLinks: false
-      nodeSelector:
-        nvidia.feature.node.kubernetes.io/gpu: "true"
-      runtimeClassName: nvidia
     controllers:
       app:
         pod:
@@ -54,8 +51,6 @@ spec:
               ADVERTISE_IP: "http://${SVC_PLEX_ADDR}:32400,https://plex.${SECRET_DOMAIN}"
               PLEX_NO_AUTH_NETWORKS: 10.30.20.0/24
               TZ: ${TIMEZONE}
-              NVIDIA_DRIVER_CAPABILITIES: all
-              NVIDIA_VISIBLE_DEVICES: all
             probes:
               liveness: &probes
                 enabled: true
@@ -82,7 +77,7 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 12Gi
+                memory: 4Gi
 
     ingress:
       app:
@@ -118,14 +113,6 @@ spec:
       config:
         enabled: true
         existingClaim: plex-config
-      cache:
-        existingClaim: plex-cache
-        globalMounts:
-          - path: /config/Library/Application Support/Plex Media Server/Cache
-      logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/Library/Application Support/Plex Media Server/Logs
       tmp:
         type: emptyDir
       transcode:
