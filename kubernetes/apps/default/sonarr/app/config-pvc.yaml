@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: sonarr
     app.kubernetes.io/name: sonarr
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: sabnzbd
     app.kubernetes.io/name: sabnzbd
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

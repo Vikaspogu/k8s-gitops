@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: mosquitto
     app.kubernetes.io/name: mosquitto
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: home-assistant
     app.kubernetes.io/name: home-assistant
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

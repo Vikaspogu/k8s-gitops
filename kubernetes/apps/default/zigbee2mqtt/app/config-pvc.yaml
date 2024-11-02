@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: zigbee2mqtt
     app.kubernetes.io/name: zigbee2mqtt
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

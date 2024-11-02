@@ -7,7 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: zwave
     app.kubernetes.io/name: zwave
-    snapshot.home.arpa/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce
