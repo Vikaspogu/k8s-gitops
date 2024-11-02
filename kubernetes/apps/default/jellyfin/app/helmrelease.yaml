@@ -25,6 +25,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
     controllers:
       jellyfin:
         annotations:
@@ -45,7 +48,8 @@ spec:
                 cpu: 100m
                 memory: 512Mi
               limits:
-                memory: 4Gi
+                memory: 12Gi
+                gpu.intel.com/i915: 1
             probes:
               liveness: &probes
                 enabled: true

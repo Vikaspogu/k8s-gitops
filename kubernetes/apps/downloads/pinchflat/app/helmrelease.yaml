@@ -70,7 +70,6 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                gpu.intel.com/i915: 1
                 memory: 4Gi
     persistence:
       tmp:
