@@ -27,7 +27,8 @@ spec:
   values:
     defaultPodOptions:
       nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
+        nvidia.feature.node.kubernetes.io/gpu: "true"
+      runtimeClassName: nvidia
     controllers:
       jellyfin:
         annotations:
@@ -43,13 +44,15 @@ spec:
               JELLYFIN_FFmpeg__analyzeduration: 50000000
               JELLYFIN_PublishedServerUrl: &loadBalancerIP ${SVC_JELLYFIN_ADDR}
               TZ: ${TIMEZONE}
+              NVIDIA_VISIBLE_DEVICES: all
+              NVIDIA_DRIVER_CAPABILITIES: all
             resources:
               requests:
                 cpu: 100m
                 memory: 512Mi
               limits:
                 memory: 12Gi
-                gpu.intel.com/i915: 1
+                nvidia.com/gpu: 1
             probes:
               liveness: &probes
                 enabled: true
