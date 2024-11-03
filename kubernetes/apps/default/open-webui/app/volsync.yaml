@@ -30,7 +30,7 @@ metadata:
 spec:
   sourcePVC: open-webui-data
   trigger:
-    schedule: "0 20 * * *"
+    schedule: "@daily"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 5

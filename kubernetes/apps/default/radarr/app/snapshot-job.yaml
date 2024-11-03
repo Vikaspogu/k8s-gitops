@@ -56,3 +56,17 @@ spec:
               nfs:
                 server: "${SECRET_NAS_ADDRESS}"
                 path: /volume1/media/k8s-data/kopia-snapshots
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - topologyKey: kubernetes.io/hostname
+                  labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: "In"
+                        values:
+                          - radarr
+                      - key: app.kubernetes.io/instance
+                        operator: "In"
+                        values:
+                          - radarr

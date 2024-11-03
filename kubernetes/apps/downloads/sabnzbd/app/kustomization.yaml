@@ -8,7 +8,6 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
-  - ./snapshot-job.yaml
 configMapGenerator:
   - name: notify-script
     files:
