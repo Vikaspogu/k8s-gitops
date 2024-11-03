@@ -29,6 +29,19 @@ spec:
     runtimeClassName: nvidia
     nodeSelector:
       nvidia.feature.node.kubernetes.io/gpu: "true"
+    config:
+      map:
+        default: |-
+          version: v1
+          flags:
+            migStrategy: none
+          sharing:
+            timeSlicing:
+              renameByDefault: false
+              failRequestsGreaterThanOne: false
+              resources:
+                - name: nvidia.com/gpu
+                  replicas: 6
     securityContext:
       privileged: true
     affinity:
