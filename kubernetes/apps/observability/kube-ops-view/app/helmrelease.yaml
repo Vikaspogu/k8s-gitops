@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      app:
+      kube-ops-view:
         containers:
           app:
             image:
@@ -43,7 +43,7 @@ spec:
 
     service:
       app:
-        controller: app
+        controller: kube-ops-view
         ports:
           http:
             port: 8080
