@@ -7,3 +7,4 @@ resources:
   - ./netdata/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./grafana/ks.yaml
+  - ./kube-ops-view/ks.yaml
