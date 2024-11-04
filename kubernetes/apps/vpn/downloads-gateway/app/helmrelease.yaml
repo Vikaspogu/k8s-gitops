@@ -44,8 +44,8 @@ spec:
             value: wireguard
           - name: VPN_INTERFACE
             value: wg0
-          - name: FIREWALL_OUTBOUND_SUBNETS
-            value: "10.96.0.0/12,10.244.0.0/16"
+          - name: FIREWALL
+            value: "off"
           - name: DOT
             value: "off"
           - name: SERVER_CITIES
@@ -117,7 +117,6 @@ spec:
     settings:
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_INTERFACE: wg0
-      IPTABLES_NFT: "yes"
       NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
       VPN_LOCAL_CIDRS: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
       VPN_TRAFFIC_PORT: "51820"
