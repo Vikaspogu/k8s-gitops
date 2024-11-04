@@ -42,7 +42,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               ASR_MODEL: base # tiny, base, small, medium, large, large-v1, large-v2 and large-v3
-              ASR_ENGINEL: openai_whisper # openai_whisper, faster_whisper
+              ASR_ENGINEL: faster_whisper # openai_whisper, faster_whisper
               NVIDIA_VISIBLE_DEVICES: all
               NVIDIA_DRIVER_CAPABILITIES: all
             resources:
