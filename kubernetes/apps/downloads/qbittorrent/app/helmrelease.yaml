@@ -25,34 +25,37 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
-  values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        supplementalGroups:
-          - 65536
-      annotations:
-        setGateway: "true"
-      hostname: qbittorrent
+    values:
     controllers:
-      app:
+      qbittorrent:
+        annotations:
+          configmap.reloader.stakater.com/reload: qbittorrent-scripts,qbittorrent-dnsdist
+          secret.reloader.stakater.com/reload: qbittorrent-secret
+
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 65542 # gladius:external-services
+          terminationGracePeriodSeconds: 120
+
         containers:
           app:
+            nameOverride: qbittorrent
             image:
-              repository: ghcr.io/onedr0p/qbittorrent
-              tag: 5.0.0@sha256:4ba2360b71b95afe7d2b4459c54e5146ed682f37a1c1703eba0f29684636de50
+              repository: ghcr.io/onedr0p/qbittorrent-beta
+              tag: 5.0.1@sha256:684422cab9fe3cba04812cf4207398bb72aa0f0283c92fddecd833648ac3f7bf
             env:
-              TZ: "${TIMEZONE}"
-              QBITTORRENT__PORT: &port 8080
-              QBITTORRENT__BT_PORT: &port-bt 56059
-            resources:
-              requests:
-                memory: 1000Mi
-                cpu: 500m
-              limits:
-                memory: 4000Mi
+              UMASK: "022"
+              QBT_WEBUI_PORT: &port 8080
+              XSEED_HOST: cross-seed.downloads.svc.cluster.local
+              XSEED_PORT: 2468
+              XSEED_APIKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: qbittorrent-secret
+                    key: xseed_api_key
             probes:
               liveness:
                 enabled: true
@@ -62,26 +65,83 @@ spec:
                 enabled: true
                 spec:
                   failureThreshold: 30
-                  periodSeconds: 10
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 150m
+                memory: 2048Mi
+              limits:
+                memory: 8192Mi
             securityContext:
+              runAsUser: 2000
+              runAsGroup: 2000
+              runAsNonRoot: true
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
+
+          dnsdist:
+            image:
+              repository: docker.io/powerdns/dnsdist-19
+              tag: 1.9.7
+
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.39.1
+            env:
+              DOT: "off"
+              DNS_ADDRESS: "127.0.0.2"
+              VPN_SERVICE_PROVIDER: mullvad
+              VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
+              WIREGUARD_ENDPOINT_PORT: 51820
+              VPN_PORT_FORWARDING: on
+              VPN_PORT_FORWARDING_PROVIDER: mullvad
+              FIREWALL_INPUT_PORTS: 8080
+              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/12,10.244.0.0/16 # Allow access to k8s subnets
+            envFrom:
+              - secretRef:
+                  name: qbittorrent-secret
+            resources:
+              limits:
+                squat.ai/tun: "1"
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
+              allowPrivilegeEscalation: false
+
+          port-forward:
+            image:
+              repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
+              tag: 0.0.2@sha256:3b97aaa6ff52037a4f9150ea3bb27ff949a1e1afd1044dcff0db3e9e56f807e4
+            env:
+              GLUETUN_CONTROL_SERVER_HOST: localhost
+              GLUETUN_CONTROL_SERVER_PORT: 8000
+              QBITTORRENT_HOST: localhost
+              QBITTORRENT_WEBUI_PORT: *port
+              CRON_ENABLED: true
+              CRON_SCHEDULE: "*/5 * * * *"
+              LOG_TIMESTAMP: false
+            securityContext:
+              runAsUser: 2000
+              runAsGroup: 2000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
     service:
       app:
-        controller: app
-        annotations:
-          io.cilium/lb-ipam-ips: "${SVC_QBITTORRENT_ADDR}"
-        type: LoadBalancer
-        externalTrafficPolicy: Cluster
+        controller: qbittorrent
         ports:
           http:
-            port: 8080
-          bittorrent:
-            enabled: true
-            port: 56059
-            protocol: TCP
-            targetPort: 56059
+            port: *port
 
     ingress:
       app:
@@ -107,10 +167,38 @@ spec:
       config:
         enabled: true
         existingClaim: qb-config
-      nfs-nas-media:
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config
+      empty-config:
+        type: emptyDir
+        advancedMounts:
+          qbittorrent:
+            port-forward:
+              - path: /config
+      media:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
         path: "/volume1/media"
-        globalMounts:
-          - path: /nfs-nas-pvc
-            readOnly: false
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /nfs-nas-pvc
+      dnsdist:
+        type: configMap
+        name: qbittorrent-dnsdist
+        advancedMounts:
+          qbittorrent:
+            dnsdist:
+              - path: /etc/dnsdist/dnsdist.conf
+                subPath: dnsdist.conf
+                readOnly: true
+      scripts:
+        type: configMap
+        name: qbittorrent-scripts
+        defaultMode: 0775
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config/scripts
