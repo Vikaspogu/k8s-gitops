@@ -99,7 +99,6 @@ spec:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
         path: "/volume1/media"
-        advancedMounts:
-          cross-seed:
-            app:
-              - path: /data/nas-media
+        globalMounts:
+          - path: /media/downloads
+            subPath: downloads
