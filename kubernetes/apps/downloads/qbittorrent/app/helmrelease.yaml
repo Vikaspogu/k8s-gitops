@@ -147,6 +147,7 @@ spec:
                 drop:
                   - ALL
           vuetorrent:
+            dependsOn: app
             image:
               repository: registry.k8s.io/git-sync/git-sync
               tag: v4.3.0
@@ -202,6 +203,10 @@ spec:
           qbittorrent:
             port-forward:
               - path: /config
+      addons:
+        type: emptyDir
+        globalMounts:
+          - path: /addons
       media:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
