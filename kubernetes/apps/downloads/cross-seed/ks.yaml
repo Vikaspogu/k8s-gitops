@@ -13,7 +13,7 @@ spec:
   interval: 30m
   timeout: 5m
   prune: true
-  path: "./kubernetes/main/apps/downloads/cross-seed/app"
+  path: "./kubernetes/apps/downloads/cross-seed/app"
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
