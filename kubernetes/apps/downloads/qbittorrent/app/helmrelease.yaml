@@ -25,7 +25,7 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
-    values:
+  values:
     controllers:
       qbittorrent:
         annotations:
