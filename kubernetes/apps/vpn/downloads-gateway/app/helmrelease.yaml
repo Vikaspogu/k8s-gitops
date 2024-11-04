@@ -45,9 +45,7 @@ spec:
           - name: VPN_INTERFACE
             value: wg0
           - name: FIREWALL
-            value: "on"
-          - name: FIREWALL_OUTBOUND_SUBNETS
-            value: "10.69.0.0/16"
+            value: "off"
           - name: DOT
             value: "off"
           - name: SERVER_CITIES
