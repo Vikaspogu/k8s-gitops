@@ -42,7 +42,7 @@ resources:
   - ./teslamate/ks.yaml
   - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
-  # - ./whisper/ks.yaml
+  - ./whisper/ks.yaml
   - ./wizarr/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml
