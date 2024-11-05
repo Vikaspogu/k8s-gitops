@@ -13,8 +13,7 @@ resources:
   - ./glance/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
-  - ./jellyfin/ks.yaml
-  # - ./jellyseerr/ks.yaml
+  # - ./jellyfin/ks.yaml
   - ./kopia-web/ks.yaml
   - ./lldap/ks.yaml
   - ./miniflux/ks.yaml
@@ -42,6 +41,5 @@ resources:
   - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
   - ./whisper/ks.yaml
-  # - ./wizarr/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml
