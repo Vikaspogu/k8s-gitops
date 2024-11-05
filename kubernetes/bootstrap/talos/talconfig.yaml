@@ -50,7 +50,7 @@ nodes:
   - hostname: "k8s-2-7i5bnk"
     ipAddress: "10.30.30.22"
     installDiskSelector:
-      size: '< 1TB'
+      size: "< 1TB"
     talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
     controlPlane: true
     networkInterfaces:
@@ -86,7 +86,7 @@ nodes:
     ipAddress: "10.30.30.25"
     installDiskSelector:
       model: "QEMU HARDDISK"
-    talosImageURL: factory.talos.dev/installer/6698d6f136c5bb37ca8bb8482c9084305084da0a5ead1f4dcae760796f8ab3a2
+    talosImageURL: factory.talos.dev/installer/a31d81eceab05afdc2c59b0002701173e117a5fb81bdc1f64062d27655145848
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -104,6 +104,7 @@ nodes:
           officialExtensions:
             - siderolabs/nvidia-container-toolkit-production
             - siderolabs/nvidia-open-gpu-kernel-modules-production
+            - siderolabs/qemu-guest-agent
 # Global patches
 patches:
   - # Force nameserver
