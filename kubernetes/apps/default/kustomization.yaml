@@ -14,8 +14,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./jellyfin/ks.yaml
-  - ./jellyseerr/ks.yaml
-  - ./jellyplex-watched/ks.yaml
   - ./kopia-web/ks.yaml
   - ./lldap/ks.yaml
   - ./miniflux/ks.yaml

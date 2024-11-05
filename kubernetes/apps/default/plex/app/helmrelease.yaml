@@ -27,6 +27,9 @@ spec:
   values:
     defaultPodOptions:
       enableServiceLinks: false
+      nodeSelector:
+        nvidia.feature.node.kubernetes.io/gpu: "true"
+      runtimeClassName: nvidia
     controllers:
       app:
         pod:
@@ -51,6 +54,9 @@ spec:
               ADVERTISE_IP: "http://${SVC_PLEX_ADDR}:32400,https://plex.${SECRET_DOMAIN}"
               PLEX_NO_AUTH_NETWORKS: 10.30.20.0/24
               TZ: ${TIMEZONE}
+              NVIDIA_VISIBLE_DEVICES: all
+              NVIDIA_DRIVER_CAPABILITIES: all
+
             probes:
               liveness: &probes
                 enabled: true
@@ -77,7 +83,8 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 4Gi
+                memory: 8Gi
+                nvidia.com/gpu: 1
 
     ingress:
       app:
