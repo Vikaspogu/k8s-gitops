@@ -9,8 +9,8 @@ metadata:
     app.kubernetes.io/name: qbittorrent
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: ceph-block
+    - ReadWriteMany
+  storageClassName: ceph-filesystem
   resources:
     requests:
       storage: 200Gi
