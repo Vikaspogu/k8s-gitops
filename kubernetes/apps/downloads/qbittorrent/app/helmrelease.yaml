@@ -35,8 +35,6 @@ spec:
               - matchExpressions:
                   - key: node-role.kubernetes.io/control-plane
                     operator: DoesNotExist
-                  - key: nvidia.feature.node.kubernetes.io/gpu
-                    operator: DoesNotExist
     controllers:
       qbittorrent:
         annotations:
