@@ -118,7 +118,7 @@ spec:
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
                 10.30.0.0/16, 10.43.0.0/16
               QBT_Preferences__WebUI__LocalHostAuth: false
-              QBT_Preferences__WebUI__RootFolder: /addons/VueTorrent
+              QBT_Preferences__WebUI__RootFolder: /config/VueTorrent
               QBT_Preferences__WebUI__UseUPNP: false
               XSEED_HOST: cross-seed.downloads.svc.cluster.local
               XSEED_PORT: 2468
@@ -161,7 +161,7 @@ spec:
               - --repo=https://github.com/WDaan/VueTorrent
               - --ref=latest-release
               - --period=86400s
-              - --root=/addons
+              - --root=/config
             resources:
               requests:
                 cpu: 10m
@@ -209,10 +209,6 @@ spec:
           qbittorrent:
             port-forward:
               - path: /config
-      addons:
-        type: emptyDir
-        globalMounts:
-          - path: /addons
       media:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
