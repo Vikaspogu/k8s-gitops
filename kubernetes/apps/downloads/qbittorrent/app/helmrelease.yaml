@@ -26,6 +26,15 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
     controllers:
       qbittorrent:
         annotations:
