@@ -3,22 +3,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname cross-seed
+  name: &app cross-seed
   namespace: flux-system
 spec:
   targetNamespace: downloads
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
-  interval: 30m
-  timeout: 5m
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/downloads/cross-seed/app
   prune: true
-  path: "./kubernetes/apps/downloads/cross-seed/app"
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: true
+  wait: false
+  interval: 30m
   retryInterval: 1m
+  timeout: 5m
   dependsOn:
-    - name: external-secrets-stores
     - name: qbittorrent
