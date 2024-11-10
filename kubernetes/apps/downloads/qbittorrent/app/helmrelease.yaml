@@ -55,6 +55,7 @@ spec:
               tag: 1.9.7
 
           gluetun:
+            dependsOn: vuetorrent
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.39.1
@@ -153,7 +154,6 @@ spec:
                 drop:
                   - ALL
           vuetorrent:
-            dependsOn: app
             image:
               repository: registry.k8s.io/git-sync/git-sync
               tag: v4.3.0
