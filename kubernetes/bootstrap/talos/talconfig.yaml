@@ -11,6 +11,7 @@ clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
   - "10.96.0.0/16"
+
 additionalApiServerCertSans: &sans
   - "10.30.30.150"
   - 127.0.0.1 # KubePrism
@@ -21,24 +22,11 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "k8s-0-6i3syh"
+  - hostname: "k8s-0-7i5bnk"
     ipAddress: "10.30.30.20"
     installDiskSelector:
-      model: "SAMSUNG MZ7LN256"
-    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "94:c6:91:a9:46:37"
-        dhcp: true
-        mtu: 1500
-        vip:
-          ip: "10.30.30.150"
-  - hostname: "k8s-1-7i5bnk"
-    ipAddress: "10.30.30.21"
-    installDiskSelector:
       serial: "50026B7382439F6F"
-    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
+    talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -47,11 +35,11 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.30.30.150"
-  - hostname: "k8s-2-7i5bnk"
-    ipAddress: "10.30.30.22"
+  - hostname: "k8s-1-7i5bnk"
+    ipAddress: "10.30.30.21"
     installDiskSelector:
-      size: "< 1TB"
-    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
+      serial: "2330E86497F7"
+    talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -60,22 +48,35 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.30.30.150"
-  - hostname: "k8s-3-un1265"
-    ipAddress: "10.30.30.23"
+  - hostname: "k8s-2-un1265"
+    ipAddress: "10.30.30.22"
     installDiskSelector:
       model: "CT500MX500SSD1"
-    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
-    controlPlane: false
+    talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
+    controlPlane: true
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "58:47:ca:73:35:71"
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: "10.30.30.150"
+  - hostname: k8s-3-nab9
+    ipAddress: "10.30.30.23"
+    installDiskSelector:
+      model: "CT500MX500SSD1"
+    talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "58:47:ca:79:35:11"
         dhcp: true
         mtu: 1500
   - hostname: "k8s-4-ser"
     ipAddress: "10.30.30.24"
     installDiskSelector:
       model: "CT500MX500SSD1"
-    talosImageURL: factory.talos.dev/installer/572f8bf60e4431f13489bd0d2f791839ff18cdb9f907cea83b4873e4ea730ef7
+    talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -105,19 +106,36 @@ nodes:
             - siderolabs/nvidia-container-toolkit-production
             - siderolabs/nvidia-open-gpu-kernel-modules-production
             - siderolabs/qemu-guest-agent
+  - hostname: "k8s-6-pi4"
+    ipAddress: "10.30.30.26"
+    installDisk: /dev/sda
+    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: e4:5f:01:30:42:75
+        dhcp: true
+        mtu: 1500
+  - hostname: "k8s-7-pi4"
+    ipAddress: "10.30.30.27"
+    installDisk: /dev/sda
+    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "dc:a6:32:69:40:8c"
+        dhcp: true
+        mtu: 1500
+
 # Global patches
 patches:
-  - # Force nameserver
-    |-
-    machine:
-      network:
-        nameservers:
-          - 10.30.0.1
   - "@./patches/global/cluster-discovery.yaml"
   - "@./patches/global/containerd.yaml"
   - "@./patches/global/disable-search-domain.yaml"
+  - "@./patches/global/dns.yaml"
   - "@./patches/global/hostdns.yaml"
   - "@./patches/global/kubelet.yaml"
+  - "@./patches/global/ntp.yaml"
   - "@./patches/global/openebs-local.yaml"
   - "@./patches/global/sysctl.yaml"
 
