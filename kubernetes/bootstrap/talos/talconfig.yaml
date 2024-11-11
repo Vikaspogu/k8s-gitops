@@ -31,7 +31,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "94:c6:91:1a:bc:3f"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.30.30.27/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.30.30.1"
         mtu: 1500
         vip:
           ip: "10.30.30.150"
@@ -44,7 +49,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "94:c6:91:1f:78:53"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.30.30.27/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.30.30.1"
         mtu: 1500
         vip:
           ip: "10.30.30.150"
@@ -70,7 +80,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "58:47:ca:79:35:11"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.30.30.27/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.30.30.1"
         mtu: 1500
   - hostname: "k8s-4-ser"
     ipAddress: "10.30.30.24"
@@ -81,7 +96,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "b0:41:6f:0c:00:07"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.30.30.27/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.30.30.1"
         mtu: 1500
   - hostname: "k8s-5-pxm"
     ipAddress: "10.30.30.25"
@@ -92,7 +112,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "52:50:56:11:33:11"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.30.30.27/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.30.30.1"
         mtu: 1500
     kernelModules:
       - name: nvidia
@@ -114,7 +139,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: e4:5f:01:30:42:75
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.30.30.27/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.30.30.1"
         mtu: 1500
   - hostname: "k8s-7-pi4"
     ipAddress: "10.30.30.27"
@@ -124,7 +154,12 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "dc:a6:32:69:40:8c"
-        dhcp: true
+        dhcp: false
+        addresses:
+          - "10.30.30.27/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.30.30.1"
         mtu: 1500
 
 # Global patches
