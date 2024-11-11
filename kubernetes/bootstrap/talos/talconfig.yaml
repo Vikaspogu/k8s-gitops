@@ -136,36 +136,6 @@ nodes:
             - siderolabs/nvidia-container-toolkit-production
             - siderolabs/nvidia-open-gpu-kernel-modules-production
             - siderolabs/qemu-guest-agent
-  - hostname: "k8s-6-pi4"
-    ipAddress: "10.30.30.26"
-    installDisk: /dev/sda
-    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: e4:5f:01:30:42:75
-        dhcp: false
-        addresses:
-          - "10.30.30.26/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.30.30.1"
-        mtu: 1500
-  - hostname: "k8s-7-pi4"
-    ipAddress: "10.30.30.27"
-    installDisk: /dev/sda
-    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "dc:a6:32:69:40:8c"
-        dhcp: false
-        addresses:
-          - "10.30.30.27/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.30.30.1"
-        mtu: 1500
 
 # Global patches
 patches:
