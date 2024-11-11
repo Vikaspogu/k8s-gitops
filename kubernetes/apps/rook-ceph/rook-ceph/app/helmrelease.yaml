@@ -33,6 +33,38 @@ spec:
       enableLiveness: true
       serviceMonitor:
         enabled: true
+      csiRBDPluginResource: |
+        - name : driver-registrar
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 50m
+        - name : csi-rbdplugin
+          resource:
+            requests:
+              memory: 512Mi
+              cpu: 250m
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 50m
+      csiCephFSPluginResource: |
+        - name : driver-registrar
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 50m
+        - name : csi-cephfsplugin
+          resource:
+            requests:
+              memory: 512Mi
+              cpu: 250m
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 50m
       pluginTolerations:
         - key: "k3s-arm"
           operator: "Exists"
