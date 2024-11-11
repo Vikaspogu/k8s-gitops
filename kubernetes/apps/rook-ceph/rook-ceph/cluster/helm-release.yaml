@@ -70,10 +70,10 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "k8s-2-7i5bnk"
+          - name: "k8s-2-un1265"
             devices:
               - name: "nvme0n1"
-          - name: "k8s-3-un1265"
+          - name: "k8s-3-nab9"
             devices:
               - name: "nvme0n1"
           - name: "k8s-4-ser"
