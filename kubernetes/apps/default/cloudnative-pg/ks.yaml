@@ -33,7 +33,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
-    - name: rook-ceph-cluster
+    - name: openebs
   path: ./kubernetes/apps/default/cloudnative-pg/cluster
   prune: true
   sourceRef:
