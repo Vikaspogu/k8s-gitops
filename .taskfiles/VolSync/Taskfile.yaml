@@ -9,6 +9,8 @@ x-task-vars: &task-vars
   ts: '{{.ts}}'
   kustomization: '{{.kustomization}}'
   previous: '{{.previous}}'
+  storage_class_name:
+    sh: kubectl --namespace {{.namespace}} get replicationsources/{{.rsrc}} --output=jsonpath="{.spec.restic.storageClassName}"
 
 vars:
   destinationTemplate: "{{.ROOT_DIR}}/.taskfiles/VolSync/ReplicationDestination.tmpl.yaml"
