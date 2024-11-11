@@ -58,8 +58,6 @@ spec:
             resources:
               requests:
                 cpu: 10m
-              limits:
-                memory: 125M
     service:
       app:
         controller: zwave
