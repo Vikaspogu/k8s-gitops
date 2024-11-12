@@ -27,6 +27,7 @@ spec:
     keepHistory: false
   values:
     architecture: standalone
+    resourcesPreset: "micro"
     auth:
       enabled: false
     master:
