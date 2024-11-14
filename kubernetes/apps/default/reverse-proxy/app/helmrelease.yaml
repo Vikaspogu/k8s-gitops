@@ -72,7 +72,7 @@ spec:
               path: /
       - name: truenas-main
         enabled: true
-        ip: ${SECRET_TRUE_NAS_MAIN_ADDRESS}
+        ip: ${SECRET_TRUE_NAS_ADDRESS}
         # -- Port used by host behind this reverse proxy
         port: 80
         ingress:
