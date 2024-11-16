@@ -65,8 +65,11 @@ spec:
             isDefault: true
           - name: Loki
             type: loki
+            uid: loki
             access: proxy
-            url: http://loki-gateway.observability.svc.cluster.local:80
+            url: http://loki-headless.observability.svc.cluster.local:3100
+            jsonData:
+              maxLines: 250
           - name: TeslaMate
             type: postgres
             access: proxy
