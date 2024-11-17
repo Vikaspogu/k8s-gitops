@@ -51,7 +51,7 @@ spec:
       annotations:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Ingress
-        gethomepage.dev/icon: mdi-database
+        gethomepage.dev/icon: si-influxdb
 
     service:
       type: LoadBalancer
