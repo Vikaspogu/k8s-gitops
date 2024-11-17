@@ -35,9 +35,14 @@ spec:
             image:
               repository: ghcr.io/analogj/scrutiny
               tag: master-web
+            envFrom:
+              - secretRef:
+                  name: scrutiny-secret
             env:
               TZ: "${TIMEZONE}"
               SCRUTINY_WEB_INFLUXDB_HOST: influxdb.default.svc.cluster.local
+              SCRUTINY_WEB_INFLUXDB_ORG: homelab
+              SCRUTINY_WEB_INFLUXDB_BUCKET: scrutiny
             probes:
               liveness: &probes
                 enabled: true

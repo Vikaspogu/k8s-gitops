@@ -5,4 +5,5 @@ kind: Kustomization
 namespace: observability
 resources:
   - ./config-pvc.yaml
+  - ./externalsecret.yaml
   - ./helmrelease.yaml

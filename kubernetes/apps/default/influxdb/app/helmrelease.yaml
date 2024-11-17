@@ -32,8 +32,8 @@ spec:
       pullPolicy: IfNotPresent
     adminUser:
       create: true
-      organization: home
-      bucket: smarthome
+      organization: homelab
+      bucket: scrutiny
       user: "admin"
       retention_policy: "0s"
       existingSecret: influxdb-secret
@@ -49,7 +49,9 @@ spec:
       hostname: influxdb.${SECRET_DOMAIN}
       tls: true
       annotations:
-        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,10.30.30.0/16"
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Ingress
+        gethomepage.dev/icon: mdi-database
 
     service:
       type: LoadBalancer
