@@ -35,7 +35,7 @@ spec:
                   name: tududi-secret
             image:
               repository: chrisvel/tududi
-              tag: 0.34
+              tag: 0.35
             env:
               TUDUDI_INTERNAL_SSL_ENABLED: "false"
             probes:
