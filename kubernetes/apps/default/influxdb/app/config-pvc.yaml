@@ -2,15 +2,15 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jellyseerr-config
+  name: influxdb-config
   namespace: default
   labels:
-    app.kubernetes.io/instance: jellyseerr
-    app.kubernetes.io/name: jellyseerr
+    app.kubernetes.io/instance: influxdb
+    app.kubernetes.io/name: influxdb
 spec:
   accessModes:
     - ReadWriteOnce
   storageClassName: ceph-block
   resources:
     requests:
-      storage: 2Gi
+      storage: 10Gi
