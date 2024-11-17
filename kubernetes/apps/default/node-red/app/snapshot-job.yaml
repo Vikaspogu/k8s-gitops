@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20241116.0.71650@sha256:f68cb2692ed966cba483217ee6488bbc7deade4caf3dd4648b40b3382991d796
+              image: docker.io/kopia/kopia:20241116.0.140948@sha256:c5a0e544ef08c1c5ae028c97d867c65f9628dae68175608e1638e583ebb11bfb
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/node-red/node-red-config/cache
