@@ -9,7 +9,7 @@ http_request_date=$(date -R)
 
 echo "Download TrueNAS Main config file ..."
 config_filename="$(date "+%Y%m%d-%H%M%S").tar"
-http_filepath="truenas-main/${config_filename}"
+http_filepath="truenas-backup/${config_filename}"
 http_signature=$(
     printf "PUT\n\napplication/tar\n%s\n/%s" "${http_request_date}" "${http_filepath}" \
         | openssl sha1 -hmac "${AWS_SECRET_ACCESS_KEY}" -binary \
