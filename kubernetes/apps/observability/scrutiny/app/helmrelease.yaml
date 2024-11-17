@@ -43,6 +43,7 @@ spec:
               SCRUTINY_WEB_INFLUXDB_HOST: influxdb.default.svc.cluster.local
               SCRUTINY_WEB_INFLUXDB_ORG: homelab
               SCRUTINY_WEB_INFLUXDB_BUCKET: scrutiny
+              SCRUTINY_WEB_INFLUXDB_PORT: 80
             probes:
               liveness: &probes
                 enabled: true
