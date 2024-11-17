@@ -41,7 +41,7 @@ spec:
       create: false
     env:
       - name: TZ
-        value: "${TZ}"
+        value: "${TIMEZONE}"
     ingress:
       enabled: true
       className: internal
