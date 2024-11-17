@@ -63,17 +63,8 @@ data:
             icon: truenas.png
             widget:
               type: truenas
-              url: http://{{HOMEPAGE_VAR_TRUENAS_PXM_ODIN_URL}}
-              key: {{HOMEPAGE_VAR_TRUENAS_PXM_ODIN_API_KEY}}
-              enablePools: true
-              nasType: scale
-        - TrueNAS-Backup:
-            href: https://truenas-backup.${SECRET_DOMAIN}
-            icon: truenas.png
-            widget:
-              type: truenas
-              url: http://{{HOMEPAGE_VAR_TRUENAS_PROXMOX_URL}}
-              key: {{HOMEPAGE_VAR_TRUENAS_PROXMOX_API_KEY}}
+              url: http://{{HOMEPAGE_VAR_TRUENAS_URL}}
+              key: {{HOMEPAGE_VAR_TRUENAS_API_KEY}}
               enablePools: true
               nasType: scale
         - Proxmox:
