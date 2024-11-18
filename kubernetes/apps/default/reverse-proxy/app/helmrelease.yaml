@@ -52,24 +52,6 @@ spec:
           hosts:
             - host: nas.${SECRET_DOMAIN}
               path: /
-      - name: truenas-backup
-        enabled: true
-        ip: ${SECRET_TRUE_NAS_BACKUP_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 80
-        ingress:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "TrueNAS Backup"
-            gethomepage.dev/icon: truenas.png
-          ingressClassName: internal
-          tls:
-            - hosts:
-                - truenas-backup.${SECRET_DOMAIN}
-          hosts:
-            - host: truenas-backup.${SECRET_DOMAIN}
-              path: /
       - name: truenas-main
         enabled: true
         ip: ${SECRET_TRUE_NAS_ADDRESS}
@@ -87,24 +69,6 @@ spec:
                 - truenas.${SECRET_DOMAIN}
           hosts:
             - host: truenas.${SECRET_DOMAIN}
-              path: /
-      - name: netdata
-        enabled: true
-        ip: ${SECRET_PROXMOX_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 19999
-        ingress:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "Netdata"
-            gethomepage.dev/icon: netdata.png
-          ingressClassName: internal
-          tls:
-            - hosts:
-                - netdata.${SECRET_DOMAIN}
-          hosts:
-            - host: netdata.${SECRET_DOMAIN}
               path: /
       - name: filebrowser
         enabled: true
