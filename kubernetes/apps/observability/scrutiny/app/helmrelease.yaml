@@ -91,7 +91,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-list-status
+          gethomepage.dev/icon: mdi-hard-disk
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
