@@ -95,7 +95,7 @@ spec:
           annotations:
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "File Browser"
+            gethomepage.dev/name: "My Speed"
             gethomepage.dev/icon: mdi-speedometer
           ingressClassName: internal
           tls:
