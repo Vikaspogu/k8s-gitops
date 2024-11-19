@@ -18,8 +18,6 @@ pages:
               - url: https://selfh.st/rss/
               - url: https://homenetworkguy.com/index.xml
               - url: https://smarthomescene.com/feed/
-              - url: https://blog.bytebytego.com/feed
-              - url: https://newsletter.eng-leadership.com/feed
       - size: full
         widgets:
           - type: hacker-news
