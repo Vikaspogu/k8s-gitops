@@ -93,12 +93,11 @@ spec:
             uid: influxdb
             access: proxy
             url: http://influxdb.default.svc.cluster.local:80
+            secureJsonData:
+              httpHeaderValue1: 'Token ${INFLUXDB_TOKEN}'
             jsonData:
-              version: Flux
-              organization: proxmox
-              defaultBucket: proxmox
-              tlsSkipVerify: true
-
+              httpHeaderName1: 'Authorization'
+              httpMode: GET
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -303,4 +302,9 @@ spec:
       name: grafana
       valuesKey: TESLAMATE_DB_PASSWORD
       targetPath: env.TESLAMATE_DB_PASSWORD
+      optional: false
+    - kind: Secret
+      name: grafana
+      valuesKey: INFLUXDB_TOKEN
+      targetPath: env.INFLUXDB_TOKEN
       optional: false
