@@ -87,3 +87,20 @@ spec:
           hosts:
             - host: files.${SECRET_DOMAIN}
               path: /
+      - name: speed
+        enabled: true
+        ip: ${SECRET_MY_SPEED_ADDRESS}
+        port: 5216
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/name: "File Browser"
+            gethomepage.dev/icon: mdi-speedometer
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - speed.${SECRET_DOMAIN}
+          hosts:
+            - host: speed.${SECRET_DOMAIN}
+              path: /
