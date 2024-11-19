@@ -94,7 +94,7 @@ spec:
             access: proxy
             url: http://influxdb.default.svc.cluster.local:80
             secureJsonData:
-              httpHeaderValue1: 'Token ${INFLUXDB_TOKEN}'
+              httpHeaderValue1: 'Token $INFLUXDB_TOKEN'
             jsonData:
               httpHeaderName1: 'Authorization'
               httpMode: GET
