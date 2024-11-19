@@ -120,7 +120,8 @@ spec:
         proxmox:
           gnetId: 15356 #https://grafana.com/grafana/dashboards/15356
           revision: 13
-          datasource: InfluxDB
+          datasource:
+            - { name: DS_INFLUX.MEPHIS.TO-PROXMOX-FLUX, value: InfluxDB }
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
