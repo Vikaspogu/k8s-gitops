@@ -98,6 +98,11 @@ spec:
             jsonData:
               httpHeaderName1: 'Authorization'
               httpMode: GET
+              version: Flux
+              organization: proxmox
+              defaultBucket: proxmox
+              tlsSkipVerify: true
+
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
