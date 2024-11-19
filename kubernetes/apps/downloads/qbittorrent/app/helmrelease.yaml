@@ -68,29 +68,23 @@ spec:
               WIREGUARD_ENDPOINT_PORT: 51820
               FIREWALL_INPUT_PORTS: &port 8080
               FIREWALL_OUTBOUND_SUBNETS: 10.69.0.0/16,10.96.0.0/16 # Allow access to k8s subnets
-              HEALTH_SERVER_ADDRESS: :8000
               WIREGUARD_MTU: 8900
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
             probes:
-              liveness:
+              liveness: &probe
                 enabled: true
                 custom: true
                 spec:
-                  httpGet:
-                    path: /
-                    port: 8000
+                  exec: &exec
+                    command: [/gluetun-entrypoint, healthcheck]
+                  periodSeconds: 60
               startup:
-                enabled: true
-                custom: true
+                <<: *probe
                 spec:
-                  httpGet:
-                    path: /
-                    port: 8000
-                  initialDelaySeconds: 10
-                  periodSeconds: 10
-                  failureThreshold: 5
+                  exec: *exec
+                  periodSeconds: 5
             resources:
               limits:
                 squat.ai/tun: "1"
