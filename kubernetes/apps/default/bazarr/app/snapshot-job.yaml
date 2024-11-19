@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20241118.0.14713@sha256:deabb0a96984c25e574d68af9d98ff2caee3b4b96bc5fd2e5fed9c968aec493b
+              image: docker.io/kopia/kopia:20241118.0.213312@sha256:c507488f52269352112ac6d5464bf6f97cbd5c8ad64dac6d9d979ab9f519934a
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/bazarr/bazarr-config/cache
