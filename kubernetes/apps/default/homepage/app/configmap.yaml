@@ -76,12 +76,13 @@ data:
               username: {{HOMEPAGE_VAR_PROXMOX_USER}}
               password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
         - Miniflux:
-            href: https://miniflux.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: miniflux.png
+            href: https://rss.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: freshrss.png
             widget:
-              type: miniflux
-              url: http://miniflux.default.svc.cluster.local:8080
-              key: {{HOMEPAGE_VAR_MINIFLUX_API_TOKEN}}
+              type: freshrss
+              url: http://freshrss.default.svc.cluster.local:80
+              username: {{HOMEPAGE_VAR_FRESHRSS_USER}}
+              password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
         - NAS:
             href: https://nas.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: synology-dsm.png
