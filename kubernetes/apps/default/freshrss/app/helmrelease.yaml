@@ -1,0 +1,90 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: freshrss
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      app:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16.5
+            envFrom: &envFrom
+              - secretRef:
+                  name: freshrss-secret
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        containers:
+          freshrss:
+            image:
+              repository: freshrss/freshrss
+              tag: 1.24.3@sha256:2edf78120d06de267864a9d4affbd8158f23e668cf569e273f7f6e755c73b0a5
+            env:
+              TZ: ${TIMEZONE}
+              CRON_MIN: 18,48
+              DOMAIN: 'https://rss.${SECRET_DOMAIN}/'
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 50m
+                memory: 200Mi
+              limits:
+                memory: 256Mi
+
+    service:
+      app:
+        controller: app
+        ports:
+          http:
+            port: 80
+
+    persistence:
+      config:
+        enabled: true
+        globalMounts:
+          - path: /var/www/FreshRSS/data
+        existingClaim: freshrss-config
+
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: freshrss.png
+        hosts:
+          - host: &host "rss.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host

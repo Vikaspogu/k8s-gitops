@@ -10,6 +10,7 @@ resources:
   - ./cloudnative-pg/ks.yaml
   - ./external-secrets/ks.yaml
   - ./flaresolverr/ks.yaml
+  - ./freshrss/ks.yaml
   - ./glance/ks.yaml
   - ./gotify/ks.yaml
   - ./home-assistant/ks.yaml
