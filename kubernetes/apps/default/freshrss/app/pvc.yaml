@@ -14,3 +14,20 @@ spec:
   resources:
     requests:
       storage: 2Gi
+---
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: freshrss-config-ftr
+  namespace: default
+  labels:
+    app.kubernetes.io/instance: &name freshrss
+    app.kubernetes.io/name: *name
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ceph-block
+  resources:
+    requests:
+      storage: 2Gi
