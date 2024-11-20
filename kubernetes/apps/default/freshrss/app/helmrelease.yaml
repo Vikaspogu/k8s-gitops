@@ -54,14 +54,14 @@ spec:
                 memory: 200Mi
               limits:
                 memory: 256Mi
+      fivefilters-full-text-rss:
+        containers:
           fivefilters-full-text-rss:
-            containers:
-              fivefilters-full-text-rss:
-                image:
-                  repository: heussd/fivefilters-full-text-rss
-                  tag: latest@sha256:4510f2fd04ebe435375624bfad2e0b1fa285ed241d9ba2b7f8576e5f75fb4d74
-                  pullPolicy: IfNotPresent
-                envFrom: *envFrom
+            image:
+              repository: heussd/fivefilters-full-text-rss
+              tag: latest@sha256:4510f2fd04ebe435375624bfad2e0b1fa285ed241d9ba2b7f8576e5f75fb4d74
+              pullPolicy: IfNotPresent
+            envFrom: *envFrom
 
     service:
       app:
