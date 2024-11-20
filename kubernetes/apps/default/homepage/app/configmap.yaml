@@ -75,7 +75,7 @@ data:
               url: {{HOMEPAGE_VAR_PROXMOX_IP}}
               username: {{HOMEPAGE_VAR_PROXMOX_USER}}
               password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
-        - Miniflux:
+        - RSS:
             href: https://rss.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: freshrss.png
             widget:
