@@ -37,7 +37,7 @@ spec:
       server:
         log_level: info
       commonConfig:
-        replication_factor: 1
+        replication_factor: 3
       compactor:
         working_directory: /var/loki/compactor/retention
         delete_request_store: filesystem
@@ -72,7 +72,7 @@ spec:
         max_label_name_length: 10240
         max_label_names_per_series: 300
     singleBinary:
-      replicas: 1
+      replicas: 3
       persistence:
         enabled: true
         storageClass: openebs-hostpath
