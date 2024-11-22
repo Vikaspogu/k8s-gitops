@@ -75,6 +75,10 @@ spec:
             matchLabels:
               app.kubernetes.io/name: loki
               app.kubernetes.io/component: gateway
+      service:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: ${SVC_LOKI_ADDR}
       ingress:
         enabled: true
         ingressClassName: internal
