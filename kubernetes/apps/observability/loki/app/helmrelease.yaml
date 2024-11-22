@@ -37,7 +37,7 @@ spec:
       server:
         log_level: info
       commonConfig:
-        replication_factor: 1
+        replication_factor: 3
       compactor:
         working_directory: /var/loki/compactor/retention
         delete_request_store: filesystem
