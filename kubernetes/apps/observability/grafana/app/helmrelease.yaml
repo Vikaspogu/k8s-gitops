@@ -99,8 +99,6 @@ spec:
               httpHeaderName1: 'Authorization'
               httpMode: GET
               version: Flux
-              organization: proxmox
-              defaultBucket: proxmox
               tlsSkipVerify: true
 
     dashboardProviders:
