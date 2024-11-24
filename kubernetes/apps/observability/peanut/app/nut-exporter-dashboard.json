@@ -1,12 +1,10 @@
 {
-  "__inputs": [
+  "__requires": [
     {
-      "name": "DS_INFLUXDB",
-      "label": "InfluxDB",
-      "description": "",
       "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
     }
   ],
   "annotations": {
@@ -31,7 +29,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -88,7 +86,7 @@
       "pluginVersion": "11.2.0",
       "targets": [
         {
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "query": "from(bucket: v.defaultBucket)\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\" and\n    r._field == \"battery.charge\"\n  )\n  |> last()",
           "refId": "A"
         }
@@ -97,7 +95,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -154,7 +152,7 @@
       "pluginVersion": "11.2.0",
       "targets": [
         {
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "query": "from(bucket: v.defaultBucket)\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\" and\n    r._field == \"ups.load\"\n  )\n  |> last()",
           "refId": "A"
         }
@@ -163,7 +161,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -208,7 +206,7 @@
       "pluginVersion": "11.2.0",
       "targets": [
         {
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "query": "from(bucket: v.defaultBucket)\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\" and\n    r._field == \"battery.runtime\"\n  )\n  |> last()",
           "refId": "A"
         }
@@ -217,7 +215,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -296,7 +294,7 @@
       },
       "targets": [
         {
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "query": "from(bucket: v.defaultBucket)\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\" and\n    r._field == \"input.voltage\" or r._field == \"output.voltage\"\n  )",
           "refId": "A"
         }
@@ -321,7 +319,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${DS_INFLUXDB}",
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -372,7 +370,7 @@
       "pluginVersion": "11.2.0",
       "targets": [
         {
-          "datasource": "${DS_INFLUXDB}",
+          "datasource": "InfluxDB",
           "query": "from(bucket: v.defaultBucket)\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\"\n  )\n  |> map(fn: (r) => ({r with _value: string(v: r._value)}))\n  |> last()\n  |> group(columns: [\"_measurement\"])\n",
           "refId": "A"
         }
@@ -414,7 +412,7 @@
           "text": "ups",
           "value": "ups"
         },
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": "InfluxDB",
         "definition": "import \"influxdata/influxdb/v1\"\nv1.measurements(bucket: v.bucket)",
         "hide": 0,
         "includeAll": false,
