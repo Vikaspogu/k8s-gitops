@@ -103,7 +103,7 @@ data:
             widget:
                 type: peanut
                 url: http://peanut.observability:8080
-                key: CPS
+                key: kubernetes
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}

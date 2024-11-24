@@ -100,10 +100,9 @@ spec:
               upsmon primary
           ups.conf: |-
             [kubernetes]
-              name: CPS
               driver = usbhid-ups
               port = auto
-              desc = "Cyber Power System, Inc. PR1500LCDRT2U UPS"
+              desc = "Cyber Power System, Inc. UPS"
               pollinterval = 10
           upsmon.conf: |-
             MONITOR kubernetes@localhost:3493 1 upsmon "${NUT_PASSWORD}" primary
