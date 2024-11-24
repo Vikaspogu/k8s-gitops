@@ -66,9 +66,6 @@ spec:
           http:
             port: 3493
             protocol: TCP
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: "${SVC_NUT_SERVER_ADDR}"
 
     persistence:
       config:
