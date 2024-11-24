@@ -409,8 +409,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ups",
-          "value": "ups"
+          "text": "kubernetes",
+          "value": "kubernetes"
         },
         "datasource": "InfluxDB",
         "definition": "import \"influxdata/influxdb/v1\"\nv1.measurements(bucket: v.bucket)",
