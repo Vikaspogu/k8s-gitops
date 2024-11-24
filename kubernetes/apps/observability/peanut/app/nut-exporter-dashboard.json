@@ -87,7 +87,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\" and\n    r._field == \"battery.charge\"\n  )\n  |> last()",
+          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"kubernetes\" and\n    r._field == \"battery.charge\"\n  )\n  |> last()",
           "refId": "A"
         }
       ],
@@ -153,7 +153,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\" and\n    r._field == \"ups.load\"\n  )\n  |> last()",
+          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"kubernetes\" and\n    r._field == \"ups.load\"\n  )\n  |> last()",
           "refId": "A"
         }
       ],
@@ -207,7 +207,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\" and\n    r._field == \"battery.runtime\"\n  )\n  |> last()",
+          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"kubernetes\" and\n    r._field == \"battery.runtime\"\n  )\n  |> last()",
           "refId": "A"
         }
       ],
@@ -295,7 +295,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\" and\n    r._field == \"input.voltage\" or r._field == \"output.voltage\"\n  )",
+          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"kubernetes\" and\n    r._field == \"input.voltage\" or r._field == \"output.voltage\"\n  )",
           "refId": "A"
         }
       ],
@@ -371,7 +371,7 @@
       "targets": [
         {
           "datasource": "InfluxDB",
-          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"${device}\"\n  )\n  |> map(fn: (r) => ({r with _value: string(v: r._value)}))\n  |> last()\n  |> group(columns: [\"_measurement\"])\n",
+          "query": "from(bucket: \"ups\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"kubernetes\"\n  )\n  |> map(fn: (r) => ({r with _value: string(v: r._value)}))\n  |> last()\n  |> group(columns: [\"_measurement\"])\n",
           "refId": "A"
         }
       ],
