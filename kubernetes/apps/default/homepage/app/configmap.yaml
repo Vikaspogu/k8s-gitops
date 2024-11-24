@@ -102,7 +102,7 @@ data:
             icon: mdi-power-plug-battery
             widget:
                 type: customapi
-                url: https://peanut.{{HOMEPAGE_VAR_DOMAIN_NAME}}/api/v1/devices/ups
+                url: https://peanut.{{HOMEPAGE_VAR_DOMAIN_NAME}}/api/v1/devices
                 mappings:
                   - field: battery.charge
                     label: Battery Charge
