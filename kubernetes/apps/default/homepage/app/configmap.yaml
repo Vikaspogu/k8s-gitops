@@ -97,6 +97,34 @@ data:
             widget:
               type: kopia
               url: http://kopia.default.svc.cluster.local:80
+        - PeaNUT:
+            href: https://nut.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: mdi-power-plug-battery
+            widget:
+                type: customapi
+                url: https://nut.{{HOMEPAGE_VAR_DOMAIN_NAME}}/api/v1/devices/ups
+                mappings:
+                  - field: battery.charge
+                    label: Battery Charge
+                    format: percent
+                  - field: battery.runtime
+                    label: Battery Runtime
+                    format: text
+                  - field: ups.load
+                    label: UPS Load
+                    format: percent
+                  - field: ups.status
+                    label: UPS Status
+                    format: text
+                    remap:
+                      - value: OL
+                        to: Online
+                      - value: OB
+                        to: On Battery
+                      - value: LB
+                        to: Low Battery
+                      - any: true
+                        to: Unknown
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
