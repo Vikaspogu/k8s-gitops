@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: peanut
+  namespace: observability
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      peanut:
+        containers:
+          app:
+            image:
+              repository: brandawg93/peanut
+              tag: 3.3.0
+            envFrom:
+              - secretRef:
+                  name: peanut-secret
+            env:
+              TZ: "${TIMEZONE}"
+              NUT_HOST: network-ups-tools.observability
+              NUT_PORT: 3493
+              INFLUX_HOST: http://influxdb.default.svc.cluster.local:80
+              INFLUX_ORG: homelab
+              INFLUX_BUCKET: ups
+              INFLUX_INTERVAL: 3
+
+    service:
+      app:
+        controller: peanut
+        ports:
+          http:
+            port: 8080
+
+    ingress:
+      app:
+        enabled: true
+        className: "internal"
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: mdi-power-plug-battery
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
