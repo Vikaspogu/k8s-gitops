@@ -44,13 +44,22 @@ spec:
               INFLUX_ORG: homelab
               INFLUX_BUCKET: ups
               INFLUX_INTERVAL: 3
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 8080
+              readiness: *probes
 
     service:
       app:
         controller: peanut
         ports:
           http:
-            port: 8080
+            port: *port
 
     ingress:
       app:
