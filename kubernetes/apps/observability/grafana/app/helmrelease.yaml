@@ -99,6 +99,7 @@ spec:
               httpHeaderName1: 'Authorization'
               httpMode: GET
               version: Flux
+              organization: homelab
               tlsSkipVerify: true
 
     dashboardProviders:
