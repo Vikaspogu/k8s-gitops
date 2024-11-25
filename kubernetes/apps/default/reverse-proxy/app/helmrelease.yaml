@@ -72,7 +72,7 @@ spec:
               path: /
       - name: filebrowser
         enabled: true
-        ip: ${SECRET_TRUE_NAS_MAIN_ADDRESS}
+        ip: ${SECRET_TRUE_NAS_ADDRESS}
         port: 30044
         ingress:
           annotations:
