@@ -45,7 +45,7 @@ spec:
           - name: VPN_INTERFACE
             value: wg0
           - name: FIREWALL
-            value: "off"
+            value: "on"
           - name: DOT
             value: "off"
           - name: SERVER_CITIES
