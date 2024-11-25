@@ -67,7 +67,7 @@ spec:
             nameOverride: qbittorrent
             env:
               UMASK: "022"
-              QBT_WEBUI_PORT: 8080
+              QBT_WEBUI_PORT: &port 8080
               QBT_BitTorrent__Session__DisableAutoTMMByDefault: "false"
               QBT_BitTorrent__Session__Interface: wg0
               QBT_BitTorrent__Session__InterfaceAddress: 0.0.0.0
@@ -113,27 +113,6 @@ spec:
                 drop:
                   - ALL
 
-          port-forward:
-            image:
-              repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
-              tag: 0.0.2@sha256:2d89e112fb4e2118ea392e23e0f1391395ce6d523ebfd380b8a421054ad7123a
-            env:
-              GLUETUN_CONTROL_SERVER_HOST: localhost
-              GLUETUN_CONTROL_SERVER_PORT: 8000
-              QBITTORRENT_HOST: localhost
-              QBITTORRENT_WEBUI_PORT: &port 8080
-              CRON_ENABLED: true
-              CRON_SCHEDULE: "*/5 * * * *"
-              LOG_TIMESTAMP: false
-            securityContext:
-              runAsUser: 2000
-              runAsGroup: 2000
-              runAsNonRoot: true
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
     service:
       app:
         controller: qbittorrent
@@ -168,12 +147,6 @@ spec:
         advancedMounts:
           qbittorrent:
             app:
-              - path: /config
-      empty-config:
-        type: emptyDir
-        advancedMounts:
-          qbittorrent:
-            port-forward:
               - path: /config
       addons:
         type: emptyDir
