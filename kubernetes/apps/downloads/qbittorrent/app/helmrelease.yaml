@@ -49,14 +49,7 @@ spec:
           terminationGracePeriodSeconds: 120
 
         initContainers:
-          dnsdist:
-            image:
-              repository: docker.io/powerdns/dnsdist-19
-              tag: 1.9.7
-
           gluetun:
-            dependsOn:
-              - dnsdist
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.39.1
@@ -81,8 +74,13 @@ spec:
                 add:
                   - NET_ADMIN
               allowPrivilegeEscalation: false
-        containers:
 
+          dnsdist:
+            image:
+              repository: docker.io/powerdns/dnsdist-19
+              tag: 1.9.7
+
+        containers:
           # gluetun:
           #   image:
           #     repository: ghcr.io/qdm12/gluetun
