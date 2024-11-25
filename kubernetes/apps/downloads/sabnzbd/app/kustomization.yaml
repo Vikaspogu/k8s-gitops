@@ -6,12 +6,15 @@ namespace: downloads
 resources:
   - ./config-pvc.yaml
   - ./externalsecret.yaml
-  - ./helmrelease.yaml
+  # - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
-  - name: notify-script
+  - name: sabnzbd-notify-script
     files:
       - notify.sh=./config/notify.sh
+  - name: sabnzbd-dnsdist
+    files:
+      - ./config/dnsdist.conf
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
