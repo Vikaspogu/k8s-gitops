@@ -40,8 +40,7 @@ spec:
         annotations:
           configmap.reloader.stakater.com/reload: qbittorrent-scripts,qbittorrent-dnsdist
           secret.reloader.stakater.com/reload: qbittorrent-secret
-
-        containers:
+        initContainers:
           dnsdist:
             image:
               repository: docker.io/powerdns/dnsdist-19
@@ -81,6 +80,42 @@ spec:
                 add:
                   - NET_ADMIN
               allowPrivilegeEscalation: false
+        containers:
+
+          # gluetun:
+          #   image:
+          #     repository: ghcr.io/qdm12/gluetun
+          #     tag: v3.39.1
+          #   env:
+          #     DOT: "off"
+          #     DNS_ADDRESS: "127.0.0.2"
+          #     VPN_SERVICE_PROVIDER: mullvad
+          #     VPN_TYPE: wireguard
+          #     VPN_INTERFACE: wg0
+          #     WIREGUARD_ENDPOINT_PORT: 51820
+          #     FIREWALL_INPUT_PORTS: &port 8080
+          #     FIREWALL_OUTBOUND_SUBNETS: 10.69.0.0/16,10.96.0.0/16 # Allow access to k8s subnets
+          #     WIREGUARD_MTU: 8900
+          #   envFrom:
+          #     - secretRef:
+          #         name: qbittorrent-secret
+          #   probes:
+          #     liveness: &probe
+          #       enabled: true
+          #       custom: true
+          #       spec:
+          #         exec:
+          #           command: [/gluetun-entrypoint, healthcheck]
+          #         periodSeconds: 30
+          #     readiness: *probe
+          #   resources:
+          #     limits:
+          #       squat.ai/tun: "1"
+          #   securityContext:
+          #     capabilities:
+          #       add:
+          #         - NET_ADMIN
+          #     allowPrivilegeEscalation: false
           port-forward:
             image:
               repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
