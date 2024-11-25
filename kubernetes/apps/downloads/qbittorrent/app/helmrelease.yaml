@@ -138,7 +138,6 @@ spec:
                 drop:
                   - ALL
           app:
-            dependsOn: gluetun
             image:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: 5.0.2@sha256:b905a9e4eef9ffabd10ad8618ffdc2661d20c1a910441e5f921c851c10974444
