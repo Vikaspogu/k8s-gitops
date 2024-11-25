@@ -40,13 +40,6 @@ spec:
         annotations:
           configmap.reloader.stakater.com/reload: qbittorrent-scripts,qbittorrent-dnsdist
           secret.reloader.stakater.com/reload: qbittorrent-secret
-        pod:
-          securityContext:
-            fsGroup: 2000
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 65542 # gladius:external-services
-          terminationGracePeriodSeconds: 120
 
         containers:
           dnsdist:
@@ -55,7 +48,6 @@ spec:
               tag: 1.9.7
 
           gluetun:
-            dependsOn: vuetorrent
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.39.1
@@ -77,9 +69,9 @@ spec:
                 enabled: true
                 custom: true
                 spec:
-                  exec: &exec
+                  exec:
                     command: [/gluetun-entrypoint, healthcheck]
-                  periodSeconds: 60
+                  periodSeconds: 30
               readiness: *probe
             resources:
               limits:
@@ -163,21 +155,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-          vuetorrent:
-            image:
-              repository: registry.k8s.io/git-sync/git-sync
-              tag: v4.3.0
-            args:
-              - --repo=https://github.com/WDaan/VueTorrent
-              - --ref=latest-release
-              - --period=86400s
-              - --root=/addons
-            resources:
-              requests:
-                cpu: 10m
-                memory: 25Mi
-              limits:
-                memory: 50Mi
     service:
       app:
         controller: qbittorrent
