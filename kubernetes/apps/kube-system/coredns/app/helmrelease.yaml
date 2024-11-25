@@ -21,6 +21,14 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  values:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
   valuesFrom:
     - kind: ConfigMap
       name: coredns-helm-values
