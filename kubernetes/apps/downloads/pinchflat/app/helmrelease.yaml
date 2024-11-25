@@ -121,6 +121,15 @@ spec:
         enabled: true
         globalMounts:
           - path: /downloads
+      dnsdist:
+        type: configMap
+        name: dnsdist
+        advancedMounts:
+          pinchflat:
+            dnsdist:
+              - path: /etc/dnsdist/dnsdist.conf
+                subPath: dnsdist.conf
+                readOnly: true
     service:
       app:
         controller: pinchflat
@@ -146,12 +155,3 @@ spec:
         tls:
           - hosts:
               - *host
-      dnsdist:
-        type: configMap
-        name: dnsdist
-        advancedMounts:
-          pinchflat:
-            dnsdist:
-              - path: /etc/dnsdist/dnsdist.conf
-                subPath: dnsdist.conf
-                readOnly: true
