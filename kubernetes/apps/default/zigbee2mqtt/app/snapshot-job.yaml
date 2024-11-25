@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20241119.0.64524@sha256:2ca273474cbb4f13cc61b024e8f351cba37d4f500e5516902e4e864809dce022
+              image: docker.io/kopia/kopia:20241119.0.230048@sha256:a5f421738ec919c0e549e1b096e3d11399663a7ddc5e3c915dfff61c14e1ec2d
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/zigbee2mqtt/zigbee2mqtt-config/cache
