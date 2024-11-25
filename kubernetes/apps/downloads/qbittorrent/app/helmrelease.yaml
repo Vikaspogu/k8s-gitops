@@ -167,10 +167,6 @@ spec:
           qbittorrent:
             app:
               - path: /config
-      addons:
-        type: emptyDir
-        globalMounts:
-          - path: /addons
       media:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
@@ -188,11 +184,3 @@ spec:
               - path: /etc/dnsdist/dnsdist.conf
                 subPath: dnsdist.conf
                 readOnly: true
-      scripts:
-        type: configMap
-        name: qbittorrent-scripts
-        defaultMode: 0775
-        advancedMounts:
-          qbittorrent:
-            app:
-              - path: /config/scripts
