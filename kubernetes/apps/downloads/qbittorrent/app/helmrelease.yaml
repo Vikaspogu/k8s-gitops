@@ -80,6 +80,7 @@ spec:
                   exec: &exec
                     command: [/gluetun-entrypoint, healthcheck]
                   periodSeconds: 60
+              readiness: *probe
               startup:
                 <<: *probe
                 spec:
