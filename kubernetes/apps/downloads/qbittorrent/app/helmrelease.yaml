@@ -86,6 +86,21 @@ spec:
                   - NET_ADMIN
               allowPrivilegeEscalation: false
         containers:
+          vuetorrent:
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.3.0
+            args:
+              - --repo=https://github.com/VueTorrent/VueTorrent
+              - --ref=latest-release
+              - --period=86400s
+              - --root=/config
+            resources:
+              requests:
+                cpu: 10m
+                memory: 25Mi
+              limits:
+                memory: 50Mi
           app:
             image:
               repository: ghcr.io/onedr0p/qbittorrent-beta
