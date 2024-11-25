@@ -7,7 +7,7 @@ resources:
   - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
-  - name: qbittorrent-dnsdist
+  - name: dnsdist
     files:
       - ./config/dnsdist.conf
 generatorOptions:

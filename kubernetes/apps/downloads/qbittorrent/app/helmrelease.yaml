@@ -177,7 +177,7 @@ spec:
               - path: /nfs-nas-pvc
       dnsdist:
         type: configMap
-        name: qbittorrent-dnsdist
+        name: dnsdist
         advancedMounts:
           qbittorrent:
             dnsdist:

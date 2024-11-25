@@ -26,9 +26,9 @@ spec:
     keepHistory: false
   values:
     controllers:
-      app:
+      sabnzbd:
         annotations:
-          configmap.reloader.stakater.com/reload: sabnzbd-dnsdist,sabnzbd-notify-script
+          configmap.reloader.stakater.com/reload: sabnzbd-notify-script
           secret.reloader.stakater.com/reload: qbittorrent-secret,sabnzbd-secret
         pod:
           securityContext:
@@ -100,7 +100,7 @@ spec:
                 memory: 4000Mi
     service:
       app:
-        controller: app
+        controller: sabnzbd
         ports:
           http:
             port: 80
@@ -154,3 +154,12 @@ spec:
         enabled: true
         globalMounts:
           - path: /nfs-nas-pvc
+      dnsdist:
+        type: configMap
+        name: dnsdist
+        advancedMounts:
+          sabnzbd:
+            dnsdist:
+              - path: /etc/dnsdist/dnsdist.conf
+                subPath: dnsdist.conf
+                readOnly: true

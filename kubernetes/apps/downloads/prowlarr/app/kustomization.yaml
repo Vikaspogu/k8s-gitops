@@ -4,7 +4,3 @@ resources:
   - ./config-pvc.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
-configMapGenerator:
-  - name: prowlarr-dnsdist
-    files:
-      - ./config/dnsdist.conf
