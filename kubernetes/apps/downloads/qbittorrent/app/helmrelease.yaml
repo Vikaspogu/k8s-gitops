@@ -81,11 +81,6 @@ spec:
                     command: [/gluetun-entrypoint, healthcheck]
                   periodSeconds: 60
               readiness: *probe
-              startup:
-                <<: *probe
-                spec:
-                  exec: *exec
-                  periodSeconds: 5
             resources:
               limits:
                 squat.ai/tun: "1"
