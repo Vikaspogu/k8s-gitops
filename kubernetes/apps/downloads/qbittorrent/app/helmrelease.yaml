@@ -75,15 +75,6 @@ spec:
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  exec: &exec
-                    command: [/gluetun-entrypoint, healthcheck]
-                  periodSeconds: 60
-              readiness: *probe
             resources:
               limits:
                 squat.ai/tun: "1"
