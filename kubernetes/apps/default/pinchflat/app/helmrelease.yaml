@@ -25,16 +25,16 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [44]
+        seccompProfile: { type: RuntimeDefault }
     controllers:
-      defaultPodOptions:
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 568
-          runAsGroup: 568
-          fsGroup: 568
-          fsGroupChangePolicy: OnRootMismatch
-          supplementalGroups: [44]
-          seccompProfile: { type: RuntimeDefault }
       pinchflat:
         containers:
           app:
