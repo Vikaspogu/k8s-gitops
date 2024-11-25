@@ -57,11 +57,15 @@ spec:
           - secretRef:
               name: pod-gateway
 
+        resources:
+          limits:
+            squat.ai/tun: "1"
+
         securityContext:
-          privileged: true
-          # capabilities:
-          #   add:
-          #     - NET_ADMIN
+          capabilities:
+            add:
+              - NET_ADMIN
+          allowPrivilegeEscalation: false
 
         networkPolicy:
           enabled: true
@@ -82,13 +86,6 @@ spec:
       secret.reloader.stakater.com/reload: pod-gateway
 
     publicPorts:
-      - hostname: qbittorrent
-        IP: 14
-        ports:
-          - type: udp
-            port: 56202
-          - type: tcp
-            port: 56202
       - hostname: youtubedl
         IP: 11
         ports:
@@ -105,6 +102,13 @@ spec:
             port: 56202
       - hostname: sabnzbd
         IP: 13
+        ports:
+          - type: udp
+            port: 56202
+          - type: tcp
+            port: 56202
+      - hostname: qbittorrent
+        IP: 14
         ports:
           - type: udp
             port: 56202
