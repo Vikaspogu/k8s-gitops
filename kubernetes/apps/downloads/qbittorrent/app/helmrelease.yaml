@@ -35,13 +35,6 @@ spec:
               - matchExpressions:
                   - key: node-role.kubernetes.io/control-plane
                     operator: DoesNotExist
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 1000
 
     controllers:
       qbittorrent:
@@ -85,10 +78,7 @@ spec:
               limits:
                 squat.ai/tun: "1"
             securityContext:
-              capabilities:
-                add:
-                  - NET_ADMIN
-              allowPrivilegeEscalation: false
+              privileged: true
           app:
             dependsOn:
               - gluetun
