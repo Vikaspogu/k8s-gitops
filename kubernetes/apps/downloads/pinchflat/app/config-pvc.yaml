@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pinchflat-config
-  namespace: downloads
+  namespace: default
   labels:
     app.kubernetes.io/instance: pinchflat
     app.kubernetes.io/name: pinchflat

@@ -5,11 +5,11 @@ metadata:
   name: &app pinchflat
   namespace: flux-system
 spec:
-  targetNamespace: downloads
+  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/downloads/pinchflat/app
+  path: ./kubernetes/apps/default/pinchflat/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -19,6 +19,5 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
-    - name: downloads-gateway
     - name: rook-ceph-cluster
     - name: nginx-internal

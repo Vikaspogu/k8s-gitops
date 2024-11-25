@@ -3,7 +3,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: pinchflat-restic
-  namespace: downloads
+  namespace: default
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -26,7 +26,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: pinchflat
-  namespace: downloads
+  namespace: default
 spec:
   sourcePVC: pinchflat-config
   trigger:
