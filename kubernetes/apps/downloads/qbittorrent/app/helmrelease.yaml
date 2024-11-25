@@ -94,7 +94,7 @@ spec:
               - --repo=https://github.com/VueTorrent/VueTorrent
               - --ref=latest-release
               - --period=86400s
-              - --root=/config
+              - --root=/addons
             resources:
               requests:
                 cpu: 10m
@@ -119,7 +119,7 @@ spec:
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
                 10.30.0.0/16
               QBT_Preferences__WebUI__LocalHostAuth: false
-              QBT_Preferences__WebUI__RootFolder: /config/VueTorrent
+              QBT_Preferences__WebUI__RootFolder: /addons/VueTorrent
               QBT_Preferences__WebUI__UseUPNP: false
             probes:
               liveness:
@@ -203,6 +203,10 @@ spec:
           qbittorrent:
             app:
               - path: /config
+      addons:
+        type: emptyDir
+        globalMounts:
+          - path: /addons
       empty-config:
         type: emptyDir
         advancedMounts:
