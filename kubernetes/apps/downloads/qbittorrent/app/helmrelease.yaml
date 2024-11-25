@@ -57,22 +57,9 @@ spec:
             image:
               repository: docker.io/powerdns/dnsdist-19
               tag: 1.9.7
-          vuetorrent:
-            image:
-              repository: registry.k8s.io/git-sync/git-sync
-              tag: v4.3.0
-            args:
-              - --repo=https://github.com/WDaan/VueTorrent
-              - --ref=latest-release
-              - --period=86400s
-              - --root=/addons
-            resources:
-              requests:
-                cpu: 10m
-                memory: 25Mi
-              limits:
-                memory: 50Mi
           app:
+            dependsOn:
+              - dnsdist
             image:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: 5.0.2@sha256:b905a9e4eef9ffabd10ad8618ffdc2661d20c1a910441e5f921c851c10974444
