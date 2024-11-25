@@ -41,14 +41,19 @@ spec:
         annotations:
           configmap.reloader.stakater.com/reload: qbittorrent-scripts,qbittorrent-dnsdist
           secret.reloader.stakater.com/reload: qbittorrent-secret
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 65542 # gladius:external-services
+          terminationGracePeriodSeconds: 120
         containers:
           dnsdist:
             image:
               repository: docker.io/powerdns/dnsdist-19
               tag: 1.9.7
           gluetun:
-            dependsOn:
-              - dnsdist
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.39.1
@@ -78,26 +83,32 @@ spec:
               limits:
                 squat.ai/tun: "1"
             securityContext:
-              privileged: true
+              capabilities:
+                add:
+                  - NET_ADMIN
+              allowPrivilegeEscalation: false
           app:
             dependsOn:
               - gluetun
-              - dnsdist
             image:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: 5.0.2@sha256:b905a9e4eef9ffabd10ad8618ffdc2661d20c1a910441e5f921c851c10974444
             nameOverride: qbittorrent
             env:
               UMASK: "022"
-              QBT_WEBUI_PORT: &port 8080
+              QBT_WEBUI_PORT: 8080
+              QBT_BitTorrent__Session__DisableAutoTMMByDefault: "false"
               QBT_BitTorrent__Session__Interface: wg0
               QBT_BitTorrent__Session__InterfaceAddress: 0.0.0.0
               QBT_BitTorrent__Session__InterfaceName: wg0
+              QBT_BitTorrent__Session__LSDEnabled: "false"
               QBT_Preferences__WebUI__AlternativeUIEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-              QBT_Preferences__WebUI__AuthSubnetWhitelist: 10.30.30.0/16
+              QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
+                10.30.0.0/16
+              QBT_Preferences__WebUI__LocalHostAuth: false
               QBT_Preferences__WebUI__RootFolder: /config/VueTorrent
-              XSEED_HOST: cross-seed.downloads.svc.cluster.local
+              QBT_Preferences__WebUI__UseUPNP: false
               XSEED_PORT: 2468
               XSEED_APIKEY:
                 valueFrom:
