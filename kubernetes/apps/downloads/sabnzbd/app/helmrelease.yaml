@@ -98,6 +98,13 @@ spec:
                 memory: 250Mi
               limits:
                 memory: 4000Mi
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
     service:
       app:
         controller: sabnzbd
