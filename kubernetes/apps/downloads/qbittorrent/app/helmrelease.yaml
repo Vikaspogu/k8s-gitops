@@ -42,9 +42,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups:
           - 1000
-      annotations:
-        setGateway: "true"
-      hostname: qbittorrent
 
     controllers:
       qbittorrent:
@@ -56,12 +53,48 @@ spec:
             image:
               repository: docker.io/powerdns/dnsdist-19
               tag: 1.9.7
+          gluetun:
+            dependsOn: vuetorrent
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.39.1
+            env:
+              DOT: "off"
+              DNS_ADDRESS: "127.0.0.2"
+              VPN_SERVICE_PROVIDER: mullvad
+              VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
+              WIREGUARD_ENDPOINT_PORT: 51820
+              FIREWALL_INPUT_PORTS: &port 8080
+              FIREWALL_OUTBOUND_SUBNETS: 10.69.0.0/16,10.96.0.0/16 # Allow access to k8s subnets
+              WIREGUARD_MTU: 8900
+            envFrom:
+              - secretRef:
+                  name: qbittorrent-secret
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  exec: &exec
+                    command: [/gluetun-entrypoint, healthcheck]
+                  periodSeconds: 60
+              readiness: *probe
+            resources:
+              limits:
+                squat.ai/tun: "1"
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
+              allowPrivilegeEscalation: false
           app:
             dependsOn:
+              - gluetun
               - dnsdist
             image:
               repository: ghcr.io/onedr0p/qbittorrent
-              tag: 4.6.7@sha256:5391f94b321d563c3b44136a5e799b7e4e4888926c1c31d3081a1cf3e74a9aec
+              tag: 5.0.2@sha256:b905a9e4eef9ffabd10ad8618ffdc2661d20c1a910441e5f921c851c10974444
             nameOverride: qbittorrent
             env:
               UMASK: "022"
