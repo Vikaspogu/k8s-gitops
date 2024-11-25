@@ -54,7 +54,8 @@ spec:
               repository: docker.io/powerdns/dnsdist-19
               tag: 1.9.7
           gluetun:
-            dependsOn: vuetorrent
+            dependsOn:
+              - dnsdist
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.39.1
