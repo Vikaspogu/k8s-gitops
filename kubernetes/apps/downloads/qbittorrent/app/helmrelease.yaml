@@ -72,6 +72,7 @@ spec:
               FIREWALL_INPUT_PORTS: &port 8080
               FIREWALL_OUTBOUND_SUBNETS: 10.69.0.0/16,10.96.0.0/16 # Allow access to k8s subnets
               WIREGUARD_MTU: 8900
+              SERVER_CITIES: "Ashburn VA"
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
