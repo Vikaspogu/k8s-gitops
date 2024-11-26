@@ -39,7 +39,7 @@ spec:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
               SEARXNG_URL: https://search.${SECRET_DOMAIN}
-              SEARXNG_REDIS_URL: redis://searxng-redis-master.default.svc.cluster.local:6379
+              SEARXNG_REDIS_URL: redis://dragonfly.database.svc.cluster.local:6379
             envFrom:
               - secretRef:
                   name: searxng-secret
@@ -60,7 +60,7 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
-                add: ["CHOWN", "SETGID" ,"SETUID", "DAC_OVERRIDE"]
+                add: ["CHOWN", "SETGID", "SETUID", "DAC_OVERRIDE"]
                 drop: ["ALL"]
             resources:
               requests:
