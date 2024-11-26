@@ -39,7 +39,7 @@ spec:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
               SEARXNG_URL: https://search.${SECRET_DOMAIN}
-              SEARXNG_REDIS_URL: redis://dragonfly.database.svc.cluster.local:6379
+              SEARXNG_REDIS_URL: redis://dragonfly.default.svc.cluster.local:6379
             envFrom:
               - secretRef:
                   name: searxng-secret
