@@ -6,6 +6,7 @@ resources:
   - ./actual/ks.yaml
   - ./atuin/ks.yaml
   - ./audiobookshelf/ks.yaml
+  - ./authentik/ks.yaml
   - ./bazarr/ks.yaml
   - ./cloudnative-pg/ks.yaml
   - ./dragonfly/ks.yaml
