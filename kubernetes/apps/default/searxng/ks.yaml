@@ -19,27 +19,4 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
-    - name: searxng-redis
     - name: nginx-internal
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app searxng-redis
-  namespace: flux-system
-spec:
-  targetNamespace: default
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/default/searxng/redis
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-kubernetes
-  wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  dependsOn:
-    - name: rook-ceph-cluster
