@@ -109,6 +109,7 @@ spec:
             env:
               UMASK: "022"
               QBT_WEBUI_PORT: 8080
+              QBITTORRENT__BT_PORT: &bittorrentPort 51820
               QBT_BitTorrent__Session__DisableAutoTMMByDefault: "false"
               QBT_BitTorrent__Session__Interface: wg0
               QBT_BitTorrent__Session__InterfaceAddress: 0.0.0.0
