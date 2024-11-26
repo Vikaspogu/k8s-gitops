@@ -117,7 +117,7 @@ spec:
               QBT_Preferences__WebUI__AlternativeUIEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-                10.30.0.0/16
+                10.30.30.0/16
               QBT_Preferences__WebUI__LocalHostAuth: false
               QBT_Preferences__WebUI__RootFolder: /addons/VueTorrent
               QBT_Preferences__WebUI__UseUPNP: false
