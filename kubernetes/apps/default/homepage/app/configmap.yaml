@@ -101,9 +101,16 @@ data:
             href: https://peanut.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: peanut.png
             widget:
-                type: peanut
-                url: http://peanut.observability:8080
-                key: kubernetes
+              type: peanut
+              url: http://peanut.observability:8080
+              key: kubernetes
+        - Authentik:
+            href: https://id.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: authentik.png
+            widget:
+              type: authentik
+              url: http://authentik-server.default:80
+              key: {{HOMEPAGE_VAR_AUTHENTIK_API_TOKEN}}
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
