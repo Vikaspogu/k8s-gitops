@@ -40,6 +40,11 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 100Mi
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
     service:
       app:
         controller: app
