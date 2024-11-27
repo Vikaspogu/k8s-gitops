@@ -129,7 +129,7 @@ data:
             icon: gotify.png
             widget:
               type: gotify
-              url:  https://gotify.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+              url: http://gotify.default.svc.cluster.local
               key: {{HOMEPAGE_VAR_GOTIFY_API_TOKEN}}
     - Media:
       - qBittorrent:
