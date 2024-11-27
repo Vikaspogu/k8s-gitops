@@ -32,6 +32,8 @@ spec:
             image:
               repository: germannewsmaker/myspeed
               tag: 1.0.9
+            env:
+              TZ: ${TIMEZONE}
             resources:
               requests:
                 cpu: 10m
@@ -43,7 +45,7 @@ spec:
         controller: app
         ports:
           http:
-            port: &port 5216
+            port: 5216
 
     persistence:
       config:
@@ -61,7 +63,7 @@ spec:
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: myspeed.png
         hosts:
-          - host: "myspeed.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -70,4 +72,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "myspeed.${SECRET_DOMAIN}"
+              - *host
