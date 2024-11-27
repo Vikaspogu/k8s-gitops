@@ -119,11 +119,11 @@ data:
               url: http://authentik-server.default:80
               key: {{HOMEPAGE_VAR_AUTHENTIK_API_TOKEN}}
         - MySpeed:
-            href: https://speed.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            href: https://myspeed.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: myspeed.png
             widget:
               type: myspeed
-              url: {{HOMEPAGE_VAR_MYSPEED_URL}}
+              url: https://myspeed.default:5216
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
