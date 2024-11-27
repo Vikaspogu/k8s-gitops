@@ -123,7 +123,7 @@ data:
             icon: myspeed.png
             widget:
               type: myspeed
-              url: https://speed.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+              url: {{HOMEPAGE_VAR_MYSPEED_URL}}
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
