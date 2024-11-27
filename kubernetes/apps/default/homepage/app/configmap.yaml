@@ -15,7 +15,7 @@ data:
     color: slate
     headerStyle: clean
     layout:
-      Infrastructure:
+      Observability:
         style: row
         columns: 3
         icon: mdi-server
