@@ -53,6 +53,11 @@ spec:
                 cpu: 100m
               limits:
                 memory: 750Mi
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
     service:
       app:
         controller: app
