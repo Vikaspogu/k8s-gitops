@@ -54,7 +54,7 @@ spec:
         enabled: true
         existingClaim: myspeed-config
         globalMounts:
-          - path: /myspeed/data
+          - path: /myspeed
 
     ingress:
       app:
