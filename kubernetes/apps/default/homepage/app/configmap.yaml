@@ -40,7 +40,7 @@ data:
             - icon: github.png
               href: https://github.com/onedr0p/flux-cluster-template
   services.yaml: |
-    - Infrastructure:
+    - Observability:
         - NextDNS:
             href: https://nextdns.io/
             icon: nextdns.png
@@ -124,6 +124,13 @@ data:
             widget:
               type: myspeed
               url: http://myspeed.default:5216
+        - Gotify:
+            href: https://gotify.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: gotify.png
+            widget:
+              type: gotify
+              url: http://gotify.default:80
+              key: {{HOMEPAGE_VAR_GOTIFY_API_TOKEN}}
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
