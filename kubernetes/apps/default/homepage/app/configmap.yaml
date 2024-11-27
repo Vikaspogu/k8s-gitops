@@ -123,7 +123,7 @@ data:
             icon: myspeed.png
             widget:
               type: myspeed
-              url: https://myspeed.default:5216
+              url: http://myspeed.default:5216
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
