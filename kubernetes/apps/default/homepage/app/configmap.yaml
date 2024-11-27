@@ -129,7 +129,7 @@ data:
             icon: gotify.png
             widget:
               type: gotify
-              url: http://gotify.default:80
+              url:  https://gotify.{{HOMEPAGE_VAR_DOMAIN_NAME}}
               key: {{HOMEPAGE_VAR_GOTIFY_API_TOKEN}}
     - Media:
       - qBittorrent:
