@@ -19,8 +19,6 @@ resources:
   - ./homepage/ks.yaml
   - ./influxdb/ks.yaml
   - ./kopia-web/ks.yaml
-  - ./lldap/ks.yaml
-  - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
