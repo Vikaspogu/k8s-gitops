@@ -55,6 +55,7 @@ spec:
             env:
               SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
               SEMAPHORE_PORT: &port 3000
+              TZ: ${TIMEZONE}
 
             resources:
               requests:
