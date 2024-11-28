@@ -78,11 +78,12 @@ spec:
 
     ingress:
       app:
-        enabled: false
+        enabled: true
         className: "internal"
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: 1password.png
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
