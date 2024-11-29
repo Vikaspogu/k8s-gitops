@@ -30,7 +30,7 @@ spec:
     deploymentStrategy:
       type: Recreate
     admin:
-      existingSecret: grafana
+      existingSecret: grafana-secret
     env:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
@@ -39,7 +39,7 @@ spec:
       GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
       GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
       GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
-      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
+      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid email profile"
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://id.${SECRET_DOMAIN}/application/o/authorize/"
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://id.${SECRET_DOMAIN}/application/o/token/"
       GF_AUTH_GENERIC_OAUTH_API_URL: "https://id.${SECRET_DOMAIN}/application/o/userinfo/"
@@ -47,7 +47,7 @@ spec:
       GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups, 'admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'"
       DS_PROMETHEUS: "prometheus"
     envFromSecrets:
-      - name: grafana
+      - name: grafana-secret
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -314,12 +314,12 @@ spec:
       enabled: false
   valuesFrom:
     - kind: Secret
-      name: grafana
+      name: grafana-secret
       valuesKey: TESLAMATE_DB_PASSWORD
       targetPath: env.TESLAMATE_DB_PASSWORD
       optional: false
     - kind: Secret
-      name: grafana
+      name: grafana-secret
       valuesKey: INFLUXDB_TOKEN
       targetPath: env.INFLUXDB_TOKEN
       optional: false
