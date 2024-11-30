@@ -45,8 +45,6 @@ spec:
               tag: "8.13@sha256:561c1f8f99f2fe24bc63814db9e30292cf4360331de9182da21e3554ce61bdaa"
             env:
               PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
-              AUTHENTICATION_SOURCES: ['oauth2', 'internal']
-              OAUTH2_AUTO_CREATE_USER: "True"
             envFrom:
               - secretRef:
                   name: pgadmin-secret
@@ -86,3 +84,9 @@ spec:
         existingClaim: pgadmin-config
         globalMounts:
           - path: /var/lib/pgadmin
+      oauthconfig:
+        type: secret
+        name: pgadmin-oauth-secret
+        globalMounts:
+          - path: /pgadmin4/config_local.py
+            subPath: config_local.py

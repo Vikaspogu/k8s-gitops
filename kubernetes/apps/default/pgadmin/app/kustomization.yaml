@@ -5,4 +5,5 @@ namespace: default
 resources:
   - ./config-pvc.yaml
   - ./externalsecret.yaml
+  - ./externalsecret-oauth.yaml
   - ./helmrelease.yaml
