@@ -131,6 +131,12 @@ data:
               type: gotify
               url: http://gotify.default.svc.cluster.local
               key: {{HOMEPAGE_VAR_GOTIFY_API_TOKEN}}
+        - Scrutiny:
+            href: https://scrutiny.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: scrutiny.png
+            widget:
+              type: scrutiny
+              url: http://scrutiny.observability.svc.cluster.local
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
