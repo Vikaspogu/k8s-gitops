@@ -41,13 +41,6 @@ data:
               href: https://github.com/onedr0p/flux-cluster-template
   services.yaml: |
     - Observability:
-        - NextDNS:
-            href: https://nextdns.io/
-            icon: nextdns.png
-            widget:
-              type: nextdns
-              profile: {{HOMEPAGE_VAR_NEXTDNS_PROFILE_ID}}
-              key: {{HOMEPAGE_VAR_NEXTDNS_API}}
         - Cloudflared:
             href: https://dash.cloudflare.com
             icon: cloudflare-zero-trust.png
@@ -74,6 +67,13 @@ data:
               key: {{HOMEPAGE_VAR_TRUENAS_API_KEY}}
               enablePools: true
               nasType: scale
+        - NextDNS:
+            href: https://nextdns.io/
+            icon: nextdns.png
+            widget:
+              type: nextdns
+              profile: {{HOMEPAGE_VAR_NEXTDNS_PROFILE_ID}}
+              key: {{HOMEPAGE_VAR_NEXTDNS_API}}
         - Proxmox:
             href: {{HOMEPAGE_VAR_PROXMOX_IP}}
             icon: proxmox.png
