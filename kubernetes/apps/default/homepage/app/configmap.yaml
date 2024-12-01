@@ -136,7 +136,7 @@ data:
             icon: scrutiny.png
             widget:
               type: scrutiny
-              url: http://scrutiny.observability.svc.cluster.local
+              url: http://scrutiny.observability.svc.cluster.local:8080
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
