@@ -22,6 +22,7 @@ resources:
   - ./minio/ks.yaml
   - ./mosquitto/ks.yaml
   - ./myspeed/ks.yaml
+  - ./nexterm/ks.yaml
   - ./node-red/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
