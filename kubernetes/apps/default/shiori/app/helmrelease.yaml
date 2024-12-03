@@ -27,11 +27,17 @@ spec:
   values:
     controllers:
       shiori:
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
         containers:
           app:
             image:
               repository: ghcr.io/go-shiori/shiori
               tag: v1.6.2
+            command: ["/usr/bin/shiori", "serve", "--webroot", "/"]
             env:
               SHIORI_DIR: /config
               HTTP_ROOT_PATH: "/"
