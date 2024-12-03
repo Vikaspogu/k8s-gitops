@@ -27,11 +27,17 @@ spec:
   values:
     controllers:
       shiori:
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
         containers:
           app:
             image:
               repository: ghcr.io/go-shiori/shiori
               tag: v1.7.1
+            command: ["/usr/bin/shiori", "serve", "--webroot", "/"]
             env:
               SHIORI_DIR: /config
               HTTP_ROOT_PATH: "/"
@@ -39,9 +45,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 256Mi
-              limits:
                 memory: 512Mi
+              limits:
+                memory: 1Gi
             probes:
               liveness: &probes
                 enabled: true
