@@ -3,6 +3,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./prowlarr/ks.yaml
-  - ./proxitok/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./sabnzbd/ks.yaml

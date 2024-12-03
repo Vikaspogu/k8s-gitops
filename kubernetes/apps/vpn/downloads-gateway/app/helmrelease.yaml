@@ -88,13 +88,6 @@ spec:
       secret.reloader.stakater.com/reload: pod-gateway
 
     publicPorts:
-      - hostname: proxitok
-        IP: 11
-        ports:
-          - type: udp
-            port: 56202
-          - type: tcp
-            port: 56202
       - hostname: prowlarr
         IP: 12
         ports:
