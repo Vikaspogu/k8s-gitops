@@ -88,7 +88,7 @@ spec:
       secret.reloader.stakater.com/reload: pod-gateway
 
     publicPorts:
-      - hostname: youtubedl
+      - hostname: proxitok
         IP: 11
         ports:
           - type: udp
