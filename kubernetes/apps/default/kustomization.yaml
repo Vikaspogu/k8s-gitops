@@ -40,6 +40,7 @@ resources:
   - ./reverse-proxy/ks.yaml
   - ./searxng/ks.yaml
   - ./semaphore/ks.yaml
+  - ./shiori/ks.yaml
   - ./static-content/ks.yaml
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
