@@ -54,12 +54,7 @@ spec:
               limits:
                 memory: 1.5Gi
             securityContext:
-              runAsUser: 65534
-              runAsGroup: 65534
-              fsGroup: 65534
-              fsGroupChangePolicy: "OnRootMismatch"
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"], add: ["CHOWN", "SETGID", "SETUID"] }
+              privileged: true
           signer:
             image:
               repository: ghcr.io/pablouser1/signtok
@@ -91,7 +86,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: proxitok.png
+          gethomepage.dev/icon: si-tiktok
         hosts:
           - host: "proxitok.${SECRET_DOMAIN}"
             paths:
