@@ -18,6 +18,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./influxdb/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./kopia-web/ks.yaml
   - ./minio/ks.yaml
   - ./mosquitto/ks.yaml
