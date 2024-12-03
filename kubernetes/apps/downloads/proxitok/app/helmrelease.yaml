@@ -106,5 +106,11 @@ spec:
 
     persistence:
       config:
+        enabled: false
+      cache:
         enabled: true
         existingClaim: proxitok-config
+        advancedMounts:
+          proxitok:
+            app:
+              - path: /cache
