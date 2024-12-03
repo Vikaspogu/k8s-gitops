@@ -61,7 +61,6 @@ spec:
               limits:
                 memory: 1.5Gi
           signer:
-            order: 2
             image:
               repository: ghcr.io/pablouser1/signtok
               tag: master
@@ -80,7 +79,7 @@ spec:
           http:
             port: 8080
       signer:
-        controller: main
+        controller: proxitok
         ports:
           http:
             port: 8081
