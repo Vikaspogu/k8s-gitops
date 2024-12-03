@@ -46,7 +46,6 @@ resources:
   - ./stirling-pdf/ks.yaml
   - ./teslamate/ks.yaml
   - ./truenas-backup/ks.yaml
-  - ./tududi/ks.yaml
   - ./valetudopng/ks.yaml
   - ./whisper/ks.yaml
   - ./zigbee2mqtt/ks.yaml
