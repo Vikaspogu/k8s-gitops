@@ -54,6 +54,10 @@ spec:
               limits:
                 memory: 1.5Gi
             securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
+              fsGroup: 65534
+              fsGroupChangePolicy: "OnRootMismatch"
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"], add: ["CHOWN", "SETGID", "SETUID"] }
           signer:
