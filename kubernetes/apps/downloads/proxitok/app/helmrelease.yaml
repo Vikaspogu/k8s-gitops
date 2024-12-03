@@ -60,6 +60,9 @@ spec:
                 cpu: 100m
               limits:
                 memory: 1.5Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"], add: ["CHOWN", "SETGID", "SETUID"] }
           signer:
             image:
               repository: ghcr.io/pablouser1/signtok
