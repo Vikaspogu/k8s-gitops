@@ -44,6 +44,7 @@ resources:
   - ./static-content/ks.yaml
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
+  - ./tdarr/ks.yaml
   - ./teslamate/ks.yaml
   - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
