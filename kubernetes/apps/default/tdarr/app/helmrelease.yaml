@@ -100,6 +100,10 @@ spec:
       app:
         enabled: true
         className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: tdarr.png
         hosts:
           - host: "tdarr.${SECRET_DOMAIN}"
             paths:
