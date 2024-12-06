@@ -141,3 +141,11 @@ spec:
         globalMounts:
           - path: *mediaPath
             readOnly: false
+
+      cache:
+        enabled: true
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: /volume1/media/tdarr-cache
+        globalMounts:
+          - path: /cache
