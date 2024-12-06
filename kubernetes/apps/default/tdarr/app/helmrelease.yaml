@@ -92,10 +92,16 @@ spec:
                   periodSeconds: 5
     service:
       app:
-        controller: *app
+        controller: tdarr
+        type: LoadBalancer
         ports:
           http:
-            port: &port 5000
+            port: 8265
+          server:
+            enabled: true
+            protocol: TCP
+            port: 8266
+
     ingress:
       app:
         enabled: true
@@ -112,6 +118,7 @@ spec:
                 service:
                   identifier: app
                   port: http
+
     persistence:
       config:
         enabled: true
