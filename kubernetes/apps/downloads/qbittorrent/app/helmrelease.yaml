@@ -65,7 +65,7 @@ spec:
             env:
               DOT: "off"
               DNS_ADDRESS: "127.0.0.2"
-              VPN_SERVICE_PROVIDER: custom
+              VPN_SERVICE_PROVIDER: protonvpn
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
               WIREGUARD_ENDPOINT_PORT: 51820
@@ -109,7 +109,6 @@ spec:
             env:
               UMASK: "022"
               QBT_WEBUI_PORT: 8080
-              QBT_TORRENTING_PORT: &bittorrentPort 51820
               QBT_BitTorrent__Session__DisableAutoTMMByDefault: "false"
               QBT_BitTorrent__Session__Interface: wg0
               QBT_BitTorrent__Session__InterfaceAddress: 0.0.0.0
