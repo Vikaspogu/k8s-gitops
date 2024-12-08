@@ -37,7 +37,7 @@ spec:
           wait-for-repo:
             image:
               repository: docker.io/kopia/kopia
-              tag: 20241125.0.234320@sha256:63cc62bf470c94433de3f56e56afac67fda0a3d14d448c0127359a566fa675ff
+              tag: 20241207.0.113027@sha256:859ac49aa6561097aed8aeeb323a841e36cac99aed06e91eac708e00eddca10f
             command:
               - /bin/bash
               - -c
@@ -50,7 +50,7 @@ spec:
           app:
             image:
               repository: docker.io/kopia/kopia
-              tag: 20241125.0.234320@sha256:63cc62bf470c94433de3f56e56afac67fda0a3d14d448c0127359a566fa675ff
+              tag: 20241207.0.113027@sha256:859ac49aa6561097aed8aeeb323a841e36cac99aed06e91eac708e00eddca10f
             env:
               TZ: "${TIMEZONE}"
               KOPIA_PASSWORD: "none"
