@@ -87,3 +87,20 @@ spec:
           hosts:
             - host: files.${SECRET_DOMAIN}
               path: /
+      - name: wg-dashboard
+        enabled: true
+        ip: ${SECRET_WG_DASH_ADDRESS}
+        port: 10086
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/name: "WG Dashboard"
+            gethomepage.dev/icon: wireguard
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - wg.${SECRET_DOMAIN}
+          hosts:
+            - host: wg.${SECRET_DOMAIN}
+              path: /
