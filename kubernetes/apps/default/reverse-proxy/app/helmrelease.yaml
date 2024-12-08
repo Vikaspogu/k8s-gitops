@@ -87,3 +87,20 @@ spec:
           hosts:
             - host: files.${SECRET_DOMAIN}
               path: /
+      - name: wg
+        enabled: true
+        ip: ${SECRET_TRUE_NAS_ADDRESS}
+        port: 51820
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/name: "wg"
+            gethomepage.dev/icon: si-files
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - wg.${SECRET_DOMAIN}
+          hosts:
+            - host: wg.${SECRET_DOMAIN}
+              path: /
