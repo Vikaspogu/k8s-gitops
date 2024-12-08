@@ -65,14 +65,14 @@ spec:
             env:
               DOT: "off"
               DNS_ADDRESS: "127.0.0.2"
-              VPN_SERVICE_PROVIDER: mullvad
+              VPN_SERVICE_PROVIDER: custom
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
               WIREGUARD_ENDPOINT_PORT: 51820
+              VPN_PORT_FORWARDING: on
+              VPN_PORT_FORWARDING_PROVIDER: protonvpn
               FIREWALL_INPUT_PORTS: &port 8080
-              FIREWALL_OUTBOUND_SUBNETS: 10.69.0.0/16,10.96.0.0/16 # Allow access to k8s subnets
-              WIREGUARD_MTU: 8900
-              SERVER_CITIES: "Ashburn VA"
+              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/12,10.244.0.0/16
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
