@@ -56,6 +56,10 @@ spec:
             value: debug
           - name: DNS_ADDRESS
             value: "127.0.0.2"
+          - name: VPN_PORT_FORWARDING
+            value: on
+          - name: VPN_PORT_FORWARDING_PROVIDER
+            value: protonvpn
 
         envFrom:
           - secretRef:
