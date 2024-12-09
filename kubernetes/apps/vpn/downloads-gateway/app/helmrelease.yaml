@@ -39,7 +39,7 @@ spec:
           tag: v3.39.1
         env:
           - name: VPN_SERVICE_PROVIDER
-            value: "private internet access"
+            value: custom
           - name: VPN_TYPE
             value: wireguard
           - name: VPN_INTERFACE
@@ -55,11 +55,7 @@ spec:
           - name: LOG_LEVEL
             value: debug
           - name: DNS_ADDRESS
-            value: "127.0.0.2"
-          - name: VPN_PORT_FORWARDING
-            value: on
-          - name: VPN_PORT_FORWARDING_PROVIDER
-            value: protonvpn
+            value: 1.1.1.1
 
         envFrom:
           - secretRef:
