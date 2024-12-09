@@ -38,28 +38,19 @@ spec:
           repository: ghcr.io/qdm12/gluetun
           tag: v3.39.1
         env:
-          - name: DOT
-            value: "off"
-          - name: DNS_ADDRESS
-            value: "127.0.0.2"
           - name: VPN_SERVICE_PROVIDER
-            value: custom
+            value: protonvpn
           - name: VPN_TYPE
             value: wireguard
           - name: VPN_INTERFACE
             value: wg0
-          - name: WIREGUARD_ENDPOINT_PORT
-            value: 51820
-          - name: VPN_PORT_FORWARDING
-            value: on
-          - name: VPN_PORT_FORWARDING_PROVIDER
-            value: protonvpn
-          - name: FIREWALL_INPUT_PORTS
-            value: 8080
-          - name: FIREWALL_OUTBOUND_SUBNETS
-            value: "10.96.0.0/16,10.69.0.0/16"
-          - name: PUBLICIP_API
-            value: ip2location
+          - name: DOT
+            value: "off"
+          - name: SERVER_CITIES
+            value: Ashburn VA
+          - name: LOG_LEVEL
+            value: debug
+
         envFrom:
           - secretRef:
               name: pod-gateway
