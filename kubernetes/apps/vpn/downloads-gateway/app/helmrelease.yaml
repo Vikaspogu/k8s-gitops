@@ -38,22 +38,22 @@ spec:
           repository: ghcr.io/qdm12/gluetun
           tag: v3.39.1
         env:
+          - name: DOT
+            value: "off"
+          - name: DNS_ADDRESS
+            value: "127.0.0.2"
           - name: VPN_SERVICE_PROVIDER
-            value: mullvad
+            value: custom
           - name: VPN_TYPE
             value: wireguard
           - name: VPN_INTERFACE
             value: wg0
+          - name: WIREGUARD_ENDPOINT_PORT
+            value: 51820
           - name: FIREWALL
             value: "off"
-          - name: DOT
-            value: "off"
-          - name: SERVER_CITIES
-            value: Ashburn VA
-          - name: LOG_LEVEL
-            value: debug
-          - name: WIREGUARD_MTU
-            value: 8900
+          - name: FIREWALL_OUTBOUND_SUBNETS
+            value: "10.96.0.0/16,10.69.0.0/16"
 
         envFrom:
           - secretRef:
