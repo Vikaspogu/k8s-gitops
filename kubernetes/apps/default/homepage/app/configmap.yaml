@@ -28,10 +28,6 @@ data:
         columns: 3
         icon: mdi-play-circle
   bookmarks.yaml: |
-    - Reading:
-        - Reddit:
-            - icon: reddit.png
-              href: https://reddit.com
     - Git:
         - kubesearch:
             - icon: kubernetes-dashboard.png
@@ -51,7 +47,7 @@ data:
               tunnelid: "{{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}"
               key: "{{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}"
         - OPNSense:
-            href: {{HOMEPAGE_VAR_OPNSENSE_URL}}
+            href: https://router.${SECRET_DOMAIN}
             icon: opnsense.png
             widget:
               type: opnsense
@@ -67,15 +63,8 @@ data:
               key: {{HOMEPAGE_VAR_TRUENAS_API_KEY}}
               enablePools: true
               nasType: scale
-        - NextDNS:
-            href: https://nextdns.io/
-            icon: nextdns.png
-            widget:
-              type: nextdns
-              profile: {{HOMEPAGE_VAR_NEXTDNS_PROFILE_ID}}
-              key: {{HOMEPAGE_VAR_NEXTDNS_API}}
         - Proxmox:
-            href: {{HOMEPAGE_VAR_PROXMOX_IP}}
+            href: https://proxmox.${SECRET_DOMAIN}
             icon: proxmox.png
             widget:
               type: proxmox
