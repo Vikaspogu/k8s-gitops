@@ -85,8 +85,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
-        name: valetudopng-configmap
+        type: secret
+        name: valetudopng-secret
         globalMounts:
           - subPath: config.yml
             path: /config.yml
