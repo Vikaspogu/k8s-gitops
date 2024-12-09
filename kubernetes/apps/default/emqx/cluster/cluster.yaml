@@ -6,27 +6,6 @@ metadata:
   name: emqx
 spec:
   image: public.ecr.aws/emqx/emqx:5.8.3
-  config:
-    data: |
-      authentication {
-        backend = "built_in_database"
-        mechanism = "password_based"
-        password_hash_algorithm {
-            name = "bcrypt"
-        }
-        user_id_type = "username"
-        bootstrap_file = "/opt/init-user.json"
-        bootstrap_type = "plain"
-      }
-      authorization {
-        sources = [
-          {
-            type = built_in_database
-            enable = true
-          }
-        ]
-        no_match: "deny"
-      }
   coreTemplate:
     metadata:
       annotations:
