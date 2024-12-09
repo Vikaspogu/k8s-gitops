@@ -50,6 +50,12 @@ spec:
             value: wg0
           - name: WIREGUARD_ENDPOINT_PORT
             value: 51820
+          - name: VPN_PORT_FORWARDING
+            value: on
+          - name: VPN_PORT_FORWARDING_PROVIDER
+            value: protonvpn
+          - name: FIREWALL_INPUT_PORTS
+            value: 8080
           - name: FIREWALL_OUTBOUND_SUBNETS
             value: "10.96.0.0/16,10.69.0.0/16"
           - name: PUBLICIP_API
