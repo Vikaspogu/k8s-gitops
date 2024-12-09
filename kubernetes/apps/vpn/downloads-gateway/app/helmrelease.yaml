@@ -39,7 +39,7 @@ spec:
           tag: v3.39.1
         env:
           - name: VPN_SERVICE_PROVIDER
-            value: protonvpn
+            value: custom
           - name: VPN_TYPE
             value: wireguard
           - name: VPN_INTERFACE
