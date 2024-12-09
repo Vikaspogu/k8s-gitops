@@ -50,11 +50,10 @@ spec:
             value: wg0
           - name: WIREGUARD_ENDPOINT_PORT
             value: 51820
-          - name: FIREWALL
-            value: "off"
           - name: FIREWALL_OUTBOUND_SUBNETS
             value: "10.96.0.0/16,10.69.0.0/16"
-
+          - name: PUBLICIP_API
+            value: ip2location
         envFrom:
           - secretRef:
               name: pod-gateway
