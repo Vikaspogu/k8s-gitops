@@ -22,5 +22,5 @@ spec:
     - name: cloudnative-pg-cluster
     - name: nginx-internal
     - name: external-secrets-stores
-    - name: mosquitto
+    - name: emqx-cluster
     - name: zigbee2mqtt
