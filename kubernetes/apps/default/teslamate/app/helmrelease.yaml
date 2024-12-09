@@ -39,7 +39,7 @@ spec:
               TZ: "${TIMEZONE}"
               DATABASE_HOST: postgres-rw.default
               DISABLE_MQTT: "false"
-              MQTT_HOST: "mosquitto.default.svc.cluster.local"
+              MQTT_HOST: "emqx-listeners.default.svc.cluster.local"
     service:
       app:
         controller: app
