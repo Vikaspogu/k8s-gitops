@@ -9,9 +9,9 @@ resources:
   - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
-  - name: sabnzbd-notify-script
+  - name: sabnzbd-scripts
     files:
-      - notify.sh=./config/notify.sh
+      - post-process.sh=./resources/post-process.sh
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
