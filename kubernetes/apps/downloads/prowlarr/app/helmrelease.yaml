@@ -34,9 +34,6 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
-      annotations:
-        setGateway: "true"
-      hostname: prowlarr
     controllers:
       prowlarr:
         annotations:
