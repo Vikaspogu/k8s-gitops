@@ -8,6 +8,27 @@ PUSHOVER_ENABLED="${PUSHOVER_ENABLED:-false}"
 PUSHOVER_USER_KEY="${PUSHOVER_USER_KEY:-required}"
 PUSHOVER_TOKEN="${PUSHOVER_TOKEN:-required}"
 
+# Function to set release variables from SABnzbd
+set_sab_vars() {
+    RELEASE_NAME="${SAB_FILENAME:-}"
+    RELEASE_DIR="${SAB_COMPLETE_DIR:-}"
+    RELEASE_CAT="${SAB_CAT:-}"
+    RELEASE_SIZE="${SAB_BYTES:-}"
+    RELEASE_STATUS="${SAB_PP_STATUS:-}"
+    RELEASE_INDEXER="${SAB_URL:-}"
+    RELEASE_TYPE="NZB"
+}
+
+# Function to set release variables from qBittorrent
+set_qb_vars() {
+    RELEASE_NAME="$1"      # %N
+    RELEASE_DIR="$2"       # %F
+    RELEASE_CAT="$3"       # %L
+    RELEASE_SIZE="$4"      # %Z
+    RELEASE_INDEXER="$5"   # %T
+    RELEASE_STATUS=0       # Always 0 for qBittorrent
+    RELEASE_TYPE="Torrent"
+}
 
 # Function to send pushover notification
 send_pushover_notification() {
