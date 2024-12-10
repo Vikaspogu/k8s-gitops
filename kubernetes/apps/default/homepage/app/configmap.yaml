@@ -140,7 +140,7 @@ data:
           icon: prowlarr.png
           widget:
             type: prowlarr
-            url: http://prowlarr.downloads.svc.cluster.local:9696
+            url: http://prowlarr.downloads.svc.cluster.local:80
             key: {{HOMEPAGE_VAR_PROWLARR_API_KEY}}
       - Sabnzbd:
           href: https://sabnzbd.${SECRET_DOMAIN}
