@@ -28,38 +28,71 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
+        runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 1000
+        seccompProfile: { type: RuntimeDefault }
       annotations:
         setGateway: "true"
       hostname: prowlarr
     controllers:
       prowlarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: prowlarr-secret
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/prowlarr-nightly
-              tag: 1.28.1.4865@sha256:066240ad40068b80c8f98fb6f935f3034d39c474e05df8cc12d2182ad2ae75ea
+              repository: ghcr.io/onedr0p/prowlarr-develop
+              tag: 1.28.0.4862@sha256:ff83bcd009f4556e5ee9a40e596dfaa3dd8313fe40246c1244416ffd8fc03ab5
             env:
-              TZ: "${TIMEZONE}"
-              PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 9696
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__LOG__DBENABLED: "False"
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__SERVER__PORT: &port 80
+              PROWLARR__UPDATE__BRANCH: develop
+              TZ: America/New_York
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                memory: 250Mi
                 cpu: 100m
               limits:
-                memory: 750Mi
+                memory: 1Gi
     service:
       app:
         controller: prowlarr
         ports:
           http:
-            port: 9696
+            port: *port
     ingress:
       app:
         enabled: true
@@ -68,10 +101,6 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: prowlarr.png
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/prowlarr/dracula.css"></head>';
-            sub_filter_once on;
         hosts:
           - host: "prowlarr.${SECRET_DOMAIN}"
             paths:
@@ -86,5 +115,6 @@ spec:
 
     persistence:
       config:
-        enabled: true
-        existingClaim: prowlarr-config
+        type: emptyDir
+      tmp:
+        type: emptyDir
