@@ -131,11 +131,11 @@ spec:
                   - ALL
           port-forward:
             image:
-              repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
-              tag: 0.0.2@sha256:ebabf8031406a29a1e642cb9eb83b96de9fc442daf3effc85b23047dde7acbd1
+              repository: docker.io/snoringdragon/gluetun-qbittorrent-port-manager
+              tag: "1.0"
             env:
-              QBITTORRENT_HOST: localhost
-              QBITTORRENT_WEBUI_PORT: *port
+              QBITTORRENT_SERVER: localhost
+              QBITTORRENT_PORT: *port
               PORT_FORWARDED: "/tmp/gluetun/forwarded_port"
             securityContext:
               runAsUser: 2000
