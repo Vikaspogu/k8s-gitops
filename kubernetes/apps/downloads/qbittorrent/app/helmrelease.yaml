@@ -73,8 +73,6 @@ spec:
               VPN_PORT_FORWARDING_PROVIDER: protonvpn
               FIREWALL_INPUT_PORTS: &port 8080
               FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/16,10.69.0.0/16
-              PUBLICIP_API: ip2location
-
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
@@ -111,18 +109,11 @@ spec:
             env:
               UMASK: "022"
               QBT_WEBUI_PORT: 8080
-              QBT_BitTorrent__Session__DisableAutoTMMByDefault: "false"
               QBT_BitTorrent__Session__Interface: wg0
               QBT_BitTorrent__Session__InterfaceAddress: 0.0.0.0
               QBT_BitTorrent__Session__InterfaceName: wg0
-              QBT_BitTorrent__Session__LSDEnabled: "false"
               QBT_Preferences__WebUI__AlternativeUIEnabled: true
-              QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-              QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-                10.30.30.0/16
-              QBT_Preferences__WebUI__LocalHostAuth: false
               QBT_Preferences__WebUI__RootFolder: /addons/VueTorrent
-              QBT_Preferences__WebUI__UseUPNP: false
             probes:
               liveness:
                 enabled: true
