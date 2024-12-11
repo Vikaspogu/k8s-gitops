@@ -50,12 +50,6 @@ spec:
           terminationGracePeriodSeconds: 120
 
         initContainers:
-          dnsdist:
-            image:
-              repository: docker.io/powerdns/dnsdist-19
-              tag: 1.9.7
-            restartPolicy: Always
-
           gluetun:
             dependsOn:
               - dnsdist
@@ -212,12 +206,3 @@ spec:
           qbittorrent:
             app:
               - path: /nfs-nas-pvc
-      dnsdist:
-        type: configMap
-        name: dnsdist
-        advancedMounts:
-          qbittorrent:
-            dnsdist:
-              - path: /etc/dnsdist/dnsdist.conf
-                subPath: dnsdist.conf
-                readOnly: true
