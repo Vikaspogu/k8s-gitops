@@ -49,7 +49,7 @@ spec:
               JELLYFIN_BASEURL: "http://jellyfin.default.svc.cluster.local:8096"
               WHITELIST_LIBRARY: "Movies,TV Shows,Shows"
               SYNC_FROM_PLEX_TO_JELLYFIN: "True"
-              SYNC_FROM_JELLYFIN_TO_PLEX: "False"
+              SYNC_FROM_JELLYFIN_TO_PLEX: "True"
             resources:
               requests:
                 cpu: 50m
