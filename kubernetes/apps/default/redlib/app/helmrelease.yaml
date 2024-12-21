@@ -63,9 +63,8 @@ spec:
         className: "internal"
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: Redlib
-          gethomepage.dev/description: Reddit.com
-          gethomepage.dev/icon: redlib.png
+          gethomepage.dev/name: Reddit
+          gethomepage.dev/icon: reddit.png
           gethomepage.dev/group: Ingress
           gethomepage.dev/pod-selector: >-
             app in (
