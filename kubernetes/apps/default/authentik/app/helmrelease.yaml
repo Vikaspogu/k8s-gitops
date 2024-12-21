@@ -51,6 +51,7 @@ spec:
       redis:
         host: "dragonfly.default.svc.cluster.local"
     server:
+      replicas: 2
       initContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16.6
@@ -76,6 +77,8 @@ spec:
         tls:
           - hosts:
               - *host
+    worker:
+      replicas: 2
     geoip:
       enabled: false
       existingSecret:
