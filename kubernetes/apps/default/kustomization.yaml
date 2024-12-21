@@ -38,6 +38,7 @@ resources:
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
   - ./recyclarr/ks.yaml
+  - ./redlib/ks.yaml
   - ./reverse-proxy/ks.yaml
   - ./searxng/ks.yaml
   - ./static-content/ks.yaml
