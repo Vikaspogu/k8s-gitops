@@ -26,6 +26,8 @@ spec:
   values:
     controllers:
       matter-server:
+        pod:
+          hostNetwork: true
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -37,7 +39,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               MATTER_SERVER__INSTANCE_NAME: *app
-              MATTER_SERVER__PORT: &port 5580
+              MATTER_SERVER__PORT: &wsPort 5580
               MATTER_SERVER__APPLICATION_URL: &host matter.${SECRET_DOMAIN}
               MATTER_SERVER__LOG_LEVEL: debug
             resources:
@@ -47,12 +49,15 @@ spec:
                 memory: "300Mi"
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
+        runAsUser: 0 # Must be run as root user
+        runAsGroup: 0
+        runAsNonRoot: false # Must be run as root user
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups:
+          - 34
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
 
     service:
       app:
@@ -61,12 +66,17 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: "${SVC_MATTER_ADDR}"
         ports:
-          http:
-            port: *port
+          ws:
+            protocol: TCP
+            port: *wsPort
+            primary: true
+        externalTrafficPolicy: Cluster
 
     persistence:
       config:
         enabled: true
+        globalMounts:
+          - path: /config/matter-server
         existingClaim: matter-server-config
 
     ingress:
