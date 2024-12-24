@@ -28,7 +28,7 @@ metadata:
   name: matter-server
   namespace: default
 spec:
-  sourcePVC: matter-server-config
+  sourcePVC: matter-server-data
   trigger:
     schedule: "@daily"
   restic:

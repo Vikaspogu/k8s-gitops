@@ -75,7 +75,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: matter-server-config
+        existingClaim: matter-server-data
 
     ingress:
       app:
