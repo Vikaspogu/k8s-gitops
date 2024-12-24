@@ -73,10 +73,8 @@ spec:
         externalTrafficPolicy: Cluster
 
     persistence:
-      config:
+      data:
         enabled: true
-        globalMounts:
-          - path: /config/matter-server
         existingClaim: matter-server-config
 
     ingress:
