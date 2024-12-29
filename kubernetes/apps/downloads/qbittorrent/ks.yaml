@@ -19,6 +19,5 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
-    - name: downloads-gateway
     - name: rook-ceph-cluster
     - name: nginx-internal
