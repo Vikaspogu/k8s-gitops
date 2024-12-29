@@ -39,7 +39,7 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: *app
+                  name: mealie-secret
 
         containers:
           app:
