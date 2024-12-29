@@ -60,7 +60,7 @@ spec:
               OPENAI_BASE_URL: "http://ollama.default:11434"
               OIDC_PROVIDER_NAME: Authentik
               OIDC_AUTH_ENABLED: true
-              OIDC_SIGNUP_ENABLED: "false"
+              OIDC_SIGNUP_ENABLED: "true"
               OIDC_AUTO_REDIRECT: true
               OIDC_REMEMBER_ME: true
               OIDC_CONFIGURATION_URL: "https://id.${SECRET_DOMAIN}/application/o/mealie/.well-known/openid-configuration"
