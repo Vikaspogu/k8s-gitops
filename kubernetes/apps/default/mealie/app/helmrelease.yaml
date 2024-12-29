@@ -1,0 +1,100 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mealie
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      mealie:
+        strategy: Recreate
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: *app
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v2.4.1
+              pullPolicy: IfNotPresent
+            envFrom: *envFrom # All values are created on the externalsecret
+            env:
+              BASE_URL: https://mealie.${SECRET_DOMAIN}
+              ALLOW_SIGNUP: "true"
+              AUTO_BACKUP_ENABLED: "false"
+              API_DOCS: "false"
+              TZ: ${TIMEZONE}
+              WORKERS_PER_CORE: "1"
+              MAX_WORKERS: "1"
+              WEB_CONCURRENCY: "1"
+              OPENAI_BASE_URL: "http://ollama.default:11434"
+              OIDC_PROVIDER_NAME: Authentik
+              OIDC_AUTH_ENABLED: true
+              OIDC_SIGNUP_ENABLED: true
+              OIDC_AUTO_REDIRECT: true
+              OIDC_REMEMBER_ME: true
+              OIDC_CONFIGURATION_URL: "https://id.${SECRET_DOMAIN}/application/o/mealie/.well-known/openid-configuration"
+
+    service:
+      app:
+        controller: mealie
+        ports:
+          http:
+            port: &port 9000
+
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: mdi-food-apple-outline
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      data:
+        enabled: true
+        existingClaim: mealie-config
+        globalMounts:
+          - path: /app/data

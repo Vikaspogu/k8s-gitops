@@ -22,6 +22,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
   - ./kopia-web/ks.yaml
+  - ./mealie/ks.yaml
   - ./minio/ks.yaml
   - ./myspeed/ks.yaml
   - ./node-red/ks.yaml
