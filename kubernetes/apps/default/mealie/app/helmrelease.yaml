@@ -64,7 +64,13 @@ spec:
               OIDC_AUTO_REDIRECT: true
               OIDC_REMEMBER_ME: true
               OIDC_CONFIGURATION_URL: "https://id.${SECRET_DOMAIN}/application/o/mealie/.well-known/openid-configuration"
-
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
     service:
       app:
         controller: mealie
