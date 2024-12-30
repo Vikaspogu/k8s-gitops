@@ -42,6 +42,7 @@ spec:
           matchType: =
   receivers:
     - name: "null"
+    - name: heartbeat
     - name: pushover
       pushoverConfigs:
         - html: true
