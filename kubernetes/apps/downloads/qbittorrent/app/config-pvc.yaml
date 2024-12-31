@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/name: qbittorrent
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: ceph-block
   resources:
     requests:
