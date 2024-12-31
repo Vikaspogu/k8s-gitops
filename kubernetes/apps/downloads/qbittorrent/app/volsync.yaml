@@ -36,8 +36,8 @@ spec:
     pruneIntervalDays: 5
     repository: qb-restic-secret
     cacheCapacity: 20Gi
-    volumeSnapshotClassName: csi-ceph-filesystem
-    storageClassName: ceph-filesystem
+    volumeSnapshotClassName: csi-ceph-block
+    storageClassName: ceph-block
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
