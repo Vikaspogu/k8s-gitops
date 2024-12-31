@@ -73,7 +73,7 @@ spec:
             port: *port
     ingress:
       app:
-        enabled: true
+        enabled: false
         className: internal
         annotations:
           gethomepage.dev/enabled: "true"
