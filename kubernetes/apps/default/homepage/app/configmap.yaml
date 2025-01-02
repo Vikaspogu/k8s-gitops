@@ -64,7 +64,7 @@ data:
               enablePools: true
               nasType: scale
         - Proxmox:
-            href: https://proxmox.${SECRET_DOMAIN}
+            href: https://pxm-thor.${SECRET_DOMAIN}:8006/
             icon: proxmox.png
             widget:
               type: proxmox
