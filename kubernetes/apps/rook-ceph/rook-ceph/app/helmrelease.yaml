@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph
-      version: v1.16.0
+      version: v1.16.1
       sourceRef:
         kind: HelmRepository
         name: rook-ceph
@@ -25,17 +25,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      # csi-snapshotter broke in rook v1.16.0 with upgraded volumesnapshot crds
-      # https://github.com/rook/rook/issues/15195
-      tag: v1.16.0-4.g6da8ef89d
     monitoring:
       enabled: true
     csi:
-      # csi-snapshotter broke in rook v1.16.0 with upgraded volumesnapshot crds
-      # https://github.com/rook/rook/issues/15195
-      snapshotter:
-        tag: v8.2.0
       csiAddons:
         enabled: false
       enableLiveness: true
