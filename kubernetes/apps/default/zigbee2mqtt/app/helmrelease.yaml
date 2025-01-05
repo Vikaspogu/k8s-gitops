@@ -37,6 +37,7 @@ spec:
               tag: 1.42.0
             env:
               TZ: ${TIMEZONE}
+              Z2M_WATCHDOG: default
               ZIGBEE2MQTT_DATA: /data
               ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
               ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_ENTITY_ATTRIBUTES: "true"
