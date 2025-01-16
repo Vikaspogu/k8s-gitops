@@ -209,3 +209,12 @@ spec:
             port-forward:
               - path: /tmp/gluetun
                 readOnly: true
+      dnsdist:
+        type: configMap
+        name: qbittorrent-dnsdist
+        advancedMounts:
+          qbittorrent:
+            dnsdist:
+              - path: /etc/dnsdist/dnsdist.conf
+                subPath: dnsdist.conf
+                readOnly: true
