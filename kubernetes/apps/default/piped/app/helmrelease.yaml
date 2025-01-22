@@ -45,7 +45,7 @@ spec:
                 name: &secret piped-db-creds
       image:
         repository: "docker.io/1337kavin/piped"
-        tag: "latest"
+        tag: "latest@sha256:4640c0a7c2ec920a7e1c42db94cab41c1da08ae04e307620c5d9a619b0e3bffc"
         pullPolicy: Always
       env:
         TZ: ${TIMEZONE}
