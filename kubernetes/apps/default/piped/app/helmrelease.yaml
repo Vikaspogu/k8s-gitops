@@ -27,7 +27,7 @@ spec:
     frontend:
       image:
         repository: "docker.io/1337kavin/piped-frontend"
-        tag: latest
+        tag: latest@sha256:f7b79e7072d8508ccbfc9c9e08e3901aa08dd9510823cc1d47357167eb3f446b
         pullPolicy: Always
       env:
         BACKEND_HOSTNAME: &api_host papi.${SECRET_DOMAIN}
