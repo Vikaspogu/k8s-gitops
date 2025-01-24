@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20250121.0.184213@sha256:5884a1248ee3fa720fdd9d72cb462f3dad1559006dc459c44bde63d10718451b
+              image: docker.io/kopia/kopia:20250123.0.212317@sha256:d875b0074a979271be59337a75178e81d32d06c889d5d17869cd1e17071de18f
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/readarr/readarr-config/cache
