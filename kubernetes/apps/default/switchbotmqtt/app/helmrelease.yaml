@@ -75,7 +75,7 @@ spec:
               - *host
 
     persistence:
-      data:
+      config:
         enabled: true
         existingClaim: switchbotmqtt-data
         globalMounts:
