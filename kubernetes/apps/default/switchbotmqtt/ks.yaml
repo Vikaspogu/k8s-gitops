@@ -2,14 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app  switchbotmqtt
+  name: &app switchbotmqtt
   namespace: flux-system
 spec:
   targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/default/ switchbotmqtt/app
+  path: ./kubernetes/apps/default/switchbotmqtt/app
   prune: true
   sourceRef:
     kind: GitRepository
