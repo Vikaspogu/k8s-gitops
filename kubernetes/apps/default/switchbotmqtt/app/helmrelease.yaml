@@ -75,12 +75,12 @@ spec:
               - *host
 
     persistence:
-      config:
+      data:
         enabled: true
         existingClaim: switchbotmqtt-data
         globalMounts:
           - path: /data
-      options_secret:
+      options-secret:
         type: secret
         name: switchbotmqtt
         globalMounts:
