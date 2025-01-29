@@ -63,7 +63,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/name: Switchbot MQTT
-          gethomepage.dev/icon: si-switchbot
+          gethomepage.dev/icon: si-mqtt
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
