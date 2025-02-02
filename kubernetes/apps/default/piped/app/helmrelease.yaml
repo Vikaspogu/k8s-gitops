@@ -25,10 +25,6 @@ spec:
     postgresql:
       enabled: false
     frontend:
-      image:
-        repository: "docker.io/1337kavin/piped-frontend"
-        tag: latest@sha256:e71e151eda8a120b3ea20b300739f1000e8ad3a45e8956839b083a8520e84fb7
-        pullPolicy: Always
       env:
         BACKEND_HOSTNAME: &api_host papi.${SECRET_DOMAIN}
         TZ: ${TIMEZONE}
@@ -43,10 +39,6 @@ spec:
           envFrom:
             - secretRef:
                 name: &secret piped-db-creds
-      image:
-        repository: "docker.io/1337kavin/piped"
-        tag: "latest@sha256:4640c0a7c2ec920a7e1c42db94cab41c1da08ae04e307620c5d9a619b0e3bffc"
-        pullPolicy: Always
       env:
         TZ: ${TIMEZONE}
       config:
