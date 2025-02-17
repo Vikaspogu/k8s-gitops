@@ -22,44 +22,8 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "k8s-0-7i5bnk"
+  - hostname: "k8s-0-un1265"
     ipAddress: "10.30.30.20"
-    installDiskSelector:
-      serial: "50026B7382439F6F"
-    talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "94:c6:91:1a:bc:3f"
-        dhcp: false
-        addresses:
-          - "10.30.30.20/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.30.30.1"
-        mtu: 1500
-        vip:
-          ip: "10.30.30.150"
-  - hostname: "k8s-1-7i5bnk"
-    ipAddress: "10.30.30.21"
-    installDiskSelector:
-      serial: "2330E86497F7"
-    talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "94:c6:91:1f:78:53"
-        dhcp: false
-        addresses:
-          - "10.30.30.21/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.30.30.1"
-        mtu: 1500
-        vip:
-          ip: "10.30.30.150"
-  - hostname: "k8s-2-un1265"
-    ipAddress: "10.30.30.22"
     installDiskSelector:
       model: "CT500MX500SSD1"
     talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
@@ -69,15 +33,15 @@ nodes:
           hardwareAddr: "58:47:ca:73:35:71"
         dhcp: false
         addresses:
-          - "10.30.30.22/24"
+          - "10.30.30.20/24"
         routes:
           - network: 0.0.0.0/0
             gateway: "10.30.30.1"
         mtu: 1500
         vip:
           ip: "10.30.30.150"
-  - hostname: k8s-3-nab9
-    ipAddress: "10.30.30.23"
+  - hostname: k8s-1-nab9
+    ipAddress: "10.30.30.21"
     installDiskSelector:
       model: "CT500MX500SSD1"
     talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
@@ -87,13 +51,13 @@ nodes:
           hardwareAddr: "58:47:ca:79:35:11"
         dhcp: false
         addresses:
-          - "10.30.30.23/24"
+          - "10.30.30.21/24"
         routes:
           - network: 0.0.0.0/0
             gateway: "10.30.30.1"
         mtu: 1500
-  - hostname: "k8s-4-ser"
-    ipAddress: "10.30.30.24"
+  - hostname: "k8s-2-ser"
+    ipAddress: "10.30.30.22"
     installDiskSelector:
       model: "CT500MX500SSD1"
     talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
@@ -103,13 +67,13 @@ nodes:
           hardwareAddr: "b0:41:6f:0c:00:07"
         dhcp: false
         addresses:
-          - "10.30.30.24/24"
+          - "10.30.30.22/24"
         routes:
           - network: 0.0.0.0/0
             gateway: "10.30.30.1"
         mtu: 1500
-  - hostname: "k8s-5-pxm"
-    ipAddress: "10.30.30.25"
+  - hostname: "k8s-3-pxm"
+    ipAddress: "10.30.30.23"
     installDiskSelector:
       model: "QEMU HARDDISK"
     talosImageURL: factory.talos.dev/installer/a31d81eceab05afdc2c59b0002701173e117a5fb81bdc1f64062d27655145848
@@ -119,7 +83,7 @@ nodes:
           hardwareAddr: "52:50:56:11:33:11"
         dhcp: false
         addresses:
-          - "10.30.30.25/24"
+          - "10.30.30.23/24"
         routes:
           - network: 0.0.0.0/0
             gateway: "10.30.30.1"
@@ -136,23 +100,8 @@ nodes:
             - siderolabs/nvidia-container-toolkit-production
             - siderolabs/nvidia-open-gpu-kernel-modules-production
             - siderolabs/qemu-guest-agent
-  - hostname: "k8s-6-pi4"
-    ipAddress: "10.30.30.26"
-    installDisk: /dev/sda
-    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: e4:5f:01:30:42:75
-        dhcp: false
-        addresses:
-          - "10.30.30.26/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.30.30.1"
-        mtu: 1500
-  - hostname: "k8s-7-pi4"
-    ipAddress: "10.30.30.27"
+  - hostname: "k8s-4-pi4"
+    ipAddress: "10.30.30.24"
     installDisk: /dev/sda
     talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
     controlPlane: false
@@ -161,7 +110,7 @@ nodes:
           hardwareAddr: "dc:a6:32:68:b5:63"
         dhcp: false
         addresses:
-          - "10.30.30.27/24"
+          - "10.30.30.24/24"
         routes:
           - network: 0.0.0.0/0
             gateway: "10.30.30.1"
