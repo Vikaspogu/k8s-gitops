@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: brandawg93/peanut
-              tag: 5.4.1
+              tag: 5.4.2
             envFrom:
               - secretRef:
                   name: peanut-secret
