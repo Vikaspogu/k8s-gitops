@@ -22,4 +22,4 @@ spec:
   dependsOn:
     - name: emqx-cluster
     - name: rook-ceph-cluster
-    - name: nginx-internal
+    - name: internal-ingress-nginx

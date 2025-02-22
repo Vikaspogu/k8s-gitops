@@ -22,7 +22,7 @@ spec:
   dependsOn:
     - name: intel-device-plugin-gpu
     - name: rook-ceph-cluster
-    - name: nginx-internal
+    - name: internal-ingress-nginx
     - name: external-secrets-stores
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1

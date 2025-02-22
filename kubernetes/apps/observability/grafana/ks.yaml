@@ -22,5 +22,5 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
     - name: cloudnative-pg-cluster
-    - name: nginx-internal
+    - name: internal-ingress-nginx
     - name: external-secrets-stores

@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: nginx-internal
+    - name: internal-ingress-nginx
     - name: external-secrets-stores
   targetNamespace: default
   commonMetadata:

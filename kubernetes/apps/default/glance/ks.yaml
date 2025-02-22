@@ -13,4 +13,4 @@ spec:
     namespace: flux-system
   interval: 30m
   dependsOn:
-    - name: nginx-internal
+    - name: internal-ingress-nginx

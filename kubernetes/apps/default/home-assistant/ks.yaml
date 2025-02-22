@@ -21,7 +21,7 @@ spec:
   timeout: 5m
   dependsOn:
     - name: cloudnative-pg-cluster
-    - name: nginx-internal
+    - name: internal-ingress-nginx
     - name: external-secrets-stores
     - name: emqx-cluster
     - name: zigbee2mqtt

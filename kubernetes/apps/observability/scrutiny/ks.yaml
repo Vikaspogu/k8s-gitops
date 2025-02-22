@@ -20,7 +20,7 @@ spec:
   interval: 30m
   timeout: 5m
   dependsOn:
-    - name: nginx-internal
+    - name: internal-ingress-nginx
     - name: influxdb
     - name: rook-ceph-cluster
 ---
