@@ -19,3 +19,5 @@ spec:
   wait: false
   interval: 30m
   timeout: 5m
+  dependsOn:
+    - name: node-feature-discovery-rules
