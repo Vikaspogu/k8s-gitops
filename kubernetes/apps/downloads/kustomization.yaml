@@ -4,7 +4,6 @@ namespace: downloads
 components:
   - ../../flux/components/common
 resources:
-  - ./namespace.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./sabnzbd/ks.yaml
