@@ -88,6 +88,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: paperless-ngx.png
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: &host "paperless.${SECRET_DOMAIN}"
             paths:

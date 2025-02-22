@@ -79,6 +79,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: home-assistant.png
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: home-assistant.${SECRET_DOMAIN}
             paths:
