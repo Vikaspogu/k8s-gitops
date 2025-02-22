@@ -21,4 +21,6 @@ spec:
   timeout: 5m
   dependsOn:
     - name: internal-ingress-nginx
+      namespace: network
     - name: external-secrets-stores
+      namespace: default

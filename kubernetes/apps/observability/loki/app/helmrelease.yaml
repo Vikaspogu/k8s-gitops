@@ -25,9 +25,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: openebs
-      namespace: openebs-system
   values:
     deploymentMode: SingleBinary
     loki:
@@ -75,7 +72,6 @@ spec:
       replicas: 1
       persistence:
         enabled: true
-        storageClass: openebs-hostpath
         size: 50Gi
     gateway:
       replicas: 2

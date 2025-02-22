@@ -11,8 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: internal-ingress-nginx
+      namespace: network
     - name: external-secrets-stores
+      namespace: default
   path: ./kubernetes/apps/default/mealie/app
   prune: true
   sourceRef:

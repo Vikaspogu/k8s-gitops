@@ -21,9 +21,13 @@ spec:
   timeout: 5m
   dependsOn:
     - name: intel-device-plugin-gpu
+      namespace: kube-system
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: internal-ingress-nginx
+      namespace: network
     - name: external-secrets-stores
+      namespace: default
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -47,3 +51,4 @@ spec:
   timeout: 5m
   dependsOn:
     - name: plex
+      namespace: default

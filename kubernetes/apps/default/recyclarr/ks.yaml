@@ -11,8 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+      namespace: default
     - name: radarr
+      namespace: default
     - name: sonarr
+      namespace: default
   path: ./kubernetes/apps/default/recyclarr/app
   prune: true
   sourceRef:

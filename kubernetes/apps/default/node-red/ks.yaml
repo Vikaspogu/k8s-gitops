@@ -21,6 +21,10 @@ spec:
   timeout: 5m
   dependsOn:
     - name: internal-ingress-nginx
+      namespace: network
     - name: external-secrets-stores
+      namespace: default
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: home-assistant
+      namespace: default

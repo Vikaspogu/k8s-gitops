@@ -7,8 +7,11 @@ metadata:
 spec:
   dependsOn:
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: internal-ingress-nginx
+      namespace: network
     - name: external-secrets-stores
+      namespace: default
   path: ./kubernetes/apps/default/jellyfin/app
   prune: true
   sourceRef:

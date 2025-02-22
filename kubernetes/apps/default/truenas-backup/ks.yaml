@@ -11,7 +11,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+      namespace: default
     - name: minio
+      namespace: default
   path: ./kubernetes/apps/default/truenas-backup/app
   prune: true
   sourceRef:

@@ -21,5 +21,8 @@ spec:
   timeout: 5m
   dependsOn:
     - name: dragonfly-cluster
+      namespace: default
     - name: internal-ingress-nginx
+      namespace: network
     - name: external-secrets-stores
+      namespace: default

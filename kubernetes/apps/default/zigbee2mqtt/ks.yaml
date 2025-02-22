@@ -21,5 +21,8 @@ spec:
   timeout: 5m
   dependsOn:
     - name: emqx-cluster
+      namespace: default
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: internal-ingress-nginx
+      namespace: network

@@ -11,8 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+      namespace: default
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: internal-ingress-nginx
+      namespace: network
   path: ./kubernetes/apps/downloads/sabnzbd/app
   prune: true
   sourceRef:

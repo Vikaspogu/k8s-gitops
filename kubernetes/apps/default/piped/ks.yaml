@@ -21,4 +21,6 @@ spec:
   timeout: 5m
   dependsOn:
     - name: cloudnative-pg-cluster
+      namespace: default
     - name: internal-ingress-nginx
+      namespace: network

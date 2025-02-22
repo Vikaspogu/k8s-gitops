@@ -17,6 +17,7 @@ spec:
     namespace: flux-system
   dependsOn:
     - name: external-secrets-stores
+      namespace: default
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -34,7 +35,6 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
-    - name: openebs
   path: ./kubernetes/apps/default/cloudnative-pg/cluster
   prune: true
   sourceRef:

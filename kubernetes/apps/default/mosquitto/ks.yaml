@@ -11,7 +11,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+      namespace: default
     - name: rook-ceph-cluster
+      namespace: rook-ceph
   path: ./kubernetes/apps/default/mosquitto/app
   prune: true
   sourceRef:

@@ -21,8 +21,11 @@ spec:
   timeout: 5m
   dependsOn:
     - name: internal-ingress-nginx
+      namespace: network
     - name: influxdb
+      namespace: default
     - name: rook-ceph-cluster
+      namespace: rook-ceph
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1

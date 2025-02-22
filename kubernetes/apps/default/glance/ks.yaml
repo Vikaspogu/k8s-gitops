@@ -14,3 +14,4 @@ spec:
   interval: 30m
   dependsOn:
     - name: internal-ingress-nginx
+      namespace: network
