@@ -16,9 +16,11 @@ vars:
   TALOSCONFIG: '{{.ROOT_DIR}}/kubernetes/bootstrap/talos/clusterconfig/talosconfig'
 
 env:
+  KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
-  PYTHONDONTWRITEBYTECODE: '1'
   SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
+  TALOSCONFIG: '{{.TALOSCONFIG}}'
+  PYTHONDONTWRITEBYTECODE: '1'
   VIRTUAL_ENV: '{{.ROOT_DIR}}/.venv'
 
 includes:
