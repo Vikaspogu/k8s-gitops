@@ -12,6 +12,8 @@ vars:
   BOOTSTRAP_CONFIG_FILE: '{{.ROOT_DIR}}/config.yaml'
   MAKEJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/makejinja.toml'
   SOPS_CONFIG_FILE: '{{.ROOT_DIR}}/.sops.yaml'
+  TALHELPER_DIR: '{{.ROOT_DIR}}/kubernetes/bootstrap/talos'
+  TALOSCONFIG: '{{.ROOT_DIR}}/kubernetes/bootstrap/talos/clusterconfig/talosconfig'
 
 env:
   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
