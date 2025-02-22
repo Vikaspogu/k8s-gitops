@@ -27,13 +27,8 @@ spec:
   values:
     defaultPodOptions:
       enableServiceLinks: false
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/control-plane
-                    operator: DoesNotExist
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
     controllers:
       app:
         pod:
