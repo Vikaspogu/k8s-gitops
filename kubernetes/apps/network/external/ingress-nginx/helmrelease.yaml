@@ -77,7 +77,6 @@ spec:
             any: true
       extraArgs:
         default-ssl-certificate: "cert-manager/${SECRET_DOMAIN/./-}-production-tls"
-        publish-status-address: *hostname
       resources:
         requests:
           cpu: 100m
