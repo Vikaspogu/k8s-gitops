@@ -1,3 +1,65 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean
+spec:
+  restartPolicy: Never
+  nodeName: k8s-0-un1265
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command: ["/bin/sh", "-c", "rm -rf /node/rook-data/*"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-1
+spec:
+  restartPolicy: Never
+  nodeName: k8s-1-nab9
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command: ["/bin/sh", "-c", "rm -rf /node/rook-data/*"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-2
+spec:
+  restartPolicy: Never
+  nodeName: k8s-2-ser
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command: ["/bin/sh", "-c", "rm -rf /node/rook-data/*"]
 ---
 apiVersion: v1
 kind: Pod

@@ -101,10 +101,11 @@ nodes:
             - siderolabs/nvidia-container-toolkit-production
             - siderolabs/nvidia-open-gpu-kernel-modules-production
             - siderolabs/qemu-guest-agent
-  - hostname: "k8s-4-pi4"
+  - hostname: "k8s-4-nuc-6cayh"
     ipAddress: "10.30.30.24"
-    installDisk: /dev/sda
-    talosImageURL: factory.talos.dev/installer/ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
+    installDiskSelector:
+      model: "Samsung SSD 860"
+    talosImageURL: factory.talos.dev/installer/ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
