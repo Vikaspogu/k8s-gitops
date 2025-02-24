@@ -17,9 +17,7 @@ task volsync:restore namespace=default rsrc=sonarr
 task volsync:restore namespace=default rsrc=zigbee2mqtt
 task volsync:restore namespace=default rsrc=zwave
 task volsync:restore namespace=default rsrc=mealie
-task volsync:restore namespace=downloads rsrc=prowlarr
-task volsync:restore namespace=downloads rsrc=sabnzbd
 task volsync:restore namespace=default rsrc=pinchflat
-task volsync:restore namespace=default rsrc=jellyfin
 task volsync:restore namespace=default rsrc=mealie
 task volsync:restore namespace=downloads rsrc=qb
+task volsync:restore namespace=downloads rsrc=sabnzbd
