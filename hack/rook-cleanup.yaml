@@ -17,7 +17,7 @@ spec:
       volumeMounts:
         - name: rook-data-dir
           mountPath: /node/rook-data
-      command: ["/bin/sh", "-c", "rm -rf /var/lib/rook"]
+      command: ["/bin/sh", "-c", "rm -rf /dev/ceph-*;rm -rf /dev/mapper/ceph--*"]
 ---
 apiVersion: v1
 kind: Pod
@@ -38,7 +38,7 @@ spec:
       volumeMounts:
         - name: rook-data-dir
           mountPath: /node/rook-data
-      command: ["/bin/sh", "-c", "rm -rf /var/lib/rook"]
+      command: ["/bin/sh", "-c", "rm -rf /dev/ceph-*;rm -rf /dev/mapper/ceph--*"]
 ---
 apiVersion: v1
 kind: Pod
@@ -59,7 +59,7 @@ spec:
       volumeMounts:
         - name: rook-data-dir
           mountPath: /node/rook-data
-      command: ["/bin/sh", "-c", "rm -rf /var/lib/rook"]
+      command: ["/bin/sh", "-c", "rm -rf /dev/ceph-*;rm -rf /dev/mapper/ceph--*"]
 ---
 apiVersion: v1
 kind: Pod
