@@ -40,7 +40,7 @@ resources:
   - ./recyclarr/ks.yaml
   - ./redlib/ks.yaml
   - ./reverse-proxy/ks.yaml
-  - ./searxng/ks.yaml
+  # - ./searxng/ks.yaml
   - ./static-content/ks.yaml
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
