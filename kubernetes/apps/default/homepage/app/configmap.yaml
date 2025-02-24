@@ -46,14 +46,6 @@ data:
               accountid: "{{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID}}"
               tunnelid: "{{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}"
               key: "{{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}"
-        - OPNSense:
-            href: https://router.${SECRET_DOMAIN}
-            icon: opnsense.png
-            widget:
-              type: opnsense
-              url: {{HOMEPAGE_VAR_OPNSENSE_URL}}
-              username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
-              password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
         - TrueNAS:
             href: https://truenas.${SECRET_DOMAIN}
             icon: truenas.png
@@ -71,14 +63,6 @@ data:
               url: {{HOMEPAGE_VAR_PROXMOX_IP}}
               username: {{HOMEPAGE_VAR_PROXMOX_USER}}
               password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
-        - RSS:
-            href: https://rss.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: freshrss.png
-            widget:
-              type: freshrss
-              url: http://freshrss.default.svc.cluster.local:80
-              username: {{HOMEPAGE_VAR_FRESHRSS_USER}}
-              password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
         - NAS:
             href: https://nas.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: synology-dsm.png
@@ -113,13 +97,6 @@ data:
             widget:
               type: myspeed
               url: http://myspeed.default:5216
-        - Gotify:
-            href: https://gotify.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: gotify.png
-            widget:
-              type: gotify
-              url: http://gotify.default.svc.cluster.local
-              key: {{HOMEPAGE_VAR_GOTIFY_API_TOKEN}}
         - Scrutiny:
             href: https://scrutiny.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: scrutiny.png
