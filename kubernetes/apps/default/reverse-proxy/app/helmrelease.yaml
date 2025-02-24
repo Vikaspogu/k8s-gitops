@@ -52,25 +52,6 @@ spec:
           hosts:
             - host: nas.${SECRET_DOMAIN}
               path: /
-      - name: proxmox
-        enabled: true
-        test: false
-        ip: ${SECRET_PROXMOX_THOR_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 8006
-        ingress:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "Proxmox"
-            gethomepage.dev/icon: proxmox.png
-          ingressClassName: internal
-          tls:
-            - hosts:
-                - pxm-thor.${SECRET_DOMAIN}
-          hosts:
-            - host: pxm-thor.${SECRET_DOMAIN}
-              path: /
       - name: truenas-main
         enabled: true
         ip: ${SECRET_TRUE_NAS_ADDRESS}
