@@ -28,7 +28,7 @@ metadata:
   name: recyclarr
   namespace: default
 spec:
-  sourcePVC: recyclarr-data
+  sourcePVC: recyclarr-config
   trigger:
     schedule: "@daily"
   restic:
