@@ -90,7 +90,7 @@ spec:
       - name: pi-kvm
         enabled: true
         ip: ${SECRET_PI_KVM_ADDRESS}
-        port: 443
+        port: 80
         ingress:
           annotations:
             gethomepage.dev/enabled: "true"
