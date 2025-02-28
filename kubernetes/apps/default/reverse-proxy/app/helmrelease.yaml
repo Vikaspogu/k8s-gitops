@@ -87,3 +87,20 @@ spec:
           hosts:
             - host: files.${SECRET_DOMAIN}
               path: /
+      - name: pi-kvm
+        enabled: true
+        ip: ${SECRET_PI_KVM_ADDRESS}
+        port: 443
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/name: "Pi KVM"
+            gethomepage.dev/icon: mdi:monitor-multiple
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - pi-kvm.${SECRET_DOMAIN}
+          hosts:
+            - host: pi-kvm.${SECRET_DOMAIN}
+              path: /
