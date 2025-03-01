@@ -35,7 +35,7 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 5
     repository: recyclarr-restic-secret
-    cacheCapacity: 3Gi
+    cacheCapacity: 5Gi
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block
     moverSecurityContext:
