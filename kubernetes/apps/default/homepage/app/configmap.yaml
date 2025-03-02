@@ -171,18 +171,6 @@ data:
             url: http://audiobookshelf.default.svc.cluster.local
             key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}
   widgets.yaml: |
-    - kubernetes:
-      cluster:
-        show: true
-        cpu: true
-        memory: true
-        showLabel: true
-        label: "cluster"
-      nodes:
-        show: true
-        cpu: true
-        memory: true
-        showLabel: true
     - resources:
         backend: kubernetes
         cpu: true
