@@ -37,6 +37,15 @@ data:
               href: https://github.com/onedr0p/flux-cluster-template
   services.yaml: |
     - Observability:
+        - Unifi:
+            href: https://{{HOMEPAGE_VAR_UNIFI_IP}}
+            icon: unifi.png
+            description: Unifi
+            widget:
+              type: unifi
+              url: https://{{HOMEPAGE_VAR_UNIFI_IP}}
+              username: {{HOMEPAGE_VAR_UNIFI_USER}}
+              password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - Cloudflared:
             href: https://dash.cloudflare.com
             icon: cloudflare-zero-trust.png
