@@ -126,6 +126,12 @@ spec:
               path: /var/lib/grafana/dashboards/default
     dashboards:
       default:
+        speedtest-exporter-hub:
+          # renovate: depName="Speedtest Exporter"
+          gnetId: 13665
+          revision: 4
+          datasource:
+            - { name: datasource, value: Prometheus }
         proxmox:
           gnetId: 15356 #https://grafana.com/grafana/dashboards/15356
           revision: 13

@@ -100,12 +100,6 @@ data:
               type: authentik
               url: http://authentik-server.default:80
               key: {{HOMEPAGE_VAR_AUTHENTIK_API_TOKEN}}
-        - MySpeed:
-            href: https://myspeed.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: myspeed.png
-            widget:
-              type: myspeed
-              url: http://myspeed.default:5216
         - Scrutiny:
             href: https://scrutiny.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: scrutiny.png
