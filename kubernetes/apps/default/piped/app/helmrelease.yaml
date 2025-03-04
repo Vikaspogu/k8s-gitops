@@ -45,6 +45,7 @@ spec:
         PORT: 8080
         HTTP_WORKERS: 4
         PROXY_PART: https://pproxy.${SECRET_DOMAIN}
+        BG_HELPER_URL: http://piped-bg-helper:3000
         HTTP_PROXY: 127.0.0.1:8888
         # DISABLE_REGISTRATION: false
         database:

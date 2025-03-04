@@ -1,0 +1,42 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app piped-bg-helper
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      piped-bg-helper:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          bg-helper:
+            image:
+              repository: 1337kavin/bg-helper-server
+              tag: latest@sha256:ea077a50311eb6637de728cb95ee5a645349c79c6dce8875313a4bb1cdae0d47
+
+    service:
+      main:
+        controller: piped-bg-helper
+        type: ClusterIP
+        ports:
+          http:
+            port: 3000
