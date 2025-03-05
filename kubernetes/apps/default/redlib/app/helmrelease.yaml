@@ -43,7 +43,7 @@ spec:
               REDLIB_DEFAULT_SHOW_NSFW: "on"
               REDLIB_DEFAULT_AUTOPLAY_VIDEOS: "off"
               REDLIB_DEFAULT_DISABLE_VISIT_REDDIT_CONFIRMATION: "false"
-              REDLIB_DEFAULT_SUBSCRIPTIONS: "(selfhosted+homelab+LifeProTips+todayilearned+GetMotivated+Fitness)"
+              REDLIB_DEFAULT_SUBSCRIPTIONS: "selfhosted+homelab+LifeProTips+todayilearned+GetMotivated+Fitness"
             probes:
               liveness: &probes
                 enabled: true
