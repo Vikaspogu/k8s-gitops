@@ -34,7 +34,7 @@ spec:
           init-config:
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
-              tag: 2.0.20
+              tag: 2.0.21
             command: ["/bin/sh", "-c"]
             args: ["cp /tmp/secret/* /mosquitto/external_config/ && chmod go-r /mosquitto/external_config/mosquitto_pwd && mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd"]
         pod:
@@ -49,7 +49,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
-              tag: 2.0.20
+              tag: 2.0.21
             resources:
               requests:
                 cpu: 10m
