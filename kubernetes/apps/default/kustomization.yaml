@@ -36,7 +36,7 @@ resources:
   - ./piped/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
-  - ./readarr/ks.yaml
+  # - ./readarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./redlib/ks.yaml
   - ./reverse-proxy/ks.yaml
