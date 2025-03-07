@@ -51,9 +51,12 @@ spec:
         PORT: 8080
         HTTP_WORKERS: 4
         PROXY_PART: https://pproxy.${SECRET_DOMAIN}
-        # BG_HELPER_URL: http://piped-bg-helper:3000
-        HTTP_PROXY: 127.0.0.1:8888
-        # DISABLE_REGISTRATION: false
+        BG_HELPER_URL: http://piped-bg-helper:3000
+        API_URL: https://papi.${SECRET_DOMAIN}
+        FRONTEND_URL: https://yt.${SECRET_DOMAIN}
+        # HTTP_PROXY: 127.0.0.1:8888
+        DISABLE_REGISTRATION: "true"
+        FEED_RETENTION: "5"
         database:
           connection_url: jdbc:postgresql://postgres-rw.default.svc.cluster.local/piped
           secret:
