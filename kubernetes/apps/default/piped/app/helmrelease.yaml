@@ -25,17 +25,11 @@ spec:
     postgresql:
       enabled: false
     frontend:
-      image:
-        repository: 1337kavin/piped-frontend
-        tag: "latest@sha256:614fa1e70285307ed64d39c76675d787cad9c429307c58b71352d1f72bfb2ac1"
       env:
         BACKEND_HOSTNAME: &api_host papi.${SECRET_DOMAIN}
         TZ: ${TIMEZONE}
 
     backend:
-      image:
-        repository: 1337kavin/piped
-        tag: "latest@sha256:759979280703ba11e4069405d21c2fed62a902d135fcea25d76fa13a12f278d7"
       podAnnotations:
         configmap.reloader.stakater.com/reload: "piped-backend-config"
       initContainers:
@@ -51,7 +45,7 @@ spec:
         PORT: 8080
         HTTP_WORKERS: 4
         PROXY_PART: https://pproxy.${SECRET_DOMAIN}
-        BG_HELPER_URL: http://piped-bg-helper:3000
+        # BG_HELPER_URL: http://piped-bg-helper:3000
         API_URL: https://papi.${SECRET_DOMAIN}
         FRONTEND_URL: https://yt.${SECRET_DOMAIN}
         # HTTP_PROXY: 127.0.0.1:8888
@@ -63,10 +57,6 @@ spec:
             name: *secret
             username: DB_USERNAME
             password: DB_PASSWORD
-    ytproxy:
-      image:
-        repository: 1337kavin/piped-proxy
-        tag: "latest@sha256:4a77a613b33d8e8628463044a070a2c6ac353a5d8963f4abc1efccf00754ce09"
     ingress:
       main:
         enabled: true
