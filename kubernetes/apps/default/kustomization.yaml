@@ -16,7 +16,7 @@ resources:
   - ./external-secrets/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./glance/ks.yaml
-  # - ./gotify/ks.yaml
+  - ./gotify/ks.yaml
   - ./govee2mqtt/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
