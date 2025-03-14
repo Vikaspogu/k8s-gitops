@@ -37,6 +37,7 @@ spec:
               tag: v1.0.0
             env:
               TZ: "${TIMEZONE}"
+              HOMEPAGE_ALLOWED_HOSTS: home.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: homepage-secret
