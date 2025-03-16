@@ -80,17 +80,6 @@ spec:
             url: http://loki-headless.observability.svc.cluster.local:3100
             jsonData:
               maxLines: 250
-          - name: TeslaMate
-            type: postgres
-            access: proxy
-            url: postgres-rw.default.svc.cluster.local:5432
-            database: teslamate
-            user: teslamate
-            secureJsonData:
-              password: "$TESLAMATE_DB_PASSWORD"
-            jsonData:
-              postgresVersion: 1000
-              sslmode: disable
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
@@ -224,55 +213,6 @@ spec:
         nginx-request-handling-performance:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
-        charge-level:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/charge-level.json
-          # datasource: TeslaMate
-        charges:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/charges.json
-          # datasource: TeslaMate
-        charging-stats:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/charging-stats.json
-          # datasource: TeslaMate
-        drive-stats:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/drive-stats.json
-          # datasource: TeslaMate
-        drives:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/drives.json
-          # datasource: TeslaMate
-        efficiency:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/efficiency.json
-          # datasource: TeslaMate
-        locations:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/locations.json
-          # datasource: TeslaMate
-        mileage:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/mileage.json
-          # datasource: TeslaMate
-        overview:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/overview.json
-          # datasource: TeslaMate
-        projected-range:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/projected-range.json
-          # datasource: TeslaMate
-        states:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/states.json
-          # datasource: TeslaMate
-        trip:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/trip.json
-          # datasource: TeslaMate
-        updates:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/updates.json
-          # datasource: TeslaMate
-        vampire-drain:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/vampire-drain.json
-          # datasource: TeslaMate
-        visited:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/visited.json
-          # datasource: TeslaMate
-        charge-details:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/internal/charge-details.json
-        drive-details:
-          url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.27.3/grafana/dashboards/internal/drive-details.json
         volsync:
             # renovate: depName="VolSync Dashboard"
           gnetId: 21356
@@ -319,11 +259,6 @@ spec:
     testFramework:
       enabled: false
   valuesFrom:
-    - kind: Secret
-      name: grafana-secret
-      valuesKey: TESLAMATE_DB_PASSWORD
-      targetPath: env.TESLAMATE_DB_PASSWORD
-      optional: false
     - kind: Secret
       name: grafana-secret
       valuesKey: INFLUXDB_TOKEN

@@ -9,6 +9,7 @@ metadata:
 data:
   kubernetes.yaml: |
     mode: cluster
+    ingress: true
   settings.yaml: |
     title: Dashboard
     theme: dark
