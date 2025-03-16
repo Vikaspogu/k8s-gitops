@@ -50,9 +50,9 @@ spec:
                 memory: 250Mi
             probes:
               liveness:
-                enabled: true
+                enabled: false
               readiness:
-                enabled: true
+                enabled: false
     service:
       app:
         controller: app
