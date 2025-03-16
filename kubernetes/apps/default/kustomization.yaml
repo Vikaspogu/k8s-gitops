@@ -28,6 +28,7 @@ resources:
   - ./node-red/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
+  - ./onstar2mqtt/ks.yaml
   - ./open-webui/ks.yaml
   - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
@@ -45,7 +46,7 @@ resources:
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
-  - ./teslamate/ks.yaml
+  # - ./teslamate/ks.yaml
   - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
