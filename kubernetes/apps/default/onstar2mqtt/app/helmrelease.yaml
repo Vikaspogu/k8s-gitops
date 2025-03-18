@@ -41,7 +41,6 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               MQTT_HOST: "emqx-listeners.default.svc.cluster.local"
-              GOVEE_TEMPERATURE_SCALE: F
             resources:
               requests:
                 cpu: 10m
