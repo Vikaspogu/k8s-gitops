@@ -37,8 +37,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/readarr-nightly
-              tag: 0.4.0.2593@sha256:22154f5d5ea888c9bbc797e235d34c11cc8c89d49d7f3d6ec9c5c60220962ee6
+              repository: ghcr.io/home-operations/readarr
+              tag: 0.4.12.2753@sha256:126f98cd6b459d48ac0286249a4f7e499697a7bdfddfae8784afb11aa83e6b93
             env:
               TZ: "${TIMEZONE}"
               READARR__AUTH__METHOD: External
