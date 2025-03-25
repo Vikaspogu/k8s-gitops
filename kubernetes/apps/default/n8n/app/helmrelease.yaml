@@ -72,6 +72,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: sh-n8n
         className: internal
         hosts:
           - host: *host
