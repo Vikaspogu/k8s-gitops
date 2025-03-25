@@ -11,6 +11,8 @@ resources:
   - ./authentik/ks.yaml
   - ./bazarr/ks.yaml
   - ./cloudnative-pg/ks.yaml
+  - ./cyberchef/ks.yaml
+  - ./docmost/ks.yaml
   - ./dragonfly/ks.yaml
   - ./emqx/ks.yaml
   - ./external-secrets/ks.yaml
@@ -18,13 +20,15 @@ resources:
   - ./glance/ks.yaml
   - ./gotify/ks.yaml
   - ./govee2mqtt/ks.yaml
+  - ./hoarder/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./influxdb/ks.yaml
+  - ./it-tools/ks.yaml
   - ./kopia-web/ks.yaml
   - ./mealie/ks.yaml
   - ./minio/ks.yaml
-  # - ./myspeed/ks.yaml
+  - ./n8n/ks.yaml
   - ./node-red/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
@@ -32,21 +36,19 @@ resources:
   - ./open-webui/ks.yaml
   - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
+  - ./paperless-ai/ks.yaml
   - ./pgadmin/ks.yaml
   - ./pinchflat/ks.yaml
   - ./piped/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
-  # - ./readarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./redlib/ks.yaml
   - ./reverse-proxy/ks.yaml
-  # - ./searxng/ks.yaml
   - ./static-content/ks.yaml
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
-  # - ./teslamate/ks.yaml
   - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml

@@ -1,0 +1,47 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: n8n-restic
+  namespace: default
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: n8n-restic-secret
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/n8n'
+        RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
+        AWS_ACCESS_KEY_ID: '{{ .access_key }}'
+        AWS_SECRET_ACCESS_KEY: '{{ .secret_key }}'
+  dataFrom:
+    - extract:
+        key: minio
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: n8n
+  namespace: default
+spec:
+  sourcePVC: n8n-config
+  trigger:
+    schedule: "@daily"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 5
+    repository: n8n-restic-secret
+    cacheCapacity: 10Gi
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-block
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 5
+      within: 3d
