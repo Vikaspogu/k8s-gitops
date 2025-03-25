@@ -70,6 +70,7 @@ spec:
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: authentik.png
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/siteMonitor: http://authentik-server.default:80
         hosts:
           - &host id.${SECRET_DOMAIN}
         paths:

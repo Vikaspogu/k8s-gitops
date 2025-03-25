@@ -72,10 +72,9 @@ spec:
         className: internal
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Home
+          gethomepage.dev/group: Ingress
           gethomepage.dev/name: Paperless AI
           gethomepage.dev/icon: paperless.png
-          gethomepage.dev/description: AI Setup for Paperless
           gethomepage.dev/siteMonitor: http://paperless-ai.default:3000
         hosts:
           - host: &host "paperless-ai.${SECRET_DOMAIN}"

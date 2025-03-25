@@ -58,7 +58,6 @@ spec:
           gethomepage.dev/group: Ingress
           gethomepage.dev/name: IT Tools
           gethomepage.dev/icon: https://cdn-icons-png.flaticon.com/512/868/868784.png
-          gethomepage.dev/description: Useful tools for developers
           gethomepage.dev/siteMonitor: http://it-tools.default:80
         hosts:
           - host: "it-tools.${SECRET_DOMAIN}"

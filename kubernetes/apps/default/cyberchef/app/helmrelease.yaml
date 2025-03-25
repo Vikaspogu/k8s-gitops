@@ -72,7 +72,6 @@ spec:
           gethomepage.dev/group: Ingress
           gethomepage.dev/name: Cyberchef
           gethomepage.dev/icon: https://repocloud.io/static/apps/cyberchef/assets/logo.png
-          gethomepage.dev/description: The Cyber Swiss Army Knife
           gethomepage.dev/siteMonitor: http://cyberchef.default:8000
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"

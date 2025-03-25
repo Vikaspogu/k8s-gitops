@@ -95,6 +95,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: si-gnubash
+          gethomepage.dev/siteMonitor: http://atuin.default:80
         hosts:
           - host: &host sh.${SECRET_DOMAIN}
             paths:
