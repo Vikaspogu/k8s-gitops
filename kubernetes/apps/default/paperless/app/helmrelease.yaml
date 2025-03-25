@@ -34,12 +34,18 @@ spec:
             image:
               repository: thecodingmachine/gotenberg
               tag: 8.18.0
-            env:
-              - { name: DISABLE_GOOGLE_CHROME, value: "1" }
+            ports:
+              - containerPort: 3000
+            command:
+              - "gotenberg"
+              - "--chromium-disable-javascript=true"
+              - "--chromium-allow-list=file:///tmp/.*"
           tika:
             image:
               repository: ghcr.io/paperless-ngx/tika
               tag: 2.9.1-full
+            ports:
+              - containerPort: 9998
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
@@ -54,9 +60,10 @@ spec:
               PAPERLESS_PORT: 8000
               PAPERLESS_REDIS: redis://dragonfly.default.svc.cluster.local:6379
               PAPERLESS_TASK_WORKERS: 2
-              PAPERLESS_TIKA_ENABLED: 1
-              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
-              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
+              # Enable TIKA
+              PAPERLESS_TIKA_ENABLED: true
+              PAPERLESS_TIKA_ENDPOINT: http://127.0.0.1:9998
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://127.0.0.1:3000
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
               PAPERLESS_ALLOWED_HOSTS: paperless.${SECRET_DOMAIN}
