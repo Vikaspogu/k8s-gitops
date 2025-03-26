@@ -33,10 +33,10 @@ spec:
               repository: docker.io/clusterzx/paperless-ai
               tag: 2.7.6
             env:
-              PAPERLESS_API_URL: https://paperless.${SECRET_DOMAIN}/api
+              PAPERLESS_API_URL: https://paperless.${SECRET_DOMAIN}/api/documents/
               AI_PROVIDER: ollama
-              SCAN_INTERVAL: "*/30 * * * *"
-              PROCESS_PREDEFINED_DOCUMENTS: yes
+              SCAN_INTERVAL: "*/15 * * * *"
+              PROCESS_PREDEFINED_DOCUMENTS: no
               ADD_AI_PROCESSED_TAG: yes
               AI_PROCESSED_TAG_NAME: ai-processed
               USE_PROMPT_TAGS: no
