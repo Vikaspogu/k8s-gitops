@@ -34,6 +34,7 @@ spec:
               tag: 2.7.6
             env:
               PAPERLESS_API_URL: https://paperless.${SECRET_DOMAIN}
+              PAPERLESS_USERNAME: Vikas
               AI_PROVIDER: ollama
               SCAN_INTERVAL: "*/15 * * * *"
               PROCESS_PREDEFINED_DOCUMENTS: no
