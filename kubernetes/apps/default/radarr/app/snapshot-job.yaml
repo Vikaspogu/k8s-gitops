@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20250331.0.211021@sha256:765434167d75eb158be722092997db0ad69d58bf5e0b3c37fe49fee748a9ac29
+              image: docker.io/kopia/kopia:20250401.0.200432@sha256:12ce95192a483ed54838ae2062450bc71133325191ee37a2e90eba9994a9dfe4
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/radarr/radarr-config/cache
