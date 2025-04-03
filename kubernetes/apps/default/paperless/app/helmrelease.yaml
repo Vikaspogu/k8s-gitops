@@ -33,7 +33,7 @@ spec:
           gotenburg:
             image:
               repository: thecodingmachine/gotenberg
-              tag: 8.19.0
+              tag: 8.19.1
             ports:
               - containerPort: 3000
             command:
