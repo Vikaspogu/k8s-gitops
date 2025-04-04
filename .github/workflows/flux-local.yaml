@@ -96,7 +96,7 @@ jobs:
 
       - name: Generate Token
         if: ${{ steps.diff.outputs.diff != '' }}
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
