@@ -13,7 +13,7 @@ pages:
       - size: full
         widgets:
           - type: rss
-            title: News
+            title: Feeds
             style: horizontal-cards
             feeds:
               - url: https://noted.lol/rss/
@@ -27,18 +27,18 @@ pages:
               - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
               - UCZNhwA1B5YqiY1nLzmM0ZRg # Christian Lempa
               - UCfz8x0lVzJpb_dgWm9kPVrw # DevOps Toolkit
-
-          - type: reddit
-            subreddit: selfhosted
-          - type: reddit
-            subreddit: homelab
-          - type: reddit
-            subreddit: homeautomation
+          - type: group
+            widgets:
+              - type: reddit
+                subreddit: selfhosted
+              - type: reddit
+                subreddit: homelab
+              - type: reddit
+                subreddit: homeautomation
       - size: small
         widgets:
           - type: weather
             location: Columbus, Ohio, United States
-
           - type: stocks
             stocks:
               - symbol: SPY
