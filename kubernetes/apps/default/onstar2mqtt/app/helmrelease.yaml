@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/bigthundersr/onstar2mqtt
-              tag: 1.20.2@sha256:bb6b7516716c9c14940095c5f5666aeb79a2a0dc6e7cce20c4ef44957a3144bb
+              tag: 1.21.0@sha256:00822fc15de9df8032543018033df9cf11b47debf94547f80372541137157140
             envFrom:
               - secretRef:
                   name: onstar2mqtt
