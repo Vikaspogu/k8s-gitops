@@ -27,7 +27,6 @@ resources:
   - ./kopia-web/ks.yaml
   - ./mealie/ks.yaml
   - ./minio/ks.yaml
-  - ./n8n/ks.yaml
   - ./node-red/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
