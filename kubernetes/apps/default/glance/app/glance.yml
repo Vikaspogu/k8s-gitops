@@ -21,6 +21,7 @@ pages:
               - url: https://homenetworkguy.com/index.xml
               - url: https://smarthomescene.com/feed/
               - url: https://news.itsfoss.com/latest/rss
+              - url: https://www.xda-developers.com/feed/features/
           - type: videos
             channels:
               - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim

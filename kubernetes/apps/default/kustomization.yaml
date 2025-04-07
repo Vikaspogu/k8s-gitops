@@ -26,6 +26,7 @@ resources:
   - ./it-tools/ks.yaml
   - ./kopia-web/ks.yaml
   - ./mealie/ks.yaml
+  - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
   - ./ollama/ks.yaml
