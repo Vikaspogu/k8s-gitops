@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: nut-exporter-dashboard
     files:
-      - ./nut-exporter-dashboard.json
+      - ./dashboard/nut-exporter-dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
