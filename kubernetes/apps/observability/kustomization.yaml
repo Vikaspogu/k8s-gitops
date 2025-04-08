@@ -5,6 +5,7 @@ namespace: observability
 components:
   - ../../flux/components/common
 resources:
+  - ./actual-budget-exporter/ks.yaml
   - ./prometheus-operator-crds/ks.yaml
   - ./scrutiny/ks.yaml
   - ./kube-prometheus-stack/ks.yaml

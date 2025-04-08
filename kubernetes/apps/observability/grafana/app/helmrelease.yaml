@@ -93,9 +93,9 @@ spec:
             access: proxy
             url: http://influxdb.default.svc.cluster.local:80
             secureJsonData:
-              httpHeaderValue1: 'Token $INFLUXDB_TOKEN'
+              httpHeaderValue1: "Token $INFLUXDB_TOKEN"
             jsonData:
-              httpHeaderName1: 'Authorization'
+              httpHeaderName1: "Authorization"
               httpMode: GET
               version: Flux
               organization: homelab
@@ -141,6 +141,10 @@ spec:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 37
+          datasource: Prometheus
+        actual-budget-prometheus-exporter:
+          gnetId: 22789
+          revision: 2
           datasource: Prometheus
         cloudnative-pg:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
@@ -214,7 +218,7 @@ spec:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
         volsync:
-            # renovate: depName="VolSync Dashboard"
+          # renovate: depName="VolSync Dashboard"
           gnetId: 21356
           revision: 3
           datasource:
