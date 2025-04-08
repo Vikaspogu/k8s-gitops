@@ -5,3 +5,14 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./servicemonitor.yaml
+configMapGenerator:
+  - name: actual-budget-exporter
+    files:
+      - ./dashboard/actual-budget-exporter.json
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+    reloader.stakater.com/match: "true"
+  labels:
+    grafana_dashboard: "true"
