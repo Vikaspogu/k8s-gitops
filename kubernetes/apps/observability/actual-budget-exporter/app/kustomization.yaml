@@ -4,4 +4,4 @@ namespace: observability
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./servicemonitor.yaml
+  # - ./servicemonitor.yaml
