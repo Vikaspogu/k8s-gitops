@@ -69,7 +69,7 @@ spec:
         controller: recommendarr
         ports:
           http:
-            port: *app
+            port: *port
 
     persistence:
       data:
