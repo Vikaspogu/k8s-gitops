@@ -41,6 +41,7 @@ resources:
   - ./piped/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
+  - ./recommendarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./redlib/ks.yaml
   - ./reverse-proxy/ks.yaml
@@ -48,6 +49,7 @@ resources:
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
+  - ./tdarr/ks.yaml
   - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
