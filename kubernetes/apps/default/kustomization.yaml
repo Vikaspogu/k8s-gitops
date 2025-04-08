@@ -14,7 +14,6 @@ resources:
   - ./cyberchef/ks.yaml
   - ./dragonfly/ks.yaml
   - ./emqx/ks.yaml
-  - ./ersatztv/ks.yaml
   - ./external-secrets/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./glance/ks.yaml
