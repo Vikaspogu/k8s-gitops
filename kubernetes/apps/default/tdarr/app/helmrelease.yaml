@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app tdarr
-  namespace: default
 spec:
   interval: 30m
   chart:
@@ -142,10 +141,7 @@ spec:
           - path: *mediaPath
             readOnly: false
 
-      cache:
-        enabled: true
-        type: nfs
-        server: ${SECRET_NAS_ADDRESS}
-        path: /volume1/media/tdarr-cache
-        globalMounts:
-          - path: /cache
+      transcode:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 20Gi
