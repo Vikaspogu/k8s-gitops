@@ -65,6 +65,14 @@ spec:
                 memory: 200Mi
               limits:
                 memory: 512Mi
+      fivefilters-full-text-rss:
+        containers:
+          fivefilters-full-text-rss:
+            image:
+              repository: heussd/fivefilters-full-text-rss
+              tag: latest@sha256:0b929ee785a44b1d42da200fd94994248227609a1e478672f85c47b77fe3cdb3
+              pullPolicy: IfNotPresent
+            envFrom: *envFrom
 
     service:
       app:
@@ -72,6 +80,11 @@ spec:
         ports:
           http:
             port: &port 80
+      fivefilters-full-text-rss:
+        controller: fivefilters-full-text-rss
+        ports:
+          http:
+            port: 80
 
     persistence:
       config:
@@ -79,8 +92,32 @@ spec:
         globalMounts:
           - path: /var/www/FreshRSS/data
         existingClaim: freshrss-config
+      cache:
+        existingClaim: freshrss-config-ftr
+        advancedMounts:
+          fivefilters-full-text-rss:
+            fivefilters-full-text-rss:
+              - path: /var/www/html/cache
 
     ingress:
+      fivefilters-full-text-rss:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: freshrss.png
+        hosts:
+          - host: "rss-ftr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: fivefilters-full-text-rss
+                  port: http
+        tls:
+          - hosts:
+              - "rss-ftr.${SECRET_DOMAIN}"
       app:
         enabled: true
         className: internal
