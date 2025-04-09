@@ -57,8 +57,8 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-                initialDelaySeconds: 100
-                periodSeconds: 15
+              startup:
+                enabled: true
             resources:
               requests:
                 cpu: 50m
