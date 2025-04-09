@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: actual-data
+  name: apprise-data
   labels:
-    app.kubernetes.io/instance: actual
-    app.kubernetes.io/name: actual
+    app.kubernetes.io/instance: apprise
+    app.kubernetes.io/name: apprise
 spec:
   accessModes:
     - ReadWriteOnce

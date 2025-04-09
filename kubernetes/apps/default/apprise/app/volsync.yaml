@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: actual-restic
+  name: apprise-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: actual-restic-secret
+    name: apprise-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/actual'
+        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/apprise'
         RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
         AWS_ACCESS_KEY_ID: '{{ .access_key }}'
         AWS_SECRET_ACCESS_KEY: '{{ .secret_key }}'
@@ -24,15 +24,15 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: actual
+  name: apprise
 spec:
-  sourcePVC: actual-data
+  sourcePVC: apprise-data
   trigger:
     schedule: "@daily"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 5
-    repository: actual-restic-secret
+    repository: apprise-restic-secret
     cacheCapacity: 4Gi
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block
