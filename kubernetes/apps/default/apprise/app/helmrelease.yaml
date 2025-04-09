@@ -32,7 +32,7 @@ spec:
               repository: docker.io/caronc/apprise
               tag: 1.2.0@sha256:82310cdb8fce879bd90f424a63b56ada5ed0705c4f921e1eac8e4dad8d86fb42
             env:
-              TZ: "${TIMEZONE:=Etc/UTC}"
+              TZ: "${TIMEZONE}"
             probes:
               liveness:
                 enabled: true
@@ -41,9 +41,9 @@ spec:
             resources:
               requests:
                 cpu: 12m
-                memory: 128M
-              limits:
                 memory: 512M
+              limits:
+                memory: 1Gi
 
     service:
       app:
