@@ -95,12 +95,16 @@ spec:
 
     persistence:
       config:
-        enabled: true
+        existingClaim: freshrss-config
         advancedMounts:
           app:
             freshrss:
               - path: /var/www/FreshRSS/data
-        existingClaim: freshrss-config
+                subPath: data
+                readOnly: false
+              - path: /var/www/FreshRSS/extensions
+                subPath: extensions
+                readOnly: false
       cache:
         existingClaim: freshrss-config-ftr
         advancedMounts:
