@@ -36,12 +36,43 @@ spec:
             env:
               TZ: ${TIMEZONE}
               PLEX_URL: "http://plex.default.svc.cluster.local:32400"
+              UPDATE_LEVEL: "show"
+              UPDATE_STRATEGY: "all"
+              TRIGGER_ON_PLAY: "true"
+              TRIGGER_ON_SCAN: "true"
+              TRIGGER_ON_ACTIVITY: "false"
+              REFRESH_LIBRARY_ON_SCAN: "true"
+              SCHEDULER_ENABLE: "true"
+              SCHEDULER_SCHEDULE_TIME: "04:30"
             envFrom:
               - secretRef:
                   name: plex
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec: &probes_spec
+                  httpGet:
+                    path: /ready
+                    port: 9880
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                <<: *probes
+                spec:
+                  <<: *probes_spec
+                  initialDelaySeconds: 0
+              startup:
+                <<: *probes
+                spec:
+                  <<: *probes_spec
+                  initialDelaySeconds: 0
+                  failureThreshold: 30
             resources:
               requests:
                 cpu: 75m
                 memory: 300M
               limits:
-                memory: 600M
+                memory: 1Gi
