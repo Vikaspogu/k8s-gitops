@@ -54,11 +54,11 @@ spec:
             envFrom: *envFrom
             probes:
               liveness:
-                enabled: false
+                enabled: true
               readiness:
-                enabled: false
+                enabled: true
               startup:
-                enabled: false
+                enabled: true
             resources:
               requests:
                 cpu: 50m
