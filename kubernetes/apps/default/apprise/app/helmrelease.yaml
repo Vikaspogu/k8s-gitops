@@ -33,6 +33,10 @@ spec:
               tag: 1.2.0@sha256:82310cdb8fce879bd90f424a63b56ada5ed0705c4f921e1eac8e4dad8d86fb42
             env:
               TZ: "${TIMEZONE}"
+              APPRISE_DEFAULT_THEME: dark
+              APPRISE_STATEFUL_MODE: simple
+              APPRISE_WORKER_COUNT: 4
+              IPV4_ONLY: true
             probes:
               liveness:
                 enabled: true
@@ -58,7 +62,25 @@ spec:
         advancedMounts:
           apprise:
             app:
-              - path: /config
+              - subPath: "config"
+                path: "/config"
+              - subPath: "plugin"
+                path: "/plugin"
+      config-apprise:
+        type: secret
+        name: apprise-secret
+        globalMounts:
+          - path: /config/apprise.yml
+            subPath: apprise.yml
+            readOnly: true
+      attach:
+        type: emptyDir
+        globalMounts:
+          - path: /attach
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
 
     ingress:
       app:
