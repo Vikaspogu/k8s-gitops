@@ -99,7 +99,7 @@ spec:
         advancedMounts:
           fivefilters-full-text-rss:
             fivefilters-full-text-rss:
-              - path: /var/www/html/cache
+              - path: /var/www/html/cache/rss
 
     ingress:
       fivefilters-full-text-rss:
