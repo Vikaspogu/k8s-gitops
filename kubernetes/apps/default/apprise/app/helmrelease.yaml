@@ -43,14 +43,14 @@ spec:
                 cpu: 12m
                 memory: 512M
               limits:
-                memory: 1Gi
+                memory: 2Gi
 
     service:
       app:
         controller: apprise
         ports:
           http:
-            port: 8000
+            port: 8080
 
     persistence:
       data:
@@ -68,7 +68,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: apprise.png
-          gethomepage.dev/siteMonitor: http://apprise.default:8000
+          gethomepage.dev/siteMonitor: http://apprise.default:8080
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
