@@ -89,8 +89,10 @@ spec:
     persistence:
       config:
         enabled: true
-        globalMounts:
-          - path: /var/www/FreshRSS/data
+        advancedMounts:
+          app:
+            freshrss:
+              - path: /var/www/FreshRSS/data
         existingClaim: freshrss-config
       cache:
         existingClaim: freshrss-config-ftr
