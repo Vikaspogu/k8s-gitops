@@ -17,7 +17,7 @@ resources:
   - ./emqx/ks.yaml
   - ./external-secrets/ks.yaml
   - ./flaresolverr/ks.yaml
-  - ./freshrss/ks.yaml
+  # - ./freshrss/ks.yaml
   - ./glance/ks.yaml
   - ./gotify/ks.yaml
   - ./govee2mqtt/ks.yaml

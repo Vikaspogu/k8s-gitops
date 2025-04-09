@@ -46,11 +46,11 @@ spec:
               TZ: ${TIMEZONE}
               CRON_MIN: "*"
               DOMAIN: 'https://rss.${SECRET_DOMAIN}/'
-              OIDC_ENABLED: 1
-              OIDC_X_FORWARDED_HEADERS: X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto
-              OIDC_SCOPES: openid groups email profile
-              OIDC_REMOTE_USER_CLAIM: preferred_username
-              OIDC_PROVIDER_METADATA_URL: https://id.${SECRET_DOMAIN}/application/o/freshrss/.well-known/openid-configuration
+              # OIDC_ENABLED: 1
+              # OIDC_X_FORWARDED_HEADERS: X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto
+              # OIDC_SCOPES: openid groups email profile
+              # OIDC_REMOTE_USER_CLAIM: preferred_username
+              # OIDC_PROVIDER_METADATA_URL: https://id.${SECRET_DOMAIN}/application/o/freshrss/.well-known/openid-configuration
             envFrom: *envFrom
             probes:
               liveness:
