@@ -6,7 +6,7 @@ components:
   - ../../flux/components/common
 resources:
   - ./actual/ks.yaml
-  # - ./apprise/ks.yaml
+  - ./apprise/ks.yaml
   - ./atuin/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./authentik/ks.yaml
