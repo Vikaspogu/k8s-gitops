@@ -26,6 +26,9 @@ spec:
   values:
     controllers:
       apprise:
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
