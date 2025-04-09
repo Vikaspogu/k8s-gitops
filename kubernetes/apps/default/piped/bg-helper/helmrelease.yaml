@@ -31,7 +31,7 @@ spec:
           bg-helper:
             image:
               repository: 1337kavin/bg-helper-server
-              tag: latest@sha256:4828fb3bd2b1e7c9bfcaf4ccdc23813923eedcf49d4349bc9117d78b613b46b2
+              tag: latest@sha256:83b8bd07b14b0f637518baac38543f7943bb17fb5dd929a2199cafbb687c0002
 
     service:
       main:
