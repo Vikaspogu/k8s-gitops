@@ -57,12 +57,14 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+                initialDelaySeconds: 100
+                periodSeconds: 15
             resources:
               requests:
                 cpu: 50m
                 memory: 200Mi
               limits:
-                memory: 256Mi
+                memory: 512Mi
 
     service:
       app:
