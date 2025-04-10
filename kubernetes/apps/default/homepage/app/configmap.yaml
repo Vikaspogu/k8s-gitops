@@ -61,7 +61,7 @@ data:
             icon: truenas.png
             widget:
               type: truenas
-              url: http://{{HOMEPAGE_VAR_TRUENAS_URL}}
+              url: http://{{HOMEPAGE_VAR_TRUENAS_URL}}:81
               key: {{HOMEPAGE_VAR_TRUENAS_API_KEY}}
               enablePools: true
               nasType: scale
