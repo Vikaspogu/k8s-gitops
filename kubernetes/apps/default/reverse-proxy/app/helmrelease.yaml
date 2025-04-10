@@ -56,7 +56,7 @@ spec:
         enabled: true
         ip: ${SECRET_TRUE_NAS_ADDRESS}
         # -- Port used by host behind this reverse proxy
-        port: 80
+        port: 81
         ingress:
           annotations:
             gethomepage.dev/enabled: "true"
@@ -69,21 +69,4 @@ spec:
                 - truenas.${SECRET_DOMAIN}
           hosts:
             - host: truenas.${SECRET_DOMAIN}
-              path: /
-      - name: filebrowser
-        enabled: true
-        ip: ${SECRET_TRUE_NAS_ADDRESS}
-        port: 30044
-        ingress:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "File Browser"
-            gethomepage.dev/icon: si-files
-          ingressClassName: internal
-          tls:
-            - hosts:
-                - files.${SECRET_DOMAIN}
-          hosts:
-            - host: files.${SECRET_DOMAIN}
               path: /
