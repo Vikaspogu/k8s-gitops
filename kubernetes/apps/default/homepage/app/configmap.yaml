@@ -107,14 +107,6 @@ data:
             widget:
               type: scrutiny
               url: http://scrutiny.observability.svc.cluster.local:8080
-        - FreshRSS
-            href: https://rss.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: freshrss.png
-            widget:
-              type: freshrss
-              url: https://rss.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-              username: {{HOMEPAGE_VAR_FRESHRSS_USERNAME}}
-              password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
         - NPM
             href: https://npm.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
             icon: npm.png
@@ -123,6 +115,14 @@ data:
               url: https://npm.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
               username: {{HOMEPAGE_VAR_NPM_USERNAME}}
               password: {{HOMEPAGE_VAR_NPM_PASSWORD}}
+        - FreshRSS:
+            href: https://rss.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: freshrss.png
+            widget:
+              type: freshrss
+              url: https://rss.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+              username: {{HOMEPAGE_VAR_FRESHRSS_USERNAME}}
+              password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
