@@ -16,7 +16,7 @@ http_signature=$(
         | base64
 )
 curl -k -X 'POST' \
-  "https://${TRUENAS_MAIN_URL}/api/v2.0/config/save" \
+  "https://${TRUENAS_MAIN_URL}:81/api/v2.0/config/save" \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' --user "${TRUENAS_USER}:${TRUENAS_PASS}" --output "/tmp/${config_filename}"
 
