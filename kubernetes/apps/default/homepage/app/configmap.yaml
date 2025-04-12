@@ -112,7 +112,7 @@ data:
             icon: nginx-proxy-manager.png
             widget:
               type: npm
-              url: http://{{HOMEPAGE_VAR_TRUENAS_URL}}
+              url: https://npm.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
               username: {{HOMEPAGE_VAR_NPM_USERNAME}}
               password: {{HOMEPAGE_VAR_NPM_PASSWORD}}
         - FreshRSS:
