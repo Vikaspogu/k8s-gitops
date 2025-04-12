@@ -109,7 +109,7 @@ data:
               url: http://scrutiny.observability.svc.cluster.local:8080
         - NPM:
             href: https://npm.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
-            icon: npm.png
+            icon: nginx-proxy-manager.png
             widget:
               type: npm
               url: http://{{HOMEPAGE_VAR_TRUENAS_URL}}
