@@ -84,11 +84,11 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                gpu.intel.com/i915: 1
+                # gpu.intel.com/i915: 1
                 cpu: 100m
                 memory: 1000Mi
               limits:
-                memory: 5Gi
+                # memory: 5Gi
                 # gpu.intel.com/i915: 1
                 nvidia.com/gpu: 1
 
