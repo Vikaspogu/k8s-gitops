@@ -93,8 +93,8 @@ spec:
                 memory: 1Gi
           meilisearch:
             image:
-              repository: docker.io/getmeili/meilisearch
-              tag: v1.14.0
+              repository: getmeili/meilisearch
+              tag: v1.10.3@sha256:9d1b9b02fe6c68f60b54ce40092d8078f051b9341c400c90f907607636b7c9c1
             env:
               MEILI_NO_ANALYTICS: true
               MEILI_MASTER_KEY:
