@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: jellyfin
-  namespace: default
 spec:
   interval: 30m
   chart:
@@ -76,12 +75,11 @@ spec:
     ingress:
       app:
         enabled: true
-        className: external
+        className: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: jellyfin.png
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -110,7 +108,7 @@ spec:
         volumeSpec:
           nfs:
             server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
+            path: "/volume1/media/downloads/videos"
         enabled: true
         globalMounts:
           - path: /nfs-nas-pvc

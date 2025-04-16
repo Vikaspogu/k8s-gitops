@@ -3,7 +3,6 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: jellyfin-restic
-  namespace: default
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -26,7 +25,6 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: jellyfin
-  namespace: default
 spec:
   sourcePVC: jellyfin-config
   trigger:
