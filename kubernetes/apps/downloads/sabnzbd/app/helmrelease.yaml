@@ -43,7 +43,6 @@ spec:
               tag: 4.5.1@sha256:4f2e137aea235fc4c42b7da6b9ef86439043b2dad93cc84b80186c60c405ea57
             env:
               TZ: ${TIMEZONE}
-              PUSHOVER_ENABLED: true
               SABNZBD__PORT: &port 80
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
                 sabnzbd,
@@ -107,12 +106,6 @@ spec:
         existingClaim: sabnzbd-config
       tmp:
         type: emptyDir
-      scripts:
-        type: configMap
-        name: sabnzbd-scripts
-        defaultMode: 0775
-        globalMounts:
-          - readOnly: true
       nfs-nas-pvc:
         type: custom
         volumeSpec:
