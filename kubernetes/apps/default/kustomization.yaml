@@ -6,7 +6,6 @@ components:
   - ../../flux/components/common
 resources:
   - ./actual/ks.yaml
-  # - ./apprise/ks.yaml
   - ./atuin/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./authentik/ks.yaml
@@ -18,7 +17,6 @@ resources:
   - ./external-secrets/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./freshrss/ks.yaml
-  # - ./glance/ks.yaml
   - ./gotify/ks.yaml
   - ./govee2mqtt/ks.yaml
   - ./hoarder/ks.yaml
@@ -26,9 +24,9 @@ resources:
   - ./homepage/ks.yaml
   - ./influxdb/ks.yaml
   - ./it-tools/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./kopia-web/ks.yaml
   - ./mealie/ks.yaml
-  # - ./miniflux/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
   - ./ollama/ks.yaml
@@ -43,7 +41,6 @@ resources:
   - ./piped/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
-  # - ./recommendarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./redlib/ks.yaml
   - ./reverse-proxy/ks.yaml
@@ -52,7 +49,6 @@ resources:
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
   - ./tdarr/ks.yaml
-  # - ./truenas-backup/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml
