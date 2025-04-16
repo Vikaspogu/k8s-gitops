@@ -24,7 +24,7 @@ resources:
   - ./homepage/ks.yaml
   - ./influxdb/ks.yaml
   - ./it-tools/ks.yaml
-  - ./jellyfin/ks.yaml
+  # - ./jellyfin/ks.yaml
   - ./kopia-web/ks.yaml
   - ./mealie/ks.yaml
   - ./minio/ks.yaml
@@ -44,7 +44,7 @@ resources:
   - ./recyclarr/ks.yaml
   - ./redlib/ks.yaml
   - ./reverse-proxy/ks.yaml
-  # - ./static-content/ks.yaml
+  - ./static-content/ks.yaml
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
