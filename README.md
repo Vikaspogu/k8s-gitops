@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/onedr0p/home-ops/main/docs/src/assets/logo.png" align="center" width="144px" height="144px"/>
+<img src="https://avatars.githubusercontent.com/u/13629408?s=200&v=4" align="center" width="144px" height="144px"/>
 
 ### My home operations repository :octocat:
 

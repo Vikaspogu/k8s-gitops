@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: hoarder-config
+  name: karakeep-config
   labels:
-    app.kubernetes.io/instance: hoarder
-    app.kubernetes.io/name: hoarder
+    app.kubernetes.io/instance: karakeep
+    app.kubernetes.io/name: karakeep
 spec:
   accessModes:
     - ReadWriteOnce
