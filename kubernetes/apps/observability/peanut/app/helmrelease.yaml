@@ -68,7 +68,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-power-plug-battery
+          gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/peanut.png
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:

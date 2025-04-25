@@ -72,7 +72,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: si-openai
+          gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/open-webui.png
         hosts:
           - host: "openui.${SECRET_DOMAIN}"
             paths:

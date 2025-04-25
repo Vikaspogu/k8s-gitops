@@ -67,7 +67,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/name: Paperless AI
-          gethomepage.dev/icon: paperless.png
+          gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/paperless-ai.png
           gethomepage.dev/siteMonitor: http://paperless-ai.default:3000
         hosts:
           - host: &host "paperless-ai.${SECRET_DOMAIN}"

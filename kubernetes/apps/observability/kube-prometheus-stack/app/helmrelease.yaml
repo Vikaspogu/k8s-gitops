@@ -38,7 +38,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: "si-prometheus"
+          gethomepage.dev/icon: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/prometheus.png"
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
@@ -77,7 +77,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: si-prometheus
+          gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/prometheus.png
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false

@@ -83,7 +83,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: si-1password
+          gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/1password.png
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:

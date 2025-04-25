@@ -85,7 +85,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-food-apple-outline
+          gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/mealie.png
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:

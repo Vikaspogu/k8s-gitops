@@ -91,7 +91,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/icon: mdi-harddisk
+          gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/scrutiny.png
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
