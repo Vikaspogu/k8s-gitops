@@ -51,7 +51,6 @@ spec:
               TRUST_PROXY: true
               TZ: ${TIMEZONE}
               UPLOAD_PATH: /data/uploads
-              CADDY_DISABLED: true
               UPDATE_CHECK_DISABLED: true
             envFrom:
               - secretRef:
