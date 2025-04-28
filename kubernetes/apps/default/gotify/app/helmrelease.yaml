@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/gotify/server
-              tag: 2.6.1
+              tag: 2.6.3
             env:
               GOTIFY_DATABASE_CONNECTION: data/gotify.db
               GOTIFY_PLUGINSDIR: data/plugins
