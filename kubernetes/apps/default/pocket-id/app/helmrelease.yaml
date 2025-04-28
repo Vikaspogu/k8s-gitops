@@ -110,7 +110,7 @@ spec:
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: pocket-id.png
         hosts:
-          - host: &host "auth.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
