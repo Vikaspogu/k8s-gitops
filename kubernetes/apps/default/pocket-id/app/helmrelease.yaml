@@ -39,7 +39,6 @@ spec:
             reloader.stakater.com/auto: "true"
         containers:
           pocket-id:
-            pp:
             image:
               repository: docker.io/stonith404/pocket-id
               tag: v0.29.0@sha256:c2d1d06cf8fa2123893f9efc6234fe1bc5fa35cadde047b86f673042695cc4f9
