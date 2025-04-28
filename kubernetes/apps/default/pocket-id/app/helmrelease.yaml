@@ -1,0 +1,123 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app pocket-id
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      app:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17.4.0@sha256:a9f405688344a8a6f718e2c344438342ad21540986aeb5ab5fa781831eb2c597
+            envFrom: &envFrom
+              - secretRef:
+                  name: pocket-id-secret
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        containers:
+          pocket-id:
+            pp:
+            image:
+              repository: docker.io/stonith404/pocket-id
+              tag: v0.29.0@sha256:c2d1d06cf8fa2123893f9efc6234fe1bc5fa35cadde047b86f673042695cc4f9
+            command: ["/bin/sh", "/app/scripts/docker/entrypoint.sh"]
+            env:
+              DB_PROVIDER: postgres
+              PUID: 568
+              PGID: 568
+              PUBLIC_APP_URL: https://auth.${SECRET_DOMAIN}
+              TRUST_PROXY: true
+              TZ: ${TIMEZONE}
+              UPLOAD_PATH: /data/uploads
+            envFrom:
+              - secretRef:
+                  name: pocket-id-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: {type: RuntimeDefault}
+        supplementalGroups: [10000]
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+
+    persistence:
+      data:
+        existingClaim: pocket-id-config
+        globalMounts:
+          - path: /data
+          - path: /app/backend/data
+            subPath: backend
+
+    ingress:
+      app:
+        enabled: true
+        className: external
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: pocket-id.png
+        hosts:
+          - host: &host "auth.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
