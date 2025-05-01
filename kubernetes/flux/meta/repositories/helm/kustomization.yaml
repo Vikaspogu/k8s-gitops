@@ -6,7 +6,6 @@ resources:
   - ./authentik.yaml
   - ./backube.yaml
   - ./bitnami.yaml
-  - ./bjw-s.yaml
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
   - ./controlplaneio.yaml
@@ -30,6 +29,5 @@ resources:
   - ./postfinance.yaml
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
-  - ./spegel.yaml
   - ./stakater.yaml
   - ./synology-csi.yaml
