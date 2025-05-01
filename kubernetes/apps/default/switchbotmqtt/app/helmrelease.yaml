@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/hsakoh/switchbotmqtt-amd64
-              tag: 1.0.37
+              tag: 1.0.38
             env:
               TZ: "${TIMEZONE}"
             resources:
