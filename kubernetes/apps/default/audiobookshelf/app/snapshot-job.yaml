@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20250430.0.225943@sha256:22966d4bb7d69c7489c3753fd6cee3237493908da02ec9ed00462962249de674
+              image: docker.io/kopia/kopia:20250502.0.21407@sha256:4b95fa043dc6bd27c72d14f3c28e5852dcd1a63d32a006bc5b516f8ed387bb1e
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/audiobookshelf/audiobookshelf-config/cache
