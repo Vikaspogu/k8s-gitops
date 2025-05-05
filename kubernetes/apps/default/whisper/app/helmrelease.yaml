@@ -21,10 +21,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    defaultPodOptions:
-      nodeSelector:
-        nvidia.feature.node.kubernetes.io/gpu: "true"
-      runtimeClassName: nvidia
     controllers:
       whisper:
         annotations:
@@ -33,20 +29,17 @@ spec:
           app:
             image:
               repository: onerahmet/openai-whisper-asr-webservice
-              tag: v1.8.2-gpu@sha256:75f21f1fffdb69f40f9f1dccfeb9f581c14242b4b43c5437e0910c94f2bb51d4
+              tag: v1.8.2@sha256:ce030954e4d0d6abad8f13e853b1c12745cc81f3e2ccef96d64fda927600f71a
             env:
               TZ: ${TIMEZONE}
               ASR_MODEL: small # tiny, base, small, medium, large, large-v1, large-v2 and large-v3
               ASR_ENGINE: faster_whisper # openai_whisper, faster_whisper
-              NVIDIA_VISIBLE_DEVICES: all
-              NVIDIA_DRIVER_CAPABILITIES: all
             resources:
               requests:
                 cpu: 500m
                 memory: 1Gi
               limits:
-                memory: 8Gi
-                nvidia.com/gpu: 1
+                memory: 12Gi
     service:
       app:
         controller: *app
