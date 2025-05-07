@@ -30,7 +30,7 @@ spec:
           app:
             image: &image
               repository: ghcr.io/buroa/qbtools
-              tag: v0.20.2
+              tag: v0.21.0
             resources: &resources
               requests:
                 memory: 250Mi
