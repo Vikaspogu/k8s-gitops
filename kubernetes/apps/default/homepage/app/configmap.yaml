@@ -56,15 +56,6 @@ data:
               accountid: "{{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID}}"
               tunnelid: "{{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}"
               key: "{{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}"
-        - TrueNAS:
-            href: https://truenas.${SECRET_DOMAIN}
-            icon: truenas.png
-            widget:
-              type: truenas
-              url: http://{{HOMEPAGE_VAR_TRUENAS_URL}}:81
-              key: {{HOMEPAGE_VAR_TRUENAS_API_KEY}}
-              enablePools: true
-              nasType: scale
         - Proxmox:
             href: https://pxm.${SECRET_DOMAIN}:8006/
             icon: proxmox.png
@@ -73,6 +64,14 @@ data:
               url: {{HOMEPAGE_VAR_PROXMOX_IP}}
               username: {{HOMEPAGE_VAR_PROXMOX_USER}}
               password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
+        - NAS:
+            href: https://nas.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: synology-dsm.png
+            widget:
+              type: diskstation
+              url: {{HOMEPAGE_VAR_NAS_IP}}
+              username: {{HOMEPAGE_VAR_DSM_USER}}
+              password: {{HOMEPAGE_VAR_DSM_PASSWORD}}
         - Kopia:
             href: https://kopia.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: kopia.png
