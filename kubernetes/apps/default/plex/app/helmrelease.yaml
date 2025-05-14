@@ -25,9 +25,9 @@ spec:
       enableServiceLinks: false
       # nodeSelector:
       #   intel.feature.node.kubernetes.io/gpu: "true"
-      nodeSelector:
-        nvidia.feature.node.kubernetes.io/gpu: "true"
-      runtimeClassName: nvidia
+      # nodeSelector:
+      #   nvidia.feature.node.kubernetes.io/gpu: "true"
+      # runtimeClassName: nvidia
     controllers:
       app:
         pod:
@@ -52,9 +52,9 @@ spec:
               ADVERTISE_IP: "http://${SVC_PLEX_ADDR}:32400,https://plex.${SECRET_DOMAIN}"
               PLEX_NO_AUTH_NETWORKS: 10.30.20.0/24
               TZ: ${TIMEZONE}
-              NVIDIA_VISIBLE_DEVICES: all
-              NVIDIA_DRIVER_CAPABILITIES: all
-              HARDWARE_DEVICE_PATH: "/dev/nvidia0"
+              # NVIDIA_VISIBLE_DEVICES: all
+              # NVIDIA_DRIVER_CAPABILITIES: all
+              # HARDWARE_DEVICE_PATH: "/dev/nvidia0"
 
             probes:
               liveness: &probes
@@ -86,7 +86,7 @@ spec:
               limits:
                 # memory: 5Gi
                 # gpu.intel.com/i915: 1
-                nvidia.com/gpu: 1
+                # nvidia.com/gpu: 1
 
     ingress:
       app:
