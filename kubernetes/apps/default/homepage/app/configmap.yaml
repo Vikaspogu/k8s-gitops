@@ -56,6 +56,12 @@ data:
               accountid: "{{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID}}"
               tunnelid: "{{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}"
               key: "{{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}"
+        - Traefik:
+            href: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}/dashboard
+            icon: traefik.png
+            description: Traefik
+            widget:
+              url: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}/dashboard
         - Proxmox:
             href: https://pxm.${SECRET_DOMAIN}:8006/
             icon: proxmox.png
