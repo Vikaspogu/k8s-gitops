@@ -62,6 +62,26 @@ data:
             description: Traefik
             widget:
               url: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}/dashboard
+        - OMV-Odin:
+            href: http://omv-odin.vikaspogu.internal:81
+            icon: openmediavault.png
+            description: openmediavault odin
+            widget:
+              type: openmediavault
+              url: http://omv-odin.vikaspogu.internal:81
+              username: admin
+              password: {{HOMEPAGE_VAR_OMV_PASSWORD}}
+              method: services.getStatus
+        - OMV-Loki:
+            href: http://omv-loki.vikaspogu.internal:81
+            icon: openmediavault.png
+            description: openmediavault odin
+            widget:
+              type: openmediavault
+              url: http://omv-loki.vikaspogu.internal:81
+              username: admin
+              password: {{HOMEPAGE_VAR_OMV_PASSWORD}}
+              method: services.getStatus
         - Proxmox:
             href: https://pxm.${SECRET_DOMAIN}:8006/
             icon: proxmox.png
