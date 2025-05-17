@@ -57,18 +57,18 @@ data:
               tunnelid: "{{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}"
               key: "{{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}"
         - Traefik:
-            href: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}/dashboard
+            href: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
             icon: traefik.png
             description: Traefik
             widget:
-              url: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}/dashboard
+              url: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
         - OMV-Odin:
             href: http://omv-odin.vikaspogu.internal:81
             icon: openmediavault.png
             description: openmediavault odin
             widget:
               type: openmediavault
-              url: http://omv-odin.vikaspogu.internal:81
+              url: {{HOMEPAGE_VAR_OMV_ODIN_IP}}
               username: admin
               password: {{HOMEPAGE_VAR_OMV_PASSWORD}}
               method: services.getStatus
@@ -78,7 +78,7 @@ data:
             description: openmediavault odin
             widget:
               type: openmediavault
-              url: http://omv-loki.vikaspogu.internal:81
+              url: {{HOMEPAGE_VAR_OMV_LOKI_IP}}
               username: admin
               password: {{HOMEPAGE_VAR_OMV_PASSWORD}}
               method: services.getStatus
