@@ -61,6 +61,7 @@ data:
             icon: traefik.png
             description: Traefik
             widget:
+              type: traefik
               url: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
         - OMV-Odin:
             href: http://omv-odin.vikaspogu.internal:81
