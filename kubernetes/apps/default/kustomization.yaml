@@ -28,13 +28,13 @@ resources:
   - ./mealie/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
-  # - ./ollama/ks.yaml
+  - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./onstar2mqtt/ks.yaml
-  # - ./open-webui/ks.yaml
+  - ./open-webui/ks.yaml
   - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
-  # - ./paperless-ai/ks.yaml
+  - ./paperless-ai/ks.yaml
   - ./pgadmin/ks.yaml
   - ./pinchflat/ks.yaml
   - ./piped/ks.yaml
@@ -48,7 +48,7 @@ resources:
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
-  # - ./tdarr/ks.yaml
+  - ./tdarr/ks.yaml
   - ./valetudopng/ks.yaml
   # - ./whisper/ks.yaml
   - ./zigbee2mqtt/ks.yaml
