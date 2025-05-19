@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20250518.0.15350@sha256:2f3a75759b06542078ec9b53b0d630996741cbd06d9a998474d0377c6d165ae8
+              image: docker.io/kopia/kopia:20250519.0.15617@sha256:d0d185cda07ee322b5fdd087fa077e5fe2f8c5d622d884a3696eefa2a47f119b
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/home-assistant/home-assistant-config/cache
