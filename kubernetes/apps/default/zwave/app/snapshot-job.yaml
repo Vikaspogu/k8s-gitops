@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20250519.0.15617@sha256:d0d185cda07ee322b5fdd087fa077e5fe2f8c5d622d884a3696eefa2a47f119b
+              image: docker.io/kopia/kopia:20250521.0.53354@sha256:fc87e1e9a03eaa9124c2ff2acf91d40ae166cc2bd23cf251118a59e8187f1164
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/zwave/zwave-config/cache
