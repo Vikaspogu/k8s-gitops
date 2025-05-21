@@ -104,7 +104,7 @@ spec:
         volumeSpec:
           nfs:
             server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media/downloads/videos"
+            path: "/volume1/media"
         enabled: true
         globalMounts:
           - path: /nfs-nas-pvc
