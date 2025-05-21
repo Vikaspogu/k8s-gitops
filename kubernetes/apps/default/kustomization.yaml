@@ -24,7 +24,7 @@ resources:
   - ./homepage/ks.yaml
   - ./influxdb/ks.yaml
   - ./it-tools/ks.yaml
-  - ./jellyfin/ks.yaml
+  # - ./jellyfin/ks.yaml
   - ./jellyplex-watched/ks.yaml
   - ./kopia-web/ks.yaml
   - ./mealie/ks.yaml
