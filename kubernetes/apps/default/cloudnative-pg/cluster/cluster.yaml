@@ -14,7 +14,7 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 30Gi
+    size: 10Gi
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
@@ -29,7 +29,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster pgsql-v16-022125
+      source: &previousCluster pgsql-v16-052725
   backup:
     retentionPolicy: 20d
     barmanObjectStore:
@@ -38,7 +38,7 @@ spec:
         maxParallel: 8
       destinationPath: &s3 s3://postgres/
       endpointURL: &endpoint http://minio.default.svc:9000
-      serverName: &currentCluster pgsql-v16-022425
+      serverName: &currentCluster pgsql-v16-022125
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
