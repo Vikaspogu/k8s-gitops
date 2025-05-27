@@ -71,7 +71,7 @@ spec:
               VITE_OPENID_NAME: Authentik
               OPENID_AUTHORIZATION_URL: https://id.${SECRET_DOMAIN}/application/o/authorize/
               OPENID_CALLBACK_URL: http://reactive-resume.${SECRET_DOMAIN}/api/auth/openid/callback
-              OPENID_ISSUER: https://id.${SECRET_DOMAIN}/application/o/reactive-resume/
+              OPENID_ISSUER: https://id.${SECRET_DOMAIN}
               OPENID_SCOPE: openid profile email
               OPENID_TOKEN_URL: https://id.${SECRET_DOMAIN}/application/o/token/
               OPENID_USER_INFO_URL: https://id.${SECRET_DOMAIN}/application/o/userinfo/
