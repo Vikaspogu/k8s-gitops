@@ -70,7 +70,7 @@ spec:
               DISABLE_EMAIL_AUTH: "true"
               VITE_OPENID_NAME: Authentik
               OPENID_AUTHORIZATION_URL: https://id.${SECRET_DOMAIN}/application/o/authorize/
-              OPENID_CALLBACK_URL: https://reactive-resume.${SECRET_DOMAIN}/api/auth/openid/callback
+              OPENID_CALLBACK_URL: http://reactive-resume.${SECRET_DOMAIN}/api/auth/openid/callback
               OPENID_ISSUER: https://id.${SECRET_DOMAIN}/application/o/reactive-resume/
               OPENID_SCOPE: openid profile email
               OPENID_TOKEN_URL: https://id.${SECRET_DOMAIN}/application/o/token/
@@ -81,6 +81,16 @@ spec:
                 cpu: 10m
               limits:
                 memory: 750Mi
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
 
     service:
       app:
