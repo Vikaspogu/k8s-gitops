@@ -54,12 +54,12 @@ spec:
               NODE_ENV: production
 
               # -- URLs --
-              PUBLIC_URL: http://reactive-resume.${SECRET_DOMAIN}/
+              PUBLIC_URL: https://reactive-resume.${SECRET_DOMAIN}
               STORAGE_URL: http://minio.default.svc.cluster.local:9000/reactive-resume
 
               # -- Printer (Chrome) --
               CHROME_TOKEN: chrome_token
-              CHROME_URL: ws://chrome:3000
+              CHROME_URL: ws://localhost:3000
               STORAGE_ENDPOINT: minio.default.svc.cluster.local
               STORAGE_PORT: 9000
               STORAGE_REGION: us-east-1 # Optional
