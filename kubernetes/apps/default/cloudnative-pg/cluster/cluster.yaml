@@ -31,7 +31,7 @@ spec:
     recovery:
       source: &previousCluster pgsql-v16-052725
   backup:
-    retentionPolicy: 20d
+    retentionPolicy: 10d
     barmanObjectStore:
       wal:
         compression: bzip2
