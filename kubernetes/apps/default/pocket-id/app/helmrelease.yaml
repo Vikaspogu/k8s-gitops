@@ -45,7 +45,7 @@ spec:
               APP_URL: https://auth.${SECRET_DOMAIN}
               TRUST_PROXY: true
               TZ: ${TIMEZONE}
-              UPLOAD_PATH: /data/uploads
+              SESSION_DURATION: 1440
               UPDATE_CHECK_DISABLED: true
             envFrom:
               - secretRef:
@@ -93,9 +93,7 @@ spec:
       data:
         existingClaim: pocket-id-config
         globalMounts:
-          - path: /data
-          - path: /app/backend/data
-            subPath: backend
+          - path: /app/data
 
     ingress:
       app:
