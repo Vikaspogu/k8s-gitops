@@ -42,7 +42,7 @@ spec:
               DB_PROVIDER: postgres
               PUID: 568
               PGID: 568
-              PUBLIC_APP_URL: https://auth.${SECRET_DOMAIN}
+              APP_URL: https://auth.${SECRET_DOMAIN}
               TRUST_PROXY: true
               TZ: ${TIMEZONE}
               UPLOAD_PATH: /data/uploads
