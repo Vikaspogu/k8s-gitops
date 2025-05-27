@@ -55,7 +55,7 @@ spec:
 
               # -- URLs --
               PUBLIC_URL: http://${SVC_RESUME_ADDR}:8080
-              STORAGE_URL: http://minio.default.svc.cluster.local:9000/reactive-resume
+              STORAGE_URL: https://minio.${SECRET_DOMAIN}/browser/reactive-resume
 
               # -- Printer (Chrome) --
               CHROME_TOKEN: chrome_token
@@ -68,13 +68,6 @@ spec:
               STORAGE_SKIP_BUCKET_CHECK: "false"
               DISABLE_SIGNUPS: "true"
               DISABLE_EMAIL_AUTH: "true"
-              VITE_OPENID_NAME: Authentik
-              OPENID_AUTHORIZATION_URL: https://id.${SECRET_DOMAIN}/application/o/authorize/
-              OPENID_CALLBACK_URL: http://localhost:8080/api/auth/openid/callback
-              OPENID_ISSUER: https://id.${SECRET_DOMAIN}
-              OPENID_SCOPE: openid profile email
-              OPENID_TOKEN_URL: https://id.${SECRET_DOMAIN}/application/o/token/
-              OPENID_USER_INFO_URL: https://id.${SECRET_DOMAIN}/application/o/userinfo/
             envFrom: *envFrom
             resources:
               requests:
@@ -111,7 +104,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/reactive-resume.png
-          gethomepage.dev/siteMonitor: http://reactive-resume.default:80
+          gethomepage.dev/siteMonitor: http://reactive-resume.default:8080
         hosts:
           - host: &host reactive-resume.${SECRET_DOMAIN}
             paths:
