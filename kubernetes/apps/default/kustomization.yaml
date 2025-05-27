@@ -43,6 +43,7 @@ resources:
   - ./plex/ks.yaml
   # - ./pocket-id/ks.yaml
   - ./radarr/ks.yaml
+  - ./reactive-resume/ks.yaml
   - ./recyclarr/ks.yaml
   - ./redlib/ks.yaml
   - ./reverse-proxy/ks.yaml
