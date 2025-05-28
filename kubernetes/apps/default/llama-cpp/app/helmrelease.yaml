@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ggml-org/llama.cpp
-              tag: full-cuda@sha256:a2e3b29536c5110554fb8510aaaf71f1e3cf288c701e0d2cafe1781712507294
+              tag: server-cuda@sha256:2e5d926f6de39e9fd5dda5f850f0371af90aa67d88e14fcaa410a9a65abed8e0
             env:
               TZ: ${TIMEZONE}
               NVIDIA_VISIBLE_DEVICES: all
