@@ -35,9 +35,8 @@ spec:
           app:
             image:
               repository: ghcr.io/ggml-org/llama.cpp
-              tag: server-cude@sha256:2e5d926f6de39e9fd5dda5f850f0371af90aa67d88e14fcaa410a9a65abed8e0
+              tag: server-cuda@sha256:2e5d926f6de39e9fd5dda5f850f0371af90aa67d88e14fcaa410a9a65abed8e0
             command:
-              - llama-server
               - --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf
               - --ctx-size 1024
               - --n-gpu-layers 40
