@@ -34,16 +34,19 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/allenporter/llama-cpp-server-cuda
-              tag: v2.23.0
+              repository: ghcr.io/ggml-org/llama.cpp
+              tag: server-cude@sha256:2e5d926f6de39e9fd5dda5f850f0371af90aa67d88e14fcaa410a9a65abed8e0
+            command:
+              - llama-server
+              - --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf
+              - --ctx-size 1024
+              - --n-gpu-layers 40
             env:
               TZ: ${TIMEZONE}
               NVIDIA_VISIBLE_DEVICES: all
               NVIDIA_DRIVER_CAPABILITIES: all
               CUDA_VISIBLE_DEVICES: GPU-dbe22ad2-8707-a394-a7dd-5d865fc290f6
               USE_CUDA_DOCKER: "true"
-              MODEL_DIR: /data/models
-              CONFIG_FILE: /config/model-config.json
             resources:
               requests:
                 cpu: 500m
@@ -80,14 +83,6 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
-        enabled: true
-        type: configMap
-        name: llama-model-config
-        globalMounts:
-          - path: /config/model-config.json
-            subPath: model-config.json
-            readOnly: true
       models:
         type: custom
         volumeSpec:
