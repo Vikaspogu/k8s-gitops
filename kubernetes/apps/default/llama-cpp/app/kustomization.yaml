@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   # - ./config-pvc.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: llama-model-config
+    files:
+      - ./model-config.json
+generatorOptions:
+  disableNameSuffixHash: true
