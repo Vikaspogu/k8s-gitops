@@ -42,7 +42,6 @@ spec:
               NVIDIA_DRIVER_CAPABILITIES: all
               CUDA_VISIBLE_DEVICES: GPU-dbe22ad2-8707-a394-a7dd-5d865fc290f6
               USE_CUDA_DOCKER: "true"
-              MODEL_DIR: /data/models
             resources:
               requests:
                 cpu: 500m
@@ -87,4 +86,4 @@ spec:
             path: "/volume1/media/llama-models"
         enabled: true
         globalMounts:
-          - path: /data/models
+          - path: /models
