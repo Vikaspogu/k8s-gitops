@@ -32,6 +32,12 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
+          # llama-cpp-server-cuda:
+          #   image:
+          #     repository: ghcr.io/allenporter/llama-cpp-server-cuda
+          #     tag: v2.23.0
+          #     pullPolicy: IfNotPresent
+          #   command: ["sleep infinity"]
           app:
             image:
               repository: ghcr.io/ggml-org/llama.cpp
@@ -39,7 +45,7 @@ spec:
             command:
               - /bin/bash
               - -c
-              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --port 8000 --ctx-size 1024 --n-gpu-layers 40
+              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00004.gguf --port 8000 --ctx-size 1024 --n-gpu-layers 40
             env:
               TZ: ${TIMEZONE}
             resources:
@@ -58,12 +64,7 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-          llama-cpp-server-cuda:
-            image:
-              repository: ghcr.io/allenporter/llama-cpp-server-cuda
-              tag: v2.23.0
-              pullPolicy: IfNotPresent
-            command: ["sleep infinity"]
+
     service:
       app:
         controller: *app
