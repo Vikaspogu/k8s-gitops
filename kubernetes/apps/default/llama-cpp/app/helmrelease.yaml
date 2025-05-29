@@ -39,7 +39,7 @@ spec:
             command:
               - /bin/bash
               - -c
-              - -m /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf -c 1024 -ngl 40
+              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --ctx-size 1024 --port 8000 --n-gpu-layers 3 --temp 0.3
             env:
               TZ: ${TIMEZONE}
               NVIDIA_VISIBLE_DEVICES: all
