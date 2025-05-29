@@ -39,7 +39,7 @@ spec:
             command:
               - /bin/bash
               - -c
-              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --port 8000
+              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --port 8000 --ctx-size 128 --n-gpu-layers 2
             env:
               TZ: ${TIMEZONE}
             resources:
