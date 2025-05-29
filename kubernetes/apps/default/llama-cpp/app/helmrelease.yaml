@@ -39,7 +39,7 @@ spec:
             command:
               - /bin/bash
               - -c
-              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --cache-type-k q4_0 --threads 12 -no-cnv --prio 2 --temp 0.6 --ctx-size 8192 --seed 3407
+              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --cache-type-k q4_0 --threads 12 --no-cnv --prio 2 --temp 0.6 --ctx-size 8192 --seed 3407
             env:
               TZ: ${TIMEZONE}
             resources:
