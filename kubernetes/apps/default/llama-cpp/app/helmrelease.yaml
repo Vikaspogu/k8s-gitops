@@ -39,13 +39,9 @@ spec:
             command:
               - /bin/bash
               - -c
-              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --ctx-size 1024 --port 8000 --n-gpu-layers 3 --temp 0.3
+              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --cache-type-k q4_0 --threads 12 -no-cnv --prio 2 --temp 0.6 --ctx-size 8192 --seed 3407
             env:
               TZ: ${TIMEZONE}
-              NVIDIA_VISIBLE_DEVICES: all
-              NVIDIA_DRIVER_CAPABILITIES: all
-              CUDA_VISIBLE_DEVICES: GPU-dbe22ad2-8707-a394-a7dd-5d865fc290f6
-              USE_CUDA_DOCKER: "true"
             resources:
               requests:
                 cpu: 500m
