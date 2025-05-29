@@ -36,7 +36,9 @@ spec:
             image:
               repository: ghcr.io/ggml-org/llama.cpp
               tag: server-cuda@sha256:2e5d926f6de39e9fd5dda5f850f0371af90aa67d88e14fcaa410a9a65abed8e0
-            args:
+            command:
+              - /bin/bash
+              - -c
               - -m /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf -c 1024 -ngl 40
             env:
               TZ: ${TIMEZONE}
