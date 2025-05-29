@@ -31,19 +31,6 @@ spec:
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          download-deepseek-r1-files:
-            image:
-              repository: ghcr.io/allenporter/llama-cpp-server-cuda
-              tag: v2.23.0
-              pullPolicy: IfNotPresent
-            command: ["huggingface-cli"]
-            args:
-              - download
-              - unsloth/DeepSeek-R1-GGUF-UD
-              - --include
-              - "*UD-IQ1_S*"
-              - --local-dir=/data/models/DeepSeek-R1-UD-IQ1_S
         containers:
           app:
             image:
@@ -71,6 +58,12 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
+          llama-cpp-server-cuda:
+            image:
+              repository: ghcr.io/allenporter/llama-cpp-server-cuda
+              tag: v2.23.0
+              pullPolicy: IfNotPresent
+            command: ["sleep infinity"]
     service:
       app:
         controller: *app
