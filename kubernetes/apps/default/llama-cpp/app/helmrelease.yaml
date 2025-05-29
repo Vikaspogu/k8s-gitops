@@ -31,6 +31,19 @@ spec:
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          download-deepseek-r1-files:
+            image:
+              repository: ghcr.io/allenporter/llama-cpp-server-cuda
+              tag: v2.23.0
+              pullPolicy: IfNotPresent
+            command: ["huggingface-cli"]
+            args:
+              - download
+              - unsloth/DeepSeek-R1-GGUF-UD
+              - --include
+              - "*UD-IQ1_S*"
+              - --local-dir=/data/models/DeepSeek-R1-UD-IQ1_S
         containers:
           app:
             image:
@@ -39,7 +52,7 @@ spec:
             command:
               - /bin/bash
               - -c
-              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --port 8000 --ctx-size 128 --n-gpu-layers 2
+              - /app/llama-server --model /data/models/DeepSeek-R1-UD-IQ1_S/DeepSeek-R1-UD-IQ1_S-00001-of-00003.gguf --port 8000 --ctx-size 1024 --n-gpu-layers 40
             env:
               TZ: ${TIMEZONE}
             resources:
@@ -77,12 +90,8 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      models:
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media/llama-models"
+      data:
         enabled: true
+        existingClaim: llama-config
         globalMounts:
-          - path: /data/models
+          - path: /data
