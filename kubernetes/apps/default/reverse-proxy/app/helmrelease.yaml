@@ -52,21 +52,21 @@ spec:
           hosts:
             - host: nas.${SECRET_DOMAIN}
               path: /
-      - name: truenas-main
+      - name: komodo
         enabled: true
-        ip: ${SECRET_TRUE_NAS_ADDRESS}
+        ip: ${SECRET_OMV_LOKI_ADDRESS}
         # -- Port used by host behind this reverse proxy
-        port: 81
+        port: 9120
         ingress:
           annotations:
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "TrueNAS"
-            gethomepage.dev/icon: truenas.png
+            gethomepage.dev/name: "Komodo"
+            gethomepage.dev/icon: komodo.png
           ingressClassName: internal
           tls:
             - hosts:
-                - truenas.${SECRET_DOMAIN}
+                - komodo.${SECRET_DOMAIN}
           hosts:
-            - host: truenas.${SECRET_DOMAIN}
+            - host: komodo.${SECRET_DOMAIN}
               path: /
