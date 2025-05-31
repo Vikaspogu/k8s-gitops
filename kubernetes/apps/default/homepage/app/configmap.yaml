@@ -64,16 +64,17 @@ data:
               type: traefik
               url: {{HOMEPAGE_VAR_TRAEFIK_URL}}
               fields: ["routers", "services", "middleware"]
-        - OMV-Odin:
-            href: http://omv-odin.vikaspogu.internal:81
-            icon: openmediavault.png
-            description: openmediavault odin
+        - Beszel:
+            href: https://beszel.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
+            icon: beszel.png
+            description: Beszel
             widget:
-              type: openmediavault
-              url: {{HOMEPAGE_VAR_OMV_ODIN_IP}}
-              username: admin
-              password: {{HOMEPAGE_VAR_OMV_PASSWORD}}
-              method: services.getStatus
+              type: beszel
+              url: https://beszel.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
+              username: "{{HOMEPAGE_VAR_BESZEL_USERNAME}}"
+              password: "{{HOMEPAGE_VAR_BESZEL_PASSWORD}}"
+              systemId: systemId
+              version: 2
         - OMV-Loki:
             href: http://omv-loki.vikaspogu.internal:81
             icon: openmediavault.png
@@ -85,7 +86,7 @@ data:
               password: {{HOMEPAGE_VAR_OMV_PASSWORD}}
               method: services.getStatus
         - Proxmox:
-            href: https://pxm.${SECRET_DOMAIN}:8006/
+            href: https://pxm-loki.vikaspogu.internal:8006/
             icon: proxmox.png
             widget:
               type: proxmox
