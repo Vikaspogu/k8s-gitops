@@ -73,7 +73,6 @@ data:
               url: https://beszel.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
               username: "{{HOMEPAGE_VAR_BESZEL_USERNAME}}"
               password: "{{HOMEPAGE_VAR_BESZEL_PASSWORD}}"
-              systemId: systemId
               version: 2
         - OMV-Loki:
             href: http://omv-loki.vikaspogu.internal:81
