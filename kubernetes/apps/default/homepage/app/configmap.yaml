@@ -75,7 +75,7 @@ data:
               password: "{{HOMEPAGE_VAR_BESZEL_PASSWORD}}"
               version: 2
               systemId: localhost
-              fields: ["name", "status", "updated", "cpu", "memory", "disk", "network"]
+              fields: ["cpu", "memory", "disk", "network"]
         - OMV-Loki:
             href: http://omv-loki.vikaspogu.internal:81
             icon: openmediavault.png
