@@ -30,6 +30,7 @@ spec:
       runtimeClassName: nvidia
     controllers:
       app:
+        replicas: 0
         pod:
           securityContext:
             runAsUser: 568
