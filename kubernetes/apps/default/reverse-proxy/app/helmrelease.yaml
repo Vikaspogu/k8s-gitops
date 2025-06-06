@@ -98,6 +98,7 @@ spec:
             gethomepage.dev/name: "Immich"
             gethomepage.dev/icon: immich.png
             external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+            nginx.ingress.kubernetes.io/proxy-body-size: '0'
           ingressClassName: external
           tls:
             - hosts:
