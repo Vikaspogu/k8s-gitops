@@ -70,7 +70,7 @@
     "urls": ["http://immich-machine-learning.default:3003"],
     "clip": {
       "enabled": true,
-      "modelName": "ViT-B-16-SigLIP__webli"
+      "modelName": "ViT-L-16-SigLIP-256__webli"
     },
     "facialRecognition": {
       "enabled": true,
@@ -87,7 +87,7 @@
     "enabled": true
   },
   "oauth": {
-    "autoLaunch": true,
+    "autoLaunch": false,
     "autoRegister": true,
     "buttonText": "Login with Authentik",
     "clientId": "{{ .CLIENT_ID }}",
@@ -144,7 +144,7 @@
     }
   },
   "server": {
-    "externalDomain": "https://photos.movishell.pl",
+    "externalDomain": "https://photos.{{.DOMAIN_NAME}}",
     "loginPageMessage": ""
   },
   "user": {
