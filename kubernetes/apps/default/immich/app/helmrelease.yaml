@@ -166,8 +166,7 @@ spec:
               - path: /usr/src/app/upload
 
       external:
-        type: secret
-        name: immich-external-library-pvc
+        existingClaim: immich-external-library-pvc
         advancedMounts:
           server:
             server:
