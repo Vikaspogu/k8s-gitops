@@ -51,6 +51,7 @@ spec:
               - configMapRef:
                   name: &configmap immich-configmap
             env:
+              TZ: ${TIMEZONE}
               IMMICH_CONFIG_FILE: /config/immich.config.json
               IMMICH_WORKERS_INCLUDE: api
             resources:
