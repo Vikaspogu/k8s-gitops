@@ -31,12 +31,6 @@ spec:
     initdb:
       postInitSQL:
         - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-      # import:
-      #   databases: ["*"]
-      #   roles: ["*"]
-      #   source:
-      #     externalCluster: immich-pg16
-      #   type: monolith
     # recovery:
     #   source: &previousCluster immich-pg17-0610
   enableSuperuserAccess: true
