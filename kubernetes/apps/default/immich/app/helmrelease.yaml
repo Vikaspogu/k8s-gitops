@@ -158,6 +158,11 @@ spec:
         ports:
           http:
             port: *mlport
+      redis:
+        controller: redis
+        ports:
+          http:
+            port: 6379
 
     persistence:
       config:
