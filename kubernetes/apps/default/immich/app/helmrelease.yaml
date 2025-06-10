@@ -28,6 +28,14 @@ spec:
       runtimeClassName: nvidia
     controllers:
       server:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
