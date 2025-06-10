@@ -87,22 +87,3 @@ spec:
           hosts:
             - host: syncthing.${SECRET_DOMAIN}
               path: /
-      - name: immich
-        enabled: true
-        ip: ${SECRET_OMV_LOKI_ADDRESS}
-        port: 2283
-        ingress:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "Immich"
-            gethomepage.dev/icon: immich.png
-            external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
-            nginx.ingress.kubernetes.io/proxy-body-size: '0'
-          ingressClassName: external
-          tls:
-            - hosts:
-                - immich.${SECRET_DOMAIN}
-          hosts:
-            - host: immich.${SECRET_DOMAIN}
-              path: /
