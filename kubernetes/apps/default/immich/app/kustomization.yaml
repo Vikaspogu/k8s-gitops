@@ -6,7 +6,7 @@ resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
   - ./pvc.yaml
-  - ./nfs-pvc.yaml
+  # - ./nfs-pvc.yaml
   - ./helmrelease.yaml
 
 configMapGenerator:

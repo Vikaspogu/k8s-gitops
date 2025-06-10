@@ -155,14 +155,24 @@ spec:
               - path: /config
 
       library:
-        existingClaim: immich-upload-pvc
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media/immich"
+        enabled: true
         advancedMounts:
           server:
             server:
               - path: /usr/src/app/upload
 
       external:
-        existingClaim: immich-external-library-pvc
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media/photo"
+        enabled: true
         advancedMounts:
           server:
             server:
