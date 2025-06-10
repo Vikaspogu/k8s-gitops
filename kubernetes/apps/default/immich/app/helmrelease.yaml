@@ -75,6 +75,8 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+      machine-learning:
+        containers:
           machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
@@ -169,7 +171,7 @@ spec:
       model-cache:
         existingClaim: immich-ml-cache
         advancedMounts:
-          server:
+          machine-learning:
             machine-learning:
               - path: /cache
                 subPath: cache
