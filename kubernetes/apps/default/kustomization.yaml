@@ -11,7 +11,6 @@ resources:
   - ./authentik/ks.yaml
   - ./bazarr/ks.yaml
   - ./cloudnative-pg/ks.yaml
-  - ./cyberchef/ks.yaml
   - ./dragonfly/ks.yaml
   - ./emqx/ks.yaml
   - ./external-secrets/ks.yaml
@@ -19,12 +18,13 @@ resources:
   - ./freshrss/ks.yaml
   - ./gotify/ks.yaml
   - ./govee2mqtt/ks.yaml
-  - ./karakeep/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
+  - ./immich/ks.yaml
   - ./influxdb/ks.yaml
   - ./it-tools/ks.yaml
   - ./jellyfin/ks.yaml
+  - ./karakeep/ks.yaml
   - ./kopia-web/ks.yaml
   - ./mealie/ks.yaml
   - ./minio/ks.yaml
@@ -49,7 +49,6 @@ resources:
   - ./sonarr/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
-  # - ./tdarr/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml

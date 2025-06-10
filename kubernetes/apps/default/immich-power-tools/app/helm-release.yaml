@@ -1,0 +1,81 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app immich-power-tools
+  namespace: media
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+
+  maxHistory: 3
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
+  values:
+    controllers:
+      main:
+        type: statefulset
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/varun-raj/immich-power-tools
+              tag: 0.16.0@sha256:9094be3d748b8536951e032c9990e77507b5e5bf141a95f0e4dac608dfe42c1b
+
+            envFrom:
+              - secretRef:
+                  name: *app
+
+            env:
+              IMMICH_URL: http://immich-server.media.svc.cluster.local:2283
+              DB_HOST: postgres-immich-rw.databases.svc.cluster.local
+              DB_PORT: 5432
+              DB_USERNAME: immich
+              DB_PASSWORD: immich
+              DB_DATABASE_NAME: immich
+
+            resources:
+              requests:
+                cpu: 15m
+                memory: 200M
+              limits:
+                memory: 200M
+
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: &httpPort 3000
+
+    ingress:
+      main:
+        className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+          hajimari.io/appName: Photo Power Tools
+          hajimari.io/icon: heroicons:photo
+          hajimari.io/instance: "admin"
+        hosts:
+          - host: &host "immich-power-tools.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: *httpPort

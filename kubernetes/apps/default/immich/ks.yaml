@@ -2,16 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cyberchef
+  name: &app immich
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
   targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/default/cyberchef/app
+  path: ./kubernetes/apps/default/immich/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -22,5 +20,9 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: internal-ingress-nginx
       namespace: network
+    - name: cloudnative-pg-cluster
+      namespace: default
