@@ -158,15 +158,20 @@ spec:
         volumeSpec:
           nfs:
             server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1"
+            path: "/volume1/media/immich"
         enabled: true
         advancedMounts:
           server:
             server:
               - path: /usr/src/app/upload
-                subPath: media/immich
+
+      external:
+        type: secret
+        name: immich-external-library-pvc
+        advancedMounts:
+          server:
+            server:
               - path: /external
-                subPath: photo
 
       model-cache:
         existingClaim: immich-ml-cache
