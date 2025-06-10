@@ -6,8 +6,7 @@ metadata:
 data:
   DB_PORT: "5432"
   NODE_ENV: "production"
-  REDIS_HOSTNAME: dragonfly.default.svc.cluster.local
+  REDIS_HOSTNAME: immich-redis.default.svc.cluster.local
   REDIS_PORT: "6379"
-  REDIS_DBINDEX: "3"
   IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.default.svc.cluster.local:3003
   # IMMICH_METRICS: "true"
