@@ -165,7 +165,8 @@ spec:
             server:
               - path: /usr/src/app/upload
 
-      external:
+      media:
+        enabled: true
         existingClaim: immich-external-library-pvc
         advancedMounts:
           server:
