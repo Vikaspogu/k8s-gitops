@@ -1,0 +1,86 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich
+spec:
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+  backup:
+    retentionPolicy: 7d
+    barmanObjectStore:
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 4
+      destinationPath: &s3 s3://postgres/
+      endpointURL: &endpoint http://minio.default.svc:9000
+      serverName: &currentCluster immich-pg17-0610
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: aws-access-key-id
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: aws-secret-access-key
+  bootstrap:
+    initdb:
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+      # import:
+      #   databases: ["*"]
+      #   roles: ["*"]
+      #   source:
+      #     externalCluster: immich-pg16
+      #   type: monolith
+    # recovery:
+    #   source: &previousCluster immich-pg17-0610
+  enableSuperuserAccess: true
+  instances: 3
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.3.0
+  monitoring:
+    enablePodMonitor: true
+  postgresql:
+    shared_preload_libraries: ["vchord.so"]
+    parameters:
+      autovacuum_vacuum_scale_factor: "0.1"
+      autovacuum_analyze_scale_factor: "0.05"
+      autovacuum_vacuum_cost_limit: "1000"
+      effective_io_concurrency: "200"
+      random_page_cost: "1.2"
+      shared_buffers: 256MB
+      max_connections: "300"
+      work_mem: 16MB
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+  resources:
+    requests:
+      cpu: 200m
+      memory: 1Gi
+    limits:
+      memory: 2Gi
+  storage:
+    size: 10Gi
+  superuserSecret:
+    name: cloudnative-pg-secret
+
+  # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  # externalClusters:
+  #   - name: *previousCluster
+  #     barmanObjectStore:
+  #       wal:
+  #         compression: bzip2
+  #         maxParallel: 8
+  #       destinationPath: &s3 s3://postgres/
+  #       endpointURL: http://minio.default.svc:9000
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: cloudnative-pg-secret
+  #           key: aws-access-key-id
+  #         secretAccessKey:
+  #           name: cloudnative-pg-secret
+  #           key: aws-secret-access-key
