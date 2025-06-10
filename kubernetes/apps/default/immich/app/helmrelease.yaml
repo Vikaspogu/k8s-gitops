@@ -158,13 +158,13 @@ spec:
         volumeSpec:
           nfs:
             server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
+            path: "/volume1"
         enabled: true
         advancedMounts:
           server:
             server:
               - path: /usr/src/app/upload
-                subPath: immich
+                subPath: media/immich
               - path: /external
                 subPath: photo
 
