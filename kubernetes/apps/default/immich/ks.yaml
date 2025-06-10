@@ -22,7 +22,7 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: internal-ingress-nginx
+    - name: external-ingress-nginx
       namespace: network
     - name: cloudnative-pg-cluster
       namespace: default

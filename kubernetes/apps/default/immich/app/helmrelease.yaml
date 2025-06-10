@@ -169,7 +169,7 @@ spec:
       model-cache:
         existingClaim: immich-ml-cache
         advancedMounts:
-          machine-learning:
+          server:
             machine-learning:
               - path: /cache
                 subPath: cache
