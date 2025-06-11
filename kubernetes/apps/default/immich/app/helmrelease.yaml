@@ -61,7 +61,6 @@ spec:
             env:
               TZ: ${TIMEZONE}
               IMMICH_CONFIG_FILE: /config/immich.config.json
-              IMMICH_WORKERS_INCLUDE: api
             resources:
               requests:
                 cpu: 100m
