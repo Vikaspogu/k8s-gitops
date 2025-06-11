@@ -81,9 +81,10 @@ spec:
                 enabled: false
       machine-learning:
         pod:
+          enableServiceLinks: false
           nodeSelector:
             nvidia.feature.node.kubernetes.io/gpu: "true"
-        runtimeClassName: nvidia
+          runtimeClassName: nvidia
         containers:
           machine-learning:
             image:
