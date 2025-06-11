@@ -96,10 +96,10 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 250Mi
+                memory: 1000Mi
                 nvidia.com/gpu: 1
               limits:
-                memory: 4000Mi
+                memory: 6000Mi
                 nvidia.com/gpu: 1
             probes:
               liveness: &probes

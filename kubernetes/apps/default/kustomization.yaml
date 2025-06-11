@@ -21,6 +21,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
+  - ./immich-power-tools/ks.yaml
   - ./influxdb/ks.yaml
   - ./it-tools/ks.yaml
   - ./jellyfin/ks.yaml
