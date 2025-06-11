@@ -22,10 +22,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    defaultPodOptions:
-      nodeSelector:
-        nvidia.feature.node.kubernetes.io/gpu: "true"
-      runtimeClassName: nvidia
     controllers:
       server:
         pod:
@@ -67,7 +63,7 @@ spec:
                 cpu: 100m
                 memory: 250Mi
               limits:
-                memory: 2000Mi
+                memory: 4000Mi
             probes:
               liveness: &probes
                 enabled: true
@@ -84,6 +80,10 @@ spec:
               startup:
                 enabled: false
       machine-learning:
+        pod:
+          nodeSelector:
+            nvidia.feature.node.kubernetes.io/gpu: "true"
+        runtimeClassName: nvidia
         containers:
           machine-learning:
             image:
