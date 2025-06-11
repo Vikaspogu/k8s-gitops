@@ -53,7 +53,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
-          gethomepage.dev/name: Immich
+          gethomepage.dev/name: Immich Power Tools
           gethomepage.dev/icon: immich.png
         hosts:
           - host: &host "immich-power-tools.${SECRET_DOMAIN}"
