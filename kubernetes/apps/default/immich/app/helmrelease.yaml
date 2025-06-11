@@ -60,6 +60,7 @@ spec:
                   name: &configmap immich-configmap
             env:
               TZ: ${TIMEZONE}
+              DB_VECTOR_EXTENSION: pgvector
               IMMICH_CONFIG_FILE: /config/immich.config.json
             resources:
               requests:
