@@ -87,3 +87,21 @@ spec:
           hosts:
             - host: syncthing.${SECRET_DOMAIN}
               path: /
+      - name: gitea
+        enabled: true
+        ip: ${SECRET_OMV_LOKI_ADDRESS}
+        # -- Port used by host behind this reverse proxy
+        port: 3010
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/name: "Gitea"
+            gethomepage.dev/icon: gitea.png
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - gitea.${SECRET_DOMAIN}
+          hosts:
+            - host: gitea.${SECRET_DOMAIN}
+              path: /
