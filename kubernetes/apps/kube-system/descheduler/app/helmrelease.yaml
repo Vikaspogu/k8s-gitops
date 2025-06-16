@@ -36,6 +36,41 @@ spec:
                 evictLocalStoragePods: true
                 evictSystemCriticalPods: true
                 nodeFit: true
+            - name: "RemoveDuplicates"
+              args:
+                excludeOwnerKinds:
+                  - "ReplicaSet"
+              plugins:
+                balance:
+                  enabled:
+                    - "RemoveDuplicates"
+            - name: "LowNodeUtilization"
+              args:
+                thresholds:
+                  "cpu": 20
+                  "memory": 20
+                  "pods": 20
+                targetThresholds:
+                  "cpu": 50
+                  "memory": 50
+                  "pods": 50
+                metricsUtilization:
+                  source: Prometheus
+                  prometheus:
+                    query: instance:node_cpu:rate:sum
+                evictionLimits:
+                  node: 5
+            - name: "HighNodeUtilization"
+              args:
+                thresholds:
+                  "cpu": 20
+                  "memory": 20
+                  "pods": 20
+                evictableNamespaces:
+                  exclude:
+                    - "kube-system"
+                evictionModes:
+                  - "OnlyThresholdingResources"
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity
               args:
@@ -51,6 +86,9 @@ spec:
             balance:
               enabled:
                 - RemovePodsViolatingTopologySpreadConstraint
+                - "RemoveDuplicates"
+                - "LowNodeUtilization"
+                - "HighNodeUtilization"
             deschedule:
               enabled:
                 - RemovePodsViolatingInterPodAntiAffinity
