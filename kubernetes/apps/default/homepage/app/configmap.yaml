@@ -136,6 +136,13 @@ data:
               url: http://freshrss-app.default:80
               username: {{HOMEPAGE_VAR_FRESHRSS_USERNAME}}
               password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
+        - Gitea:
+            href: https://gitea.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: gitea.png
+            widget:
+              type: gitea
+              url: {{HOMEPAGE_VAR_TRAEFIK_URL}}:3010
+              key: {{HOMEPAGE_VAR_GITEA_TOKEN}}
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
