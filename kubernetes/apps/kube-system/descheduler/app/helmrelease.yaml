@@ -54,10 +54,6 @@ spec:
                   "cpu": 50
                   "memory": 50
                   "pods": 50
-                metricsUtilization:
-                  source: Prometheus
-                  prometheus:
-                    query: instance:node_cpu:rate:sum
                 evictionLimits:
                   node: 5
             - name: "HighNodeUtilization"
