@@ -141,7 +141,7 @@ data:
             icon: gitea.png
             widget:
               type: gitea
-              url: {{HOMEPAGE_VAR_TRAEFIK_URL}}:3010
+              url: "{{HOMEPAGE_VAR_TRAEFIK_URL}}:3010"
               key: {{HOMEPAGE_VAR_GITEA_TOKEN}}
     - Media:
       - qBittorrent:
