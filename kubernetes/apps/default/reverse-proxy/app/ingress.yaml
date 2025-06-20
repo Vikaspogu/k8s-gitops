@@ -6,7 +6,7 @@ metadata:
     gethomepage.dev/group: Ingress
     gethomepage.dev/icon: gitlab.png
     gethomepage.dev/name: Gitlab
-  name: reverse-proxy-gitlab
+  name: gitlab
 spec:
   ingressClassName: internal
   rules:
@@ -15,14 +15,14 @@ spec:
         paths:
           - backend:
               service:
-                name: reverse-proxy-gitlab
+                name: gitlab
                 port:
                   number: 8010
             path: /
             pathType: Prefix
           - backend:
               service:
-                name: reverse-proxy-gitlab
+                name: gitlab
                 port:
                   number: 22
             path: /
@@ -34,7 +34,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: reverse-proxy-gitlab
+  name: gitlab
 spec:
   ports:
     - port: 8010
@@ -49,7 +49,7 @@ spec:
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: reverse-proxy-gitlab
+  name: gitlab
 subsets:
   - addresses:
       - ip: ${SECRET_OMV_LOKI_ADDRESS}
