@@ -43,7 +43,7 @@ spec:
       name: web
     - port: 22
       protocol: TCP
-      targetPort: 2424
+      targetPort: 22
       name: ssh
 ---
 apiVersion: v1
@@ -57,6 +57,6 @@ subsets:
       - port: 8010
         protocol: TCP
         name: web
-      - port: 2424
+      - port: 22
         protocol: TCP
         name: ssh
