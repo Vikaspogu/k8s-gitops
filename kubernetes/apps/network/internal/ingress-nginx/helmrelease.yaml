@@ -26,6 +26,7 @@ spec:
     tcp:
       "22": "default/gitlab:22"
     controller:
+      replicaCount: 2
       service:
         annotations:
           lbipam.cilium.io/ips: "${SVC_INTERNAL_INGRESS_ADDR}"
@@ -78,4 +79,4 @@ spec:
         requests:
           cpu: 100m
         limits:
-          memory: 500Mi
+          memory: 1000Mi

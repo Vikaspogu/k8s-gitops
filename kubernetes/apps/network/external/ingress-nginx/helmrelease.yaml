@@ -27,6 +27,7 @@ spec:
   values:
     fullnameOverride: external-ingress-nginx
     controller:
+      replicaCount: 2
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: &hostname "external.${SECRET_DOMAIN}"
@@ -81,4 +82,4 @@ spec:
         requests:
           cpu: 100m
         limits:
-          memory: 500Mi
+          memory: 1000Mi
