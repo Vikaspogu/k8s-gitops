@@ -23,6 +23,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: internal-ingress-nginx
+    tcp:
+      22: "default/gitlab:22"
     controller:
       service:
         annotations:
@@ -38,8 +40,6 @@ spec:
             - key: ingress-class
               operator: In
               values: ["internal"]
-      tcp:
-        22: "default/gitlab:22"
       config:
         allow-snippet-annotations: true
         annotations-risk-level: Critical
