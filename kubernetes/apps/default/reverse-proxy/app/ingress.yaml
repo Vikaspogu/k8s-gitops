@@ -40,9 +40,11 @@ spec:
     - port: 8010
       protocol: TCP
       targetPort: 8010
+      name: web
     - port: 22
       protocol: TCP
       targetPort: 2424
+      name: ssh
 ---
 apiVersion: v1
 kind: Endpoints
