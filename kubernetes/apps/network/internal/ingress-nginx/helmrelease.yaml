@@ -24,7 +24,7 @@ spec:
   values:
     fullnameOverride: internal-ingress-nginx
     tcp:
-      22: "default/gitlab:22"
+      "22": "default/gitlab:22"
     controller:
       service:
         annotations:
