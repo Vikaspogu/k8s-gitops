@@ -56,5 +56,7 @@ subsets:
     ports:
       - port: 8010
         protocol: TCP
+        name: web
       - port: 2424
         protocol: TCP
+        name: ssh
