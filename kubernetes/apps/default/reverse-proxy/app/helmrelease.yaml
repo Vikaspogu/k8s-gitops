@@ -91,7 +91,7 @@ spec:
         enabled: true
         ip: ${SECRET_OMV_LOKI_ADDRESS}
         # -- Port used by host behind this reverse proxy
-        port: 5000
+        port: 5005
         ingress:
           annotations:
             gethomepage.dev/enabled: "true"
