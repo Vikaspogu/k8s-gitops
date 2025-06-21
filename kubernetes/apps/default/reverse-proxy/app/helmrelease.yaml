@@ -87,24 +87,3 @@ spec:
           hosts:
             - host: syncthing.${SECRET_DOMAIN}
               path: /
-      - name: registry
-        enabled: true
-        ip: ${SECRET_OMV_LOKI_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 5005
-        ingress:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "GitLab Registry"
-            gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/linuxcontainers.png
-            nginx.ingress.kubernetes.io/server-snippet: |
-              client_header_buffer_size 100k;
-              large_client_header_buffers 4 100k;
-          ingressClassName: internal
-          tls:
-            - hosts:
-                - registry.${SECRET_DOMAIN}
-          hosts:
-            - host: registry.${SECRET_DOMAIN}
-              path: /

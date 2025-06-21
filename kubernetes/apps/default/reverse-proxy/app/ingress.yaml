@@ -27,6 +27,13 @@ spec:
                   number: 22
             path: /
             pathType: Prefix
+          - backend:
+              service:
+                name: gitlab
+                port:
+                  number: 5000
+            path: /
+            pathType: Prefix
   tls:
     - hosts:
         - gitlab.${SECRET_DOMAIN}
@@ -41,6 +48,10 @@ spec:
       protocol: TCP
       targetPort: 8010
       name: web
+    - port: 5000
+      protocol: TCP
+      targetPort: 5000
+      name: registry
     - port: 22
       protocol: TCP
       targetPort: 222
@@ -60,3 +71,6 @@ subsets:
       - port: 222
         protocol: TCP
         name: ssh
+      - port: 5000
+        protocol: TCP
+        name: registry
