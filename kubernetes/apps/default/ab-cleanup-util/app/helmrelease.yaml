@@ -18,6 +18,9 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    defaultPodOptions:
+      imagePullSecrets:
+        - gitlab-registry
     controllers:
       ab-cleanup-util:
         annotations:
@@ -25,9 +28,6 @@ spec:
         type: cronjob
         cronjob:
           schedule: "@weekly"
-        defaultPodOptions:
-          imagePullSecrets:
-            - gitlab-registry
         containers:
           app:
             image:
