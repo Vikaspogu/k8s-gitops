@@ -20,7 +20,7 @@ spec:
   values:
     defaultPodOptions:
       imagePullSecrets:
-        - gitlab-registry
+        - name: "gitlab-registry"
     controllers:
       ab-cleanup-util:
         annotations:
@@ -28,6 +28,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "@weekly"
+          timeZone: "${TIMEZONE}"
         containers:
           app:
             image:
