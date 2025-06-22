@@ -31,7 +31,7 @@ spec:
               service:
                 name: gitlab
                 port:
-                  number: 5000
+                  number: 5678
             path: /
             pathType: Prefix
   tls:
@@ -48,9 +48,9 @@ spec:
       protocol: TCP
       targetPort: 8010
       name: web
-    - port: 5000
+    - port: 5678
       protocol: TCP
-      targetPort: 5000
+      targetPort: 5678
       name: registry
     - port: 22
       protocol: TCP
@@ -71,6 +71,6 @@ subsets:
       - port: 222
         protocol: TCP
         name: ssh
-      - port: 5000
+      - port: 5678
         protocol: TCP
         name: registry
