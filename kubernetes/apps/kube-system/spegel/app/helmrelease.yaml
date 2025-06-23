@@ -28,5 +28,3 @@ spec:
     spegel:
       containerdSock: /run/containerd/containerd.sock
       containerdRegistryConfigPath: /etc/cri/conf.d/hosts
-      additionalMirrorTargets:
-        - https://registry.synlo.duckdns.org
