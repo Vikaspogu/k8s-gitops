@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: registry.vikaspogu.com/vikas/ab-cleanup-util
-              tag: f67550d2
+              tag: 0537c4a9
             envFrom:
               - secretRef:
                   name: *app
