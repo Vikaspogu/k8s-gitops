@@ -93,6 +93,8 @@ spec:
         port: 5678
         ingress:
           annotations:
+            external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+            external-dns/is-public: "true"
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
             gethomepage.dev/name: "gitlab registry"
