@@ -1,0 +1,23 @@
+machine:
+    registries:
+        config:
+            registry.vikaspogu.com:
+                auth:
+                    username: ENC[AES256_GCM,data:GNTpdg8=,iv:77UMdsG4Ag6NyIlQJZpXKyv6GqvxItftL+rWVR85ExM=,tag:SpPbhWbnzvdFM7FFvPyRyA==,type:str]
+                    password: ENC[AES256_GCM,data:aJX011IamQG8H3KdDEdf72aUHTg73duwWzw=,iv:cnjAa3ofq68GS6teMEHn1BuJ6OqhHyln/jfncQx+5RE=,tag:SLi6OO47U1QEBbwBp36mlQ==,type:str]
+sops:
+    age:
+        - recipient: age1ulfhs490lug3kres5qm5kfdmpqmcrwsfsc03eln0s3xffndnrcwq5u86tt
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA1Tks5bnF1M2xvcnlRZ0ZL
+            UFA3RmtQd3R1RVoyakpyQitrM3hyRkVKeGdJCmtPTmJIZlhmeVBScG1iSzJURm5D
+            SWJ0Qk1xVWFjVlpOUHgrVlZiczBLdFkKLS0tIElGbXZwK1ZnTUt0aklmbUtxRUMy
+            K0tXRUlrd1gveW4wUUIxZWZhalprWXcKEX+ZdXcjL5S+s86Cc34oLc+xjkEs3m6x
+            wLZOeMVePk82amO6kpHS/Q1ijptwzYvZoqXW9dRfBpr/Rce3Zgm65Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-06-23T19:31:07Z"
+    mac: ENC[AES256_GCM,data:B7hhrJC9MG51pTkQBXHOfMOfmQnwd9/h2Yolh9bzmlBrqdEpT1RnV0NswRZfYdhypRx0akZZGBXJubu8BnUF9aY0/sqTfSR8Uy2S7ll/FKsp0z8+W3via0txr8Y7UNL9sQcGwP1zdAx/3AOWUWOaWrGSjOuYgPW6HtMK7PjcXLc=,iv:8Pw0fb9tONPB6nekPl9DNjwlJE0nKs8l9zCbJhnG19E=,tag:glzge1NRZD9hL/L/BF6I0A==,type:str]
+    unencrypted_suffix: _unencrypted
+    mac_only_encrypted: true
+    version: 3.10.2
