@@ -87,3 +87,20 @@ spec:
           hosts:
             - host: syncthing.${SECRET_DOMAIN}
               path: /
+      - name: gitlab-registry
+        enabled: true
+        ip: ${SECRET_OMV_LOKI_ADDRESS}
+        port: 5678
+        ingress:
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Ingress
+            gethomepage.dev/name: "gitlab registry"
+            gethomepage.dev/icon: gitlab.png
+          ingressClassName: internal
+          tls:
+            - hosts:
+                - registry.${SECRET_DOMAIN}
+          hosts:
+            - host: registry.${SECRET_DOMAIN}
+              path: /
