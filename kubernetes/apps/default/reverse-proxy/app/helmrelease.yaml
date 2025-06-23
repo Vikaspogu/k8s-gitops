@@ -87,19 +87,17 @@ spec:
           hosts:
             - host: syncthing.${SECRET_DOMAIN}
               path: /
-      - name: gitlab-registry
+      - name: registry
         enabled: true
         ip: ${SECRET_OMV_LOKI_ADDRESS}
         port: 5678
         ingress:
           annotations:
-            external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
-            external-dns/is-public: "true"
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "gitlab registry"
-            gethomepage.dev/icon: gitlab.png
-          ingressClassName: external
+            gethomepage.dev/name: "Registry"
+            gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/linuxcontainers.png
+          ingressClassName: internal
           tls:
             - hosts:
                 - registry.${SECRET_DOMAIN}

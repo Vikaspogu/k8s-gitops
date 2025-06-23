@@ -5,7 +5,7 @@ namespace: default
 components:
   - ../../flux/components/common
 resources:
-  - ./ab-cleanup-util/ks.yaml
+  # - ./ab-cleanup-util/ks.yaml
   - ./actual/ks.yaml
   - ./atuin/ks.yaml
   - ./audiobookshelf/ks.yaml
