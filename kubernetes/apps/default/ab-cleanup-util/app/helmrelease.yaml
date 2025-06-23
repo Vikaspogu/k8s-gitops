@@ -32,7 +32,7 @@ spec:
         containers:
           app:
             image:
-              repository: registry.synlo.duckdns.org/vikas/ab-cleanup-util
+              repository: registry.vikaspogu.com/vikas/ab-cleanup-util
               tag: 6370113f
             envFrom:
               - secretRef:
