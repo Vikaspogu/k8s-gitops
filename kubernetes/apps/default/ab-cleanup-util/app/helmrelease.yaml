@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: registry.synlo.duckdns.org/vikas/ab-cleanup-util
-              tag: 6370113f@sha256:ac2fd5097127b2657f1da80516e7004abee19ce1b29e7260e881b7e2f6a0fe06
+              tag: 6370113f
             envFrom:
               - secretRef:
                   name: *app
