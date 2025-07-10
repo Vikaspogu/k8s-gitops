@@ -122,7 +122,7 @@ spec:
           main:
             image:
               repository: docker.io/valkey/valkey
-              tag: 8-bookworm@sha256:fec42f399876eb6faf9e008570597741c87ff7662a54185593e74b09ce83d177
+              tag: 8-bookworm@sha256:facc1d2c3462975c34e10fccb167bfa92b0e0dbd992fc282c29a61c3243afb11
 
     ingress:
       server:
