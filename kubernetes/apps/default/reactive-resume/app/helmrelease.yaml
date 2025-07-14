@@ -55,7 +55,6 @@ spec:
 
               # -- URLs --
               PUBLIC_URL: http://${SVC_RESUME_ADDR}:8080
-              STORAGE_URL: https://webui.synlo.duckdns.org/buckets/reactive-resume
 
               # -- Printer (Chrome) --
               CHROME_TOKEN: chrome_token
