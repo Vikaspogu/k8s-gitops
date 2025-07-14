@@ -153,13 +153,6 @@ data:
             url: http://qbittorrent.downloads.svc.cluster.local:8080
             username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
             password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
-      - Prowlarr:
-          href: https://prowlarr.${SECRET_DOMAIN}
-          icon: prowlarr.png
-          widget:
-            type: prowlarr
-            url: http://prowlarr.downloads.svc.cluster.local:80
-            key: {{HOMEPAGE_VAR_PROWLARR_API_KEY}}
       - Sabnzbd:
           href: https://sabnzbd.${SECRET_DOMAIN}
           icon: sabnzbd.png
@@ -167,20 +160,6 @@ data:
             type: sabnzbd
             url: http://sabnzbd.downloads.svc.cluster.local
             key: {{HOMEPAGE_VAR_SABNZBD_API_KEY}}
-      - Overseerr:
-          href: https://overseerr.${SECRET_DOMAIN}
-          icon: overseerr.png
-          widget:
-            type: overseerr
-            url: http://overseerr.default.svc.cluster.local
-            key: {{HOMEPAGE_VAR_OVERSEERR_API_KEY}}
-      - Bazarr:
-          href: https://bazarr.${SECRET_DOMAIN}
-          icon: bazarr.png
-          widget:
-            type: bazarr
-            url: http://bazarr.default.svc.cluster.local:6767
-            key: {{HOMEPAGE_VAR_BAZARR_API_KEY}}
       - Radarr:
           href: https://radarr.${SECRET_DOMAIN}
           icon: radarr.png
@@ -195,13 +174,6 @@ data:
             type: sonarr
             url: http://sonarr.default.svc.cluster.local
             key: {{HOMEPAGE_VAR_SONARR_API_KEY}}
-      - Audiobookshelf:
-          href: https://ab.${SECRET_DOMAIN}
-          icon: audiobookshelf.png
-          widget:
-            type: audiobookshelf
-            url: http://audiobookshelf.default.svc.cluster.local
-            key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}
   widgets.yaml: |
     - resources:
         backend: kubernetes
