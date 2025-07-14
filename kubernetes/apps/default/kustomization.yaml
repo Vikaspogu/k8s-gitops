@@ -34,7 +34,7 @@ resources:
   - ./onepassword-connect/ks.yaml
   - ./onstar2mqtt/ks.yaml
   - ./open-webui/ks.yaml
-  - ./overseerr/ks.yaml
+  # - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./paperless-ai/ks.yaml
   - ./pgadmin/ks.yaml
