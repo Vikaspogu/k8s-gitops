@@ -55,14 +55,14 @@ spec:
 
               # -- URLs --
               PUBLIC_URL: http://${SVC_RESUME_ADDR}:8080
-              STORAGE_URL: https://minio.${SECRET_DOMAIN}/browser/reactive-resume
+              STORAGE_URL: https://webui.synlo.duckdns.org/buckets/reactive-resume
 
               # -- Printer (Chrome) --
               CHROME_TOKEN: chrome_token
               CHROME_URL: ws://localhost:3000
-              STORAGE_ENDPOINT: minio.default.svc.cluster.local
-              STORAGE_PORT: 9000
-              STORAGE_REGION: us-east-1 # Optional
+              STORAGE_ENDPOINT: s3.synlo.duckdns.org
+              STORAGE_PORT: 3900
+              STORAGE_REGION: garage # Optional
               STORAGE_BUCKET: reactive-resume
               STORAGE_USE_SSL: "false"
               STORAGE_SKIP_BUCKET_CHECK: "false"
