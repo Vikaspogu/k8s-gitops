@@ -64,6 +64,17 @@ data:
               type: traefik
               url: "{{HOMEPAGE_VAR_TRAEFIK_URL}}:8080"
               fields: ["routers", "services", "middleware"]
+        - Komodo:
+            href: https://komodo.{{HOMEPAGE_VAR_DOMAIN_NAME}}
+            icon: komodo.png
+            description: Komodo
+            widget:
+              type: komodo
+              url: "{{HOMEPAGE_VAR_TRAEFIK_URL}}:9120"
+              key: "{{HOMEPAGE_VAR_KOMODO_API}}"
+              secret: "{{HOMEPAGE_VAR_KOMODO_SECRET}}"
+              showSummary: true
+              showStacks: true
         - Beszel:
             href: https://beszel.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
             icon: beszel.png
