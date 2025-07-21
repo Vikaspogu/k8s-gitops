@@ -1,0 +1,88 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: papra
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      app:
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        containers:
+          papra:
+            image:
+              repository: ghcr.io/papra-hq/papra
+              tag: 0.7.0-rootless
+            env:
+              TZ: ${TIMEZONE}
+              APP_BASE_URL: 'https://papra.${SECRET_DOMAIN}/'
+              DOCUMENT_STORAGE_DRIVER: 's3'
+              AUTH_IS_REGISTRATION_ENABLED: false
+            envFrom: &envFrom
+              - secretRef:
+                  name: papra-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 50m
+                memory: 200Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      app:
+        controller: app
+        ports:
+          http:
+            port: &port 1221
+
+    persistence:
+      data:
+        existingClaim: papra-data
+        advancedMounts:
+          actual:
+            app:
+              - path: /app
+
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: papra.png
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host

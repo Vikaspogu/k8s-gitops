@@ -37,6 +37,7 @@ resources:
   # - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./paperless-ai/ks.yaml
+  - ./papra/ks.yaml
   - ./pgadmin/ks.yaml
   - ./pinchflat/ks.yaml
   - ./piped/ks.yaml
