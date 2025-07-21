@@ -26,7 +26,7 @@ spec:
           annotations:
             reloader.stakater.com/auto: "true"
         containers:
-          papra:
+          app:
             image:
               repository: ghcr.io/papra-hq/papra
               tag: 0.7.0-rootless
@@ -63,7 +63,7 @@ spec:
       data:
         existingClaim: papra-data
         advancedMounts:
-          papra:
+          app:
             app:
               - path: /app
 
