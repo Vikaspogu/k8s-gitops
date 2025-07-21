@@ -35,8 +35,8 @@ resources:
   - ./onstar2mqtt/ks.yaml
   - ./open-webui/ks.yaml
   # - ./overseerr/ks.yaml
-  - ./paperless/ks.yaml
-  - ./paperless-ai/ks.yaml
+  # - ./paperless/ks.yaml
+  # - ./paperless-ai/ks.yaml
   - ./papra/ks.yaml
   - ./pgadmin/ks.yaml
   - ./pinchflat/ks.yaml
