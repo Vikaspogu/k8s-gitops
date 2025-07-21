@@ -35,7 +35,7 @@ spec:
               APP_BASE_URL: 'https://papra.${SECRET_DOMAIN}/'
               DOCUMENT_STORAGE_DRIVER: 's3'
               AUTH_IS_REGISTRATION_ENABLED: false
-              DATABASE_URL: /app/app-data/db/db.sqlite
+              DATABASE_URL: file:./db.sqlite
               DOCUMENTS_OCR_LANGUAGES: eng
             envFrom: &envFrom
               - secretRef:
