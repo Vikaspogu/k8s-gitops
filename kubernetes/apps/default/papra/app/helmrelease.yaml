@@ -63,7 +63,7 @@ spec:
       data:
         existingClaim: papra-data
         advancedMounts:
-          actual:
+          papra:
             app:
               - path: /app
 
