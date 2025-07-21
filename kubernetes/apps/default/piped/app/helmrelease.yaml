@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: piped
-      version: 7.4.19
+      version: 7.4.20
       sourceRef:
         kind: HelmRepository
         name: piped
