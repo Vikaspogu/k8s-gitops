@@ -39,10 +39,11 @@ spec:
             env:
               TZ: ${TIMEZONE}
               TRUSTED_ORIGINS: 'https://papra.${SECRET_DOMAIN}/'
-              DOCUMENT_STORAGE_DRIVER: 's3'
+              DOCUMENT_STORAGE_DRIVER: 'filesystem'
               AUTH_IS_REGISTRATION_ENABLED: false
               DATABASE_URL: file:/app/app-data/db.sqlite
               DOCUMENTS_OCR_LANGUAGES: eng
+              DOCUMENT_STORAGE_FILESYSTEM_ROOT: /documents
             envFrom: &envFrom
               - secretRef:
                   name: papra-secret
@@ -74,6 +75,13 @@ spec:
           app:
             app:
               - path: /app/app-data
+      media:
+        enabled: true
+        globalMounts:
+          - path: /documents
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: "/volume1/media/k8s-data/papra"
 
     ingress:
       app:
