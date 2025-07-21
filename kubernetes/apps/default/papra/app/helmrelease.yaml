@@ -38,15 +38,11 @@ spec:
               tag: 0.7.0-rootless
             env:
               TZ: ${TIMEZONE}
-              APP_BASE_URL: 'https://papra.${SECRET_DOMAIN}/'
+              TRUSTED_ORIGINS: 'https://papra.${SECRET_DOMAIN}/'
               DOCUMENT_STORAGE_DRIVER: 's3'
               AUTH_IS_REGISTRATION_ENABLED: false
               DATABASE_URL: file:/app/app-data/db.sqlite
               DOCUMENTS_OCR_LANGUAGES: eng
-              CLIENT_BASE_URL: http://localhost:1221
-              SERVER_BASE_URL: http://localhost:1221
-              SERVER_CORS_ORIGINS: http://localhost:3000
-              SERVER_SERVE_PUBLIC_DIR: true
             envFrom: &envFrom
               - secretRef:
                   name: papra-secret
