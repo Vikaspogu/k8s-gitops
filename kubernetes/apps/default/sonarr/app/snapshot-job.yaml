@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: snapshot
-              image: docker.io/kopia/kopia:20250719.0.192403@sha256:be4bdceefb73a9236e95287c8def0a133cc87f358a93a1d366339b0b0d0480f4
+              image: docker.io/kopia/kopia:20250722.0.5129@sha256:9a3a4b3f499bac48bea273b6193dda2a679f2b7730c1077e677c30b77e005182
               env:
                 - name: KOPIA_CACHE_DIRECTORY
                   value: /snapshots/default/sonarr/sonarr-config/cache
