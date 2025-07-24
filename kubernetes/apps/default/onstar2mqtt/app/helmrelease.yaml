@@ -37,6 +37,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               MQTT_HOST: "emqx-listeners.default.svc.cluster.local"
+              TOKEN_LOCATION: "/data"
             resources:
               requests:
                 cpu: 10m
@@ -54,6 +55,13 @@ spec:
         ports:
           http:
             port: 8056
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: onstar2mqtt-config
+        globalMounts:
+          - path: "/data"
 
     ingress:
       app:
