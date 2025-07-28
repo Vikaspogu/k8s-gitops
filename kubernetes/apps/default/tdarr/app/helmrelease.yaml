@@ -127,12 +127,9 @@ spec:
               - path: /app/configs
                 subPath: config
       media:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            path: &mediaPath /volume1/media
-            server: ${SECRET_NAS_ADDRESS}
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: &mediaPath "/volume1/media"
         globalMounts:
           - path: *mediaPath
             readOnly: false

@@ -67,13 +67,10 @@ spec:
         existingClaim: pinchflat-config
         globalMounts:
           - path: /config
-      nfs-nas-pvc:
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media/YoutubeDL"
-        enabled: true
+      media:
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: "/volume1/media/YoutubeDL"
         globalMounts:
           - path: /downloads
 

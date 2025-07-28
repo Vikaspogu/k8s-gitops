@@ -102,12 +102,9 @@ spec:
         existingClaim: sabnzbd-config
       tmp:
         type: emptyDir
-      nfs-nas-pvc:
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${SECRET_NAS_ADDRESS}
-            path: "/volume1/media"
-        enabled: true
+      media:
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: "/volume1/media"
         globalMounts:
           - path: /nfs-nas-pvc

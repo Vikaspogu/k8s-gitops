@@ -85,12 +85,9 @@ spec:
         globalMounts:
           - path: /config
         existingClaim: audiobookshelf-config
-      audiobooks:
-        enabled: true
+      media:
+        type: nfs
+        server: ${SECRET_NAS_ADDRESS}
+        path: "/volume1/media"
         globalMounts:
           - path: /audiobooks
-        type: custom
-        volumeSpec:
-          nfs:
-            server: "${SECRET_NAS_ADDRESS}"
-            path: /volume1/media
