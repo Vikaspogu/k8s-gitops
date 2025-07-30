@@ -23,6 +23,7 @@ resources:
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./influxdb/ks.yaml
+  - ./isponsorblocktv/ks.yaml
   - ./it-tools/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyseerr/ks.yaml
@@ -34,7 +35,6 @@ resources:
   - ./onepassword-connect/ks.yaml
   - ./onstar2mqtt/ks.yaml
   - ./open-webui/ks.yaml
-  # - ./overseerr/ks.yaml
   # - ./paperless/ks.yaml
   # - ./paperless-ai/ks.yaml
   - ./papra/ks.yaml
