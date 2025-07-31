@@ -15,7 +15,7 @@ python = "3.13"
 uv = "latest"
 # Operations tools
 "aqua:charmbracelet/gum" = "0.16.2"
-"aqua:budimanjojo/talhelper" = "3.0.31"
+"aqua:budimanjojo/talhelper" = "3.0.32"
 "aqua:cloudflare/cloudflared" = "2025.7.0"
 "aqua:FiloSottile/age" = "1.2.1"
 "aqua:getsops/sops" = "3.10.2"
