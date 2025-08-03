@@ -12,7 +12,7 @@ data:
     ingress: true
   settings.yaml: |
     title: Dashboard
-    background: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp6108649.png&f=1&nofb=1&ipt=7c534f78d03b46fcf7c16a9cbc2e8a2ea19fc933795da347b6589612fc9996ab
+    background: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapertag.com%2Fwallpaper%2Ffull%2Fe%2Fd%2F5%2F221040-aesthetic-tumblr-backgrounds-black-1920x1200-screen.jpg&f=1&nofb=1&ipt=d33ec704dabd9a83199d36b3462036d18d6df66b04ad95a96e33991547bc2c2e
     theme: dark
     color: slate
     headerStyle: boxedWidgets
