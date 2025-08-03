@@ -12,9 +12,11 @@ data:
     ingress: true
   settings.yaml: |
     title: Dashboard
+    background: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp6108649.png&f=1&nofb=1&ipt=7c534f78d03b46fcf7c16a9cbc2e8a2ea19fc933795da347b6589612fc9996ab
     theme: dark
     color: slate
-    headerStyle: clean
+    headerStyle: boxedWidgets
+    target: _blank
     layout:
       Observability:
         style: row
