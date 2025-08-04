@@ -11,8 +11,13 @@ data:
     mode: cluster
     ingress: true
   settings.yaml: |
-    title: Dashboard
-    background: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp5320845.jpg&f=1&nofb=1&ipt=53f7d5e1c810478d338de39a54e3cf32484354d092fc05e9b0aea3216f428c53
+    title: k8s Homelab Dashboard
+    background:
+      image: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp5320845.jpg&f=1&nofb=1&ipt=53f7d5e1c810478d338de39a54e3cf32484354d092fc05e9b0aea3216f428c53
+      blur: sm
+      saturate: 50
+      brightness: 50
+      opacity: 50
     theme: dark
     color: slate
     headerStyle: boxedWidgets
