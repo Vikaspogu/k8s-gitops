@@ -89,7 +89,7 @@ spec:
           meilisearch:
             image:
               repository: getmeili/meilisearch
-              tag: v1.15.2
+              tag: v1.16.0
             command:
               - meilisearch
             args:
