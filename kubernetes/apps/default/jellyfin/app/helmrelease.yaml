@@ -81,12 +81,13 @@ spec:
     ingress:
       app:
         enabled: true
-        className: external
+        # className: external
+        className: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Ingress
           gethomepage.dev/icon: jellyfin.png
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          # external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
