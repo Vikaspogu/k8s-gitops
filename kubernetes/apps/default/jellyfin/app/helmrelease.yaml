@@ -22,9 +22,11 @@ spec:
   values:
     defaultPodOptions:
       enableServiceLinks: false
+      # nodeSelector:
+      #   nvidia.feature.node.kubernetes.io/gpu: "true"
+      # runtimeClassName: nvidia
       nodeSelector:
-        nvidia.feature.node.kubernetes.io/gpu: "true"
-      runtimeClassName: nvidia
+        intel.feature.node.kubernetes.io/gpu: "true"
     controllers:
       jellyfin:
         strategy: RollingUpdate
@@ -41,16 +43,18 @@ spec:
               JELLYFIN_FFmpeg__analyzeduration: 50000000
               JELLYFIN_PublishedServerUrl: &loadBalancerIP ${SVC_JELLYFIN_ADDR}
               TZ: ${TIMEZONE}
-              NVIDIA_VISIBLE_DEVICES: all
-              NVIDIA_DRIVER_CAPABILITIES: all
-              HARDWARE_DEVICE_PATH: "/dev/nvidia0"
+              # NVIDIA_VISIBLE_DEVICES: all
+              # NVIDIA_DRIVER_CAPABILITIES: all
+              # HARDWARE_DEVICE_PATH: "/dev/nvidia0"
             resources:
               requests:
                 cpu: 100m
                 memory: 1000Mi
+                gpu.intel.com/i915: 1
               limits:
                 memory: 5Gi
-                nvidia.com/gpu: 1
+                gpu.intel.com/i915: 1
+                # nvidia.com/gpu: 1
             probes:
               liveness: &probes
                 enabled: true
