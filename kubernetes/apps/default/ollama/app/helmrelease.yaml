@@ -28,6 +28,7 @@ spec:
       runtimeClassName: nvidia
     controllers:
       ollama:
+        replicas: 0
         type: deployment
         strategy: Recreate
         annotations:

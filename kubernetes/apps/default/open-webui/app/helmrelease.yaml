@@ -27,7 +27,7 @@ spec:
         type: deployment
         annotations:
           reloader.stakater.com/auto: "true"
-
+        replicas: 0
         containers:
           app:
             image:
