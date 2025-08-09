@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/papra-hq/papra
-              tag: 0.7.0-rootless
+              tag: 0.8.2-rootless
             env:
               TZ: ${TIMEZONE}
               TRUSTED_ORIGINS: 'https://papra.${SECRET_DOMAIN}/'
