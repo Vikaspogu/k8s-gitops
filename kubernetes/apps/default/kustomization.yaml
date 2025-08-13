@@ -27,7 +27,7 @@ resources:
   - ./it-tools/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyseerr/ks.yaml
-  - ./karakeep/ks.yaml
+  # - ./karakeep/ks.yaml
   - ./kopia-web/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
