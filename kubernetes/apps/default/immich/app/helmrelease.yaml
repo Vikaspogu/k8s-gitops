@@ -89,7 +89,7 @@ spec:
           machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.137.3-cuda
+              tag: v1.138.0-cuda
             env:
               NVIDIA_VISIBLE_DEVICES: "all"
               NVIDIA_DRIVER_CAPABILITIES: "all"
