@@ -38,7 +38,7 @@ spec:
           chrome:
             image:
               repository: ghcr.io/browserless/chromium
-              tag: v2.18.0 # Upgrading to newer versions causes issues
+              tag: v2.34.1 # Upgrading to newer versions causes issues
             env:
               TIMEOUT: 10000
               CONCURRENT: 10
