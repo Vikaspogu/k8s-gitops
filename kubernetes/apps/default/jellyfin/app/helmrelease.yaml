@@ -116,9 +116,7 @@ spec:
         globalMounts:
           - path: /transcode
       media:
-        type: nfs
-        server: ${SECRET_NAS_ADDRESS}
-        path: "/volume1/media"
+        existingClaim: nfs-media
         globalMounts:
           - path: /nfs-nas-pvc
             readOnly: true
