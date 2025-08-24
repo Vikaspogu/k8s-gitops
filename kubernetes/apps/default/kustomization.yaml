@@ -30,6 +30,7 @@ resources:
   # - ./karakeep/ks.yaml
   - ./kopia-web/ks.yaml
   - ./minio/ks.yaml
+  - ./nfs-media/ks.yaml
   - ./node-red/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml

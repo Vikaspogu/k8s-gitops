@@ -2,17 +2,17 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: minio-nfs
+  name: nfs-media
 spec:
   capacity:
     storage: 1Mi
   accessModes:
     - ReadWriteMany
-  storageClassName: minio-nfs
+  storageClassName: nfs-media
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: "${SECRET_NAS_ADDRESS}"
-    path: /volume1/media/k8s-data/minio
+    path: /volume1/media
   mountOptions:
     - async
     - noatime
@@ -22,12 +22,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: minio-nfs
+  name: nfs-media
   namespace: default
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: minio-nfs
+  storageClassName: nfs-media
   resources:
     requests:
       storage: 1Mi
