@@ -88,6 +88,6 @@ spec:
       media:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
-        path: "/volume1/media"
+        path: "/volume1/media/audiobookshelf"
         globalMounts:
           - path: /audiobooks
