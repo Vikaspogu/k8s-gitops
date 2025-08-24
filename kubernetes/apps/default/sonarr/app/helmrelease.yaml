@@ -93,6 +93,6 @@ spec:
       media:
         type: nfs
         server: ${SECRET_NAS_ADDRESS}
-        path: "/volume1/media"
+        path: "/volume1/media/Shows"
         globalMounts:
-          - path: /nfs-nas-pvc
+          - path: /shows
