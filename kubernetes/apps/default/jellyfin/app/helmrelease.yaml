@@ -29,7 +29,7 @@ spec:
         intel.feature.node.kubernetes.io/gpu: "true"
     controllers:
       jellyfin:
-        strategy: RollingUpdate
+        strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
