@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph
-      version: v1.17.8
+      version: v1.18.0
       sourceRef:
         kind: HelmRepository
         name: rook-ceph
@@ -25,40 +25,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    monitoring:
-      enabled: true
     csi:
-      csiAddons:
-        enabled: false
+      cephFSKernelMountOptions: ms_mode=prefer-crc
       enableLiveness: true
       serviceMonitor:
         enabled: true
-      csiRBDPluginResource: |
-        - name : driver-registrar
-          resource:
-            requests:
-              cpu: 50m
-        - name : csi-rbdplugin
-          resource:
-            requests:
-              cpu: 250m
-        - name : liveness-prometheus
-          resource:
-            requests:
-              cpu: 50m
-      csiCephFSPluginResource: |
-        - name : driver-registrar
-          resource:
-            requests:
-              cpu: 50m
-        - name : csi-cephfsplugin
-          resource:
-            requests:
-              cpu: 250m
-        - name : liveness-prometheus
-          resource:
-            requests:
-              cpu: 50m
-      pluginTolerations:
-        - key: "k3s-arm"
-          operator: "Exists"
+    image:
+      repository: ghcr.io/rook/ceph
+    monitoring:
+      enabled: true
+    resources:
+      requests:
+        memory: 128Mi # unchangable
+        cpu: 100m # unchangable
+      limits: {}

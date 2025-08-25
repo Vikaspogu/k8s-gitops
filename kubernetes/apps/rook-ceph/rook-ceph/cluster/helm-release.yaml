@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.rook.io/release
       chart: rook-ceph-cluster
-      version: v1.17.8
+      version: v1.18.0
       sourceRef:
         kind: HelmRepository
         name: rook-ceph
@@ -44,17 +44,17 @@ spec:
               - *host
     toolbox:
       enabled: true
-    configOverride: |
-      [global]
-      bdev_enable_discard = true
-      bdev_async_discard = true
-      osd_class_update_on_start = false
     cephClusterSpec:
+      cephConfig:
+        global:
+          bdev_enable_discard: "true" # quote
+          bdev_async_discard_threads: "1" # quote
+          osd_class_update_on_start: "false" # quote
+          device_failure_prediction_mode: local # requires mgr module
+      cleanupPolicy:
+        wipeDevicesFromOtherClusters: true
       crashCollector:
         disable: false
-      csi:
-        readAffinity:
-          enabled: true
       dashboard:
         enabled: true
         urlPrefix: /
@@ -62,6 +62,8 @@ spec:
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:
         modules:
+          - name: diskprediction_local
+            enabled: true
           - name: insights
             enabled: true
           - name: pg_autoscaler
@@ -106,8 +108,10 @@ spec:
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           parameters:
+            compression_mode: aggressive
+            compression_algorithm: zstd
             imageFormat: "2"
-            imageFeatures: layering
+            imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
@@ -159,34 +163,4 @@ spec:
       #       csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
       #       csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
       #       csi.storage.k8s.io/fstype: ext4
-    cephObjectStores:
-      - name: ceph-objectstore
-        spec:
-          metadataPool:
-            failureDomain: host
-            replicated:
-              size: 3
-          dataPool:
-            failureDomain: host
-            erasureCoded:
-              dataChunks: 2
-              codingChunks: 1
-          preservePoolsOnDelete: true
-          gateway:
-            port: 80
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 1Gi
-              limits:
-                memory: 4Gi
-            instances: 1
-          healthCheck:
-            bucket:
-              interval: 60s
-        storageClass:
-          enabled: true
-          name: ceph-bucket
-          reclaimPolicy: Delete
-          parameters:
-            region: us-east-1
+    cephObjectStores: []
