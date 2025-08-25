@@ -108,8 +108,6 @@ spec:
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           parameters:
-            compression_mode: aggressive
-            compression_algorithm: zstd
             imageFormat: "2"
             imageFeatures: layering
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
