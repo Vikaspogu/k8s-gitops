@@ -35,33 +35,18 @@ spec:
                 evictFailedBarePods: true
                 evictLocalStoragePods: true
                 evictSystemCriticalPods: true
-                nodeFit: true
-            - name: "RemoveDuplicates"
+            - name: RemoveFailedPods
               args:
+                reasons:
+                  - ContainerStatusUnknown
+                  - NodeAffinity
+                  - NodeShutdown
+                  - Terminated
+                  - UnexpectedAdmissionError
+                includingInitContainers: true
                 excludeOwnerKinds:
-                  - "ReplicaSet"
-              plugins:
-                balance:
-                  enabled:
-                    - "RemoveDuplicates"
-            - name: "LowNodeUtilization"
-              args:
-                thresholds:
-                  "cpu": 20
-                  "memory": 20
-                targetThresholds:
-                  "cpu": 50
-                  "memory": 50
-            - name: "HighNodeUtilization"
-              args:
-                thresholds:
-                  "cpu": 20
-                  "memory": 50
-                evictableNamespaces:
-                  exclude:
-                    - "kube-system"
-                evictionModes:
-                  - "OnlyThresholdingResources"
+                  - Job
+                minPodLifetimeSeconds: 1800
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity
               args:
@@ -69,23 +54,19 @@ spec:
                   - requiredDuringSchedulingIgnoredDuringExecution
             - name: RemovePodsViolatingNodeTaints
             - name: RemovePodsViolatingTopologySpreadConstraint
-              args:
-                constraints:
-                  - DoNotSchedule
-                  - ScheduleAnyway
           plugins:
             balance:
               enabled:
                 - RemovePodsViolatingTopologySpreadConstraint
-                - "RemoveDuplicates"
-                - "LowNodeUtilization"
-                - "HighNodeUtilization"
             deschedule:
               enabled:
+                - RemoveFailedPods
                 - RemovePodsViolatingInterPodAntiAffinity
                 - RemovePodsViolatingNodeAffinity
                 - RemovePodsViolatingNodeTaints
     service:
       enabled: true
     serviceMonitor:
+      enabled: true
+    leaderElection:
       enabled: true
