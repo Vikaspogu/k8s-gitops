@@ -46,6 +46,13 @@
       "ignoreTests": true,
       "matchUpdateTypes": ["minor", "patch"]
     },
+    // version pinning
+    {
+      "description": ["Pin browserless/chromium to v2.18.0"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["ghcr.io/browserless/chromium"],
+      "allowedVersions": ["v2.18.0"]
+    },
     // groups
     {
       "description": ["Flux Group"],
