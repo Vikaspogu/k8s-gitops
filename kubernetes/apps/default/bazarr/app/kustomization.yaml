@@ -6,7 +6,7 @@ resources:
   - ./config-pvc.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
-  - ./snapshot-job.yaml
+  # - ./snapshot-job.yaml
 configMapGenerator:
   - name: bazarr-scripts
     files:
