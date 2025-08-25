@@ -125,7 +125,7 @@ data:
             icon: kopia.png
             widget:
               type: kopia
-              url: http://kopia.default.svc.cluster.local:80
+              url: http://kopia.volsync-system.svc.cluster.local:80
         - PeaNUT:
             href: https://peanut.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: peanut.png
