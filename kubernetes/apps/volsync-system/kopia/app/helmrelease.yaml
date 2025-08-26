@@ -118,7 +118,7 @@ spec:
             subPath: cache
           - path: /config/logs
             subPath: logs
-      snapshots:
+      repository:
         type: nfs
         server: omv-loki.vikaspogu.internal
         path: "/storage0/VolsyncKopia"
