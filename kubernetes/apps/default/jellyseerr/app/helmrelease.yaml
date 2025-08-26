@@ -82,11 +82,11 @@ spec:
 
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}-config"
+        existingClaim: "jellyseerr-config"
         globalMounts:
           - path: /app/config
       config-cache:
-        existingClaim: "{{ .Release.Name }}-cache"
+        existingClaim: "jellyseerr-cache"
         globalMounts:
           - path: /app/config/cache
       tmpfs:
