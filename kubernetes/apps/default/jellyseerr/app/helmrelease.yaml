@@ -36,13 +36,10 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/fallenbagel/jellyseerr
-              tag: 2.7.3
+              repository: ghcr.io/fallenbagel/jellyseerr
+              tag: 2.7.3@sha256:9cc9e9ee6cd5cf5a23feb45c37742ba34cfd6314d81d259cddb373a97ac92cdd
             env:
               TZ: ${TIMEZONE}
-              JELLYSEER__INSTANCE_NAME: Jellyseerr
-              NAME: Jellyseerr
-              INSTANCE_NAME: Jellyseerr
               LOG_LEVEL: "info"
               PORT: &port 80
             envFrom: *envFrom
@@ -59,8 +56,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -69,7 +64,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 1Gi
+                memory: 2Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -87,10 +82,13 @@ spec:
 
     persistence:
       config:
-        existingClaim: jellyseerr-config
+        existingClaim: "{{ .Release.Name }}-config"
         globalMounts:
           - path: /app/config
-            subPath: jellyseerr
+      config-cache:
+        existingClaim: "{{ .Release.Name }}-cache"
+        globalMounts:
+          - path: /app/config/cache
       tmpfs:
         type: emptyDir
         advancedMounts:
