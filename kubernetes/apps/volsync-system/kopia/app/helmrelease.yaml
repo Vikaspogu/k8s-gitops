@@ -46,6 +46,7 @@ spec:
                   name: kopia-secret
             args:
               - --without-password
+              - --disable-csrf-token-checks
             probes:
               liveness: &probes
                 enabled: true
