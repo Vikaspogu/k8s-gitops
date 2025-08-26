@@ -1,0 +1,205 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name immich
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      server:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17.6
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: &secret immich-secret
+        containers:
+          server:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.139.4
+            envFrom:
+              - secretRef:
+                  name: *secret
+              - configMapRef:
+                  name: &configmap immich-configmap
+            env:
+              TZ: ${TIMEZONE}
+              DB_VECTOR_EXTENSION: pgvector
+              IMMICH_CONFIG_FILE: /config/immich.config.json
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 4000Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/server/ping
+                    port: &serverport 2283
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: false
+      machine-learning:
+        pod:
+          enableServiceLinks: false
+          nodeSelector:
+            nvidia.feature.node.kubernetes.io/gpu: "true"
+          runtimeClassName: nvidia
+        containers:
+          machine-learning:
+            image:
+              repository: ghcr.io/immich-app/immich-machine-learning
+              tag: v1.139.4-cuda
+            env:
+              NVIDIA_VISIBLE_DEVICES: "all"
+              NVIDIA_DRIVER_CAPABILITIES: "all"
+              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-L-16-SigLIP-256__webli"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1000Mi
+                nvidia.com/gpu: 1
+              limits:
+                memory: 6000Mi
+                nvidia.com/gpu: 1
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &mlport 3003
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: false
+      redis:
+        containers:
+          main:
+            image:
+              repository: docker.io/valkey/valkey
+              tag: 8-bookworm@sha256:fea8b3e67b15729d4bb70589eb03367bab9ad1ee89c876f54327fc7c6e618571
+
+    ingress:
+      server:
+        enabled: true
+        className: external
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/name: Immich
+          gethomepage.dev/icon: immich.png
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        hosts:
+          - host: photos.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: server
+                  port: http
+        tls:
+          - hosts:
+              - photos.${SECRET_DOMAIN}
+
+    service:
+      server:
+        controller: server
+        ports:
+          http:
+            port: *serverport
+          metrics:
+            port: 8081
+      machine-learning:
+        controller: machine-learning
+        ports:
+          http:
+            port: *mlport
+      redis:
+        controller: redis
+        ports:
+          http:
+            port: 6379
+
+    persistence:
+      config:
+        type: secret
+        name: immich-config-secret
+        advancedMounts:
+          server:
+            server:
+              - path: /config
+
+      library:
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${SECRET_NAS_ADDRESS}
+            path: "/volume1/media/immich"
+        enabled: true
+        advancedMounts:
+          server:
+            server:
+              - path: /usr/src/app/upload
+
+      media:
+        enabled: true
+        existingClaim: immich-external-library-pvc
+        advancedMounts:
+          server:
+            server:
+              - path: /external
+
+      model-cache:
+        existingClaim: immich-ml-cache
+        advancedMounts:
+          machine-learning:
+            machine-learning:
+              - path: /cache
+                subPath: cache
+              - path: /.cache
+                subPath: dotCache
