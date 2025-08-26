@@ -98,8 +98,8 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
-                  server: "nas.internal",
-                  path: "/mnt/world/volsynckopia"
+                  server: "omv-loki.vikaspogu.internal",
+                  path: "/storage0/VolsyncKopia"
                 }
               }
             }
