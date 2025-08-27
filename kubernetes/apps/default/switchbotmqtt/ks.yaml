@@ -9,6 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: switchbotmqtt-data
+      VOLSYNC_CAPACITY: 1Gi
   path: ./kubernetes/apps/default/switchbotmqtt/app
   prune: true
   sourceRef:

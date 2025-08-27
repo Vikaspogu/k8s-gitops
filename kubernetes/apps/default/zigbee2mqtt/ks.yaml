@@ -9,6 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: zigbee2mqtt-config
+      VOLSYNC_CAPACITY: 2Gi
   path: ./kubernetes/apps/default/zigbee2mqtt/app
   prune: true
   sourceRef:

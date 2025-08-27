@@ -9,6 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: audiobookshelf-config
+      VOLSYNC_CAPACITY: 5Gi
   path: ./kubernetes/apps/default/audiobookshelf/app
   prune: true
   sourceRef:

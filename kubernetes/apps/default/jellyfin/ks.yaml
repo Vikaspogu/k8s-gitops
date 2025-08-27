@@ -16,6 +16,13 @@ spec:
       namespace: network
     - name: external-secrets-stores
       namespace: default
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: jellyfin-config
+      VOLSYNC_CAPACITY: 25Gi
   path: ./kubernetes/apps/default/jellyfin/app
   prune: true
   sourceRef:

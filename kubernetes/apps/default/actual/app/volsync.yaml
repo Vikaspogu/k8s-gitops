@@ -48,20 +48,6 @@ spec:
   sourcePVC: actual-data
   trigger:
     schedule: "@daily"
-  restic:
-    copyMethod: Snapshot
-    pruneIntervalDays: 5
-    repository: actual-restic-secret
-    cacheCapacity: 4Gi
-    volumeSnapshotClassName: csi-ceph-blockpool
-    storageClassName: ceph-block
-    moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-    retain:
-      daily: 5
-      within: 3d
   kopia:
     accessModes: ["ReadWriteOnce"]
     cacheAccessModes: ["ReadWriteOnce"]

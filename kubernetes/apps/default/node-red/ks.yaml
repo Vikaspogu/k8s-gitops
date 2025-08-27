@@ -9,6 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: node-red-config
+      VOLSYNC_CAPACITY: 4Gi
   path: ./kubernetes/apps/default/node-red/app
   prune: true
   sourceRef:

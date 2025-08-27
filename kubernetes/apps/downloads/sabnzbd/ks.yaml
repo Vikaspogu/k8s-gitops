@@ -16,6 +16,13 @@ spec:
       namespace: rook-ceph
     - name: internal-ingress-nginx
       namespace: network
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: sabnzbd-config
+      VOLSYNC_CAPACITY: 2Gi
   path: ./kubernetes/apps/downloads/sabnzbd/app
   prune: true
   sourceRef:

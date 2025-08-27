@@ -9,6 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: zwave-config
+      VOLSYNC_CAPACITY: 2Gi
   path: ./kubernetes/apps/default/zwave/app
   prune: true
   sourceRef:

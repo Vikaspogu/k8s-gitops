@@ -9,6 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: bazarr-config
+      VOLSYNC_CAPACITY: 2Gi
   path: ./kubernetes/apps/default/bazarr/app
   prune: true
   sourceRef:

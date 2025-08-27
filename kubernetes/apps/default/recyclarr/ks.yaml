@@ -9,13 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: external-secrets-stores
-      namespace: default
-    - name: radarr
-      namespace: default
-    - name: sonarr
-      namespace: default
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: recyclarr-config
+      VOLSYNC_CAPACITY: 2Gi
   path: ./kubernetes/apps/default/recyclarr/app
   prune: true
   sourceRef:
@@ -26,3 +26,10 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  dependsOn:
+    - name: external-secrets-stores
+      namespace: default
+    - name: radarr
+      namespace: default
+    - name: sonarr
+      namespace: default

@@ -5,4 +5,4 @@ namespace: default
 resources:
   - ./config-pvc.yaml
   - ./helmrelease.yaml
-  - ./volsync.yaml
+  # - ./volsync.yaml
