@@ -17,7 +17,7 @@ spec:
     - name: internal-ingress-nginx
       namespace: network
   components:
-    - ../../../components/volsync
+    - ../../../../components/volsync
   postBuild:
     substitute:
       APP: *app
