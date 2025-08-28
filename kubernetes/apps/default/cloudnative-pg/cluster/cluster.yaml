@@ -3,9 +3,8 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres
-  namespace: default
   annotations:
-    kyverno.io/ignore: "true"
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:17.0
@@ -22,43 +21,40 @@ spec:
     parameters:
       max_connections: "400"
       shared_buffers: 256MB
-  nodeMaintenanceWindow:
-    inProgress: false
-    reusePVC: true
+  resources:
+    requests:
+      cpu: 50m
+    limits:
+      memory: 2Gi
   monitoring:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster pgsql-v16-022125
-  backup:
-    retentionPolicy: 10d
-    barmanObjectStore:
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: &s3 s3://postgres/
-      endpointURL: &endpoint http://minio.default.svc:9000
-      serverName: &currentCluster pgsql-v16-052725
-      s3Credentials:
-        accessKeyId:
-          name: cloudnative-pg-secret
-          key: aws-access-key-id
-        secretAccessKey:
-          name: cloudnative-pg-secret
-          key: aws-secret-access-key
+      source: &previousCluster pgsql-v17
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: garage-store
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster
-      barmanObjectStore:
-        wal:
-          compression: bzip2
-          maxParallel: 8
-        destinationPath: &s3 s3://postgres/
-        endpointURL: http://minio.default.svc:9000
-        s3Credentials:
-          accessKeyId:
-            name: cloudnative-pg-secret
-            key: aws-access-key-id
-          secretAccessKey:
-            name: cloudnative-pg-secret
-            key: aws-secret-access-key
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: garage-store
+          serverName: *previousCluster
+    # - name: *previousCluster
+    #   barmanObjectStore:
+    #     wal:
+    #       compression: bzip2
+    #       maxParallel: 8
+    #     destinationPath: &s3 s3://postgres/
+    #     endpointURL: http://minio.default.svc:9000
+    #     s3Credentials:
+    #       accessKeyId:
+    #         name: cloudnative-pg-secret
+    #         key: aws-access-key-id
+    #       secretAccessKey:
+    #         name: cloudnative-pg-secret
+    #         key: aws-secret-access-key
