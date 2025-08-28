@@ -5,7 +5,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://postgres/
-    endpointURL: https://s3.synlo.duckdns.org:3900
+    endpointURL: http://s3.synlo.duckdns.org:3900
     s3Credentials:
       accessKeyId:
         name: garage
