@@ -4,5 +4,3 @@ resources:
   - ./config-pvc.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  # - ./volsync.yaml
-  # - ./snapshot-job.yaml

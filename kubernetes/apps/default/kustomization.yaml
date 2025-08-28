@@ -36,7 +36,6 @@ resources:
   - ./pgadmin/ks.yaml
   - ./pinchflat/ks.yaml
   - ./piped/ks.yaml
-  - ./plex/ks.yaml
   - ./radarr/ks.yaml
   - ./reactive-resume/ks.yaml
   - ./recyclarr/ks.yaml

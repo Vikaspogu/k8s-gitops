@@ -3,5 +3,3 @@ kind: Kustomization
 resources:
   - ./config-pvc.yaml
   - ./helmrelease.yaml
-  # - ./volsync.yaml
-  # - ./snapshot-job.yaml
