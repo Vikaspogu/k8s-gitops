@@ -6,7 +6,7 @@ metadata:
 spec:
   cluster:
     name: postgres
-  schedule: '0 0 0 * * *'
+  schedule: '0 */6 * * *'
   backupOwnerReference: self
   method: plugin
   pluginConfiguration:

@@ -6,7 +6,7 @@ metadata:
 spec:
   sourcePVC: ${PVC_NAME}
   trigger:
-    schedule: "0 * * * *"
+    schedule: "0 */6 * * *"
   kopia:
     accessModes: ["${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}"]
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
