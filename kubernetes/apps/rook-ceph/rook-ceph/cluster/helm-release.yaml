@@ -92,15 +92,18 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "k8s-0-un1265"
-            devices:
-              - name: "nvme0n1"
+          # - name: "k8s-0-un1265"
+          #   devices:
+          #     - name: "nvme0n1"
           - name: "k8s-1-nab9"
             devices:
               - name: "nvme0n1"
           - name: "k8s-2-ser"
             devices:
               - name: "nvme0n1"
+          - name: "k8s-3-pxm"
+            devices:
+              - name: "sdb"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
