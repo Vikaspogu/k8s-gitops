@@ -33,8 +33,7 @@ spec:
               TZ: "${TIMEZONE}"
 
     serviceAccount:
-      create: true
-      name: kube-ops-view
+      kube-ops-view: {}
 
     service:
       app:
