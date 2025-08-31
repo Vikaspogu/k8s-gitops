@@ -11,7 +11,7 @@ spec:
     operation: copy
   ref:
     tag: 0.32.1
-  url: oci://ghcr.io/intel/intel-device-plugins-operator
+  url: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugins-operator
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
