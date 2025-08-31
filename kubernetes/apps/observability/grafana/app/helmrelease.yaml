@@ -1,4 +1,18 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: grafana
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 9.4.3
+  url: oci://ghcr.io/grafana/helm-charts/grafana
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -6,15 +20,9 @@ metadata:
   namespace: observability
 spec:
   interval: 30m
-  chart:
-    spec:
-      # renovate: registryUrl=https://grafana.github.io/helm-charts
-      chart: grafana
-      version: 9.4.3
-      sourceRef:
-        kind: HelmRepository
-        name: grafana
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: grafana
   maxHistory: 2
   install:
     remediation:
