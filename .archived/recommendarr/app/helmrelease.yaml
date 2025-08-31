@@ -61,7 +61,6 @@ spec:
 
     service:
       app:
-        controller: recommendarr
         ports:
           http:
             port: *port

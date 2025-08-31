@@ -30,7 +30,6 @@ spec:
               tag: 0.18.1
     service:
       app:
-        controller: app
         ports:
           http:
             port: 8080

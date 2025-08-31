@@ -79,12 +79,10 @@ spec:
 
     service:
       app:
-        controller: app
         ports:
           http:
             port: &port 80
       fivefilters-full-text-rss:
-        controller: fivefilters-full-text-rss
         ports:
           http:
             port: 80

@@ -108,13 +108,11 @@ spec:
 
     service:
       app:
-        controller: app
         ports:
           http:
             port: 8123
       codeserver:
         type: ClusterIP
-        controller: app
         ports:
           http:
             enabled: true

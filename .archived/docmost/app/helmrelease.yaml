@@ -59,7 +59,6 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: docmost
         ports:
           http:
             port: 3000

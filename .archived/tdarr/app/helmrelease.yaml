@@ -87,7 +87,6 @@ spec:
                   periodSeconds: 5
     service:
       app:
-        controller: tdarr
         type: LoadBalancer
         ports:
           http:

@@ -78,7 +78,6 @@ spec:
         name: &serverCert barman-cloud-server-tls
     service:
       app:
-        controller: barman-cloud
         annotations:
           cnpg.io/pluginClientSecret: *clientCert
           cnpg.io/pluginPort: "9090"

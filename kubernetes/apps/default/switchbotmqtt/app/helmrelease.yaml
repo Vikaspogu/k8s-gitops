@@ -46,7 +46,6 @@ spec:
                 enabled: true
     service:
       app:
-        controller: app
         ports:
           http:
             port: 8099

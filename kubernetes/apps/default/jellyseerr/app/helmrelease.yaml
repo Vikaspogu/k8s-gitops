@@ -75,7 +75,6 @@ spec:
 
     service:
       app:
-        controller: jellyseerr
         ports:
           http:
             port: &port 80

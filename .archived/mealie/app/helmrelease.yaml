@@ -69,7 +69,6 @@ spec:
                 enabled: true
     service:
       app:
-        controller: mealie
         ports:
           http:
             port: &port 9000

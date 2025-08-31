@@ -38,7 +38,6 @@ spec:
                   name: truenas-secret
     service:
       app:
-        controller: app
         enabled: false
 
     persistence:

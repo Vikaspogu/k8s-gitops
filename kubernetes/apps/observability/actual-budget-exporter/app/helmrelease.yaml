@@ -46,7 +46,6 @@ spec:
 
     service:
       metrics:
-        controller: *app
         ipFamilyPolicy: PreferDualStack
         ports:
           metrics:

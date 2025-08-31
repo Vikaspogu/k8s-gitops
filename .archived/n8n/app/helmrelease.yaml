@@ -58,7 +58,6 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
     service:
       app:
-        controller: n8n
         ports:
           http:
             port: *port

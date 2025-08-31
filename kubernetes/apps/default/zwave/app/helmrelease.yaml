@@ -56,7 +56,6 @@ spec:
                 cpu: 10m
     service:
       app:
-        controller: zwave
         ports:
           http:
             port: *port

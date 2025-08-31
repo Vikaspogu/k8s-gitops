@@ -78,7 +78,6 @@ spec:
                 memory: 2048M
     service:
       app:
-        controller: app
         ports:
           http:
             port: 8000

@@ -51,7 +51,6 @@ spec:
 
     service:
       app:
-        controller: peanut
         ports:
           http:
             port: *port
