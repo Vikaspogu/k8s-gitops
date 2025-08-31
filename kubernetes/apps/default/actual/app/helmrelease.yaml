@@ -55,7 +55,6 @@ spec:
 
     service:
       app:
-        controller: actual
         ports:
           http:
             port: 5006

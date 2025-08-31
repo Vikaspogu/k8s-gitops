@@ -49,7 +49,6 @@ spec:
                 nvidia.com/gpu: 1
     service:
       app:
-        controller: *app
         ports:
           http:
             port: &port 9000

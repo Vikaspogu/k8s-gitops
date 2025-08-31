@@ -64,7 +64,6 @@ spec:
                 cpu: 8m
     service:
       app:
-        controller: app
         ports:
           http:
             port: 8080

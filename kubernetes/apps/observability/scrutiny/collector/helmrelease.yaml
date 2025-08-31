@@ -58,7 +58,6 @@ spec:
 
     service:
       app:
-        controller: scrutiny-collector
         enabled: false
 
     persistence:

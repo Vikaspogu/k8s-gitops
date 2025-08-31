@@ -62,7 +62,6 @@ spec:
               readiness: *probes
     service:
       app:
-        controller: app
         ports:
           http:
             port: 80

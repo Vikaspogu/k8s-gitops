@@ -67,7 +67,6 @@ spec:
                 value: "localhost:11220"
     service:
       app:
-        controller: app
         ports:
           http:
             port: 8080

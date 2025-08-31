@@ -77,7 +77,6 @@ spec:
                   app.kubernetes.io/name: *app
     service:
       app:
-        controller: *app
         ports:
           http:
             port: *port
@@ -93,5 +92,4 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     serviceAccount:
-      create: true
-      name: *app
+      dragonfly-operator: {}

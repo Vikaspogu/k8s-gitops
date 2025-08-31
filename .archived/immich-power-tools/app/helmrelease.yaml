@@ -45,7 +45,6 @@ spec:
                 memory: 200M
     service:
       main:
-        controller: main
         ports:
           http:
             port: &httpPort 3000

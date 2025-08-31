@@ -71,7 +71,6 @@ spec:
                 memory: 4000Mi
     service:
       app:
-        controller: sabnzbd
         ports:
           http:
             port: *port

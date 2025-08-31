@@ -148,19 +148,16 @@ spec:
 
     service:
       server:
-        controller: server
         ports:
           http:
             port: *serverport
           metrics:
             port: 8081
       machine-learning:
-        controller: machine-learning
         ports:
           http:
             port: *mlport
       redis:
-        controller: redis
         ports:
           http:
             port: 6379

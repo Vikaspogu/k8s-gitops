@@ -76,7 +76,6 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: cloudflared
         ports:
           http:
             port: *port

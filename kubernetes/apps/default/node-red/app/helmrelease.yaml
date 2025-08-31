@@ -56,7 +56,6 @@ spec:
                 enabled: true
     service:
       app:
-        controller: app
         type: ClusterIP
         ports:
           http:

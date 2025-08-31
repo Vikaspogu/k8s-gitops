@@ -45,7 +45,6 @@ spec:
                 memory: 64M
     service:
       app:
-        controller: static-content
         ports:
           http:
             port: 8080

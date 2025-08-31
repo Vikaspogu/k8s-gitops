@@ -50,7 +50,6 @@ spec:
 
     service:
       app:
-        controller: app
         enabled: false
 
     persistence:
