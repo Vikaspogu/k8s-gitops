@@ -11,7 +11,7 @@ spec:
     operation: copy
   ref:
     tag: 0.17.3
-  url: oci://ghcr.io/kubernetes-sigs/node-feature-discovery
+  url: oci://ghcr.io/home-operations/charts-mirror/node-feature-discovery
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
