@@ -21,8 +21,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    serviceAccount:
+      kube-ops-view: {}
+
     controllers:
       kube-ops-view:
+        serviceAccount:
+          identifier: kube-ops-view
         containers:
           app:
             image:
@@ -31,9 +36,6 @@ spec:
 
             env:
               TZ: "${TIMEZONE}"
-
-    serviceAccount:
-      kube-ops-view: {}
 
     service:
       app:
