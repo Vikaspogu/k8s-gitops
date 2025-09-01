@@ -14,8 +14,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    serviceAccount:
+      barman-cloud: {}
     controllers:
       barman-cloud:
+        serviceAccount:
+          identifier: barman-cloud
         containers:
           app:
             image:
@@ -62,8 +66,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
-        serviceAccount:
-          barman-cloud: {}
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
