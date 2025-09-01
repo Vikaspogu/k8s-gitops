@@ -34,7 +34,7 @@ resources:
   - ./open-webui/ks.yaml
   - ./papra/ks.yaml
   - ./pgadmin/ks.yaml
-  - ./pinchflat/ks.yaml
+  # - ./pinchflat/ks.yaml
   - ./piped/ks.yaml
   - ./radarr/ks.yaml
   - ./reactive-resume/ks.yaml
