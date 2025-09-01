@@ -11,7 +11,7 @@ spec:
     operation: copy
   ref:
     tag: 4.13.2
-  url: oci://ghcr.io/ingress-nginx/ingress-nginx
+  url: oci://us-central1-docker.pkg.dev/k8s-staging-images/ingress-nginx/charts/ingress-nginx
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
