@@ -11,7 +11,7 @@ spec:
     operation: copy
   ref:
     tag: v1.18.2
-  url: oci://ghcr.io/jetstack/cert-manager
+  url: oci://quay.io/jetstack/charts/cert-manager
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
