@@ -3,7 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: angelnu
-  namespace: flux-system
 spec:
   interval: 1h
   url: https://angelnu.github.io/helm-charts
@@ -22,7 +21,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: angelnu
-        namespace: flux-system
       interval: 30m
   maxHistory: 2
   install:

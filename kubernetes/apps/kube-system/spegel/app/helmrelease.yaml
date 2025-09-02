@@ -23,7 +23,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: spegel
-    namespace: flux-system
   install:
     remediation:
       retries: 3
