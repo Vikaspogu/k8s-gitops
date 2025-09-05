@@ -60,10 +60,10 @@ spec:
               CHROME_TOKEN: chrome_token
               CHROME_URL: ws://localhost:3000
               STORAGE_ENDPOINT: s3.synlo.duckdns.org
-              STORAGE_PORT: 3900
+              STORAGE_PORT: 443
               STORAGE_REGION: garage # Optional
               STORAGE_BUCKET: reactive-resume
-              STORAGE_USE_SSL: "false"
+              STORAGE_USE_SSL: "true"
               STORAGE_SKIP_BUCKET_CHECK: "false"
               DISABLE_SIGNUPS: "true"
               DISABLE_EMAIL_AUTH: "false"
