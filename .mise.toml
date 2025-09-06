@@ -14,7 +14,7 @@ run = "uv pip install -r requirements.txt"
 python = "3.13"
 uv = "latest"
 # Operations tools
-"aqua:charmbracelet/gum" = "0.16.2"
+"aqua:charmbracelet/gum" = "0.17.0"
 "aqua:budimanjojo/talhelper" = "3.0.34"
 "aqua:cloudflare/cloudflared" = "2025.8.1"
 "aqua:FiloSottile/age" = "1.2.1"
