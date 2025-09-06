@@ -63,37 +63,6 @@ data:
               accountid: "{{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID}}"
               tunnelid: "{{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}"
               key: "{{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}"
-        - Traefik:
-            href: https://dashboard.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
-            icon: traefik.png
-            description: Traefik
-            widget:
-              type: traefik
-              url: "{{HOMEPAGE_VAR_TRAEFIK_URL}}:8080"
-              fields: ["routers", "services", "middleware"]
-        - Komodo:
-            href: https://komodo.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: komodo.png
-            description: Komodo
-            widget:
-              type: komodo
-              url: "{{HOMEPAGE_VAR_TRAEFIK_URL}}:9120"
-              key: "{{HOMEPAGE_VAR_KOMODO_API}}"
-              secret: "{{HOMEPAGE_VAR_KOMODO_SECRET}}"
-              showSummary: true
-              showStacks: true
-        - Beszel:
-            href: https://beszel.{{HOMEPAGE_VAR_DUCKDNS_DOMAIN_NAME}}
-            icon: beszel.png
-            description: Beszel
-            widget:
-              type: beszel
-              url: "{{HOMEPAGE_VAR_TRAEFIK_URL}}:8090"
-              username: "{{HOMEPAGE_VAR_BESZEL_USERNAME}}"
-              password: "{{HOMEPAGE_VAR_BESZEL_PASSWORD}}"
-              version: 2
-              systemId: localhost
-              fields: ["cpu", "memory", "disk", "network"]
         - OMV-Loki:
             href: http://omv-loki.vikaspogu.internal:81
             icon: openmediavault.png
@@ -126,13 +95,6 @@ data:
             widget:
               type: kopia
               url: http://kopia.volsync-system.svc.cluster.local:80
-        - PeaNUT:
-            href: https://peanut.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: peanut.png
-            widget:
-              type: peanut
-              url: http://peanut.observability:8080
-              key: kubernetes
         - Authentik:
             href: https://id.{{HOMEPAGE_VAR_DOMAIN_NAME}}
             icon: authentik.png
@@ -154,14 +116,6 @@ data:
               url: http://freshrss-app.default:80
               username: {{HOMEPAGE_VAR_FRESHRSS_USERNAME}}
               password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
-        - GitLab:
-            href: https://gitlab.{{HOMEPAGE_VAR_DOMAIN_NAME}}
-            icon: gitlab.png
-            widget:
-              type: gitlab
-              url: "{{HOMEPAGE_VAR_TRAEFIK_URL}}:8010"
-              key: {{HOMEPAGE_VAR_GITLAB_TOKEN}}
-              user_id: 2
     - Media:
       - qBittorrent:
           href: https://qb.${SECRET_DOMAIN}
