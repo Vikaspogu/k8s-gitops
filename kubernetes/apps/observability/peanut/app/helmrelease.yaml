@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: brandawg93/peanut
-              tag: 5.14.2
+              tag: 5.15.0
             envFrom:
               - secretRef:
                   name: peanut-secret
