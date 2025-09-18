@@ -1,0 +1,99 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: planka
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      app:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17.6.0@sha256:86a1992d46273c58fd4ad95b626081dfaabfe16bd56944675169e406d1a660dd
+            envFrom: &envFrom
+              - secretRef:
+                  name: planka-secret
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        containers:
+          planka:
+            image:
+              repository: ghcr.io/plankanban/planka
+              tag: 1.26.3@sha256:e469d724985db3f560ef0aa2218d54536212459bf8ecbdbc9fd995fc3cbe29db
+            env:
+              TZ: ${TIMEZONE}
+              BASE_URL: 'https://planka.${SECRET_DOMAIN}/'
+              REACT_APP_SERVER_BASE_URL: 'https://planka.${SECRET_DOMAIN}/'
+            envFrom: *envFrom
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 50m
+                memory: 200Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      app:
+        controller: app
+        ports:
+          http:
+            port: &port 80
+
+    persistence:
+      config:
+        existingClaim: planka-data
+        advancedMounts:
+          app:
+            planka:
+              - path: /app/public/favicons
+                subPath: favicons
+              - path: /app/public/user-avatars
+                subPath: user-avatars
+              - path: /app/public/background-images
+                subPath: background-images
+              - path: /app/private/attachments
+                subPath: attachments
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Ingress
+          gethomepage.dev/icon: planka.png
+        hosts:
+          - host: &host "planka.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host

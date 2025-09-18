@@ -59,24 +59,6 @@ spec:
           hosts:
             - host: nas.${SECRET_DOMAIN}
               path: /
-      - name: komodo
-        enabled: true
-        ip: ${SECRET_OMV_LOKI_ADDRESS}
-        # -- Port used by host behind this reverse proxy
-        port: 9120
-        ingress:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "Komodo"
-            gethomepage.dev/icon: komodo.png
-          ingressClassName: internal
-          tls:
-            - hosts:
-                - komodo.${SECRET_DOMAIN}
-          hosts:
-            - host: komodo.${SECRET_DOMAIN}
-              path: /
       - name: syncthing
         enabled: true
         ip: ${SECRET_NAS_ADDRESS}
@@ -93,21 +75,4 @@ spec:
                 - syncthing.${SECRET_DOMAIN}
           hosts:
             - host: syncthing.${SECRET_DOMAIN}
-              path: /
-      - name: registry
-        enabled: true
-        ip: ${SECRET_OMV_LOKI_ADDRESS}
-        port: 5678
-        ingress:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Ingress
-            gethomepage.dev/name: "Registry"
-            gethomepage.dev/icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/linuxcontainers.png
-          ingressClassName: internal
-          tls:
-            - hosts:
-                - registry.${SECRET_DOMAIN}
-          hosts:
-            - host: registry.${SECRET_DOMAIN}
               path: /
