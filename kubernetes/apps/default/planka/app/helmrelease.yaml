@@ -40,8 +40,8 @@ spec:
               tag: 2.0.0-rc.4@sha256:1cb538e1a3476126e582e705b32a55adc940306d4ea09cca52dc4342803c11a7
             env:
               TZ: ${TIMEZONE}
-              BASE_URL: 'https://planka.${SECRET_DOMAIN}/'
-              REACT_APP_SERVER_BASE_URL: 'https://planka.${SECRET_DOMAIN}/'
+              BASE_URL: 'https://planka.${SECRET_DOMAIN}'
+              REACT_APP_SERVER_BASE_URL: 'https://planka.${SECRET_DOMAIN}'
             envFrom: *envFrom
             probes:
               liveness: &probe
