@@ -24,5 +24,3 @@ spec:
       namespace: rook-ceph
     - name: external-ingress-nginx
       namespace: network
-    - name: cloudnative-pg-cluster
-      namespace: default

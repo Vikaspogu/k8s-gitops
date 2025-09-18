@@ -24,5 +24,3 @@ spec:
       namespace: network
     - name: external-secrets-stores
       namespace: default
-    - name: cloudnative-pg-cluster
-      namespace: default
