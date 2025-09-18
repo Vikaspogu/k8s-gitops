@@ -54,17 +54,17 @@ spec:
                   httpGet:
                     path: /
                     port: &port 1337
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
+                  initialDelaySeconds: 10
+                  periodSeconds: 60
+                  timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probes
             resources:
               requests:
                 cpu: 50m
-                memory: 200Mi
-              limits:
                 memory: 512Mi
+              limits:
+                memory: 1Gi
 
     service:
       app:
