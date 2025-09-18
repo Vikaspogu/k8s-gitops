@@ -47,11 +47,18 @@ spec:
               # OIDC_ENFORCED: 'true'
             envFrom: *envFrom
             probes:
-              liveness: &probe
+              liveness: &probes
                 enabled: true
-                type: HTTP
-                path: /
-              readiness: *probe
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 1337
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 50m
@@ -64,7 +71,7 @@ spec:
         controller: app
         ports:
           http:
-            port: &port 1337
+            port: *port
 
     persistence:
       config:
