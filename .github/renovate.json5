@@ -53,6 +53,12 @@
       "matchPackageNames": ["ghcr.io/browserless/chromium"],
       "allowedVersions": ["v2.18.0"]
     },
+    {
+      "description": ["Pin gotify/server to 2.6.3"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["ghcr.io/gotify/server"],
+      "allowedVersions": ["2.6.3"]
+    },
     // groups
     {
       "description": ["Flux Group"],
