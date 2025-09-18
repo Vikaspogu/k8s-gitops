@@ -46,6 +46,7 @@ spec:
             envFrom: *envFrom
             probes:
               liveness: &probe
+                enabled: true
                 type: HTTP
                 path: /
               readiness: *probe
