@@ -37,19 +37,17 @@ spec:
           planka:
             image:
               repository: ghcr.io/plankanban/planka
-              tag: 1.26.3@sha256:e469d724985db3f560ef0aa2218d54536212459bf8ecbdbc9fd995fc3cbe29db
+              tag: 2.0.0-rc.4@sha256:1cb538e1a3476126e582e705b32a55adc940306d4ea09cca52dc4342803c11a7
             env:
               TZ: ${TIMEZONE}
               BASE_URL: 'https://planka.${SECRET_DOMAIN}/'
               REACT_APP_SERVER_BASE_URL: 'https://planka.${SECRET_DOMAIN}/'
             envFrom: *envFrom
             probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+              liveness: &probe
+                type: HTTP
+                path: /
+              readiness: *probe
             resources:
               requests:
                 cpu: 50m
