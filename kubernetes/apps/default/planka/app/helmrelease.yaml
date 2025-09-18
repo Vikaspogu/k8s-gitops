@@ -42,6 +42,8 @@ spec:
               TZ: ${TIMEZONE}
               BASE_URL: 'https://planka.${SECRET_DOMAIN}'
               REACT_APP_SERVER_BASE_URL: 'https://planka.${SECRET_DOMAIN}'
+              OIDC_IGNORE_ROLES: 'true'
+              OIDC_ADMIN_ROLES: "Planka Admins"
             envFrom: *envFrom
             probes:
               liveness: &probe
