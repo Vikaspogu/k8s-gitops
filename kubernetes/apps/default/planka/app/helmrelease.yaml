@@ -43,6 +43,8 @@ spec:
               BASE_URL: 'https://planka.${SECRET_DOMAIN}'
               REACT_APP_SERVER_BASE_URL: 'https://planka.${SECRET_DOMAIN}'
               OIDC_IGNORE_ROLES: 'true'
+              TRUST_PROXY: '1'
+              # OIDC_ENFORCED: 'true'
             envFrom: *envFrom
             probes:
               liveness: &probe
