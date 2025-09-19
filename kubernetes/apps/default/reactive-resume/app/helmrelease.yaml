@@ -59,7 +59,7 @@ spec:
               # -- Printer (Chrome) --
               CHROME_TOKEN: chrome_token
               CHROME_URL: ws://localhost:3000
-              STORAGE_ENDPOINT: s3.synlo.duckdns.org
+              STORAGE_ENDPOINT: s3.omv.v3socp.boo
               STORAGE_PORT: 443
               STORAGE_REGION: garage # Optional
               STORAGE_BUCKET: reactive-resume
