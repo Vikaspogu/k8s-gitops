@@ -39,6 +39,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               TRUSTED_ORIGINS: 'https://papra.${SECRET_DOMAIN}/'
+              APP_BASE_URL: 'https://papra.${SECRET_DOMAIN}'
               DOCUMENT_STORAGE_DRIVER: 'filesystem'
               AUTH_IS_REGISTRATION_ENABLED: false
               DATABASE_URL: file:/app/app-data/db.sqlite
