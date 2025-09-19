@@ -3,10 +3,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./cluster.yaml
+  # - ./cluster.yaml
   - ./cluster17.yaml
-  - ./objectstore.yaml
   - ./external-secret.yaml
-  - ./scheduledbackup.yaml
   - ./prometheusrule.yaml
-  - ./service.yaml
+  # - ./service.yaml

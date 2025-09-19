@@ -58,7 +58,7 @@ spec:
         DISABLE_REGISTRATION: "true"
         FEED_RETENTION: "5"
         database:
-          connection_url: jdbc:postgresql://postgres-rw.default.svc.cluster.local/piped
+          connection_url: jdbc:postgresql://postgres17-rw.default.svc.cluster.local/piped
           secret:
             name: *secret
             username: DB_USERNAME

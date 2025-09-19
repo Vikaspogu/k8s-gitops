@@ -59,3 +59,41 @@ spec:
     #       secretAccessKey:
     #         name: cloudnative-pg-secret
     #         key: aws-secret-access-key
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/barmancloud.cnpg.io/objectstore_v1.json
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: garage-store
+spec:
+  configuration:
+    destinationPath: s3://postgres/
+    endpointURL: https://s3.synlo.duckdns.org
+    s3Credentials:
+      accessKeyId:
+        name: garage
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: garage
+        key: ACCESS_SECRET_KEY
+      region:
+        name: garage
+        key: REGION
+    wal:
+      compression: zstd
+    data:
+      compression: gzip
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/postgresql.cnpg.io/scheduledbackup_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: postgres
+spec:
+  cluster:
+    name: postgres
+  schedule: '@daily'
+  backupOwnerReference: self
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
