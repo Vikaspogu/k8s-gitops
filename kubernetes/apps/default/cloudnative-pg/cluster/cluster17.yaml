@@ -52,7 +52,7 @@ metadata:
   name: postgres17-backup
 spec:
   configuration:
-    destinationPath: s3://postgres17/
+    destinationPath: s3://postgres/
     endpointURL: https://s3.synlo.duckdns.org
     s3Credentials:
       accessKeyId:
