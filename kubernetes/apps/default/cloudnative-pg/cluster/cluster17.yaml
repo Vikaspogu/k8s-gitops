@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/postgresql.cnpg.io/cluster_v1.json
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres17
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.6-minimal-trixie
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 30Gi
+  superuserSecret:
+    name: cloudnative-pg-secret
+  enableSuperuserAccess: true
+  postgresql:
+    parameters:
+      max_connections: "400"
+      dynamic_shared_memory_type: sysv
+      shared_buffers: 256MB
+  resources:
+    requests:
+      cpu: 50m
+    limits:
+      memory: 2Gi
+  monitoring:
+    enablePodMonitor: true
+  bootstrap:
+    recovery:
+      source: &recoveryCluster pgsql-v17
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: postgres17-backup
+        serverName: &currentCluster postgres17
+  # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  externalClusters:
+    - name: *recoveryCluster
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: postgres17-backup
+          serverName: *recoveryCluster
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/barmancloud.cnpg.io/objectstore_v1.json
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: postgres17-backup
+spec:
+  configuration:
+    destinationPath: s3://postgres17/
+    endpointURL: https://s3.synlo.duckdns.org
+    s3Credentials:
+      accessKeyId:
+        name: garage
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: garage
+        key: ACCESS_SECRET_KEY
+      region:
+        name: garage
+        key: REGION
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/postgresql.cnpg.io/scheduledbackup_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: postgres17
+spec:
+  backupOwnerReference: self
+  cluster:
+    name: postgres17
+  schedule: "@daily"
+  immediate: true
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
