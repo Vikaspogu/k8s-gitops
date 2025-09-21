@@ -25,6 +25,7 @@ resources:
   - ./it-tools/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyseerr/ks.yaml
+  - ./kavita/ks.yaml
   - ./minio/ks.yaml
   - ./nfs-media/ks.yaml
   - ./node-red/ks.yaml
