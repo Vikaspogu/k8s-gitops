@@ -40,8 +40,8 @@ spec:
               tag: v1.2.0@sha256:8bd570d232efc8dd725282fda32b067aa7f7a2967557ab63c95639c20607c1a0
             env:
               DB_PROVIDER: postgres
-              PUID: 568
-              PGID: 568
+              PUID: 1000
+              PGID: 1000
               APP_URL: https://auth.${SECRET_DOMAIN}
               TRUST_PROXY: true
               TZ: ${TIMEZONE}
@@ -76,9 +76,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: {type: RuntimeDefault}
         supplementalGroups: [10000]
