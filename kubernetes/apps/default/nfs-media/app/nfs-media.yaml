@@ -11,8 +11,8 @@ spec:
   storageClassName: nfs-media
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: "${SECRET_NAS_ADDRESS}"
-    path: /volume1/media
+    server: "omv-loki.vikaspogu.internal"
+    path: /storage0/media
   mountOptions:
     - async
     - noatime
