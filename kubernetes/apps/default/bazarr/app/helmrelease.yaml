@@ -90,7 +90,9 @@ spec:
         globalMounts:
           - path: /config
       media:
-        existingClaim: nfs-media
+        type: nfs
+        server: omv-loki.vikaspogu.internal
+        path: "/storage0/media"
         globalMounts:
           - path: /nfs-nas-pvc
       add-ons:

@@ -27,7 +27,6 @@ resources:
   - ./jellyseerr/ks.yaml
   - ./kavita/ks.yaml
   - ./minio/ks.yaml
-  - ./nfs-media/ks.yaml
   - ./node-red/ks.yaml
   - ./ollama/ks.yaml
   - ./onepassword-connect/ks.yaml
