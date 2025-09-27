@@ -47,6 +47,8 @@ spec:
       app:
         enabled: true
         className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: "webhook-relay.${SECRET_DOMAIN}"
             paths:
