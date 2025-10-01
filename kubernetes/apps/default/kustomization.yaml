@@ -46,6 +46,6 @@ resources:
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
   - ./valetudopng/ks.yaml
-  # - ./webhook-relay/ks.yaml
+  - ./webhook-relay/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml
