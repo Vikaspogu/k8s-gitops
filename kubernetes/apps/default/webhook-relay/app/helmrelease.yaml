@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: docker.io/vikaspogu/webhook-relay
-              tag: latest@sha256:5a731dce64cdca1d2ee95da2b064296e0bd5a8e046de25b017baf897e947ee19
+              tag: latest@sha256:6cfef2b9cb4b53581dd1963cda8ee7f51b018c11b6689644a2a53801c864dbc6
             envFrom:
               - secretRef:
                   name: *app
