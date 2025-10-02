@@ -37,8 +37,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               MQTT_HOST: "mosquitto.default.svc.cluster.local"
-              MQTT_USERNAME: "dummy"
-              MQTT_PASSWORD: "dummy"
+              MQTT_REJECT_UNAUTHORIZED: "false"
               TOKEN_LOCATION: "/data"
             resources:
               requests:
