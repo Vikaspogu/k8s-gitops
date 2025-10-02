@@ -36,7 +36,7 @@ spec:
                   name: govee2mqtt
             env:
               TZ: "${TIMEZONE}"
-              GOVEE_MQTT_HOST: "emqx-listeners.default.svc.cluster.local"
+              GOVEE_MQTT_HOST: "mosquitto.default.svc.cluster.local"
               GOVEE_TEMPERATURE_SCALE: F
             resources:
               requests:

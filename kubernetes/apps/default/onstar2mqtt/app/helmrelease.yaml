@@ -36,7 +36,7 @@ spec:
                   name: onstar2mqtt
             env:
               TZ: "${TIMEZONE}"
-              MQTT_HOST: "emqx-listeners.default.svc.cluster.local"
+              MQTT_HOST: "mosquitto.default.svc.cluster.local"
               TOKEN_LOCATION: "/data"
             resources:
               requests:
