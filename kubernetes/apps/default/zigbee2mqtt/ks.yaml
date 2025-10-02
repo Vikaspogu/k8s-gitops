@@ -27,7 +27,7 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
-    - name: emqx-cluster
+    - name: mosquitto
       namespace: default
     - name: rook-ceph-cluster
       namespace: rook-ceph

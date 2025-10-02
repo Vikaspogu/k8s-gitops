@@ -32,7 +32,7 @@ spec:
       namespace: network
     - name: external-secrets-stores
       namespace: default
-    - name: emqx-cluster
+    - name: mosquitto
       namespace: default
     - name: zigbee2mqtt
       namespace: default
