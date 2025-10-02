@@ -23,6 +23,7 @@ spec:
   values:
     controllers:
       app:
+        replicas: 0
         pod:
           annotations:
             reloader.stakater.com/auto: "true"
@@ -38,6 +39,8 @@ spec:
               TZ: "${TIMEZONE}"
               MQTT_HOST: "mosquitto.default.svc.cluster.local"
               MQTT_REJECT_UNAUTHORIZED: "false"
+              MQTT_USERNAME: "dummy"
+              MQTT_PASSWORD: "dummy"
               TOKEN_LOCATION: "/data"
             resources:
               requests:
