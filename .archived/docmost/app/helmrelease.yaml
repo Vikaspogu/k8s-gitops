@@ -39,7 +39,7 @@ spec:
               TZ: "${TIMEZONE:=Etc/UTC}"
               APP_URL: "https://docmost.${SECRET_DOMAIN}"
               PORT: "3000"
-              REDIS_URL: "redis://dragonfly.default:6379"
+              REDIS_URL: "redis://valkey.default:6379"
             envFrom: *envFrom
             probes:
               liveness:

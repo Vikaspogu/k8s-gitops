@@ -43,10 +43,10 @@ spec:
         type: emptyDir
       secret:
         type: secret
-        name: valkey
+        name: valkey-secret
         advancedMounts:
           valkey:
-            valkey:
+            app:
               - path: /secret/valkey-password
                 subPath: valkey-password
                 readOnly: true

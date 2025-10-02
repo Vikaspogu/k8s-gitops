@@ -57,7 +57,7 @@ spec:
       # https://github.com/goauthentik/authentik/pull/7118
       # https://github.com/goauthentik/authentik/issues/1285
       redis:
-        host: "dragonfly.default.svc.cluster.local"
+        host: "valkey.default.svc.cluster.local"
     server:
       replicas: 1
       initContainers:
