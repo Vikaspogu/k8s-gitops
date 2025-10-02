@@ -1,0 +1,52 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valkey
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      valkey:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: valkey/valkey
+              tag: 8.1.3-alpine@sha256:d827e7f7552cdee40cc7482dbae9da020f42bc47669af6f71182a4ef76a22773
+            env:
+              VALKEY_PASSWORD_FILE: /secret/valkey-password
+              VALKEY_PORT: &port 6379
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+
+    persistence:
+      data:
+        type: emptyDir
+      secret:
+        type: secret
+        name: valkey
+        advancedMounts:
+          valkey:
+            valkey:
+              - path: /secret/valkey-password
+                subPath: valkey-password
+                readOnly: true

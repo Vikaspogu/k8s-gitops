@@ -13,7 +13,7 @@ resources:
   - ./bazarr/ks.yaml
   - ./cloudnative-pg/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./emqx/ks.yaml
+  # - ./emqx/ks.yaml
   - ./external-secrets/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./freshrss/ks.yaml
@@ -46,6 +46,7 @@ resources:
   - ./stirling-pdf/ks.yaml
   - ./switchbotmqtt/ks.yaml
   - ./valetudopng/ks.yaml
+  - ./valkey/ks.yaml
   - ./webhook-relay/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave/ks.yaml
