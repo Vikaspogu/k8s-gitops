@@ -12,7 +12,7 @@ resources:
   - ./authentik/ks.yaml
   - ./bazarr/ks.yaml
   - ./cloudnative-pg/ks.yaml
-  - ./dragonfly/ks.yaml
+  # - ./dragonfly/ks.yaml
   # - ./emqx/ks.yaml
   - ./external-secrets/ks.yaml
   - ./flaresolverr/ks.yaml
