@@ -6,8 +6,13 @@ telegram:
 pushover:
   token: ""
 database:
-  type: sqlite
+  type: postgres
   migration: true
+  host:
+  port:
+  user:
+  password:
+  name:
 
 jwt:
   secret:
