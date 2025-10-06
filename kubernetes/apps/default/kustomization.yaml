@@ -12,6 +12,7 @@ resources:
   - ./authentik/ks.yaml
   - ./bazarr/ks.yaml
   - ./cloudnative-pg/ks.yaml
+  - ./donetick/ks.yaml
   - ./external-secrets/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./freshrss/ks.yaml
