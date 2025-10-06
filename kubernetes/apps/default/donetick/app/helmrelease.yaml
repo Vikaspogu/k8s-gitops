@@ -37,7 +37,7 @@ spec:
           donetick:
             image:
               repository: donetick/donetick
-              tag: v0.1.51
+              tag: v0.1.64
             env:
               TZ: ${TIMEZONE}
             envFrom: *envFrom
