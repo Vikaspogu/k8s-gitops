@@ -20,7 +20,7 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
-    - name: dragonfly-cluster
+    - name: valkey
       namespace: default
     - name: internal-ingress-nginx
       namespace: network
