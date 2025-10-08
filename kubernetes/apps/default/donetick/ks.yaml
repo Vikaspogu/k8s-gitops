@@ -14,7 +14,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      PVC_NAME: donetick-data
+      PVC_NAME: donetick
       VOLSYNC_CAPACITY: 4Gi
   path: ./kubernetes/apps/default/donetick/app
   prune: true
