@@ -98,7 +98,7 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
-                  server: "omv-loki.vikaspogu.internal",
+                  server: "omv-baymx.a113.internal",
                   path: "/storage0/VolsyncKopia"
                 }
               }

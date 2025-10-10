@@ -64,7 +64,7 @@ data:
               tunnelid: "{{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}"
               key: "{{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}"
         - OMV-Loki:
-            href: http://omv-loki.vikaspogu.internal:81
+            href: http://omv-baymx.a113.internal:81
             icon: openmediavault.png
             description: openmediavault odin
             widget:

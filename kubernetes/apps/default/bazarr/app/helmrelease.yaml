@@ -91,7 +91,7 @@ spec:
           - path: /config
       media:
         type: nfs
-        server: omv-loki.vikaspogu.internal
+        server: omv-baymx.a113.internal
         path: "/storage0/media"
         globalMounts:
           - path: /nfs-nas-pvc
