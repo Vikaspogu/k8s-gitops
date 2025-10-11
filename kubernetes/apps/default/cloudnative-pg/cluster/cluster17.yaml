@@ -53,7 +53,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://postgres/
-    endpointURL: https://s3.omv.v3socp.boo
+    endpointURL: https://s3.omv.a113.casa
     s3Credentials:
       accessKeyId:
         name: garage
